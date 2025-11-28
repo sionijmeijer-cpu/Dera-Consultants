@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SEOHead } from '../SEOHead';
 
 interface PortugalEuropeProps {
   setCurrentPage: (page: string) => void;
@@ -7,6 +8,18 @@ interface PortugalEuropeProps {
 
 export default function PortugalEurope({ setCurrentPage, onScheduleCall }: PortugalEuropeProps) {
   const [expandedVisa, setExpandedVisa] = useState<string | null>(null);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Portugal & European Residency Programs",
+    "description": "Explore Portugal and European residency programs including D2, D7, D8 visas and Golden Visa",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dera Consultants"
+    },
+    "areaServed": ["Portugal", "Europe", "EU"]
+  };
 
   const visaTypes = [
     {
@@ -33,6 +46,13 @@ export default function PortugalEurope({ setCurrentPage, onScheduleCall }: Portu
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+      <SEOHead
+        title="Portugal & European Residency Programs | D2, D7, D8 Visas & Golden Visa | Dera Consultants"
+        description="Get Portugal and European residency through D2 (Entrepreneur), D7 (Passive Income), D8 (Digital Nomad) visas or Golden Visa. Expert immigration consulting."
+        keywords="Portugal residency, European residency, D2 visa, D7 visa, D8 visa, Golden Visa, Portugal immigration"
+        url="https://deraconsultants.com/portugal-residency"
+        structuredData={structuredData}
+      />
       {/* Hero Section with Image */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">

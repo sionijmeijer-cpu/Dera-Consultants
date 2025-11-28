@@ -1,11 +1,31 @@
+import { SEOHead } from '../SEOHead';
+
 interface CaribbeanCBIProps {
   setCurrentPage: (page: string) => void;
   onScheduleCall: () => void;
 }
 
 export default function CaribbeanCBI({ setCurrentPage, onScheduleCall }: CaribbeanCBIProps) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Caribbean Citizenship by Investment",
+    "description": "Obtain Caribbean citizenship and a second passport through trusted investment programs",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dera Consultants"
+    },
+    "areaServed": ["Antigua and Barbuda", "St. Kitts and Nevis", "Dominica", "Saint Lucia", "Grenada"]
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <SEOHead
+        title="Caribbean Citizenship by Investment | Second Passport Programs | Dera Consultants"
+        description="Get Caribbean citizenship and second passport through investment. Explore programs in Antigua, St. Kitts, Dominica, Saint Lucia, Grenada. Trusted immigration consulting."
+        keywords="Caribbean CBI, citizenship by investment, second passport, Caribbean citizenship, investment residency"
+        url="https://deraconsultants.com/caribbean-cbi"
+        structuredData={structuredData}
+      />
       {/* Hero Section with Image */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
