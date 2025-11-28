@@ -15,7 +15,7 @@ export default function Header({ currentPage, setCurrentPage, onScheduleCall }: 
     { name: 'About Us', id: 'about' },
     { name: 'Caribbean CBI', id: 'caribbean' },
     { name: 'Portugal & Europe', id: 'portugal' },
-    { name: 'Contact', id: 'contact' },
+    { name: 'FAQ', id: 'faq' },
   ];
 
   const handleNavClick = (id: string) => {
@@ -53,9 +53,9 @@ export default function Header({ currentPage, setCurrentPage, onScheduleCall }: 
               alt="Dera Consultants Logo" 
               className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
             />
-            <div className="hidden sm:flex flex-col">
-              <div className="text-sm md:text-base lg:text-lg font-bold text-[#0f3460]">DERA</div>
-              <div className="text-xs md:text-sm lg:text-base font-bold text-[#d4af37] hidden lg:block">CONSULTANTS</div>
+            <div className="hidden sm:flex items-center gap-1 md:gap-2">
+              <div className="text-sm md:text-base lg:text-lg font-bold text-blue-700 whitespace-nowrap">DERA</div>
+              <div className="text-xs md:text-sm lg:text-base font-bold text-blue-700 whitespace-nowrap">CONSULTANTS</div>
             </div>
           </button>
 

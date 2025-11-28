@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import CaribbeanCBI from './components/pages/CaribbeanCBI';
 import PortugalEurope from './components/pages/PortugalEurope';
 import ScheduleCallModal from './components/ScheduleCallModal';
+import FAQ from './pages/FAQ';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -17,13 +18,15 @@ function App() {
       case 'home':
         return <Hero onScheduleCall={() => setIsScheduleModalOpen(true)} setCurrentPage={setCurrentPage} />;
       case 'about':
-        return <AboutUs />;
+        return <AboutUs onScheduleCall={() => setIsScheduleModalOpen(true)} />;
       case 'caribbean':
-        return <CaribbeanCBI />;
+        return <CaribbeanCBI setCurrentPage={setCurrentPage} onScheduleCall={() => setIsScheduleModalOpen(true)} />;
       case 'portugal':
-        return <PortugalEurope />;
+        return <PortugalEurope setCurrentPage={setCurrentPage} onScheduleCall={() => setIsScheduleModalOpen(true)} />;
       case 'contact':
         return <Contact />;
+      case 'faq':
+        return <FAQ onScheduleCall={() => setIsScheduleModalOpen(true)} />;
       default:
         return <Hero onScheduleCall={() => setIsScheduleModalOpen(true)} setCurrentPage={setCurrentPage} />;
     }

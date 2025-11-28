@@ -1,11 +1,16 @@
-export default function CaribbeanCBI() {
+interface CaribbeanCBIProps {
+  setCurrentPage: (page: string) => void;
+  onScheduleCall: () => void;
+}
+
+export default function CaribbeanCBI({ setCurrentPage, onScheduleCall }: CaribbeanCBIProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section with Image */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/caribbean-hero.png" 
+            src="https://i.pinimg.com/736x/82/c0/43/82c043e3f00efc3eb3289475e1cd4edf.jpg" 
             alt="Caribbean Islands" 
             className="w-full h-full object-cover opacity-20"
           />
@@ -44,7 +49,7 @@ export default function CaribbeanCBI() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-64 overflow-hidden">
                 <img 
-                  src="/images/antigua_barbuda.png" 
+                  src="https://i.pinimg.com/1200x/12/b5/01/12b501e510865ca613ed54f1f97ab891.jpg" 
                   alt="Antigua and Barbuda" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -72,7 +77,7 @@ export default function CaribbeanCBI() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-64 overflow-hidden">
                 <img 
-                  src="/images/st_kitts_nevis.png" 
+                  src="https://i.pinimg.com/1200x/c0/45/29/c04529c0a3fcc8adeb4a51e2099d6140.jpg" 
                   alt="St. Kitts and Nevis" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -100,7 +105,7 @@ export default function CaribbeanCBI() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-64 overflow-hidden">
                 <img 
-                  src="/images/dominica.png" 
+                  src="https://i.pinimg.com/1200x/61/77/6c/61776c46286a81bebf8bb5a75d7daaa4.jpg" 
                   alt="Dominica" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -128,7 +133,7 @@ export default function CaribbeanCBI() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-64 overflow-hidden">
                 <img 
-                  src="/images/saint_lucia.png" 
+                  src="https://i.pinimg.com/736x/ef/3b/f4/ef3bf490b86c819910d32574301d242a.jpg" 
                   alt="Saint Lucia" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -160,7 +165,7 @@ export default function CaribbeanCBI() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="h-64 overflow-hidden">
                 <img 
-                  src="/images/grenada.png" 
+                  src="https://i.pinimg.com/1200x/6b/2f/c8/6b2fc8170139d3eae6aade33f73d3f8b.jpg" 
                   alt="Grenada" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -234,7 +239,10 @@ export default function CaribbeanCBI() {
           <p className="text-xl text-blue-100 mb-8">
             Our experts will guide you through the entire process to find the best program for your needs.
           </p>
-          <button className="px-8 py-4 bg-white text-blue-600 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg">
+          <button 
+            onClick={onScheduleCall}
+            className="px-8 py-4 bg-white text-blue-600 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg"
+          >
             Schedule a Consultation
           </button>
         </div>

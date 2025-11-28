@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-export default function PortugalEurope() {
+interface PortugalEuropeProps {
+  setCurrentPage: (page: string) => void;
+  onScheduleCall: () => void;
+}
+
+export default function PortugalEurope({ setCurrentPage, onScheduleCall }: PortugalEuropeProps) {
   const [expandedVisa, setExpandedVisa] = useState<string | null>(null);
 
   const visaTypes = [
@@ -32,7 +37,7 @@ export default function PortugalEurope() {
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/portugal-hero.png" 
+            src="https://i.pinimg.com/1200x/02/0a/10/020a10574717da0ffa52c256be187c22.jpg" 
             alt="Portugal Lisbon" 
             className="w-full h-full object-cover opacity-20"
           />
@@ -170,8 +175,6 @@ export default function PortugalEurope() {
         </div>
       </section>
 
-
-
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-amber-600">
         <div className="max-w-4xl mx-auto text-center">
@@ -181,7 +184,10 @@ export default function PortugalEurope() {
           <p className="text-xl text-amber-100 mb-8">
             Get personalized guidance on the best residency program for your goals and circumstances.
           </p>
-          <button className="px-8 py-4 bg-white text-amber-600 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg">
+          <button 
+            onClick={onScheduleCall}
+            className="px-8 py-4 bg-white text-amber-600 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg"
+          >
             Schedule a Consultation
           </button>
         </div>

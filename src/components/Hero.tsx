@@ -1,17 +1,73 @@
-import { ArrowRight, Globe, Users, Award, TrendingUp } from 'lucide-react';
+import { ArrowRight, Globe, Users, Award, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
 interface HeroProps {
   onScheduleCall: () => void;
   setCurrentPage?: (page: string) => void;
 }
 
+const testimonials = [
+  {
+    initials: 'IO',
+    name: 'Irene Omuchi',
+    title: 'Oil and Gas Entrepreneur, Nigeria',
+    quote: '"The team at Dera Consultants provided exceptional guidance for my move to Portugal. Their professionalism and personalized approach were instrumental in my journey."'
+  },
+  {
+    initials: 'OS',
+    name: 'Oliver Smith',
+    title: 'Retired Executive, UK',
+    quote: '"Their understanding of the European residency programs is impressive. They handled every detail with precision and care."'
+  },
+  {
+    initials: 'IG',
+    name: 'Isabella Garcia',
+    title: 'Lawyer, Spain',
+    quote: '"As a legal professional, I appreciate thoroughness. Dera\'s team demonstrated an exceptional level of diligence and expertise throughout the entire process."'
+  },
+  {
+    initials: 'GS',
+    name: 'Galli Sel',
+    title: 'Business Owner, UAE',
+    quote: '"Collaboration with Dera Consultants has been beneficial to my company\'s growth. I highly recommend their services to any serious investor. Sylvia is really the best to work with"'
+  },
+  {
+    initials: 'HA',
+    name: 'Harry Akande Jr',
+    title: 'Business man, Nigeria',
+    quote: '"I was looking for a reliable partner for our global mobility needs. Dera Consultants exceeded our expectations with their deep knowledge and discretion. The support with St Lucia passport was exceptional"'
+  },
+  {
+    initials: 'IG',
+    name: 'Isabella Garcia',
+    title: 'Lawyer, Spain',
+    quote: '"As a legal professional, I appreciate thoroughness. Dera\'s team demonstrated an exceptional level of diligence and expertise throughout the entire process."'
+  }
+];
+
 export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % (testimonials.length - 2));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + (testimonials.length - 2)) % (testimonials.length - 2));
+  };
+
+  const visibleTestimonials = [
+    testimonials[currentIndex],
+    testimonials[currentIndex + 1],
+    testimonials[currentIndex + 2]
+  ];
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/images/hero-office.png" alt="Immigration Consulting Office" className="w-full h-full object-cover opacity-30" />
+          <img src="https://i.pinimg.com/1200x/38/27/0d/38270dbb283efecad6914223963a7e0d.jpg" alt="Immigration Consulting Office" className="w-full h-full object-cover opacity-30" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f3460] via-[#1a5276]/90 to-[#0d2540]/80"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,96 +144,6 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section id="about-section" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Dera Consultants?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We provide comprehensive immigration solutions tailored to your unique needs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-8 h-8 rounded-full flex items-center justify-center font-semibold">
-                    1
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900">Personalized Service</h3>
-                  <p className="text-gray-600">
-                    Every client receives tailored advice based on their specific circumstances and goals
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-8 h-8 rounded-full flex items-center justify-center font-semibold">
-                    2
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900">Transparent Process</h3>
-                  <p className="text-gray-600">
-                    Clear communication throughout the application process with no hidden fees
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-8 h-8 rounded-full flex items-center justify-center font-semibold">
-                    3
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900">Comprehensive Support</h3>
-                  <p className="text-gray-600">
-                    From initial consultation to final approval, we support you every step of the way
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-8 h-8 rounded-full flex items-center justify-center font-semibold">
-                    4
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900">Proven Success Rate</h3>
-                  <p className="text-gray-600">
-                    High approval rates backed by years of experience and industry expertise
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#e8dcc4] to-[#dce7f0] p-8 rounded-2xl overflow-hidden relative">
-              <img src="/images/success-story.png" alt="Success Story" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-              <div className="bg-white p-8 rounded-xl shadow-lg relative z-10">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Get Started?</h3>
-                <p className="text-gray-600 mb-6">
-                  Schedule a free consultation with our immigration experts today and discover the best pathway to your new future.
-                </p>
-                <button 
-                  onClick={onScheduleCall}
-                  className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460] transition-all duration-300 shadow-md hover:shadow-lg"
-                >
-                  Schedule Your Free Consultation
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Client Reviews Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -186,100 +152,47 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
               What Our Clients Say
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Real success stories from clients who achieved their immigration goals
+              Hear from satisfied clients who have successfully navigated their journey to global citizenship with our expert guidance.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Review 1 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src="/images/portugal-destination.png" alt="Portugal" className="w-full h-40 object-cover rounded-lg mb-4" />
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[#d4af37] text-lg">★★★★★</span>
-              </div>
-              <p className="text-gray-700 mb-6">
-                "Dera Consultants made my Portugal residency application seamless. Their expert guidance and attention to detail ensured everything was perfect. I received my approval in record time!"
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900">Maria Silva</h4>
-                <p className="text-sm text-gray-600">Portugal D7 Visa</p>
-              </div>
+          {/* Carousel */}
+          <div className="relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {visibleTestimonials.map((testimonial, index) => (
+                <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 bg-[#0f3460] text-white rounded-full flex items-center justify-center font-bold text-lg">
+                      {testimonial.initials}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                      <p className="text-sm text-gray-600">{testimonial.title}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 mb-4">
+                    <span className="text-[#d4af37] text-lg">★★★★★</span>
+                  </div>
+                  <p className="text-gray-700">
+                    {testimonial.quote}
+                  </p>
+                </div>
+              ))}
             </div>
 
-            {/* Review 2 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src="/images/caribbean-destination.png" alt="Caribbean" className="w-full h-40 object-cover rounded-lg mb-4" />
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[#d4af37] text-lg">★★★★★</span>
-              </div>
-              <p className="text-gray-700 mb-6">
-                "The team at Dera understood my specific situation and tailored the entire process. From consultation to final approval, they were professional and responsive every step of the way."
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900">James Thompson</h4>
-                <p className="text-sm text-gray-600">Caribbean CBI Program</p>
-              </div>
-            </div>
-
-            {/* Review 3 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src="/images/global-map.png" alt="Global" className="w-full h-40 object-cover rounded-lg mb-4" />
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[#d4af37] text-lg">★★★★★</span>
-              </div>
-              <p className="text-gray-700 mb-6">
-                "I was overwhelmed by the immigration process, but Dera Consultants broke it down step by step. Their transparency and expertise gave me confidence throughout. Highly recommended!"
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900">Amara Johnson</h4>
-                <p className="text-sm text-gray-600">EU Residency Program</p>
-              </div>
-            </div>
-
-            {/* Review 4 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src="/images/document-process.png" alt="Document Process" className="w-full h-40 object-cover rounded-lg mb-4" />
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[#d4af37] text-lg">★★★★★</span>
-              </div>
-              <p className="text-gray-700 mb-6">
-                "Professional, knowledgeable, and genuinely committed to helping. Dera Consultants delivered results faster than expected. They are the real deal in immigration consulting."
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900">Michael Chen</h4>
-                <p className="text-sm text-gray-600">Golden Visa Program</p>
-              </div>
-            </div>
-
-            {/* Review 5 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src="/images/property-portugal.png" alt="Property" className="w-full h-40 object-cover rounded-lg mb-4" />
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[#d4af37] text-lg">★★★★★</span>
-              </div>
-              <p className="text-gray-700 mb-6">
-                "From the initial consultation to visa approval, Dera Consultants handled everything with excellence. Their proactive approach eliminated stress and uncertainty. Best decision I made!"
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900">Sophia Rodriguez</h4>
-                <p className="text-sm text-gray-600">Citizenship Application</p>
-              </div>
-            </div>
-
-            {/* Review 6 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-              <img src="/images/team-consulting.png" alt="Team" className="w-full h-40 object-cover rounded-lg mb-4" />
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[#d4af37] text-lg">★★★★★</span>
-              </div>
-              <p className="text-gray-700 mb-6">
-                "Exceptional service! The consultants understood the nuances of international immigration law. They saved me months of research and potential mistakes. Highly valuable investment."
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900">David Hassan</h4>
-                <p className="text-sm text-gray-600">Business Visa Program</p>
-              </div>
-            </div>
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
           </div>
 
           <div className="text-center mt-12">
