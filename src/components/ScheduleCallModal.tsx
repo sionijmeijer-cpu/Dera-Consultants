@@ -1,5 +1,5 @@
 import { X, CheckCircle } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 
 interface ScheduleCallModalProps {
@@ -16,6 +16,7 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    countryCode: '+1',
     phone: '',
     service: '',
     preferredDate: '',
@@ -25,13 +26,93 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  // Initialize EmailJS on component mount
+  // Country code mapping by country
+  const countryCodeMap: Record<string, string> = {
+    'US': '+1',
+    'GB': '+44',
+    'CA': '+1',
+    'AU': '+61',
+    'NZ': '+64',
+    'DE': '+49',
+    'FR': '+33',
+    'IT': '+39',
+    'ES': '+34',
+    'NL': '+31',
+    'BE': '+32',
+    'CH': '+41',
+    'AT': '+43',
+    'DK': '+45',
+    'SE': '+46',
+    'NO': '+47',
+    'FI': '+358',
+    'PL': '+48',
+    'TR': '+90',
+    'IN': '+91',
+    'CN': '+86',
+    'JP': '+81',
+    'HK': '+852',
+    'SG': '+65',
+    'MY': '+60',
+    'TH': '+66',
+    'ID': '+62',
+    'ZA': '+27',
+    'NG': '+234',
+    'AE': '+971',
+    'SA': '+966',
+    'BR': '+55',
+    'CL': '+56',
+    'CO': '+57',
+    'MX': '+52',
+    'PA': '+507',
+    'CR': '+506',
+    'JM': '+1-876',
+    'BS': '+1-242',
+    'BB': '+1-246',
+    'BM': '+1-441',
+    'GD': '+1-473',
+    'KN': '+1-869',
+    'LC': '+1-758',
+    'VC': '+1-784',
+    'TC': '+1-649',
+    'TT': '+1-868',
+    'KY': '+1-345',
+    'PR': '+1-939',
+  };
+
+  // Initialize EmailJS and auto-detect country code on component mount
   useEffect(() => {
     if (EMAILJS_PUBLIC_KEY !== 'public_key_placeholder') {
       emailjs.init(EMAILJS_PUBLIC_KEY);
     }
+    
+    // Auto-detect country code based on user's location
+    const detectCountryCode = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const countryCode = data.country_code;
+        const code = countryCodeMap[countryCode] || '+1';
+        setFormData(prev => ({
+          ...prev,
+          countryCode: code
+        }));
+      } catch (err) {
+        // Default to +1 if detection fails
+        console.log('Could not detect country code');
+      }
+    };
+    
+    detectCountryCode();
   }, []);
+
+  // Handle backdrop click to close modal
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (modalRef.current && e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
   const services = [
     'Citizenship by Investment',
@@ -62,7 +143,7 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
       const emailParams = {
         name: formData.name,
         email: formData.email,
-        phone: formData.phone,
+        phone: `${formData.countryCode} ${formData.phone}`,
         service: formData.service,
         preferredDate: formData.preferredDate,
         preferredTime: formData.preferredTime
@@ -79,6 +160,7 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
       setFormData({
         name: '',
         email: '',
+        countryCode: '+1',
         phone: '',
         service: '',
         preferredDate: '',
@@ -101,8 +183,16 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" style={{backgroundColor: 'rgba(0, 0, 0, 0.4)'}}>
-      <div className="bg-white rounded-lg shadow-2xl max-w-md w-full relative">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg cursor-pointer"
+      style={{backgroundColor: 'rgba(0, 0, 0, 0.4)'}}
+      onClick={handleBackdropClick}
+    >
+      <div
+        ref={modalRef}
+        className="bg-white rounded-lg shadow-2xl max-w-md w-full relative cursor-default"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -174,16 +264,74 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                     Phone Number *
                   </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f3460] focus:border-transparent transition-all duration-200"
-                    placeholder="Enter your phone number"
-                  />
+                  <div className="flex gap-2">
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      className="w-24 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f3460] focus:border-transparent transition-all duration-200"
+                    >
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+1-242">🇧🇸 +1-242</option>
+                      <option value="+1-246">🇧🇧 +1-246</option>
+                      <option value="+1-441">🇧🇲 +1-441</option>
+                      <option value="+1-876">🇯🇲 +1-876</option>
+                      <option value="+1-473">🇬🇩 +1-473</option>
+                      <option value="+1-649">🇹🇨 +1-649</option>
+                      <option value="+1-869">🇰🇳 +1-869</option>
+                      <option value="+1-784">🇻🇨 +1-784</option>
+                      <option value="+1-758">🇱🇨 +1-758</option>
+                      <option value="+1-868">🇹🇹 +1-868</option>
+                      <option value="+1-939">🇵🇷 +1-939</option>
+                      <option value="+1-345">🇰🇾 +1-345</option>
+                      <option value="+33">🇫🇷 +33</option>
+                      <option value="+49">🇩🇪 +49</option>
+                      <option value="+39">🇮🇹 +39</option>
+                      <option value="+34">🇪🇸 +34</option>
+                      <option value="+31">🇳🇱 +31</option>
+                      <option value="+32">🇧🇪 +32</option>
+                      <option value="+41">🇨🇭 +41</option>
+                      <option value="+43">🇦🇹 +43</option>
+                      <option value="+45">🇩🇰 +45</option>
+                      <option value="+46">🇸🇪 +46</option>
+                      <option value="+47">🇳🇴 +47</option>
+                      <option value="+358">🇫🇮 +358</option>
+                      <option value="+48">🇵🇱 +48</option>
+                      <option value="+90">🇹🇷 +90</option>
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+86">🇨🇳 +86</option>
+                      <option value="+81">🇯🇵 +81</option>
+                      <option value="+852">🇭🇰 +852</option>
+                      <option value="+65">🇸🇬 +65</option>
+                      <option value="+60">🇲🇾 +60</option>
+                      <option value="+66">🇹🇭 +66</option>
+                      <option value="+62">🇮🇩 +62</option>
+                      <option value="+61">🇦🇺 +61</option>
+                      <option value="+64">🇳🇿 +64</option>
+                      <option value="+27">🇿🇦 +27</option>
+                      <option value="+234">🇳🇬 +234</option>
+                      <option value="+971">🇦🇪 +971</option>
+                      <option value="+966">🇸🇦 +966</option>
+                      <option value="+1-868">🇹🇹 +1-868</option>
+                      <option value="+55">🇧🇷 +55</option>
+                      <option value="+56">🇨🇱 +56</option>
+                      <option value="+57">🇨🇴 +57</option>
+                      <option value="+52">🇲🇽 +52</option>
+                      <option value="+507">🇵🇦 +507</option>
+                      <option value="+506">🇨🇷 +506</option>
+                    </select>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f3460] focus:border-transparent transition-all duration-200"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
                 </div>
 
                 {/* Service Dropdown */}
