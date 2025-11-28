@@ -3,9 +3,21 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { shipperIdsPlugin } from "./plugins/vite-plugin-shipper-ids";
+import fs from "fs";
 
 export default defineConfig({
-  plugins: [shipperIdsPlugin(), react(), tailwindcss()],
+  plugins: [
+    shipperIdsPlugin(),
+    react(),
+    tailwindcss(),
+    {
+      name: 'remove-monitor-script',
+      apply: 'build',
+      transformIndexHtml(html) {
+        return html.replace(/<script[^>]*>\/\.shipper\/monitor\.js[^<]*<\/script>/g, '');
+      },
+    },
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
