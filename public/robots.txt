@@ -4,7 +4,7 @@ Disallow: /api/
 Disallow: /.shipper/
 
 # Sitemap
-Sitemap: https://deraconsultants.com/sitemap.xml
+Sitemap: https://getsecondpassport.eu/sitemap.xml
 
 # Crawl delay (optional - remove if not needed)
 # Crawl-delay: 1
