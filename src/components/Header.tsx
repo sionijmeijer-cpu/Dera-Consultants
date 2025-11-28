@@ -30,7 +30,7 @@ export default function Header({ currentPage, setCurrentPage, onScheduleCall }: 
       <div className="bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-end items-center gap-4 sm:gap-6 text-sm">
-            <a href="mailto:info@deraconsultants.com" className="flex items-center gap-2 hover:text-[#d4af37] transition-colors duration-200" title="Email">
+            <a href="mailto:info@getsecondpassport.eu" className="flex items-center gap-2 hover:text-[#d4af37] transition-colors duration-200" title="Email">
               <Mail className="w-5 h-5" />
             </a>
             <a href="https://wa.me/31629566895" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#d4af37] transition-colors duration-200" title="WhatsApp">

@@ -69,8 +69,8 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <Mail className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#d4af37]" />
-                <a href="mailto:info@deraconsultants.com" className="hover:text-[#d4af37] transition-colors duration-200 break-all">
-                  info@deraconsultants.com
+                <a href="mailto:info@getsecondpassport.eu" className="hover:text-[#d4af37] transition-colors duration-200 break-all">
+                  info@getsecondpassport.eu
                 </a>
               </li>
               <li className="flex items-start gap-2">
