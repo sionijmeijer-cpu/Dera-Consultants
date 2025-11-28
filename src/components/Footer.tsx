@@ -18,8 +18,8 @@ export default function Footer({ setCurrentPage }: FooterProps) {
           <div>
             <h3 className="text-white text-xl font-bold mb-4 flex items-center gap-2">
               <img 
-                src="/images/dera-logo.png" 
-                alt="Logo" 
+                src="https://i.imgur.com/KTSBU1c.png" 
+                alt="Dera Consultants Logo" 
                 className="w-8 h-8 object-contain"
               />
               DERA

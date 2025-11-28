@@ -9,8 +9,11 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white py-20 lg:py-32">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
+      <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="/images/hero-office.png" alt="Immigration Consulting Office" className="w-full h-full object-cover opacity-30" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f3460] via-[#1a5276]/90 to-[#0d2540]/80"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
@@ -156,8 +159,9 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#e8dcc4] to-[#dce7f0] p-8 rounded-2xl">
-              <div className="bg-white p-8 rounded-xl shadow-lg">
+            <div className="bg-gradient-to-br from-[#e8dcc4] to-[#dce7f0] p-8 rounded-2xl overflow-hidden relative">
+              <img src="/images/success-story.png" alt="Success Story" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+              <div className="bg-white p-8 rounded-xl shadow-lg relative z-10">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Get Started?</h3>
                 <p className="text-gray-600 mb-6">
                   Schedule a free consultation with our immigration experts today and discover the best pathway to your new future.
@@ -188,7 +192,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Review 1 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+              <img src="/images/portugal-destination.png" alt="Portugal" className="w-full h-40 object-cover rounded-lg mb-4" />
               <div className="flex items-center gap-1 mb-4">
                 <span className="text-[#d4af37] text-lg">★★★★★</span>
               </div>
@@ -202,7 +207,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             </div>
 
             {/* Review 2 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+              <img src="/images/caribbean-destination.png" alt="Caribbean" className="w-full h-40 object-cover rounded-lg mb-4" />
               <div className="flex items-center gap-1 mb-4">
                 <span className="text-[#d4af37] text-lg">★★★★★</span>
               </div>
@@ -216,7 +222,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             </div>
 
             {/* Review 3 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+              <img src="/images/global-map.png" alt="Global" className="w-full h-40 object-cover rounded-lg mb-4" />
               <div className="flex items-center gap-1 mb-4">
                 <span className="text-[#d4af37] text-lg">★★★★★</span>
               </div>
@@ -230,7 +237,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             </div>
 
             {/* Review 4 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+              <img src="/images/document-process.png" alt="Document Process" className="w-full h-40 object-cover rounded-lg mb-4" />
               <div className="flex items-center gap-1 mb-4">
                 <span className="text-[#d4af37] text-lg">★★★★★</span>
               </div>
@@ -244,7 +252,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             </div>
 
             {/* Review 5 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+              <img src="/images/property-portugal.png" alt="Property" className="w-full h-40 object-cover rounded-lg mb-4" />
               <div className="flex items-center gap-1 mb-4">
                 <span className="text-[#d4af37] text-lg">★★★★★</span>
               </div>
@@ -258,7 +267,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             </div>
 
             {/* Review 6 */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+              <img src="/images/team-consulting.png" alt="Team" className="w-full h-40 object-cover rounded-lg mb-4" />
               <div className="flex items-center gap-1 mb-4">
                 <span className="text-[#d4af37] text-lg">★★★★★</span>
               </div>
