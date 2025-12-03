@@ -14,6 +14,21 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
+    id: 'about-1',
+    question: 'What services does Dera Consultants offer?',
+    answer: 'Dera Consultants specializes in citizenship by investment and residency programs across the Caribbean and Europe. We provide comprehensive guidance on program selection, investment options, document preparation, and coordination with government agencies. Our team connects you with legal professionals and qualified agencies to ensure a smooth and transparent application process.'
+  },
+  {
+    id: 'about-2',
+    question: 'How do you support clients?',
+    answer: 'We provide personalized support throughout your entire journey. This includes one-on-one consultations, detailed program analysis, investment option evaluation, document checklist preparation, coordination with relevant agencies, regular progress updates, and access to our network of trusted legal and financial professionals. We are committed to making the process seamless and transparent.'
+  },
+  {
+    id: 'about-3',
+    question: 'Is Dera Consultants involved in laws and legal processing?',
+    answer: 'No, we do not perform legal or legal consultancy services. Instead, we connect you with qualified legal professionals and agencies who handle the legal work. Our role is to guide you through the process, help you understand your options, and coordinate with the appropriate agencies to ensure everything runs smoothly.'
+  },
+  {
     id: 'faq-1',
     question: 'What is a Citizenship by Investment program?',
     answer: 'Citizenship by Investment (CBI) programs allow individuals to obtain citizenship in a country by making a financial contribution to the national economy. This can be through real estate investment, government bonds, or direct donations. Our team helps you navigate these programs to find the best fit for your needs and financial situation.'

@@ -65,17 +65,14 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src="https://i.imgur.com/2gJVups.png" alt="Immigration Consulting Office" className="w-full h-full object-cover opacity-30" loading="eager" fetchPriority="high" width="1920" height="1080" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f3460] via-[#1a5276]/90 to-[#0d2540]/80"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
+      <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white min-h-screen overflow-hidden flex">
+        {/* Left Content Container */}
+        <div className="w-full lg:w-1/2 flex items-center">
+          <div className="px-4 sm:px-6 lg:px-8 py-20 lg:py-0 z-10">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
               Your Gateway to Global Citizenship & Residency
             </h1>
-            <p className="text-xl sm:text-2xl mb-8 text-blue-100">
+            <p className="text-2xl sm:text-3xl mb-12 text-blue-100">
               Expert immigration consultants specializing in Caribbean CBI and European residency programs
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -95,6 +92,8 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             </div>
           </div>
         </div>
+
+
       </section>
 
       {/* Features Section */}

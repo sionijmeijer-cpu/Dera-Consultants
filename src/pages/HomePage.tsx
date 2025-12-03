@@ -111,11 +111,11 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
                 </div>
               </div>
 
-              <div className="hidden lg:block">
+              <div className="hidden lg:flex items-center justify-center">
                 <img
-                  src="/images/hero-office.png"
-                  alt="Professional office environment"
-                  className="rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                  src="https://i.imgur.com/Il3v1K2.png"
+                  alt="Global citizenship gateway"
+                  className="w-full h-full object-cover rounded-lg shadow-2xl"
                 />
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
                 <div className="h-48 bg-gradient-to-br from-[#0f3460] to-[#1a5276] relative overflow-hidden">
                   <img
-                    src="/images/caribbean-hero.png"
+                    src="https://i.imgur.com/A4Ln0WE.jpeg"
                     alt="Caribbean citizenship programs"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -178,7 +178,7 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
                 <div className="h-48 bg-gradient-to-br from-[#0f3460] to-[#1a5276] relative overflow-hidden">
                   <img
-                    src="/images/portugal-hero.png"
+                    src="https://i.imgur.com/P4Bwc2B.jpeg"
                     alt="Portugal and European residency"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -218,59 +218,7 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
           </div>
         </section>
 
-        {/* Why Choose Dera */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Dera Consultants</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Your trusted partner in securing global citizenship and residency
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center p-6">
-                <div className="bg-gradient-to-br from-[#d4af37] to-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Globe className="w-8 h-8 text-[#0f3460]" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Global Expertise</h3>
-                <p className="text-gray-600">
-                  Deep knowledge of citizenship and residency programs across Europe and the Caribbean
-                </p>
-              </div>
-
-              <div className="text-center p-6">
-                <div className="bg-gradient-to-br from-[#d4af37] to-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-[#0f3460]" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Personal Service</h3>
-                <p className="text-gray-600">
-                  Personalized guidance tailored to your unique circumstances and goals
-                </p>
-              </div>
-
-              <div className="text-center p-6">
-                <div className="bg-gradient-to-br from-[#d4af37] to-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-[#0f3460]" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Proven Track Record</h3>
-                <p className="text-gray-600">
-                  Years of successful client outcomes and established relationships with program administrators
-                </p>
-              </div>
-
-              <div className="text-center p-6">
-                <div className="bg-gradient-to-br from-[#d4af37] to-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-8 h-8 text-[#0f3460]" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Strategic Planning</h3>
-                <p className="text-gray-600">
-                  Comprehensive planning to maximize your investment and achieve your goals
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Testimonials Section */}
         <section className="py-20 bg-gray-50">
