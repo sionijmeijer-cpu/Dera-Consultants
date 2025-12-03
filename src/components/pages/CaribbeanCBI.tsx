@@ -1,11 +1,10 @@
 import { SEOHead } from '../SEOHead';
 
 interface CaribbeanCBIProps {
-  setCurrentPage: (page: string) => void;
   onScheduleCall: () => void;
 }
 
-export default function CaribbeanCBI({ setCurrentPage, onScheduleCall }: CaribbeanCBIProps) {
+export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -33,6 +32,9 @@ export default function CaribbeanCBI({ setCurrentPage, onScheduleCall }: Caribbe
             src="https://i.pinimg.com/736x/82/c0/43/82c043e3f00efc3eb3289475e1cd4edf.jpg" 
             alt="Caribbean Islands" 
             className="w-full h-full object-cover opacity-20"
+            loading="lazy"
+            width="1920"
+            height="800"
           />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">

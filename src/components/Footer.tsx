@@ -1,29 +1,21 @@
-import { Mail, Phone, MapPin, Facebook, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, Facebook, Linkedin, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-interface FooterProps {
-  setCurrentPage: (page: string) => void;
-}
-
-export default function Footer({ setCurrentPage }: FooterProps) {
-  const handleNavClick = (page: string) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
+export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-[#0f3460] to-[#0a1f35] text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-white text-xl font-bold mb-4 flex items-center gap-2">
+            <h2 className="text-white text-xl font-bold mb-4 flex items-center gap-2">
               <img 
                 src="https://i.imgur.com/KTSBU1c.png" 
                 alt="Dera Consultants Logo" 
                 className="w-8 h-8 object-contain"
               />
               <span className="text-blue-700">DERA CONSULTANTS</span>
-            </h3>
+            </h2>
             <p className="text-sm mb-4">
               Your trusted partner for immigration and residency programs across the Caribbean, Portugal, and Europe.
             </p>
@@ -34,34 +26,37 @@ export default function Footer({ setCurrentPage }: FooterProps) {
             <h3 className="text-white text-lg font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <button onClick={() => handleNavClick('home')} className="hover:text-[#d4af37] transition-colors duration-200">
+                <Link to="/" className="hover:text-[#d4af37] transition-colors duration-200">
                   Home
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavClick('about')} className="hover:text-[#d4af37] transition-colors duration-200">
+                <Link to="/about-us" className="hover:text-[#d4af37] transition-colors duration-200">
                   About Us
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavClick('caribbean')} className="hover:text-[#d4af37] transition-colors duration-200">
+                <Link to="/caribbean-citizenship-by-investment" className="hover:text-[#d4af37] transition-colors duration-200">
                   Caribbean CBI
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavClick('portugal')} className="hover:text-[#d4af37] transition-colors duration-200">
+                <Link to="/portugal-europe-residency" className="hover:text-[#d4af37] transition-colors duration-200">
                   Portugal & Europe
-                </button>
+                </Link>
               </li>
               <li>
-                <button onClick={() => handleNavClick('faq')} className="hover:text-[#d4af37] transition-colors duration-200">
+                <Link to="/faq" className="hover:text-[#d4af37] transition-colors duration-200">
                   FAQ
-                </button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-[#d4af37] transition-colors duration-200">
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
-
-
 
           {/* Contact Info */}
           <div>

@@ -10,7 +10,7 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
       {/* Page Header */}
       <section className="relative bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white py-16 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://i.pinimg.com/736x/b7/d0/18/b7d0181b4e7c2709ee29b7bd83839452.jpg" alt="Our Team" className="w-full h-full object-cover opacity-20" />
+          <img src="https://i.pinimg.com/736x/b7/d0/18/b7d0181b4e7c2709ee29b7bd83839452.jpg" alt="Our Team" className="w-full h-full object-cover opacity-20" loading="lazy" width="1920" height="600" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f3460] via-[#1a5276]/90 to-[#1a5276]"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

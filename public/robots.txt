@@ -3,21 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /.shipper/
 
-# Sitemap
-Sitemap: https://getsecondpassport.eu/sitemap.xml
-
-# Crawl delay (optional - remove if not needed)
-# Crawl-delay: 1
-
-# Specific rules for common bots
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 1
+Sitemap: https://www.getsecondpassport.eu/sitemap.xml

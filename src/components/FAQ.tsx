@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 
+interface FAQProps {
+  onScheduleCall: () => void;
+}
+
 interface FAQItem {
   id: string;
   question: string;
@@ -41,7 +45,7 @@ const faqData: FAQItem[] = [
   }
 ];
 
-export default function FAQ() {
+export default function FAQ({ onScheduleCall }: FAQProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -128,7 +132,7 @@ export default function FAQ() {
             Didn't find your answer? Our team is ready to help.
           </p>
           <button 
-            onClick={() => handleLoadFAQ()}
+            onClick={onScheduleCall}
             className="inline-block bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-8 py-3 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             Schedule a Consultation

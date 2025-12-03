@@ -1,44 +1,45 @@
-import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useWebVitals } from './hooks/useWebVitals';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Hero from './components/Hero';
-import AboutUs from './components/AboutUs';
-import Contact from './components/Contact';
-import CaribbeanCBI from './components/pages/CaribbeanCBI';
-import PortugalEurope from './components/pages/PortugalEurope';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import CaribbeanPage from './pages/CaribbeanPage';
+import PortugalPage from './pages/PortugalPage';
+import FAQPage from './pages/FAQPage';
+import ContactPage from './pages/ContactPage';
 import ScheduleCallModal from './components/ScheduleCallModal';
-import FAQ from './pages/FAQ';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <Hero onScheduleCall={() => setIsScheduleModalOpen(true)} setCurrentPage={setCurrentPage} />;
-      case 'about':
-        return <AboutUs onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-      case 'caribbean':
-        return <CaribbeanCBI setCurrentPage={setCurrentPage} onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-      case 'portugal':
-        return <PortugalEurope setCurrentPage={setCurrentPage} onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-      case 'contact':
-        return <Contact />;
-      case 'faq':
-        return <FAQ onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-      default:
-        return <Hero onScheduleCall={() => setIsScheduleModalOpen(true)} setCurrentPage={setCurrentPage} />;
+  
+  // Monitor Core Web Vitals in development
+  useWebVitals();
+  
+  // Optimize font loading
+  useEffect(() => {
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        document.body.classList.add('fonts-loaded');
+      });
     }
-  };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} onScheduleCall={() => setIsScheduleModalOpen(true)} />
+      <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
       <main className="flex-1">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<HomePage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
+          <Route path="/about-us" element={<AboutPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
+          <Route path="/caribbean-citizenship-by-investment" element={<CaribbeanPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
+          <Route path="/portugal-europe-residency" element={<PortugalPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
+          <Route path="/faq" element={<FAQPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
       </main>
-      <Footer setCurrentPage={setCurrentPage} />
+      <Footer />
       <ScheduleCallModal isOpen={isScheduleModalOpen} onClose={() => setIsScheduleModalOpen(false)} />
     </div>
   );

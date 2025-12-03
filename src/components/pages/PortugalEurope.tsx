@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { SEOHead } from '../SEOHead';
 
 interface PortugalEuropeProps {
-  setCurrentPage: (page: string) => void;
   onScheduleCall: () => void;
 }
 
-export default function PortugalEurope({ setCurrentPage, onScheduleCall }: PortugalEuropeProps) {
+export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) {
   const [expandedVisa, setExpandedVisa] = useState<string | null>(null);
 
   const structuredData = {
@@ -60,6 +59,9 @@ export default function PortugalEurope({ setCurrentPage, onScheduleCall }: Portu
             src="https://i.pinimg.com/1200x/02/0a/10/020a10574717da0ffa52c256be187c22.jpg" 
             alt="Portugal Lisbon" 
             className="w-full h-full object-cover opacity-20"
+            loading="lazy"
+            width="1920"
+            height="800"
           />
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">

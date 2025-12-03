@@ -67,7 +67,7 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://i.pinimg.com/1200x/38/27/0d/38270dbb283efecad6914223963a7e0d.jpg" alt="Immigration Consulting Office" className="w-full h-full object-cover opacity-30" />
+          <img src="https://i.imgur.com/2gJVups.png" alt="Immigration Consulting Office" className="w-full h-full object-cover opacity-30" loading="eager" fetchPriority="high" width="1920" height="1080" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f3460] via-[#1a5276]/90 to-[#0d2540]/80"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +86,12 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
                 Get Started
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <button 
-                onClick={() => setCurrentPage && setCurrentPage('about')}
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#0f3460] transition-all duration-200 flex items-center justify-center gap-2"
+              <a 
+                href="/about-us"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#0f3460] transition-all duration-200 flex items-center justify-center gap-2 inline-flex"
               >
                 Learn More
-              </button>
+              </a>
             </div>
           </div>
         </div>

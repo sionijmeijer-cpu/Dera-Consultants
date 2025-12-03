@@ -15,7 +15,7 @@ export function SEOHead({
   description,
   keywords,
   image = 'https://i.imgur.com/KTSBU1c.png',
-  url = 'https://deraconsultants.com',
+  url = 'https://www.getsecondpassport.eu',
   type = 'website',
   structuredData,
 }: SEOHeadProps) {
