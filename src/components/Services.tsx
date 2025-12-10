@@ -236,7 +236,10 @@ export default function Services() {
                           </p>
                         </div>
 
-                        <button className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460] transition-all duration-300 shadow-md hover:shadow-lg">
+                        <button onClick={() => {
+                          const event = new CustomEvent('openScheduleModal');
+                          window.dispatchEvent(event);
+                        }} className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460] transition-all duration-300 shadow-md hover:shadow-lg">
                           Request Consultation
                         </button>
                       </div>
@@ -248,79 +251,9 @@ export default function Services() {
         </section>
       )}
 
-      {/* Process Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Process</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A streamlined approach to help you achieve your immigration goals
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                1
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-900">Initial Consultation</h3>
-              <p className="text-gray-600">
-                Free assessment of your eligibility and goals
-              </p>
-            </div>
 
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                2
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-900">Document Preparation</h3>
-              <p className="text-gray-600">
-                Comprehensive gathering and verification of documents
-              </p>
-            </div>
 
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                3
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-900">Application Submission</h3>
-              <p className="text-gray-600">
-                Professional filing with government authorities
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                4
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-900">Approval & Follow-up</h3>
-              <p className="text-gray-600">
-                Ongoing support until final approval
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Contact us today for a free consultation and let our experts guide you through the process
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-8 py-3 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-300 shadow-lg hover:shadow-xl">
-              Schedule a Call
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#0f3460] transition-all duration-200">
-              Download Brochure
-            </button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

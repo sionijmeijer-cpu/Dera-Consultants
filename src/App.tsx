@@ -1,4 +1,3 @@
-import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useWebVitals } from './hooks/useWebVitals';
 import Header from './components/Header';
@@ -13,6 +12,7 @@ import ScheduleCallModal from './components/ScheduleCallModal';
 
 function App() {
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   
   // Monitor Core Web Vitals in development
   useWebVitals();
@@ -26,18 +26,58 @@ function App() {
     }
   }, []);
 
+  // Handle navigation with smooth page transitions and instant scroll to top
+  useEffect(() => {
+    // Scroll to top when path changes
+    window.scrollTo(0, 0);
+  }, [currentPath]);
+  
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+      window.scrollTo(0, 0);
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Listen for custom event to open modal
+  useEffect(() => {
+    const handleOpenModal = () => setIsScheduleModalOpen(true);
+    window.addEventListener('openScheduleModal', handleOpenModal);
+    return () => window.removeEventListener('openScheduleModal', handleOpenModal);
+  }, []);
+
+  // Determine which page to display based on path
+  const getPageComponent = () => {
+    const path = currentPath;
+    
+    if (path === '/' || path === '') {
+      return <HomePage />;
+    } else if (path === '/about-us') {
+      return <AboutPage />;
+    } else if (path === '/caribbean-citizenship-by-investment') {
+      return <CaribbeanPage />;
+    } else if (path === '/portugal-europe-residency') {
+      return <PortugalPage />;
+    } else if (path === '/faq') {
+      return <FAQPage />;
+    } else if (path === '/contact') {
+      return <ContactPage />;
+    }
+    
+    // Default to home page
+    return <HomePage />;
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<HomePage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
-          <Route path="/about-us" element={<AboutPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
-          <Route path="/caribbean-citizenship-by-investment" element={<CaribbeanPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
-          <Route path="/portugal-europe-residency" element={<PortugalPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
-          <Route path="/faq" element={<FAQPage onScheduleCall={() => setIsScheduleModalOpen(true)} />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
+        {getPageComponent()}
       </main>
       <Footer />
       <ScheduleCallModal isOpen={isScheduleModalOpen} onClose={() => setIsScheduleModalOpen(false)} />

@@ -1,0 +1,12 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/about-us/*",
+      "/caribbean-citizenship-by-investment/*",
+      "/portugal-europe-residency/*",
+      "/faq/*",
+      "/contact/*"
+    ]
+  }
+}

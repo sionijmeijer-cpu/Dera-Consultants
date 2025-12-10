@@ -1,6 +1,5 @@
 import { Menu, X, Mail } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 
 interface HeaderProps {
   onScheduleCall: () => void;
@@ -8,7 +7,6 @@ interface HeaderProps {
 
 export default function Header({ onScheduleCall }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -17,8 +15,6 @@ export default function Header({ onScheduleCall }: HeaderProps) {
     { name: 'Portugal & Europe', path: '/portugal-europe-residency' },
     { name: 'FAQ', path: '/faq' },
   ];
-
-  const isActive = (path: string) => location.pathname === path;
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -40,8 +36,13 @@ export default function Header({ onScheduleCall }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-5">
           {/* Logo and Brand */}
-          <Link 
-            to="/"
+          <a 
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/';
+              window.scrollTo(0, 0);
+            }}
             className="flex items-center gap-2 md:gap-3 group hover:opacity-80 transition-opacity duration-200 flex-shrink-0"
           >
             <img 
@@ -53,22 +54,18 @@ export default function Header({ onScheduleCall }: HeaderProps) {
               <div className="text-sm md:text-base lg:text-lg font-bold text-blue-700 whitespace-nowrap">DERA</div>
               <div className="text-xs md:text-sm lg:text-base font-bold text-blue-700 whitespace-nowrap">CONSULTANTS</div>
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.path}
-                to={link.path}
-                className={`text-base font-medium transition-all duration-200 whitespace-nowrap ${
-                  isActive(link.path)
-                    ? 'text-[#0f3460] border-b-2 border-[#d4af37] pb-1'
-                    : 'text-gray-600 hover:text-[#0f3460]'
-                }`}
+                href={link.path}
+                className="text-base font-medium transition-all duration-200 whitespace-nowrap text-gray-600 hover:text-[#0f3460]"
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
             <button
               onClick={onScheduleCall}
@@ -96,18 +93,14 @@ export default function Header({ onScheduleCall }: HeaderProps) {
           <div className="border-t border-gray-200 py-4">
             <nav className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.path}
-                  to={link.path}
+                  href={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-left px-4 py-3 rounded-md transition-colors duration-200 text-sm font-medium ${
-                    isActive(link.path)
-                      ? 'bg-[#0f3460] text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
+                  className="text-left px-4 py-3 rounded-md transition-colors duration-200 text-sm font-medium text-gray-600 hover:bg-gray-100"
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
               <button
                 onClick={() => {

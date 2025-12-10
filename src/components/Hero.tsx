@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, Users, Award, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeroProps {
@@ -64,80 +64,42 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white min-h-screen overflow-hidden flex">
-        {/* Left Content Container */}
-        <div className="w-full lg:w-1/2 flex items-center">
-          <div className="px-4 sm:px-6 lg:px-8 py-20 lg:py-0 z-10">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+      {/* Hero Section - Responsive Layout */}
+      <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white">
+        <div className="flex flex-col lg:flex-row items-center lg:min-h-[550px]">
+          {/* Left Content Container */}
+          <div className="w-full lg:w-1/2 px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fade-in">
               Your Gateway to Global Citizenship & Residency
             </h1>
-            <p className="text-2xl sm:text-3xl mb-12 text-blue-100">
+            <p className="text-base sm:text-lg lg:text-xl mb-8 text-blue-100">
               Expert immigration consultants specializing in Caribbean CBI and European residency programs
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button 
                 onClick={onScheduleCall}
-                className="bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-8 py-4 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 Get Started
                 <ArrowRight className="w-5 h-5" />
               </button>
               <a 
                 href="/about-us"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#0f3460] transition-all duration-200 flex items-center justify-center gap-2 inline-flex"
+                className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-white hover:text-[#0f3460] transition-all duration-200 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 Learn More
               </a>
             </div>
           </div>
-        </div>
 
-
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border-t-4 border-[#d4af37]">
-              <div className="bg-[#e8dcc4] w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                <Globe className="w-7 h-7 text-[#0f3460]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Global Reach</h3>
-              <p className="text-gray-600">
-                Access to citizenship and residency programs across the Caribbean, Portugal, and Europe
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border-t-4 border-[#0f3460]">
-              <div className="bg-[#dce7f0] w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                <Users className="w-7 h-7 text-[#0f3460]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Expert Guidance</h3>
-              <p className="text-gray-600">
-                Experienced consultants dedicated to navigating complex immigration processes
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border-t-4 border-[#d4af37]">
-              <div className="bg-[#e8dcc4] w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                <Award className="w-7 h-7 text-[#0f3460]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Trusted Partner</h3>
-              <p className="text-gray-600">
-                Proven track record of successful applications and satisfied clients worldwide
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border-t-4 border-[#0f3460]">
-              <div className="bg-[#dce7f0] w-14 h-14 rounded-lg flex items-center justify-center mb-4">
-                <TrendingUp className="w-7 h-7 text-[#0f3460]" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Fast Processing</h3>
-              <p className="text-gray-600">
-                Streamlined application process ensuring efficient and timely results
-              </p>
+          {/* Right Content - Hero Image */}
+          <div className="w-full lg:w-1/2 px-4 sm:px-6 lg:px-8 py-8 lg:py-20 flex items-center justify-center">
+            <div className="w-full max-w-xs sm:max-w-sm lg:max-w-none aspect-square lg:h-[480px] rounded-2xl overflow-hidden shadow-2xl hover:shadow-2xl transition-all duration-300 border-4 border-[#d4af37]">
+              <img 
+                src="https://i.imgur.com/dnxqUvo.png" 
+                alt="Global citizenship and residency consultation" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
@@ -150,7 +112,7 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
               What Our Clients Say
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Hear from satisfied clients who have successfully navigated their journey to global citizenship with our expert guidance.
             </p>
           </div>
@@ -159,20 +121,20 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
           <div className="relative">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {visibleTestimonials.map((testimonial, index) => (
-                <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div key={index} className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 bg-[#0f3460] text-white rounded-full flex items-center justify-center font-bold text-lg">
                       {testimonial.initials}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-600">{testimonial.title}</p>
+                      <h4 className="font-semibold text-gray-900 text-sm sm:text-base">{testimonial.name}</h4>
+                      <p className="text-xs sm:text-sm text-gray-600">{testimonial.title}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1 mb-4">
                     <span className="text-[#d4af37] text-lg">★★★★★</span>
                   </div>
-                  <p className="text-gray-700">
+                  <p className="text-gray-700 text-sm sm:text-base">
                     {testimonial.quote}
                   </p>
                 </div>
@@ -182,13 +144,13 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg hidden lg:block"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg hidden lg:block"
             >
               <ChevronRight className="w-6 h-6" />
             </button>

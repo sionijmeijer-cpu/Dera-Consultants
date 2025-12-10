@@ -300,7 +300,7 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
     >
       <div
         ref={modalRef}
-        className="bg-white rounded-lg shadow-2xl max-w-md w-full relative cursor-default overflow-y-auto max-h-[90vh]"
+        className="bg-white rounded-lg shadow-2xl max-w-md w-full relative cursor-default overflow-y-auto max-h-[90vh] mx-4 sm:mx-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -312,7 +312,7 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
         </button>
 
         {/* Modal Content */}
-        <div className="p-8">
+        <div className="p-4 sm:p-8">
           {showSuccess ? (
             // Success Message
             <div className="flex flex-col items-center justify-center py-8">
@@ -374,12 +374,12 @@ export default function ScheduleCallModal({ isOpen, onClose }: ScheduleCallModal
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                     Phone Number *
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <select
                       name="countryCode"
                       value={formData.countryCode}
                       onChange={handleChange}
-                      className="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f3460] focus:border-transparent transition-all duration-200 text-sm"
+                      className="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0f3460] focus:border-transparent transition-all duration-200 text-sm"
                     >
                       {COUNTRIES.map((country) => (
                         <option key={country.code} value={country.dialCode}>

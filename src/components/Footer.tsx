@@ -1,5 +1,4 @@
 import { Mail, Phone, Facebook, Linkedin, Instagram } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -26,34 +25,34 @@ export default function Footer() {
             <h3 className="text-white text-lg font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/" className="hover:text-[#d4af37] transition-colors duration-200">
                   Home
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/about-us" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/about-us" className="hover:text-[#d4af37] transition-colors duration-200">
                   About Us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/caribbean-citizenship-by-investment" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/caribbean-citizenship-by-investment" className="hover:text-[#d4af37] transition-colors duration-200">
                   Caribbean CBI
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/portugal-europe-residency" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/portugal-europe-residency" className="hover:text-[#d4af37] transition-colors duration-200">
                   Portugal & Europe
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/faq" className="hover:text-[#d4af37] transition-colors duration-200">
                   FAQ
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/contact" className="hover:text-[#d4af37] transition-colors duration-200">
                   Contact
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -91,7 +90,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#1a5276] mt-8 pt-8 text-sm text-center">
-          <p>&copy; {new Date().getFullYear()} Dera Consultants. All rights reserved. | <span className="text-[#d4af37]">Excellence in Global Immigration Solutions</span></p>
+          <p>&copy; 2020 Dera Consultants. All rights reserved. | <span className="text-[#d4af37]">Excellence in Global Immigration Solutions</span></p>
         </div>
       </div>
     </footer>
