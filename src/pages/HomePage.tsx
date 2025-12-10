@@ -8,9 +8,11 @@ interface HomePageProps {
 
 export default function HomePage({ onScheduleCall }: HomePageProps) {
   useSEO({
-    title: 'Dera Consultants - Caribbean Citizenship & European Residency Programs',
-    description: 'Expert immigration consultants specializing in Caribbean citizenship by investment and European residency programs. Fast-track your second passport with trusted guidance.',
-    canonicalUrl: 'https://getsecondpassport.eu',
+    title: 'Second Passport & Residency by Investment | Dera Consultants',
+    description: 'Get a second passport or EU residency through trusted citizenship and residency by investment programs in Europe and the Caribbean. Book a confidential consultation with Dera Consultants.',
+    canonicalUrl: 'https://www.getsecondpassport.eu/',
+    ogTitle: 'Second Passport & Residency by Investment | Dera Consultants',
+    ogDescription: 'Get a second passport or EU residency through trusted programs in Europe and the Caribbean.',
   });
 
   const handleScheduleCall = () => {

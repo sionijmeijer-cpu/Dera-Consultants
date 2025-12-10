@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 interface SEOConfig {
   title: string;
   description: string;
-  ogTitle?: string;
-  ogDescription?: string;
+  ogTitle: string;
+  ogDescription: string;
   ogImage?: string;
-  canonicalUrl?: string;
+  canonicalUrl: string;
 }
 
 export const useSEO = (config: SEOConfig) => {
@@ -23,6 +23,42 @@ export const useSEO = (config: SEOConfig) => {
     }
     descriptionMeta.setAttribute('content', config.description);
 
+    // Update robots meta tag
+    let robotsMeta = document.querySelector('meta[name="robots"]');
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta');
+      robotsMeta.setAttribute('name', 'robots');
+      document.head.appendChild(robotsMeta);
+    }
+    robotsMeta.setAttribute('content', 'index, follow');
+
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', config.canonicalUrl);
+
+    // Update OG type
+    let ogType = document.querySelector('meta[property="og:type"]');
+    if (!ogType) {
+      ogType = document.createElement('meta');
+      ogType.setAttribute('property', 'og:type');
+      document.head.appendChild(ogType);
+    }
+    ogType.setAttribute('content', 'website');
+
+    // Update OG URL
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      document.head.appendChild(ogUrl);
+    }
+    ogUrl.setAttribute('content', config.canonicalUrl);
+
     // Update OG title
     let ogTitle = document.querySelector('meta[property="og:title"]');
     if (!ogTitle) {
@@ -30,7 +66,7 @@ export const useSEO = (config: SEOConfig) => {
       ogTitle.setAttribute('property', 'og:title');
       document.head.appendChild(ogTitle);
     }
-    ogTitle.setAttribute('content', config.ogTitle || config.title);
+    ogTitle.setAttribute('content', config.ogTitle);
 
     // Update OG description
     let ogDesc = document.querySelector('meta[property="og:description"]');
@@ -39,34 +75,15 @@ export const useSEO = (config: SEOConfig) => {
       ogDesc.setAttribute('property', 'og:description');
       document.head.appendChild(ogDesc);
     }
-    ogDesc.setAttribute('content', config.ogDescription || config.description);
+    ogDesc.setAttribute('content', config.ogDescription);
 
-    // Update canonical URL
-    if (config.canonicalUrl) {
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
-      }
-      canonical.setAttribute('href', config.canonicalUrl);
+    // Update OG image
+    let ogImage = document.querySelector('meta[property="og:image"]');
+    if (!ogImage) {
+      ogImage = document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      document.head.appendChild(ogImage);
     }
-
-    // Update Twitter card
-    let twitterTitle = document.querySelector('meta[name="twitter:title"]');
-    if (!twitterTitle) {
-      twitterTitle = document.createElement('meta');
-      twitterTitle.setAttribute('name', 'twitter:title');
-      document.head.appendChild(twitterTitle);
-    }
-    twitterTitle.setAttribute('content', config.ogTitle || config.title);
-
-    let twitterDesc = document.querySelector('meta[name="twitter:description"]');
-    if (!twitterDesc) {
-      twitterDesc = document.createElement('meta');
-      twitterDesc.setAttribute('name', 'twitter:description');
-      document.head.appendChild(twitterDesc);
-    }
-    twitterDesc.setAttribute('content', config.ogDescription || config.description);
+    ogImage.setAttribute('content', config.ogImage || 'https://i.imgur.com/KTSBU1c.png');
   }, [config]);
 };
