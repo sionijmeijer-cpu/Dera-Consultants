@@ -21,6 +21,31 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
         </div>
       </section>
 
+      {/* About Us Description */}
+      <section className="py-16 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">About Us</h2>
+          
+          <div className="space-y-6 text-gray-700 leading-relaxed">
+            <p className="text-lg">
+              Dera Consultants is a trusted global advisory firm specializing in Citizenship by Investment and European residency programs. We help individuals and families gain greater freedom, security, and opportunity through carefully selected second-citizenship and residency pathways.
+            </p>
+            
+            <p className="text-lg">
+              Our approach is both expert and personalized. We combine deep knowledge of Caribbean CBI programs and leading European residency options with a professional, concierge-style service designed to make the process clear, efficient, and stress-free. From program selection and document preparation to government submission and final approval, we handle every step with precision and transparency.
+            </p>
+            
+            <p className="text-lg">
+              We work only with accredited partners and authorized legal professionals to ensure compliance, confidentiality, and the highest standards of integrity. Whether your goal is enhanced global mobility, long-term stability, or a strategic international investment, our role is to guide you with honest advice and reliable expertise.
+            </p>
+            
+            <p className="text-lg font-semibold text-[#0f3460]">
+              At Dera Consultants, we believe obtaining a second passport is more than a legal procedure, it is a meaningful investment in your future and your freedom.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

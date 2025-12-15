@@ -8,6 +8,8 @@ import CaribbeanPage from './pages/CaribbeanPage';
 import PortugalPage from './pages/PortugalPage';
 import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
 import ScheduleCallModal from './components/ScheduleCallModal';
 
 function App() {
@@ -67,6 +69,10 @@ function App() {
       return <FAQPage />;
     } else if (path === '/contact') {
       return <ContactPage />;
+    } else if (path === '/blog') {
+      return <BlogPage />;
+    } else if (path.startsWith('/blog/')) {
+      return <BlogPostPage />;
     }
     
     // Default to home page

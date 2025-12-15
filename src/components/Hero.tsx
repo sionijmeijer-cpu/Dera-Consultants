@@ -1,5 +1,5 @@
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface HeroProps {
   onScheduleCall: () => void;
@@ -47,6 +47,7 @@ const testimonials = [
 
 export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % (testimonials.length - 2));
@@ -54,6 +55,28 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + (testimonials.length - 2)) % (testimonials.length - 2));
+  };
+
+  // Auto-swipe every 4 seconds
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, isAutoPlaying]);
+
+  const handleManualNavigation = (direction: 'prev' | 'next') => {
+    setIsAutoPlaying(false);
+    if (direction === 'next') {
+      nextSlide();
+    } else {
+      prevSlide();
+    }
+    // Resume auto-play after 10 seconds
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const visibleTestimonials = [
@@ -118,10 +141,10 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
           </div>
 
           {/* Carousel */}
-          <div className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="relative overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 ease-in-out">
               {visibleTestimonials.map((testimonial, index) => (
-                <div key={index} className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div key={index} className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-700 transform animate-fade-in">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 bg-[#0f3460] text-white rounded-full flex items-center justify-center font-bold text-lg">
                       {testimonial.initials}
@@ -143,17 +166,37 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
 
             {/* Navigation Arrows */}
             <button
-              onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg hidden lg:block"
+              onClick={() => handleManualNavigation('prev')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 hidden lg:block"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
-              onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-colors duration-200 shadow-lg hidden lg:block"
+              onClick={() => handleManualNavigation('next')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 bg-[#0f3460] text-white p-2 rounded-full hover:bg-[#0d2540] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 hidden lg:block"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
+            
+            {/* Pagination Dots */}
+            <div className="flex justify-center gap-2 mt-8">
+              {Array.from({ length: testimonials.length - 2 }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentIndex(index);
+                    setIsAutoPlaying(false);
+                    setTimeout(() => setIsAutoPlaying(true), 10000);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex 
+                      ? 'bg-[#0f3460] w-8' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="text-center mt-12">

@@ -13,6 +13,7 @@ export default function Header({ onScheduleCall }: HeaderProps) {
     { name: 'About Us', path: '/about-us' },
     { name: 'Caribbean CBI', path: '/caribbean-citizenship-by-investment' },
     { name: 'Portugal & Europe', path: '/portugal-europe-residency' },
+    { name: 'Blog', path: '/blog' },
     { name: 'FAQ', path: '/faq' },
   ];
 
