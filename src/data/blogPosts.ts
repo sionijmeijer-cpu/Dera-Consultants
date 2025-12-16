@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     category: "Caribbean CBI",
     tags: ["Caribbean", "CBI", "Citizenship", "Comparison"],
     readTime: "8 min read",
-    image: "/images/caribbean-destination.png",
+    image: "https://i.imgur.com/8TKnafK.jpeg",
     content: `
 # Comparing the Caribbean CBI Programmes: Which One is Right for You?
 
@@ -153,7 +153,7 @@ Choosing the right Caribbean CBI programme depends on your specific circumstance
     category: "European Residency",
     tags: ["Portugal", "D7 Visa", "European Residency", "Guide"],
     readTime: "10 min read",
-    image: "/images/portugal-destination.png",
+    image: "https://i.imgur.com/VbPqNqM.jpeg",
     content: `
 # How to Apply for Portugal's D7 Visa: A Complete Step-by-Step Guide
 
@@ -353,7 +353,7 @@ We ensure your application is complete, accurate, and optimized for approval.
     category: "Tax & Legal",
     tags: ["Tax", "Second Citizenship", "CBI", "Financial Planning"],
     readTime: "12 min read",
-    image: "/images/document-process.png",
+    image: "https://i.imgur.com/LMcXfax.jpeg",
     content: `
 # Second Citizenship Tax Implications: What You Need to Know
 
@@ -609,7 +609,7 @@ The tax implications of second citizenship vary greatly depending on your curren
     category: "European Residency",
     tags: ["Portugal", "Golden Visa", "D7 Visa", "Comparison"],
     readTime: "9 min read",
-    image: "/images/portugal-golden.png",
+    image: "https://i.imgur.com/fLWqjkz.jpeg",
     content: `
 # Portugal Golden Visa vs D7 Visa: Which is Right for You?
 
@@ -890,7 +890,7 @@ Both programmes lead to the same destination - Portuguese residency and eventual
     category: "Caribbean CBI",
     tags: ["Caribbean", "CBI", "Benefits", "Global Mobility"],
     readTime: "7 min read",
-    image: "/images/caribbean-hero.png",
+    image: "https://i.imgur.com/FLsLEXp.jpeg",
     content: `
 # Top 5 Benefits of Caribbean Citizenship in 2024
 
