@@ -1,6 +1,14 @@
 User-agent: *
 Allow: /
+
+# Block internal endpoints
 Disallow: /api/
 Disallow: /.shipper/
+
+# Allow Shipper monitoring script
+Allow: /.shipper/monitor.js
+
+# Block debug artifacts
+Disallow: /*.map$
 
 Sitemap: https://www.getsecondpassport.eu/sitemap.xml
