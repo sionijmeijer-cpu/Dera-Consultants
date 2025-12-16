@@ -1,13 +1,63 @@
-import { useState } from 'react';
-import { Calendar, Clock, Tag, ArrowRight, Search } from 'lucide-react';
+import { useState, useEffect, FormEvent } from 'react';
+import { Calendar, Clock, Tag, ArrowRight, Search, Mail } from 'lucide-react';
 import { blogPosts, blogCategories } from '../data/blogPosts';
 import { Button } from './ui/button';
+import emailjs from '@emailjs/browser';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [email, setEmail] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (EMAILJS_PUBLIC_KEY !== 'public_key_placeholder') {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+  }, []);
+
+  const handleSubscribe = async (e: FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: 'Blog Subscriber',
+          email: email,
+          phone: 'N/A',
+          country: 'N/A',
+          service: 'Newsletter Subscription',
+          message: `New subscriber from: Blog Listing Page\n\nPage URL: ${window.location.href}\n\nTimestamp: ${new Date().toLocaleString()}`
+        }
+      );
+      
+      setShowSuccessModal(true);
+      setEmail('');
+    } catch (error) {
+      console.error('Subscription failed:', error);
+      setError('Subscription failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
@@ -19,52 +69,82 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-amber-50">
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={() => setShowSuccessModal(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            {/* Large X button in top right */}
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+              aria-label="Close"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">You're Now Subscribed!</h3>
+              <p className="text-gray-600 mb-6">Thank you for subscribing to our newsletter. You'll receive the latest updates on citizenship and immigration opportunities.</p>
+              <Button
+                onClick={() => setShowSuccessModal(false)}
+                className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460]"
+              >
+                Continue Reading
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+      <section className="bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Citizenship & Residency Insights
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
+              Immigration Insights & News
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-              Expert guides, comparisons, and analysis on global citizenship programs, 
-              European residency, and international mobility
+              Expert analysis, program updates, and success stories from the world of citizenship by investment
             </p>
             
             {/* Search Bar */}
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="Search articles by keyword, topic, or country..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-6 text-lg bg-white/10 border-white/20 text-white placeholder:text-blue-200 focus:bg-white/20 focus:border-white/40"
-                />
-              </div>
+            <div className="max-w-2xl mx-auto relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search articles..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#d4af37] shadow-lg"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Category Filter */}
-      <section className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+      <section className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-2 justify-center">
             {blogCategories.map((category) => (
-              <Button
+              <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                variant={selectedCategory === category ? 'default' : 'outline'}
-                className={`rounded-full transition-all duration-200 ${
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
                   selectedCategory === category
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                    ? 'bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 {category}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
@@ -75,50 +155,37 @@ export default function Blog() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredPosts.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-xl text-gray-600">No articles found matching your criteria.</p>
-              <Button
-                onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory('All');
-                }}
-                variant="outline"
-                className="mt-4"
-              >
-                Clear Filters
-              </Button>
+              <div className="text-gray-400 mb-4">
+                <Search className="w-16 h-16 mx-auto" />
+              </div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-2">No articles found</h3>
+              <p className="text-gray-600">Try adjusting your search or filter criteria</p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map((post) => (
                 <article
                   key={post.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
+                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-100"
                 >
-                  {/* Featured Image */}
-                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-100 to-amber-100">
+                  <div className="relative h-48 overflow-hidden">
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                     />
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-blue-600 text-white">
+                      <Badge className="bg-[#d4af37] text-white hover:bg-[#c9a02e]">
                         {post.category}
                       </Badge>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-6 flex-1 flex flex-col">
-                    {/* Meta Info */}
+                  <div className="p-6">
                     <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
-                        <span>{new Date(post.publishDate).toLocaleDateString('en-US', { 
-                          year: 'numeric', 
-                          month: 'short', 
-                          day: 'numeric' 
-                        })}</span>
+                        <span>{post.publishDate}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
@@ -126,103 +193,72 @@ export default function Blog() {
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {post.title}
-                    </h2>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-[#0f3460] transition-colors">
+                      <a href={`/blog/${post.slug}`}>{post.title}</a>
+                    </h3>
 
-                    {/* Excerpt */}
-                    <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
-                      {post.excerpt}
-                    </p>
+                    <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
 
-                    {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {post.tags.slice(0, 3).map((tag) => (
-                        <div
-                          key={tag}
-                          className="flex items-center gap-1 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full"
+                      {post.tags.slice(0, 3).map((tag, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium"
                         >
                           <Tag className="w-3 h-3" />
                           {tag}
-                        </div>
+                        </span>
                       ))}
                     </div>
 
-                    {/* Read More Link */}
                     <a
                       href={`/blog/${post.slug}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.history.pushState({}, '', `/blog/${post.slug}`);
-                        window.dispatchEvent(new PopStateEvent('popstate'));
-                      }}
-                      className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200 cursor-pointer"
+                      className="inline-flex items-center gap-2 text-[#0f3460] font-semibold hover:text-[#d4af37] transition-colors group"
                     >
-                      Read Full Article
-                      <ArrowRight className="w-4 h-4" />
+                      Read More
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </div>
                 </article>
               ))}
             </div>
           )}
-
-          {/* SEO Text Section */}
-          <div className="mt-16 bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Your Guide to Global Citizenship and Residency
-            </h2>
-            <div className="prose prose-blue max-w-none text-gray-600">
-              <p className="mb-4">
-                Welcome to the Dera Consultants blog, your comprehensive resource for everything 
-                related to Citizenship by Investment (CBI) and European residency programs. Our 
-                expert team regularly publishes in-depth guides, program comparisons, and practical 
-                advice to help you navigate your journey to global citizenship.
-              </p>
-              <p className="mb-4">
-                Whether you're exploring Caribbean CBI programs like St. Kitts and Nevis, Grenada, 
-                or Dominica, or considering European residency options such as Portugal's Golden 
-                Visa or D7 Visa, our articles provide the detailed information you need to make 
-                informed decisions.
-              </p>
-              <p>
-                We cover critical topics including tax implications of second citizenship, 
-                visa-free travel benefits, investment requirements, application processes, and 
-                strategic planning for families seeking enhanced global mobility and security.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Newsletter CTA Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-16">
+      {/* Newsletter Section */}
+      <section className="py-16 bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Stay Updated on Citizenship & Residency News
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Get expert insights, program updates, and exclusive guides delivered to your inbox
-          </p>
-          <div className="max-w-md mx-auto">
-            <div className="flex gap-3">
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-4 py-6 text-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-amber-500"
-              />
-              <Button 
-                size="lg" 
-                className="bg-amber-500 text-white hover:bg-amber-600 px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 whitespace-nowrap"
-              >
-                Subscribe
-              </Button>
-            </div>
-            <p className="text-sm text-blue-200 mt-3">
-              Join 5,000+ subscribers. Unsubscribe anytime. No spam, guaranteed.
+          <div className="mb-8">
+            <Mail className="w-16 h-16 mx-auto mb-4 text-[#d4af37]" />
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Stay Updated</h2>
+            <p className="text-xl text-blue-100">
+              Subscribe to our newsletter for the latest citizenship and immigration insights
             </p>
           </div>
+
+          <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 px-6 py-3 rounded-full text-gray-900 border-2 border-white focus:border-[#d4af37] focus:ring-2 focus:ring-[#d4af37]"
+              />
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="px-8 py-3 bg-[#d4af37] text-[#0f3460] rounded-full font-semibold hover:bg-[#c9a02e] transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap disabled:opacity-50"
+              >
+                {isLoading ? 'Subscribing...' : 'Subscribe'}
+              </Button>
+            </div>
+            {error && (
+              <p className="mt-3 text-red-300 text-sm">{error}</p>
+            )}
+          </form>
         </div>
       </section>
     </div>
