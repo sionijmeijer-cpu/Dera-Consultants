@@ -609,7 +609,7 @@ The tax implications of second citizenship vary greatly depending on your curren
     category: "European Residency",
     tags: ["Portugal", "Golden Visa", "D7 Visa", "Comparison"],
     readTime: "9 min read",
-    image: "https://i.imgur.com/fLWqjkz.jpeg",
+    image: "/images/portugal-golden.png",
     content: `
 # Portugal Golden Visa vs D7 Visa: Which is Right for You?
 
