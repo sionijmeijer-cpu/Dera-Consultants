@@ -24,6 +24,13 @@ export default function Blog() {
     }
   }, []);
 
+  // Navigate function for internal links
+  const navigateTo = (path: string) => {
+    window.history.pushState({}, '', path);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo(0, 0);
+  };
+
   const handleSubscribe = async (e: FormEvent) => {
     e.preventDefault();
     
@@ -166,13 +173,14 @@ export default function Blog() {
               {filteredPosts.map((post) => (
                 <article
                   key={post.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-100"
+                  onClick={() => navigateTo(`/blog/${post.slug}`)}
+                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-100 cursor-pointer group"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute top-4 right-4">
                       <Badge className="bg-[#d4af37] text-white hover:bg-[#c9a02e]">
@@ -193,8 +201,8 @@ export default function Blog() {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-[#0f3460] transition-colors">
-                      <a href={`/blog/${post.slug}`}>{post.title}</a>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#0f3460] transition-colors">
+                      {post.title}
                     </h3>
 
                     <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
@@ -211,13 +219,10 @@ export default function Blog() {
                       ))}
                     </div>
 
-                    <a
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-[#0f3460] font-semibold hover:text-[#d4af37] transition-colors group"
-                    >
-                      Read More
+                    <span className="inline-flex items-center gap-2 text-[#0f3460] font-semibold group-hover:text-[#d4af37] transition-colors">
+                      Read Article
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </a>
+                    </span>
                   </div>
                 </article>
               ))}
