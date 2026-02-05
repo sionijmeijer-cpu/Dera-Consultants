@@ -87,6 +87,19 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
 
   return (
     <div className="bg-white">
+      <style>{`
+        @keyframes flash {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
+          }
+          50% { 
+            box-shadow: 0 0 40px rgba(212, 175, 55, 1), 0 0 80px rgba(212, 175, 55, 0.6);
+          }
+        }
+        .flash-button { 
+          animation: flash 2s ease-in-out infinite;
+        }
+      `}</style>
       {/* Hero Section - Responsive Layout */}
       <section className="relative bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540] text-white">
         <div className="flex flex-col lg:flex-row items-center lg:min-h-[550px]">
@@ -98,21 +111,13 @@ export default function Hero({ onScheduleCall, setCurrentPage }: HeroProps) {
             <p className="text-base sm:text-lg lg:text-xl mb-8 text-blue-100">
               Expert immigration consultants specializing in Caribbean CBI and European residency programs
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button 
-                onClick={onScheduleCall}
-                className="bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
-              >
-                Get Started
-                <ArrowRight className="w-5 h-5" />
-              </button>
-              <a 
-                href="/about-us"
-                className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-white hover:text-[#0f3460] transition-all duration-200 flex items-center justify-center gap-2 w-full sm:w-auto"
-              >
-                Learn More
-              </a>
-            </div>
+            <button 
+              onClick={onScheduleCall}
+              className="flash-button bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-8 sm:px-10 py-4 sm:py-5 rounded-lg font-bold text-lg hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 hover:shadow-2xl transform hover:scale-110 flex items-center justify-center gap-2 w-full sm:w-auto"
+            >
+              Get Consultation Now
+              <ArrowRight className="w-6 h-6" />
+            </button>
           </div>
 
           {/* Right Content - Hero Image */}
