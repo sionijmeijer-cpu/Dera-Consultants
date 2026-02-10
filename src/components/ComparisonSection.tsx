@@ -98,6 +98,9 @@ export default function ComparisonSection() {
 
         {/* CTA Section */}
         <div className="mt-16 text-center">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+            Ready to transform your citizenship journey?
+          </p>
           <button
             onClick={() => {
               const event = new CustomEvent('openScheduleModal');
@@ -107,7 +110,7 @@ export default function ComparisonSection() {
                        hover:bg-[#e8dcc4] hover:shadow-xl hover:scale-105
                        transition-all duration-200 shadow-md"
           >
-            Become a client today
+            Get Your Personalized Plan
           </button>
         </div>
       </div>

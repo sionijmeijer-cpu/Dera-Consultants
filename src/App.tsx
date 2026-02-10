@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import Hero from './components/Hero';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
-import ComparisonSection from './components/ComparisonSection';
+import Services from './components/Services';
 
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ProgramsPage = lazy(() => import('./pages/ProgramsPage'));
@@ -56,7 +56,7 @@ function HomePage() {
       <Hero onScheduleCall={handleScheduleCall} />
       <Process />
       <Testimonials />
-      <ComparisonSection />
+      <Services />
     </div>
   );
 }
