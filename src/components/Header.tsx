@@ -1,4 +1,4 @@
-import { Menu, X, Mail } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
@@ -9,30 +9,14 @@ export default function Header({ onScheduleCall }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about-us' },
-    { name: 'Caribbean CBI', path: '/caribbean-citizenship-by-investment' },
-    { name: 'Portugal & Europe', path: '/portugal-europe-residency' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'FAQ', path: '/faq' },
+    { name: 'Company', path: '/about-us', bold: true },
+    { name: 'Programs', path: '/programs', bold: true },
+    { name: 'Articles', path: '/blog', bold: true },
+    { name: 'Research', path: '/faq', bold: true },
   ];
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      {/* Top Bar */}
-      <div className="bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-end items-center gap-4 sm:gap-6 text-sm">
-            <a href="mailto:info@getsecondpassport.eu" className="flex items-center gap-2 hover:text-[#d4af37] transition-colors duration-200" title="Email">
-              <Mail className="w-5 h-5" />
-            </a>
-            <a href="https://wa.me/31629566895" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#d4af37] transition-colors duration-200" title="WhatsApp">
-              <img src="https://www.svgrepo.com/show/299482/whatsapp.svg" alt="WhatsApp" className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-5">
@@ -52,8 +36,8 @@ export default function Header({ onScheduleCall }: HeaderProps) {
               className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
             />
             <div className="hidden sm:flex items-center gap-1 md:gap-2">
-              <div className="text-sm md:text-base lg:text-lg font-bold text-blue-700 whitespace-nowrap">DERA</div>
-              <div className="text-xs md:text-sm lg:text-base font-bold text-blue-700 whitespace-nowrap">CONSULTANTS</div>
+              <div className="text-sm md:text-base lg:text-lg font-bold text-gray-600 whitespace-nowrap">DERA</div>
+              <div className="text-xs md:text-sm lg:text-base font-bold text-gray-600 whitespace-nowrap">CONSULTANTS</div>
             </div>
           </a>
 
@@ -63,16 +47,21 @@ export default function Header({ onScheduleCall }: HeaderProps) {
               <a
                 key={link.path}
                 href={link.path}
-                className="text-base font-medium transition-all duration-200 whitespace-nowrap text-gray-600 hover:text-[#0f3460]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = link.path;
+                  window.scrollTo(0, 0);
+                }}
+                className={`text-base transition-all duration-200 whitespace-nowrap text-gray-600 hover:text-[#0f3460] ${link.bold ? 'font-bold' : 'font-medium'}`}
               >
                 {link.name}
               </a>
             ))}
             <button
               onClick={onScheduleCall}
-              className="bg-[#d4af37] text-[#0f3460] px-6 py-3 rounded-md hover:bg-[#c9a02e] transition-all duration-300 shadow-md hover:shadow-lg font-semibold whitespace-nowrap"
+              className="bg-[#d4af37] text-[#0f3460] px-6 py-3 rounded-md hover:bg-[#c9a02e] transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] font-semibold whitespace-nowrap relative"
             >
-              Schedule a Call
+              Become a Client
             </button>
           </nav>
 
@@ -97,8 +86,13 @@ export default function Header({ onScheduleCall }: HeaderProps) {
                 <a
                   key={link.path}
                   href={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-left px-4 py-3 rounded-md transition-colors duration-200 text-sm font-medium text-gray-600 hover:bg-gray-100"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = link.path;
+                    window.scrollTo(0, 0);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`text-left px-4 py-3 rounded-md transition-colors duration-200 text-sm text-gray-600 hover:bg-gray-100 ${link.bold ? 'font-bold' : 'font-medium'}`}
                 >
                   {link.name}
                 </a>
@@ -108,9 +102,9 @@ export default function Header({ onScheduleCall }: HeaderProps) {
                   onScheduleCall();
                   setMobileMenuOpen(false);
                 }}
-                className="bg-[#d4af37] text-[#0f3460] px-4 py-3 rounded-md hover:bg-[#c9a02e] transition-all duration-300 font-semibold text-sm mt-2"
+                className="bg-[#d4af37] text-[#0f3460] px-4 py-3 rounded-md hover:bg-[#c9a02e] transition-all duration-300 font-semibold text-sm mt-2 shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:shadow-[0_0_30px_rgba(212,175,55,0.8)]"
               >
-                Schedule a Call
+                Become a Client
               </button>
             </nav>
           </div>
