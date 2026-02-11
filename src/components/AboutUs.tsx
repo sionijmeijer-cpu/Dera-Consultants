@@ -54,10 +54,10 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 hover:border-[#d4af37] transition-all duration-300">
+            <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 hover:border-[#1B7A4E] transition-all duration-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                <div className="bg-[#d4af37] w-12 h-12 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6 text-[#0f3460]" />
+                <div className="bg-[#1B7A4E] w-12 h-12 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
                 Trusted Expertise
               </h3>
@@ -68,8 +68,8 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
 
             <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 hover:border-[#0f3460] transition-all duration-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                <div className="bg-[#dce7f0] w-12 h-12 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6 text-[#0f3460]" />
+                <div className="bg-[#1B7A4E] w-12 h-12 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
                 Personalized Support
               </h3>
@@ -78,10 +78,10 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 hover:border-[#d4af37] transition-all duration-300">
+            <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 hover:border-[#1B7A4E] transition-all duration-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                <div className="bg-[#d4af37] w-12 h-12 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6 text-[#0f3460]" />
+                <div className="bg-[#1B7A4E] w-12 h-12 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
                 End-to-End Guidance
               </h3>
@@ -92,8 +92,8 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
 
             <div className="bg-gray-50 rounded-xl p-8 border border-gray-200 hover:border-[#0f3460] transition-all duration-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                <div className="bg-[#dce7f0] w-12 h-12 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-6 h-6 text-[#0f3460]" />
+                <div className="bg-[#1B7A4E] w-12 h-12 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
                 Transparent & Honest
               </h3>
@@ -118,7 +118,7 @@ export default function AboutUs({ onScheduleCall }: AboutUsProps) {
           <p className="text-xl text-blue-100 mb-8">
             Schedule a free consultation with our experts today and explore your options
           </p>
-          <button onClick={onScheduleCall} className="bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-8 py-4 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+          <button onClick={onScheduleCall} className="bg-[#1B7A4E] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
             Schedule Free Consultation
           </button>
         </div>

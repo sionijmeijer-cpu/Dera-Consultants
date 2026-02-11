@@ -13,7 +13,7 @@ export default function Footer() {
                 alt="Dera Consultants Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-blue-700">DERA CONSULTANTS</span>
+              <span className="text-gray-400">DERA CONSULTANTS</span>
             </h2>
             <p className="text-sm mb-4">
               Your trusted partner for immigration and residency programs across the Caribbean, Portugal, and Europe.
@@ -25,32 +25,32 @@ export default function Footer() {
             <h3 className="text-white text-lg font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   Home
                 </a>
               </li>
               <li>
-                <a href="/about-us" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/about-us" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="/caribbean-citizenship-by-investment" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/caribbean-citizenship-by-investment" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   Caribbean CBI
                 </a>
               </li>
               <li>
-                <a href="/portugal-europe-residency" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/portugal-europe-residency" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   Portugal & Europe
                 </a>
               </li>
               <li>
-                <a href="/faq" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/faq" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   FAQ
                 </a>
               </li>
               <li>
-                <a href="/contact" className="hover:text-[#d4af37] transition-colors duration-200">
+                <a href="/contact" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   Contact
                 </a>
               </li>
@@ -62,26 +62,26 @@ export default function Footer() {
             <h3 className="text-white text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
-                <Mail className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#d4af37]" />
-                <a href="mailto:info@getsecondpassport.eu" className="hover:text-[#d4af37] transition-colors duration-200 break-all">
+                <Mail className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#1B7A4E]" />
+                <a href="mailto:info@getsecondpassport.eu" className="hover:text-[#1B7A4E] transition-colors duration-200 break-all">
                   info@getsecondpassport.eu
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#d4af37]" />
-                <a href="tel:+31629566895" className="hover:text-[#d4af37] transition-colors duration-200">
+                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#1B7A4E]" />
+                <a href="tel:+31629566895" className="hover:text-[#1B7A4E] transition-colors duration-200">
                   +31 6 29 566 895
                 </a>
               </li>
             </ul>
             <div className="flex gap-4 mt-4">
-              <a href="https://www.facebook.com/profile.php?id=100095517183538" target="_blank" rel="noopener noreferrer" className="hover:text-[#d4af37] transition-colors duration-200">
+              <a href="https://www.facebook.com/profile.php?id=100095517183538" target="_blank" rel="noopener noreferrer" className="hover:text-[#1B7A4E] transition-colors duration-200">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/deraconsultants/" target="_blank" rel="noopener noreferrer" className="hover:text-[#d4af37] transition-colors duration-200">
+              <a href="https://www.instagram.com/deraconsultants/" target="_blank" rel="noopener noreferrer" className="hover:text-[#1B7A4E] transition-colors duration-200">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://www.linkedin.com/company/dera-consultants" target="_blank" rel="noopener noreferrer" className="hover:text-[#d4af37] transition-colors duration-200">
+              <a href="https://www.linkedin.com/company/dera-consultants" target="_blank" rel="noopener noreferrer" className="hover:text-[#1B7A4E] transition-colors duration-200">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
@@ -90,7 +90,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#1a5276] mt-8 pt-8 text-sm text-center">
-          <p>&copy; 2020 Dera Consultants. All rights reserved. | <span className="text-[#d4af37]">Excellence in Global Immigration Solutions</span></p>
+          <p>&copy; 2020 Dera Consultants. All rights reserved. | <span className="text-[#1B7A4E]">Excellence in Global Immigration Solutions</span></p>
         </div>
       </div>
     </footer>

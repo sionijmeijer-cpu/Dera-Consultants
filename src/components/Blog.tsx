@@ -24,7 +24,6 @@ export default function Blog() {
     }
   }, []);
 
-  // Navigate function for internal links
   const navigateTo = (path: string) => {
     window.history.pushState({}, '', path);
     window.dispatchEvent(new PopStateEvent('popstate'));
@@ -75,12 +74,11 @@ export default function Blog() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={() => setShowSuccessModal(false)}>
           <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in" onClick={(e) => e.stopPropagation()}>
-            {/* Large X button in top right */}
             <button
               onClick={() => setShowSuccessModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200"
@@ -101,7 +99,7 @@ export default function Blog() {
               <p className="text-gray-600 mb-6">Thank you for subscribing to our newsletter. You'll receive the latest updates on citizenship and immigration opportunities.</p>
               <Button
                 onClick={() => setShowSuccessModal(false)}
-                className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460]"
+                className="w-full bg-[#1B7A4E] text-white hover:bg-[#156B3F]"
               >
                 Continue Reading
               </Button>
@@ -121,7 +119,6 @@ export default function Blog() {
               Expert analysis, program updates, and success stories from the world of citizenship by investment
             </p>
             
-            {/* Search Bar */}
             <div className="max-w-2xl mx-auto relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -129,7 +126,7 @@ export default function Blog() {
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#d4af37] shadow-lg"
+                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1B7A4E] shadow-lg"
               />
             </div>
           </div>
@@ -183,7 +180,7 @@ export default function Blog() {
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-[#d4af37] text-white hover:bg-[#c9a02e]">
+                      <Badge className="bg-[#1B7A4E] text-white hover:bg-[#156B3F]">
                         {post.category}
                       </Badge>
                     </div>
@@ -219,7 +216,7 @@ export default function Blog() {
                       ))}
                     </div>
 
-                    <span className="inline-flex items-center gap-2 text-[#0f3460] font-semibold group-hover:text-[#d4af37] transition-colors">
+                    <span className="inline-flex items-center gap-2 text-[#0f3460] font-semibold group-hover:text-[#1B7A4E] transition-colors">
                       Read Article
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </span>
@@ -235,7 +232,7 @@ export default function Blog() {
       <section className="py-16 bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <Mail className="w-16 h-16 mx-auto mb-4 text-[#d4af37]" />
+            <Mail className="w-16 h-16 mx-auto mb-4 text-[#1B7A4E]" />
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Stay Updated</h2>
             <p className="text-xl text-blue-100">
               Subscribe to our newsletter for the latest citizenship and immigration insights
@@ -250,12 +247,12 @@ export default function Blog() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 px-6 py-3 rounded-full text-gray-900 border-2 border-white focus:border-[#d4af37] focus:ring-2 focus:ring-[#d4af37]"
+                className="flex-1 px-6 py-3 rounded-full text-gray-900 border-2 border-white focus:border-[#1B7A4E] focus:ring-2 focus:ring-[#1B7A4E]"
               />
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="px-8 py-3 bg-[#d4af37] text-[#0f3460] rounded-full font-semibold hover:bg-[#c9a02e] transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap disabled:opacity-50"
+                className="px-8 py-3 bg-[#1B7A4E] text-white rounded-full font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap disabled:opacity-50"
               >
                 {isLoading ? 'Subscribing...' : 'Subscribe'}
               </Button>

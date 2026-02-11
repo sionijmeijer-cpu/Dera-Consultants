@@ -69,10 +69,10 @@ export default function ComparisonSection() {
           </div>
 
           {/* After Card */}
-          <div className="bg-gradient-to-br from-[#d4af37]/10 to-[#d4af37]/5 dark:from-[#d4af37]/20 dark:to-[#d4af37]/10 rounded-2xl p-8 lg:p-10 border-2 border-[#d4af37]">
+          <div className="bg-gradient-to-br from-[#1B7A4E]/10 to-[#1B7A4E]/5 dark:from-[#1B7A4E]/20 dark:to-[#1B7A4E]/10 rounded-2xl p-8 lg:p-10 border-2 border-[#1B7A4E]">
             <div className="flex items-center gap-3 mb-8">
-              <div className="bg-[#d4af37]/20 dark:bg-[#d4af37]/30 w-12 h-12 rounded-lg flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-[#d4af37]" />
+              <div className="bg-[#1B7A4E]/20 dark:bg-[#1B7A4E]/30 w-12 h-12 rounded-lg flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-[#1B7A4E]" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Working With Us
@@ -82,9 +82,9 @@ export default function ComparisonSection() {
             <div className="space-y-6">
               {/* Group points in pairs */}
               {[0, 2, 4, 6, 8].map((index) => (
-                <div key={index} className="pb-6 border-b border-[#d4af37]/30 dark:border-[#d4af37]/40 last:border-b-0 last:pb-0">
+                <div key={index} className="pb-6 border-b border-[#1B7A4E]/30 dark:border-[#1B7A4E]/40 last:border-b-0 last:pb-0">
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-lg flex items-center gap-2">
-                    <span className="text-[#d4af37]">✓</span>
+                    <span className="text-[#1B7A4E]">✓</span>
                     {afterPoints[index]}
                   </h4>
                   <p className="text-gray-600 dark:text-gray-400">
@@ -98,19 +98,16 @@ export default function ComparisonSection() {
 
         {/* CTA Section */}
         <div className="mt-16 text-center">
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            Ready to transform your citizenship journey?
-          </p>
           <button
             onClick={() => {
               const event = new CustomEvent('openScheduleModal');
               window.dispatchEvent(event);
             }}
-            className="px-8 py-4 bg-[#d4af37] text-[#0f3460] font-semibold rounded-lg
-                       hover:bg-[#e8dcc4] hover:shadow-xl hover:scale-105
+            className="px-8 py-4 bg-[#1B7A4E] text-white font-semibold rounded-lg
+                       hover:bg-[#156B3F] hover:shadow-xl hover:scale-105
                        transition-all duration-200 shadow-md"
           >
-            Get Your Personalized Plan
+            Become a client today
           </button>
         </div>
       </div>

@@ -98,7 +98,7 @@ export default function Testimonials() {
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-5 h-5 fill-[#d4af37] text-[#d4af37]"
+                      className="w-5 h-5 fill-[#1B7A4E] text-[#1B7A4E]"
                     />
                   ))}
                 </div>
@@ -110,7 +110,7 @@ export default function Testimonials() {
 
                 {/* Client Info */}
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#d4af37] to-[#e0c158] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                     {testimonial.initials}
                   </div>
                   <div>
@@ -129,7 +129,7 @@ export default function Testimonials() {
             onClick={goToPrevious}
             onMouseEnter={() => setAutoPlay(false)}
             onMouseLeave={() => setAutoPlay(true)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 sm:-translate-x-20 bg-[#d4af37] hover:bg-[#e0c158] text-white p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 sm:-translate-x-20 bg-[#1B7A4E] hover:bg-[#156B3F] text-white p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
             aria-label="Previous testimonials"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -139,7 +139,7 @@ export default function Testimonials() {
             onClick={goToNext}
             onMouseEnter={() => setAutoPlay(false)}
             onMouseLeave={() => setAutoPlay(true)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 sm:translate-x-20 bg-[#d4af37] hover:bg-[#e0c158] text-white p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 sm:translate-x-20 bg-[#1B7A4E] hover:bg-[#156B3F] text-white p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
             aria-label="Next testimonials"
           >
             <ChevronRight className="w-6 h-6" />
@@ -154,7 +154,7 @@ export default function Testimonials() {
               onClick={() => goToSlide(index)}
               className={`h-3 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? 'bg-[#d4af37] w-8'
+                  ? 'bg-[#1B7A4E] w-8'
                   : 'bg-gray-300 dark:bg-gray-600 w-3 hover:bg-gray-400 dark:hover:bg-gray-500'
               }`}
               aria-label={`Go to testimonial ${index + 1}`}

@@ -59,7 +59,7 @@ export default function Header({ onScheduleCall }: HeaderProps) {
             ))}
             <button
               onClick={onScheduleCall}
-              className="bg-[#d4af37] text-[#0f3460] px-6 py-3 rounded-md hover:bg-[#c9a02e] transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:shadow-[0_0_30px_rgba(212,175,55,0.8)] font-semibold whitespace-nowrap relative"
+              className="bg-[#1B7A4E] text-white px-6 py-3 rounded-md hover:bg-[#156B3F] transition-all duration-300 shadow-md hover:shadow-lg font-semibold whitespace-nowrap"
             >
               Become a Client
             </button>
@@ -102,7 +102,7 @@ export default function Header({ onScheduleCall }: HeaderProps) {
                   onScheduleCall();
                   setMobileMenuOpen(false);
                 }}
-                className="bg-[#d4af37] text-[#0f3460] px-4 py-3 rounded-md hover:bg-[#c9a02e] transition-all duration-300 font-semibold text-sm mt-2 shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:shadow-[0_0_30px_rgba(212,175,55,0.8)]"
+                className="bg-[#1B7A4E] text-white px-4 py-3 rounded-md hover:bg-[#156B3F] transition-all duration-300 font-semibold text-sm mt-2 shadow-md hover:shadow-lg"
               >
                 Become a Client
               </button>

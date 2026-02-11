@@ -104,7 +104,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-6">
-                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-200 border-l-4 border-[#d4af37]">
+                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-200 border-l-4 border-[#1B7A4E]">
                   <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="w-6 h-6" />
                   </div>
@@ -130,7 +130,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-200 border-l-4 border-[#d4af37]">
+                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-200 border-l-4 border-[#1B7A4E]">
                   <div className="bg-gradient-to-br from-[#0f3460] to-[#1a5276] text-white w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6" />
                   </div>
@@ -160,7 +160,7 @@ export default function Contact() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-gradient-to-br from-[#f5f5f5] to-[#e8dcc4] p-4 sm:p-8 rounded-2xl shadow-lg">
+            <div className="bg-gradient-to-br from-[#f5f5f5] to-[#e8f0e8] p-4 sm:p-8 rounded-2xl shadow-lg">
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
               
               {submitted ? (
@@ -250,7 +250,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460] transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#1B7A4E] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="w-5 h-5" />
                     {isLoading ? 'Sending...' : 'Send Message'}
@@ -273,7 +273,7 @@ export default function Contact() {
           </div>
 
           <div className="space-y-4">
-            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#d4af37]">
+            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#1B7A4E]">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">How long does the application process take?</h3>
               <p className="text-gray-600">
                 Processing times vary by program. Caribbean CBIP programs typically take 3-6 months, while European programs may take 6-12 months. We provide detailed timelines during your consultation.
@@ -283,11 +283,11 @@ export default function Contact() {
             <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#0f3460]">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">What are the minimum investment requirements?</h3>
               <p className="text-gray-600">
-                Investment requirements vary by country and program. Caribbean programs start from $100,000 while European programs typically range from €280,000 to €500,000. We offer various investment options to suit different financial situations.
+                Investment requirements vary by country and program. Caribbean programs start from $100,000 while European programs typically range from $280,000 to $500,000. We offer various investment options to suit different financial situations.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#d4af37]">
+            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#1B7A4E]">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Can I include my family members?</h3>
               <p className="text-gray-600">
                 Yes! Most programs allow family inclusion. Spouses, children, and sometimes parents can be included in your application. The cost may vary based on family size and the specific program.
@@ -301,7 +301,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#d4af37]">
+            <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-[#1B7A4E]">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">What if my application is denied?</h3>
               <p className="text-gray-600">
                 While our success rate is high, if an application doesn't meet requirements initially, we work with you to address deficiencies or explore alternative programs that better suit your situation.

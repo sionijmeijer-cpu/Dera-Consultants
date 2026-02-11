@@ -44,7 +44,7 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       <SEOHead
         title="Portugal & European Residency Programs | D2, D7, D8 Visas & Golden Visa | Dera Consultants"
         description="Get Portugal and European residency through D2 (Entrepreneur), D7 (Passive Income), D8 (Digital Nomad) visas or Golden Visa. Expert immigration consulting."
@@ -98,18 +98,18 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
               <div key={visa.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <button
                   onClick={() => setExpandedVisa(expandedVisa === visa.id ? null : visa.id)}
-                  className="w-full px-6 py-5 flex items-center justify-between hover:bg-amber-50 transition-colors duration-200"
+                  className="w-full px-6 py-5 flex items-center justify-between hover:bg-green-50 transition-colors duration-200"
                 >
                   <h3 className="text-xl font-bold text-gray-900 text-left">
                     {visa.title}
                   </h3>
-                  <span className={`text-2xl text-amber-600 transform transition-transform duration-200 ${expandedVisa === visa.id ? 'rotate-180' : ''}`}>
+                  <span className={`text-2xl text-[#1B7A4E] transform transition-transform duration-200 ${expandedVisa === visa.id ? 'rotate-180' : ''}`}>
                     ▼
                   </span>
                 </button>
                 
                 {expandedVisa === visa.id && (
-                  <div className="px-6 py-4 bg-amber-50 border-t border-amber-200">
+                  <div className="px-6 py-4 bg-green-50 border-t border-green-200">
                     <p className="text-gray-700 leading-relaxed">
                       {visa.details}
                     </p>
@@ -128,28 +128,28 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
             Benefits of Portugal & European Residency
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-amber-50 rounded-xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-amber-600 mb-4">Freedom of Movement</h3>
+            <div className="bg-green-50 rounded-xl p-8 border border-green-200">
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Freedom of Movement</h3>
               <p className="text-gray-700">Travel across all Schengen countries without restrictions.</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-amber-600 mb-4">EU Rights</h3>
+            <div className="bg-green-50 rounded-xl p-8 border border-green-200">
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">EU Rights</h3>
               <p className="text-gray-700">Access to work, study, and establish business across the EU.</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-amber-600 mb-4">Quality of Life</h3>
+            <div className="bg-green-50 rounded-xl p-8 border border-green-200">
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Quality of Life</h3>
               <p className="text-gray-700">Excellent healthcare, safety, climate, and vibrant culture.</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-amber-600 mb-4">Tax Incentives</h3>
+            <div className="bg-green-50 rounded-xl p-8 border border-green-200">
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Tax Incentives</h3>
               <p className="text-gray-700">Favorable tax regimes, including non-habitual resident programs.</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-amber-600 mb-4">Family Inclusion</h3>
+            <div className="bg-green-50 rounded-xl p-8 border border-green-200">
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Family Inclusion</h3>
               <p className="text-gray-700">Spouses, children, and dependent relatives can often be included.</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-amber-600 mb-4">Path to EU Citizenship</h3>
+            <div className="bg-green-50 rounded-xl p-8 border border-green-200">
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Path to EU Citizenship</h3>
               <p className="text-gray-700">Citizenship granted after 5 years, allowing full EU benefits.</p>
             </div>
           </div>
@@ -165,32 +165,32 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="text-5xl mb-4">🌍</div>
-              <h3 className="text-2xl font-bold text-amber-600 mb-3">EU Freedom</h3>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">EU Freedom</h3>
               <p className="text-gray-700">Travel, live, and work freely across 27 EU countries.</p>
             </div>
             <div className="text-center">
               <div className="text-5xl mb-4">🏥</div>
-              <h3 className="text-2xl font-bold text-amber-600 mb-3">Healthcare</h3>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Healthcare</h3>
               <p className="text-gray-700">Access world-class healthcare systems in European countries.</p>
             </div>
             <div className="text-center">
               <div className="text-5xl mb-4">📚</div>
-              <h3 className="text-2xl font-bold text-amber-600 mb-3">Education</h3>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Education</h3>
               <p className="text-gray-700">Quality education for your family at affordable costs.</p>
             </div>
             <div className="text-center">
               <div className="text-5xl mb-4">💼</div>
-              <h3 className="text-2xl font-bold text-amber-600 mb-3">Career Growth</h3>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Career Growth</h3>
               <p className="text-gray-700">Unlimited job opportunities across Europe's strong economies.</p>
             </div>
             <div className="text-center">
               <div className="text-5xl mb-4">🏘️</div>
-              <h3 className="text-2xl font-bold text-amber-600 mb-3">Lifestyle</h3>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Lifestyle</h3>
               <p className="text-gray-700">Enjoy rich culture, cuisine, and vibrant communities.</p>
             </div>
             <div className="text-center">
               <div className="text-5xl mb-4">🛡️</div>
-              <h3 className="text-2xl font-bold text-amber-600 mb-3">Security</h3>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Security</h3>
               <p className="text-gray-700">Safe, stable, and politically secure living environment.</p>
             </div>
           </div>
@@ -198,17 +198,17 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-amber-600">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#1B7A4E]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
             Start Your European Journey Today
           </h2>
-          <p className="text-xl text-amber-100 mb-8">
+          <p className="text-xl text-green-100 mb-8">
             Get personalized guidance on the best residency program for your goals and circumstances.
           </p>
           <button 
             onClick={onScheduleCall}
-            className="px-8 py-4 bg-white text-amber-600 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg"
+            className="px-8 py-4 bg-white text-[#1B7A4E] rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg"
           >
             Schedule a Consultation
           </button>

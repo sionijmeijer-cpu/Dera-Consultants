@@ -64,12 +64,10 @@ export default function FAQ({ onScheduleCall }: FAQProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Simulate loading state (in real scenario, you would fetch FAQ data from an API)
   const handleLoadFAQ = async () => {
     setLoading(true);
     setError(null);
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500));
       setLoading(false);
     } catch (err) {
@@ -123,7 +121,7 @@ export default function FAQ({ onScheduleCall }: FAQProps) {
                 >
                   <AccordionTrigger className="px-6 py-5 hover:bg-gray-50 transition-colors duration-200 text-left font-semibold text-gray-900 hover:text-[#0f3460]">
                     <span className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-[#d4af37] text-[#0f3460] flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      <span className="w-8 h-8 rounded-full bg-[#1B7A4E] text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
                         {index + 1}
                       </span>
                       {item.question}
@@ -131,7 +129,7 @@ export default function FAQ({ onScheduleCall }: FAQProps) {
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-5 bg-gray-50 text-gray-700 leading-relaxed">
                     <div className="flex gap-3">
-                      <CheckCircle className="w-5 h-5 text-[#d4af37] flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-5 h-5 text-[#1B7A4E] flex-shrink-0 mt-0.5" />
                       <p>{item.answer}</p>
                     </div>
                   </AccordionContent>
@@ -148,7 +146,7 @@ export default function FAQ({ onScheduleCall }: FAQProps) {
           </p>
           <button 
             onClick={onScheduleCall}
-            className="inline-block bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-8 py-3 rounded-lg font-semibold hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="inline-block bg-[#1B7A4E] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#156B3F] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             Schedule a Consultation
           </button>

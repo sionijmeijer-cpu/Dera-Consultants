@@ -9,17 +9,7 @@ export default function Hero({ onScheduleCall }: HeroProps) {
   return (
     <div className="bg-white">
       <style>{`
-        @keyframes flash {
-          0%, 100% { 
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
-          }
-          50% { 
-            box-shadow: 0 0 40px rgba(212, 175, 55, 1), 0 0 80px rgba(212, 175, 55, 0.6);
-          }
-        }
-        .flash-button { 
-          animation: flash 2s ease-in-out infinite;
-        }
+
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -71,7 +61,7 @@ export default function Hero({ onScheduleCall }: HeroProps) {
           <div className="animate-fade-in-up-delay-2">
             <button 
               onClick={onScheduleCall}
-              className="flash-button bg-gradient-to-r from-[#d4af37] to-[#e0c158] text-[#0f3460] px-10 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl hover:from-[#c9a02e] hover:to-[#d4a832] transition-all duration-200 hover:shadow-2xl transform hover:scale-110 inline-flex items-center gap-3"
+              className="bg-[#1B7A4E] text-white px-10 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl hover:bg-[#156B3F] transition-all duration-200 hover:shadow-xl transform hover:scale-105 inline-flex items-center gap-3"
             >
               Get Consultation Now
               <ArrowRight className="w-6 h-6" />

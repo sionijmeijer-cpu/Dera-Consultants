@@ -45,8 +45,8 @@ export default function Process() {
               <div key={step.number} className="flex flex-col items-center text-center">
                 {/* Circle Badge with Icon */}
                 <div className="relative mb-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#d4af37] to-[#e0c158] rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-10 h-10 text-[#0f3460]" />
+                  <div className="w-20 h-20 bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-10 h-10 text-white" />
                   </div>
                 </div>
 
@@ -65,7 +65,7 @@ export default function Process() {
         </div>
 
         {/* Connecting Line (Desktop Only) */}
-        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-24 w-4/5 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent -z-10" />
+        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-24 w-4/5 h-1 bg-gradient-to-r from-transparent via-[#1B7A4E] to-transparent -z-10" />
       </div>
     </section>
   );

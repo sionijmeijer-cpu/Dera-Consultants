@@ -137,10 +137,10 @@ export default function Services() {
               return (
                 <div
                   key={service.id}
-                  className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 hover:border-[#d4af37]"
+                  className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 hover:border-[#1B7A4E]"
                   onClick={() => setSelectedService(service.id === selectedService ? null : service.id)}
                 >
-                  <div className="bg-[#e8dcc4] w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                  <div className="bg-[#e8f5ee] w-14 h-14 rounded-lg flex items-center justify-center mb-4">
                     <Icon className="w-7 h-7 text-[#0f3460]" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3 text-gray-900">{service.title}</h3>
@@ -167,7 +167,7 @@ export default function Services() {
                 return (
                   <div key={service.id} className="bg-white rounded-2xl shadow-lg p-8 lg:p-12">
                     <div className="flex items-center gap-4 mb-8">
-                      <div className="bg-[#e8dcc4] w-16 h-16 rounded-lg flex items-center justify-center">
+                      <div className="bg-[#e8f5ee] w-16 h-16 rounded-lg flex items-center justify-center">
                         <Icon className="w-8 h-8 text-[#0f3460]" />
                       </div>
                       <div>
@@ -189,7 +189,7 @@ export default function Services() {
                               {service.countries.map((country) => (
                                 <span
                                   key={country}
-                                  className="bg-[#e8dcc4] text-[#0f3460] px-3 py-1 rounded-full text-sm font-medium"
+                                  className="bg-[#e8f5ee] text-[#0f3460] px-3 py-1 rounded-full text-sm font-medium"
                                 >
                                   {country}
                                 </span>
@@ -225,7 +225,7 @@ export default function Services() {
                           </ul>
                         </div>
 
-                        <div className="bg-[#e8dcc4] p-6 rounded-lg">
+                        <div className="bg-[#e8f5ee] p-6 rounded-lg">
                           <div className="flex items-center gap-2 mb-2">
                             <Clock className="w-5 h-5 text-[#0f3460]" />
                             <h3 className="text-lg font-semibold text-gray-900">Investment Range</h3>
@@ -239,7 +239,7 @@ export default function Services() {
                         <button onClick={() => {
                           const event = new CustomEvent('openScheduleModal');
                           window.dispatchEvent(event);
-                        }} className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460] transition-all duration-300 shadow-md hover:shadow-lg">
+                        }} className="w-full bg-[#1B7A4E] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-md hover:shadow-lg">
                           Request Consultation
                         </button>
                       </div>
@@ -250,10 +250,6 @@ export default function Services() {
           </div>
         </section>
       )}
-
-
-
-
     </div>
   );
 }
