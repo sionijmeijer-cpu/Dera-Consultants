@@ -1,38 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Calendar,
-  Clock,
-  Tag,
-  ArrowLeft,
-  Mail,
-  Facebook,
-  Twitter,
-  Linkedin,
-  User,
-  BookOpen,
-} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Calendar, Clock, Tag, ArrowLeft, Mail, Facebook, Twitter, Linkedin, User, BookOpen } from 'lucide-react';
 import { blogPosts } from '../data/blogPosts';
 import emailjs from '@emailjs/browser';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Badge } from '../components/ui/badge';
 import { SEO } from '../components/SEO';
-import ReactMarkdown from 'react-markdown';
+import { marked } from 'marked';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
 
+// Configure marked for better rendering
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
+
 export default function BlogPostPage() {
   // Extract slug from URL path
   const pathname = window.location.pathname;
   const slug = pathname.replace('/blog/', '').replace(/\/$/, '');
-
+  
   const [email, setEmail] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = blogPosts.find(p => p.slug === slug);
 
   useEffect(() => {
     if (EMAILJS_PUBLIC_KEY !== 'public_key_placeholder') {
@@ -49,16 +44,18 @@ export default function BlogPostPage() {
     if (email && email.includes('@')) {
       setIsLoading(true);
       try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          name: 'Blog Subscriber',
-          email: email,
-          phone: 'N/A',
-          country: 'N/A',
-          service: 'Newsletter Subscription',
-          message: `New subscriber from: ${post?.title || 'Blog Listing Page'}\n\nPage URL: ${
-            window.location.href
-          }\n\nTimestamp: ${new Date().toLocaleString()}`,
-        });
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            name: 'Blog Subscriber',
+            email: email,
+            phone: 'N/A',
+            country: 'N/A',
+            service: 'Newsletter Subscription',
+            message: `New subscriber from: ${post?.title || 'Blog Listing Page'}\n\nPage URL: ${window.location.href}\n\nTimestamp: ${new Date().toLocaleString()}`
+          }
+        );
         setShowSuccessModal(true);
         setEmail('');
       } catch (error) {
@@ -73,13 +70,11 @@ export default function BlogPostPage() {
   const handleShare = (platform: string) => {
     const url = window.location.href;
     const title = post?.title || '';
-
+    
     const shareUrls: Record<string, string> = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(
-        title
-      )}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
     };
 
     if (shareUrls[platform]) {
@@ -94,6 +89,11 @@ export default function BlogPostPage() {
     window.scrollTo(0, 0);
   };
 
+  // Parse markdown content to HTML
+  const getHtmlContent = (markdownContent: string): string => {
+    return marked.parse(markdownContent) as string;
+  };
+
   if (!post) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-amber-50 flex items-center justify-center">
@@ -102,10 +102,8 @@ export default function BlogPostPage() {
             <BookOpen className="w-12 h-12 text-gray-400" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Article Not Found</h1>
-          <p className="text-gray-600 mb-8 max-w-md mx-auto">
-            The article you are looking for does not exist or may have been moved.
-          </p>
-          <button
+          <p className="text-gray-600 mb-8 max-w-md mx-auto">The article you are looking for does not exist or may have been moved.</p>
+          <button 
             onClick={() => navigateTo('/blog')}
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#0f3460] text-white rounded-full font-semibold hover:bg-[#1a5276] transition-colors"
           >
@@ -118,16 +116,14 @@ export default function BlogPostPage() {
   }
 
   const relatedPosts = blogPosts
-    .filter(
-      (p) =>
-        p.id !== post.id &&
-        (p.category === post.category || p.tags.some((tag) => post.tags.includes(tag)))
-    )
+    .filter(p => p.id !== post.id && (p.category === post.category || p.tags.some(tag => post.tags.includes(tag))))
     .slice(0, 3);
+
+  const htmlContent = getHtmlContent(post.content);
 
   return (
     <>
-      <SEO
+      <SEO 
         title={post.title}
         description={post.excerpt}
         canonical={window.location.href}
@@ -135,49 +131,30 @@ export default function BlogPostPage() {
         ogDescription={post.excerpt}
         ogUrl={window.location.href}
       />
-
+      
       <div className="min-h-screen bg-white">
         {/* Success Modal */}
         {showSuccessModal && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-            onClick={() => setShowSuccessModal(false)}
-          >
-            <div
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in"
-              onClick={(e) => e.stopPropagation()}
-            >
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={() => setShowSuccessModal(false)}>
+            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setShowSuccessModal(false)}
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200"
                 aria-label="Close"
               >
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">You are Now Subscribed!</h3>
-                <p className="text-gray-600 mb-6">
-                  Thank you for subscribing. You will receive the latest updates on citizenship and
-                  immigration opportunities.
-                </p>
+                <p className="text-gray-600 mb-6">Thank you for subscribing. You will receive the latest updates on citizenship and immigration opportunities.</p>
                 <Button
                   onClick={() => setShowSuccessModal(false)}
                   className="w-full bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white hover:from-[#d4af37] hover:to-[#c9a02e] hover:text-[#0f3460]"
@@ -191,11 +168,15 @@ export default function BlogPostPage() {
 
         {/* Hero Image Header */}
         <div className="relative h-[50vh] min-h-[400px] w-full">
-          <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
+          
           {/* Back Button */}
-          <button
+          <button 
             onClick={() => navigateTo('/blog')}
             className="absolute top-6 left-6 inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-900 rounded-full font-medium hover:bg-white transition-colors shadow-lg"
           >
@@ -270,10 +251,11 @@ export default function BlogPostPage() {
               </p>
             </div>
 
-            {/* Main Content - Markdown */}
-            <div className="blog-content">
-              <ReactMarkdown>{post.content}</ReactMarkdown>
-            </div>
+            {/* Main Content - Styled Article */}
+            <div 
+              className="blog-content"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
 
             {/* Custom Styles for Blog Content */}
             <style>{`
@@ -282,11 +264,11 @@ export default function BlogPostPage() {
                 line-height: 1.8;
                 color: #374151;
               }
-
+              
               .blog-content h1 {
                 display: none; /* Hide first h1 as we show it in hero */
               }
-
+              
               .blog-content h2 {
                 font-size: 1.875rem;
                 font-weight: 700;
@@ -296,7 +278,7 @@ export default function BlogPostPage() {
                 padding-bottom: 0.75rem;
                 border-bottom: 3px solid #d4af37;
               }
-
+              
               .blog-content h3 {
                 font-size: 1.5rem;
                 font-weight: 600;
@@ -304,7 +286,7 @@ export default function BlogPostPage() {
                 margin-top: 2rem;
                 margin-bottom: 1rem;
               }
-
+              
               .blog-content h4 {
                 font-size: 1.25rem;
                 font-weight: 600;
@@ -312,41 +294,41 @@ export default function BlogPostPage() {
                 margin-top: 1.5rem;
                 margin-bottom: 0.75rem;
               }
-
+              
               .blog-content p {
                 margin-bottom: 1.5rem;
                 color: #4b5563;
               }
-
+              
               .blog-content strong {
                 color: #1f2937;
                 font-weight: 600;
               }
-
+              
               .blog-content ul, .blog-content ol {
                 margin: 1.5rem 0;
                 padding-left: 1.5rem;
               }
-
+              
               .blog-content ul {
                 list-style-type: disc;
               }
-
+              
               .blog-content ol {
                 list-style-type: decimal;
               }
-
+              
               .blog-content li {
                 margin-bottom: 0.75rem;
                 padding-left: 0.5rem;
                 color: #4b5563;
               }
-
+              
               .blog-content li::marker {
                 color: #d4af37;
                 font-weight: bold;
               }
-
+              
               .blog-content a {
                 color: #0f3460;
                 font-weight: 500;
@@ -355,11 +337,11 @@ export default function BlogPostPage() {
                 text-underline-offset: 4px;
                 transition: all 0.2s;
               }
-
+              
               .blog-content a:hover {
                 color: #d4af37;
               }
-
+              
               .blog-content blockquote {
                 border-left: 4px solid #d4af37;
                 background: linear-gradient(to right, #fef3c7, #fffbeb);
@@ -369,14 +351,14 @@ export default function BlogPostPage() {
                 font-style: italic;
                 color: #4b5563;
               }
-
+              
               .blog-content hr {
                 border: none;
                 height: 2px;
                 background: linear-gradient(to right, #d4af37, transparent);
                 margin: 3rem 0;
               }
-
+              
               .blog-content table {
                 width: 100%;
                 border-collapse: collapse;
@@ -385,7 +367,7 @@ export default function BlogPostPage() {
                 overflow: hidden;
                 box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
               }
-
+              
               .blog-content th {
                 background: #0f3460;
                 color: white;
@@ -393,22 +375,22 @@ export default function BlogPostPage() {
                 text-align: left;
                 font-weight: 600;
               }
-
+              
               .blog-content td {
                 padding: 1rem;
                 border-bottom: 1px solid #e5e7eb;
               }
-
+              
               .blog-content tr:nth-child(even) {
                 background: #f9fafb;
               }
-
+              
               .blog-content img {
                 border-radius: 0.75rem;
                 box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
                 margin: 2rem 0;
               }
-
+              
               .blog-content code {
                 background: #f3f4f6;
                 padding: 0.25rem 0.5rem;
@@ -416,7 +398,7 @@ export default function BlogPostPage() {
                 font-size: 0.875rem;
                 color: #0f3460;
               }
-
+              
               .blog-content pre {
                 background: #1f2937;
                 color: #e5e7eb;
@@ -425,7 +407,7 @@ export default function BlogPostPage() {
                 overflow-x: auto;
                 margin: 2rem 0;
               }
-
+              
               .blog-content pre code {
                 background: transparent;
                 padding: 0;
@@ -435,9 +417,7 @@ export default function BlogPostPage() {
 
             {/* Tags */}
             <div className="mt-12 pt-8 border-t border-gray-200">
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                Topics Covered
-              </h4>
+              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Topics Covered</h4>
               <div className="flex flex-wrap gap-3">
                 {post.tags.map((tag, index) => (
                   <span
@@ -460,11 +440,9 @@ export default function BlogPostPage() {
                 <div>
                   <h4 className="text-xl font-bold mb-2">Dera Consultants</h4>
                   <p className="text-blue-100 leading-relaxed">
-                    Expert advisors in citizenship by investment and global mobility solutions. We help
-                    high-net-worth individuals and families secure second citizenship and residency in
-                    the world's most desirable destinations.
+                    Expert advisors in citizenship by investment and global mobility solutions. We help high-net-worth individuals and families secure second citizenship and residency in the world's most desirable destinations.
                   </p>
-                  <button
+                  <button 
                     onClick={() => navigateTo('/contact')}
                     className="mt-4 inline-flex items-center gap-2 text-[#d4af37] font-semibold hover:text-white transition-colors"
                   >
@@ -483,8 +461,7 @@ export default function BlogPostPage() {
               <Mail className="w-16 h-16 mx-auto mb-6 text-[#d4af37]" />
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Stay Informed</h2>
               <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Subscribe to receive the latest insights on citizenship and immigration opportunities
-                delivered to your inbox.
+                Subscribe to receive the latest insights on citizenship and immigration opportunities delivered to your inbox.
               </p>
 
               <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
@@ -561,8 +538,7 @@ export default function BlogPostPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
             <p className="text-xl text-blue-100 mb-8">
-              Book a free consultation with our expert advisors to discuss your citizenship and residency
-              options.
+              Book a free consultation with our expert advisors to discuss your citizenship and residency options.
             </p>
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('openScheduleModal'))}
