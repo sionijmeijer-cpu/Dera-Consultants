@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Download, Mail, Loader2, CheckCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -8,8 +9,11 @@ interface DownloadModalProps {
   guideId: string;
 }
 
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
+
 // S3 download URLs for each guide
-// Replace these with your actual S3 URLs or pre-signed URL endpoints
 const GUIDE_DOWNLOAD_URLS: Record<string, string> = {
   'golden-visa': 'https://placeholder-s3-url.com/golden-visa-2026.pdf',
   'd7-visa': 'https://placeholder-s3-url.com/d7-visa-2026.pdf',
@@ -25,6 +29,12 @@ export default function DownloadModal({ isOpen, onClose, guideTitle, guideId }: 
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (EMAILJS_PUBLIC_KEY !== 'public_key_placeholder') {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+  }, []);
+
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,8 +43,15 @@ export default function DownloadModal({ isOpen, onClose, guideTitle, guideId }: 
     setIsSubmitting(true);
 
     try {
-      // Log the download request (in production, send to your backend)
-      console.log('Guide download request:', { email, guideTitle, guideId, timestamp: new Date().toLocaleString() });
+      // Send notification email via EmailJS to info@getsecondpassport.eu
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        name: 'Guide Download Request',
+        email: email,
+        phone: 'N/A',
+        country: 'N/A',
+        service: `Guide Download: ${guideTitle}`,
+        message: `New guide download request:\n\nGuide: ${guideTitle}\nGuide ID: ${guideId}\nEmail: ${email}\nTimestamp: ${new Date().toLocaleString()}\nPage URL: ${window.location.href}`,
+      });
 
       // Show success state
       setIsSuccess(true);
@@ -118,7 +135,7 @@ export default function DownloadModal({ isOpen, onClose, guideTitle, guideId }: 
             {/* Form */}
             <form onSubmit={handleSubmit} className="p-8">
               <p className="text-gray-600 text-sm mb-5">
-                Enter your email to access the guide. We'll send you a copy for your records.
+                Enter your email to access the guide. We will send you a copy for your records.
               </p>
 
               <div className="relative mb-4">

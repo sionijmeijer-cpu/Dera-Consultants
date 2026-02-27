@@ -334,7 +334,7 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
             </p>
             <div className="mb-6">
               <div className="flex items-baseline gap-2 justify-center">
-                <span className="text-4xl font-extrabold text-gray-900">€394</span>
+                <span className="text-4xl font-extrabold text-gray-900">€292</span>
                 <span className="text-lg text-gray-400 line-through">€394</span>
               </div>
               <p className="text-sm text-gray-600 mt-2">All 4 guides combined</p>
