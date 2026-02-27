@@ -156,7 +156,7 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-blue-300">Start Moving.</span>
           </h1>
           <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
-            Written by immigration consultants who have guided hundreds of clients through these exact processes. No fluff — just the information that actually matters.
+            Written by immigration consultants who have guided hundreds of clients through these exact processes. No fluff, just the information that actually matters.
           </p>
           <button
             onClick={handleScheduleCall}
@@ -180,7 +180,7 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
         <div className="max-w-3xl mx-auto">
           <div className="bg-amber-50 border-l-4 border-amber-500 rounded-r-xl p-6 sm:p-8">
             <p className="text-gray-800 italic text-base sm:text-lg leading-relaxed mb-4">
-              "Portugal is beautiful, but bureaucracy is maddening. Your bank will lose your documents. Twice. Your appointment will be rescheduled. Three times. Budget an extra €2,000 and 6 months beyond the official timeline. These guides show you how to minimize — not eliminate — the chaos."
+              "Portugal is beautiful, but bureaucracy is maddening. Your bank will lose your documents. Twice. Your appointment will be rescheduled. Three times. Budget an extra €2,000 and 6 months beyond the official timeline. These guides show you how to minimize, not eliminate the chaos."
             </p>
             <p className="text-amber-700 font-semibold text-sm sm:text-base">— Dera Consultants Team</p>
           </div>
@@ -275,6 +275,46 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof & Stats Section */}
+      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
+            {/* Stat 1: Clients */}
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-200">
+                  <span className="text-3xl font-bold text-[#0f3460]">32+</span>
+                </div>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Clients Guided</h3>
+              <p className="text-gray-600 text-sm sm:text-base">Successfully navigated through immigration processes</p>
+            </div>
+
+            {/* Stat 2: Satisfaction */}
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-50 border-2 border-emerald-200">
+                  <span className="text-3xl font-bold text-[#1B7A4E]">98%</span>
+                </div>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Satisfaction Rate</h3>
+              <p className="text-gray-600 text-sm sm:text-base">Clients report high confidence in their decisions</p>
+            </div>
+
+            {/* Stat 3: Success */}
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-100 to-amber-50 border-2 border-amber-200">
+                  <span className="text-3xl font-bold text-amber-600">100%</span>
+                </div>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Success Rate</h3>
+              <p className="text-gray-600 text-sm sm:text-base">Applications approved with our guidance</p>
+            </div>
           </div>
         </div>
       </section>

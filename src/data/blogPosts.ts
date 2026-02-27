@@ -134,7 +134,7 @@ Ready to find your ideal entrepreneurial base? Schedule a consultation with our 
     category: "Entrepreneurs",
     tags: ["Entrepreneurs", "Relocation", "Business Continuity", "Planning"],
     readTime: "8 min read",
-    image: "https://i.imgur.com/Gs38vRz.png",
+    image: "https://i.imgur.com/zx64iSl.png",
     content: `How to Structure Your International Move Without Disrupting Your Business
 
 Relocating internationally as a founder is not the same as relocating as an employee. You are not just moving your life — you are moving the nerve centre of a business. Done poorly, it can cost you clients, team members, and momentum.
@@ -229,7 +229,7 @@ Planning an international move? Book a consultation with our team to build your 
     category: "Entrepreneurs",
     tags: ["Entrepreneurs", "Residency", "Citizenship", "Strategy"],
     readTime: "7 min read",
-    image: "/images/article-entrepreneurs-residency.png",
+    image: "https://i.imgur.com/Gs38vRz.png",
     content: `Residency vs. Citizenship: What Makes More Sense for Founders?
 
 One of the most common questions we hear from founders is: should I get residency or citizenship? The answer depends on your goals, timeline, and how much certainty you want.
@@ -311,7 +311,7 @@ Want to map out the right strategy for your situation? Schedule a consultation w
     category: "Entrepreneurs",
     tags: ["Entrepreneurs", "Visa", "Mobility", "Strategy"],
     readTime: "7 min read",
-    image: "/images/article-entrepreneurs-residency.png",
+    image: "https://i.imgur.com/K87kfOY.png",
     content: `How Global Entrepreneurs Protect Mobility Amid Changing Visa Policies
 
 The world has become less predictable for international travellers and entrepreneurs. Visa policies that were stable for decades have shifted dramatically — and the pace of change is accelerating.
@@ -387,7 +387,7 @@ Ready to build your mobility strategy? Contact our team for a personalised asses
     category: "Entrepreneurs",
     tags: ["Entrepreneurs", "Business Relocation", "Legal", "Tax"],
     readTime: "10 min read",
-    image: "/images/article-business-structure.png",
+    image: "https://i.imgur.com/Gs38vRz.png",
     content: `Relocating Your Business: Key Legal and Practical Considerations
 
 Relocating a business internationally is one of the most complex decisions a founder can make. It touches every aspect of your operation — legal structure, taxation, banking, employment, contracts, and culture.
@@ -495,7 +495,7 @@ Considering relocating your business? Contact us for a confidential consultation
     category: "Citizenship",
     tags: ["Citizenship", "CBI", "Investment", "2026"],
     readTime: "9 min read",
-    image: "/images/article-citizenship-passports.png",
+    image: "https://i.imgur.com/AoVZO3P.png",
     content: `Citizenship by Investment: How It Works in 2026
 
 Citizenship by Investment (CBI) is one of the most powerful tools available to high-net-worth individuals seeking global mobility, security, and opportunity.
@@ -603,7 +603,7 @@ Ready to explore citizenship by investment? Schedule a consultation with our tea
     category: "Citizenship",
     tags: ["Caribbean", "CBI", "Passport", "Comparison"],
     readTime: "8 min read",
-    image: "/images/article-caribbean-comparison.png",
+    image: "https://i.imgur.com/jPm7L1o.png",
     content: `Caribbean Passport Comparison: Which Program Fits Which Profile?
 
 All five Caribbean CBI programmes lead to citizenship and a passport. But they are not identical — each has distinct advantages that make it better suited to certain applicant profiles.
@@ -699,7 +699,7 @@ Ready to choose your Caribbean passport? Book a consultation with our team.`
     category: "Citizenship",
     tags: ["Citizenship", "Passport", "Timeline", "CBI"],
     readTime: "6 min read",
-    image: "/images/article-citizenship-passports.png",
+    image: "https://i.imgur.com/d7LpGvX.png",
     content: `How Long Does It Really Take to Get a Second Passport?
 
 One of the most common questions we receive is: how long will this take? The honest answer is: it depends on the programme, your preparation, and factors outside your control.
@@ -793,7 +793,7 @@ Ready to start your second passport journey? Contact our team for a timeline ass
     category: "Citizenship",
     tags: ["Citizenship", "Residency", "Strategy", "Planning"],
     readTime: "7 min read",
-    image: "/images/article-citizenship-passports.png",
+    image: "https://i.imgur.com/EUyYagb.jpeg",
     content: `Residency First or Direct Citizenship? Choosing the Right Path
 
 When people first explore second citizenship, they often assume there is one standard route. In reality, there are two fundamentally different pathways.
@@ -884,7 +884,7 @@ Not sure which path is right for you? Book a consultation with our team for a pe
     category: "Citizenship",
     tags: ["Citizenship", "Due Diligence", "CBI", "Application"],
     readTime: "8 min read",
-    image: "/images/article-due-diligence.png",
+    image: "https://i.imgur.com/E5vB2w6.jpeg",
     content: `What Governments Actually Check During Due Diligence
 
 Due diligence is the most misunderstood part of the citizenship by investment process. Some applicants fear it unnecessarily. Others underestimate it. Both approaches lead to problems.
@@ -991,7 +991,7 @@ Have questions about due diligence? Contact our team for a confidential consulta
     category: "Expats",
     tags: ["Expats", "Portugal", "Relocation", "Guide"],
     readTime: "11 min read",
-    image: "/images/article-expat-guides.png",
+    image: "https://i.imgur.com/msA1wCC.jpeg",
     content: `Step-by-Step Guide to Relocating to Portugal
 
 Portugal has become one of the world's most popular relocation destinations — warm climate, affordable cost of living, excellent healthcare, a welcoming culture, and a clear pathway to EU citizenship.
@@ -1113,7 +1113,7 @@ Ready to make the move to Portugal? Contact our team for a personalised relocati
     category: "Expats",
     tags: ["Expats", "Banking", "Europe", "Finance"],
     readTime: "7 min read",
-    image: "/images/article-bank-account-europe.png",
+    image: "https://i.imgur.com/lsiDYjv.jpeg",
     content: `How to Open a Bank Account as a New Resident in Europe
 
 Opening a bank account in Europe as a new resident sounds straightforward. In practice, it is one of the most frustrating parts of the relocation process.
@@ -1225,7 +1225,7 @@ Moving to Europe and need banking support? Contact our team for guidance.`
     category: "Expats",
     tags: ["Expats", "Cost of Living", "Portugal", "Caribbean", "UAE"],
     readTime: "9 min read",
-    image: "/images/article-cost-comparison.png",
+    image: "https://i.imgur.com/3iwVF0o.jpeg",
     content: `Cost of Living Comparison: Portugal vs. Caribbean vs. UAE
 
 Choosing where to relocate involves many factors, but cost of living is almost always near the top of the list.
@@ -1357,7 +1357,7 @@ Want a personalised cost analysis for your relocation? Contact our team for a co
     category: "Expats",
     tags: ["Expats", "Relocation", "Mistakes", "Planning"],
     readTime: "8 min read",
-    image: "/images/article-expat-guides.png",
+    image: "https://i.imgur.com/fEdWAo1.jpeg",
     content: `Common Relocation Mistakes Expats Make (And How to Avoid Them)
 
 After helping hundreds of clients relocate internationally, we have seen the same mistakes made over and over again. Some are minor inconveniences. Others are costly, time-consuming, and occasionally irreversible.
@@ -1501,7 +1501,7 @@ Planning an international relocation? Contact our team for a personalised consul
     category: "Expats",
     tags: ["Expats", "Family", "Relocation", "Children"],
     readTime: "9 min read",
-    image: "/images/article-expat-guides.png",
+    image: "https://i.imgur.com/GUqCyvt.jpeg",
     content: `How to Prepare Your Family for International Relocation
 
 Moving internationally with a family is a fundamentally different experience from moving as a single person or couple. Every family member has different needs, different fears, and different ways of adapting.

@@ -78,7 +78,7 @@ export default function GuidesStorePage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-blue-300">Start Moving.</span>
           </h1>
           <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
-            Written by immigration consultants who have guided hundreds of clients through these exact processes. No fluff — just the information that actually matters.
+            Written by immigration consultants who have guided hundreds of clients through these exact processes. No fluff, just the information that actually matters.
           </p>
           <button
             onClick={handleScheduleCall}
@@ -102,7 +102,7 @@ export default function GuidesStorePage() {
         <div className="max-w-3xl mx-auto">
           <div className="bg-amber-50 border-l-4 border-amber-500 rounded-r-xl p-6 sm:p-8">
             <p className="text-gray-800 italic text-base sm:text-lg leading-relaxed mb-4">
-              "Portugal is beautiful, but bureaucracy is maddening. Your bank will lose your documents. Twice. Your appointment will be rescheduled. Three times. Budget an extra €2,000 and 6 months beyond the official timeline. These guides show you how to minimize — not eliminate — the chaos."
+              "Portugal is beautiful, but bureaucracy is maddening. Your bank will lose your documents. Twice. Your appointment will be rescheduled. Three times. Budget an extra €2,000 and 6 months beyond the official timeline. These guides show you how to minimize, not eliminate the chaos."
             </p>
             <p className="text-amber-700 font-semibold text-sm sm:text-base">— Dera Consultants Team</p>
           </div>
