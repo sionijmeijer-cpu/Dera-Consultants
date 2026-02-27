@@ -72,7 +72,7 @@ export default function GuidePurchaseModal({
           <span className="text-sm font-medium text-amber-900">One-time purchase</span>
           <span className="text-2xl font-bold text-amber-900">€{guide.price}</span>
           {guide.id === 'all-guides' && (
-            <span className="text-sm text-amber-700 line-through ml-2">€394</span>
+            <span className="text-sm text-amber-700 line-through ml-2">€292</span>
           )}
         </div>
 
