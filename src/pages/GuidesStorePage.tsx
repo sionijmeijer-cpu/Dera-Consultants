@@ -112,6 +112,26 @@ export default function GuidesStorePage() {
       {/* Main Storefront */}
       <GuideStorefront onBuyGuide={handleBuyGuide} />
 
+      {/* Social Proof Stats */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            <div className="p-6">
+              <p className="text-4xl sm:text-5xl font-extrabold text-[#0f3460] mb-2">32+</p>
+              <p className="text-gray-600 font-medium">Clients Guided Successfully</p>
+            </div>
+            <div className="p-6">
+              <p className="text-4xl sm:text-5xl font-extrabold text-[#1B7A4E] mb-2">98%</p>
+              <p className="text-gray-600 font-medium">Client Satisfaction Rate</p>
+            </div>
+            <div className="p-6">
+              <p className="text-4xl sm:text-5xl font-extrabold text-amber-500 mb-2">100%</p>
+              <p className="text-gray-600 font-medium">Application Success Rate</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Complete Guide Package Section */}
       <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-emerald-50">
         <div className="max-w-4xl mx-auto">
@@ -173,7 +193,7 @@ export default function GuidesStorePage() {
                 id: 'all-guides',
                 title: 'Complete Guide Collection',
                 description: 'All 4 guides combined',
-                price: 394,
+                price: 292,
                 currency: 'EUR',
                 features: ['Golden Visa 2026', 'D7 Visa Blueprint', 'D8 Digital Nomad Visa', 'Caribbean Bundle'],
                 image: '📦',

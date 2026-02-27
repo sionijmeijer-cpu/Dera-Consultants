@@ -119,7 +119,7 @@ export default function GuideSection({ onScheduleCall }: GuideSectionProps) {
             Stop Guessing. Start Moving.
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
-            Written by immigration consultants who have guided hundreds of clients through these exact processes. No fluff — just the information that actually matters.
+            Written by immigration consultants who have guided hundreds of clients through these exact processes. No fluff, just the information that actually matters.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function GuideSection({ onScheduleCall }: GuideSectionProps) {
         <div className="max-w-3xl mx-auto mb-10 sm:mb-14 px-2 sm:px-0">
           <div className="bg-[#0f3460]/5 border-l-4 border-[#0f3460] rounded-r-xl p-4 sm:p-5">
             <p className="text-gray-700 italic text-xs sm:text-sm md:text-base leading-relaxed">
-              "Portugal is beautiful, but bureaucracy is maddening. Your bank will lose your documents. Twice. Your appointment will be rescheduled. Three times. Budget an extra €2,000 and 6 months beyond the official timeline. These guides show you how to minimize — not eliminate — the chaos."
+              "Portugal is beautiful, but bureaucracy is maddening. Your bank will lose your documents. Twice. Your appointment will be rescheduled. Three times. Budget an extra €2,000 and 6 months beyond the official timeline. These guides show you how to minimize, not eliminate the chaos."
             </p>
             <p className="text-[#0f3460] font-semibold text-xs sm:text-sm mt-3">— Dera Consultants Team</p>
           </div>

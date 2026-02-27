@@ -71,6 +71,9 @@ export default function GuidePurchaseModal({
         <div className="bg-gradient-to-r from-amber-50 to-amber-100 border-b border-amber-200 px-6 py-3 flex items-center justify-between">
           <span className="text-sm font-medium text-amber-900">One-time purchase</span>
           <span className="text-2xl font-bold text-amber-900">€{guide.price}</span>
+          {guide.id === 'all-guides' && (
+            <span className="text-sm text-amber-700 line-through ml-2">€394</span>
+          )}
         </div>
 
         {/* Content */}
