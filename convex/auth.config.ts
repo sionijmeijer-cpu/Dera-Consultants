@@ -1,12 +1,6 @@
-/**
- * Better Auth Provider Configuration
- * @see https://convex-better-auth.netlify.app/
- */
+import { type AuthConfig } from "convex/server";
+import { getAuthConfigProvider } from "@convex-dev/better-auth/auth-config";
+
 export default {
-  providers: [
-    {
-      domain: process.env.CONVEX_SITE_URL,
-      applicationID: "convex",
-    },
-  ],
-};
+  providers: [getAuthConfigProvider()],
+} satisfies AuthConfig;
