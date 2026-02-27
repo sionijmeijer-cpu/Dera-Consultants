@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { SEOHead } from '../SEOHead';
 
 interface PortugalEuropeProps {
   onScheduleCall: () => void;
@@ -45,13 +44,6 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      <SEOHead
-        title="Portugal & European Residency Programs | D2, D7, D8 Visas & Golden Visa | Dera Consultants"
-        description="Get Portugal and European residency through D2 (Entrepreneur), D7 (Passive Income), D8 (Digital Nomad) visas or Golden Visa. Expert immigration consulting."
-        keywords="Portugal residency, European residency, D2 visa, D7 visa, D8 visa, Golden Visa, Portugal immigration"
-        url="https://deraconsultants.com/portugal-residency"
-        structuredData={structuredData}
-      />
       {/* Hero Section with Image */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -71,6 +63,12 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
           <p className="text-xl text-gray-600 mb-8">
             Discover the Gateway to Europe with Portugal's Pathways
           </p>
+          <button
+            onClick={onScheduleCall}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+          >
+            Become a Client
+          </button>
         </div>
       </section>
 
@@ -197,23 +195,7 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#1B7A4E]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Start Your European Journey Today
-          </h2>
-          <p className="text-xl text-green-100 mb-8">
-            Get personalized guidance on the best residency program for your goals and circumstances.
-          </p>
-          <button 
-            onClick={onScheduleCall}
-            className="px-8 py-4 bg-white text-[#1B7A4E] rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg"
-          >
-            Schedule a Consultation
-          </button>
-        </div>
-      </section>
+
     </div>
   );
 }

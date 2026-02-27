@@ -1,5 +1,3 @@
-import { SEOHead } from '../SEOHead';
-
 interface CaribbeanCBIProps {
   onScheduleCall: () => void;
 }
@@ -18,13 +16,6 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
   };
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <SEOHead
-        title="Caribbean Citizenship by Investment | Second Passport Programs | Dera Consultants"
-        description="Get Caribbean citizenship and second passport through investment. Explore programs in Antigua, St. Kitts, Dominica, Saint Lucia, Grenada. Trusted immigration consulting."
-        keywords="Caribbean CBI, citizenship by investment, second passport, Caribbean citizenship, investment residency"
-        url="https://deraconsultants.com/caribbean-cbi"
-        structuredData={structuredData}
-      />
       {/* Hero Section with Image */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -44,6 +35,12 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
           <p className="text-xl text-gray-600 mb-8">
             Obtain Caribbean citizenship and a second passport through trusted investment programs in prestigious Caribbean nations.
           </p>
+          <button
+            onClick={onScheduleCall}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+          >
+            Become a Client
+          </button>
         </div>
       </section>
 
@@ -252,23 +249,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Explore Caribbean Citizenship?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Our experts will guide you through the entire process to find the best program for your needs.
-          </p>
-          <button 
-            onClick={onScheduleCall}
-            className="px-8 py-4 bg-white text-blue-600 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-bold text-lg"
-          >
-            Schedule a Consultation
-          </button>
-        </div>
-      </section>
+
     </div>
   );
 }

@@ -30,23 +30,23 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/about-us" className="hover:text-[#1B7A4E] transition-colors duration-200">
-                  About Us
+                <a href="/company" className="hover:text-[#1B7A4E] transition-colors duration-200">
+                  Company
                 </a>
               </li>
               <li>
-                <a href="/caribbean-citizenship-by-investment" className="hover:text-[#1B7A4E] transition-colors duration-200">
-                  Caribbean CBI
+                <a href="/programs" className="hover:text-[#1B7A4E] transition-colors duration-200">
+                  Programs
                 </a>
               </li>
               <li>
-                <a href="/portugal-europe-residency" className="hover:text-[#1B7A4E] transition-colors duration-200">
-                  Portugal & Europe
+                <a href="/blog" className="hover:text-[#1B7A4E] transition-colors duration-200">
+                  Articles
                 </a>
               </li>
               <li>
-                <a href="/faq" className="hover:text-[#1B7A4E] transition-colors duration-200">
-                  FAQ
+                <a href="/research" className="hover:text-[#1B7A4E] transition-colors duration-200">
+                  Research
                 </a>
               </li>
               <li>
@@ -90,7 +90,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#1a5276] mt-8 pt-8 text-sm text-center">
-          <p>&copy; 2020 Dera Consultants. All rights reserved. | <span className="text-[#1B7A4E]">Excellence in Global Immigration Solutions</span></p>
+          <p>&copy; 2026 Dera Consultants. All rights reserved. | <span className="text-[#1B7A4E]">Excellence in Global Immigration Solutions</span></p>
         </div>
       </div>
     </footer>

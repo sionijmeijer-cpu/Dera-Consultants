@@ -13,7 +13,7 @@ export default defineConfig({
       name: 'remove-monitor-script',
       apply: 'build',
       transformIndexHtml(html) {
-        return html.replace(/<script[^>]*>\/\.shipper\/monitor\.js[^<]*<\/script>/g, '');
+        return html.replace(/<script[^>]*src="\/.shipper\/monitor\.js"[^>]*><\/script>/g, '');
       },
     },
   ],
@@ -26,11 +26,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        about: path.resolve(__dirname, 'about-us/index.html'),
-        caribbean: path.resolve(__dirname, 'caribbean-citizenship-by-investment/index.html'),
-        portugal: path.resolve(__dirname, 'portugal-europe-residency/index.html'),
-        faq: path.resolve(__dirname, 'faq/index.html'),
-        contact: path.resolve(__dirname, 'contact/index.html'),
       },
     },
   },
@@ -51,6 +46,9 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     strictPort: true,
-    allowedHosts: [".modal.host", "shipper.now", "localhost", ".localhost"],
+    allowedHosts: [".modal.host", ".shipper.now", "shipper.now", "localhost", ".localhost"],
+    hmr: {
+      clientPort: 443,
+    },
   },
 });

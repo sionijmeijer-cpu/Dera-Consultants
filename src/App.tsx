@@ -6,14 +6,17 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
 
-const AboutPage = lazy(() => import('./pages/AboutPage'));
+const CompanyPage = lazy(() => import('./pages/CompanyPage'));
 const ProgramsPage = lazy(() => import('./pages/ProgramsPage'));
 const CaribbeanPage = lazy(() => import('./pages/CaribbeanPage'));
 const PortugalPage = lazy(() => import('./pages/PortugalPage'));
-const FAQPage = lazy(() => import('./pages/FAQPage'));
+const ResearchPage = lazy(() => import('./pages/ResearchPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const GuidesPage = lazy(() => import('./pages/GuidesPage'));
+const GuidesStorePage = lazy(() => import('./pages/GuidesStorePage'));
+const CheckoutSuccessPage = lazy(() => import('./pages/CheckoutSuccessPage'));
 const ScheduleCallModal = lazy(() => import('./components/ScheduleCallModal'));
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: string }> {
@@ -31,7 +34,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
           <div className="text-center">
             <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
             <p className="text-gray-600 mb-4">{this.state.error}</p>
-            <button 
+            <button
               onClick={() => { this.setState({ hasError: false, error: '' }); window.location.reload(); }}
               className="px-6 py-3 bg-[#0f3460] text-white rounded-lg hover:bg-[#0d2540]"
             >
@@ -53,7 +56,7 @@ function HomePage() {
 
   return (
     <div>
-      <Hero onScheduleCall={handleScheduleCall} />
+      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => { window.location.href = '/guides'; }} />
       <Process />
       <Testimonials />
       <ComparisonSection />
@@ -68,7 +71,7 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPath]);
-  
+
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
@@ -84,29 +87,51 @@ function App() {
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
 
+  // Intercept all anchor clicks for SPA navigation
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a');
+      if (!target) return;
+      const href = target.getAttribute('href');
+      if (!href || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) return;
+      e.preventDefault();
+      window.history.pushState({}, '', href);
+      setCurrentPath(href);
+      window.scrollTo(0, 0);
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
   const getPageComponent = () => {
     const path = currentPath;
-    
+
     if (path === '/' || path === '') {
       return <HomePage />;
-    } else if (path === '/about-us') {
-      return <AboutPage />;
+    } else if (path === '/company') {
+      return <CompanyPage />;
     } else if (path === '/programs') {
       return <ProgramsPage />;
     } else if (path === '/caribbean-citizenship-by-investment') {
       return <CaribbeanPage />;
     } else if (path === '/portugal-europe-residency') {
       return <PortugalPage />;
-    } else if (path === '/faq') {
-      return <FAQPage />;
+    } else if (path === '/research') {
+      return <ResearchPage />;
     } else if (path === '/contact') {
       return <ContactPage />;
     } else if (path === '/blog') {
       return <BlogPage />;
     } else if (path.startsWith('/blog/')) {
-      return <BlogPostPage />;
+      return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    } else if (path === '/guides') {
+      return <GuidesStorePage />;
+    } else if (path === '/checkout/success') {
+      return <CheckoutSuccessPage />;
+    } else if (path === '/guides-old') {
+      return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
     }
-    
+
     return <HomePage />;
   };
 
@@ -117,7 +142,7 @@ function App() {
         <main className="flex-1">
           <Suspense fallback={
             <div className="flex items-center justify-center min-h-[400px]">
-              <div className="text-gray-500">Loading...</div>
+              <div className="animate-pulse text-gray-400 text-lg">Loading...</div>
             </div>
           }>
             {getPageComponent()}

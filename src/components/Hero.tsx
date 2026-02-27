@@ -3,9 +3,10 @@ import { ArrowRight } from 'lucide-react';
 interface HeroProps {
   onScheduleCall: () => void;
   setCurrentPage?: (page: string) => void;
+  onNavigateToGuides?: () => void;
 }
 
-export default function Hero({ onScheduleCall }: HeroProps) {
+export default function Hero({ onScheduleCall, onNavigateToGuides }: HeroProps) {
   return (
     <div className="bg-white">
       <style>{`
@@ -58,15 +59,17 @@ export default function Hero({ onScheduleCall }: HeroProps) {
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up-delay-1">
             We advise investors and entrepreneurs on securing second citizenship and residency through vetted, investment-based programs for greater global mobility and security.
           </p>
-          <div className="animate-fade-in-up-delay-2">
-            <button 
-              onClick={onScheduleCall}
-              className="bg-[#1B7A4E] text-white px-10 sm:px-12 py-4 sm:py-5 rounded-lg font-bold text-lg sm:text-xl hover:bg-[#156B3F] transition-all duration-200 hover:shadow-xl transform hover:scale-105 inline-flex items-center gap-3"
-            >
-              Get Consultation Now
-              <ArrowRight className="w-6 h-6" />
-            </button>
-          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/guides';
+              window.scrollTo(0, 0);
+            }}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 animate-fade-in-up-delay-2"
+          >
+            Explore the Guides
+            <ArrowRight className="w-5 h-5" />
+          </button>
         </div>
       </section>
     </div>

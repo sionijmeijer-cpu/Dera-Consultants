@@ -1,18 +1,149 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { Calendar, Clock, Tag, ArrowRight, Search, Mail } from 'lucide-react';
-import { blogPosts, blogCategories } from '../data/blogPosts';
+import { Mail } from 'lucide-react';
 import { Button } from './ui/button';
 import emailjs from '@emailjs/browser';
 import { Input } from './ui/input';
-import { Badge } from './ui/badge';
+import { useEffect, useState, FormEvent } from 'react';
+import { blogPosts } from '../data/blogPosts';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
 
+const entrepreneurArticles = blogPosts.filter(p => p.category === 'Entrepreneurs');
+const citizenshipArticles = blogPosts.filter(p => p.category === 'Citizenship');
+const expatArticles = blogPosts.filter(p => p.category === 'Expats');
+
+interface Article {
+  id: string;
+  title: string;
+  image: string;
+  date: string;
+  excerpt: string;
+  slug: string;
+}
+
+function toArticle(post: typeof blogPosts[0]): Article {
+  return {
+    id: post.id,
+    title: post.title,
+    image: post.image,
+    date: post.publishDate,
+    excerpt: post.excerpt,
+    slug: post.slug,
+  };
+}
+
+function ArticleCard({ article }: { article: Article }) {
+  const handleNavigate = () => {
+    window.location.pathname = `/blog/${article.slug}`;
+  };
+
+  return (
+    <div
+      onClick={handleNavigate}
+      className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer"
+    >
+      <div className="relative overflow-hidden bg-gray-100">
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+      <div className="p-5">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-snug group-hover:text-[#0f3460] transition-colors duration-200 line-clamp-2">
+          {article.title}
+        </h3>
+        <p className="text-sm text-gray-500 mb-3">{article.date}</p>
+        <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 mb-4">
+          {article.excerpt}
+        </p>
+        <button
+          onClick={handleNavigate}
+          className="inline-flex items-center text-sm font-semibold text-[#0f3460] group-hover:text-[#1B7A4E] transition-colors duration-200 bg-none border-none p-0 cursor-pointer"
+        >
+          Read More
+          <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ArticleSection({
+  title,
+  subtitle,
+  articles,
+  buttonLabel,
+  bgClass,
+}: {
+  title: string;
+  subtitle: string;
+  articles: Article[];
+  buttonLabel: string;
+  bgClass: string;
+}) {
+  const [showAll, setShowAll] = useState(false);
+
+  const firstThree = articles.slice(0, 3);
+  const remaining = articles.slice(3);
+
+  return (
+    <section className={`py-16 sm:py-20 ${bgClass}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
+          {/* Section Header */}
+          <div className="mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{title}</h2>
+            <p className="text-gray-500 text-base">{subtitle}</p>
+          </div>
+
+          {/* First 3 cards always visible */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {firstThree.map(article => (
+              <ArticleCard key={article.id} article={toArticle(article as any)} />
+            ))}
+          </div>
+
+          {/* Remaining 2 cards — shown when expanded */}
+          {showAll && remaining.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 border-t border-gray-100 pt-8">
+              {remaining.map(article => (
+                <ArticleCard key={article.id} article={toArticle(article as any)} />
+              ))}
+            </div>
+          )}
+
+          {/* Toggle button */}
+          {remaining.length > 0 && (
+            <div className="text-center">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="inline-flex items-center gap-2 px-8 py-3 bg-gray-800 text-white text-sm font-semibold rounded-lg hover:bg-gray-900 transition-all duration-300 shadow-md hover:shadow-lg"
+              >
+                {showAll ? 'Show Less' : buttonLabel}
+                <svg
+                  className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Blog() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
   const [email, setEmail] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [error, setError] = useState('');
@@ -24,83 +155,64 @@ export default function Blog() {
     }
   }, []);
 
-  const navigateTo = (path: string) => {
-    window.history.pushState({}, '', path);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-    window.scrollTo(0, 0);
-  };
-
   const handleSubscribe = async (e: FormEvent) => {
     e.preventDefault();
-    
     if (!email || !email.includes('@')) {
       setError('Please enter a valid email address');
       return;
     }
-
     setIsLoading(true);
     setError('');
-
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          name: 'Blog Subscriber',
-          email: email,
-          phone: 'N/A',
-          country: 'N/A',
-          service: 'Newsletter Subscription',
-          message: `New subscriber from: Blog Listing Page\n\nPage URL: ${window.location.href}\n\nTimestamp: ${new Date().toLocaleString()}`
-        }
-      );
-      
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        name: 'Blog Subscriber',
+        email,
+        phone: 'N/A',
+        country: 'N/A',
+        service: 'Newsletter Subscription',
+        message: `New subscriber from: Blog Listing Page\n\nPage URL: ${window.location.href}\n\nTimestamp: ${new Date().toLocaleString()}`,
+      });
       setShowSuccessModal(true);
       setEmail('');
-    } catch (error) {
-      console.error('Subscription failed:', error);
+    } catch (err) {
+      console.error('Subscription failed:', err);
       setError('Subscription failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
-  });
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Success Modal */}
       {showSuccessModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={() => setShowSuccessModal(false)}>
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative animate-fade-in" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setShowSuccessModal(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative"
+            onClick={e => e.stopPropagation()}
+          >
             <button
               onClick={() => setShowSuccessModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-              aria-label="Close"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-
             <div className="text-center">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">You're Now Subscribed!</h3>
-              <p className="text-gray-600 mb-6">Thank you for subscribing to our newsletter. You'll receive the latest updates on citizenship and immigration opportunities.</p>
-              <Button
-                onClick={() => setShowSuccessModal(false)}
-                className="w-full bg-[#1B7A4E] text-white hover:bg-[#156B3F]"
-              >
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">You&apos;re Now Subscribed!</h3>
+              <p className="text-gray-600 mb-6">
+                Thank you for subscribing to our newsletter. You&apos;ll receive the latest updates on citizenship and immigration opportunities.
+              </p>
+              <Button onClick={() => setShowSuccessModal(false)} className="w-full bg-[#1B7A4E] text-white hover:bg-[#156B3F]">
                 Continue Reading
               </Button>
             </div>
@@ -108,158 +220,91 @@ export default function Blog() {
         </div>
       )}
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
-              Immigration Insights & News
-            </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-              Expert analysis, program updates, and success stories from the world of citizenship by investment
-            </p>
-            
-            <div className="max-w-2xl mx-auto relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1B7A4E] shadow-lg"
-              />
-            </div>
-          </div>
+      {/* HERO */}
+      <section className="relative min-h-[420px] sm:min-h-[480px] overflow-hidden flex items-center justify-center">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: 'blur(3px) brightness(0.55)' }}
+        >
+          <source src="https://i.imgur.com/hwdgZRR.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+            Read our Articles
+          </h1>
+          <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-light">
+            Over the years, we&apos;ve published a comprehensive collection of articles covering citizenship and residency pathways, global mobility considerations, and international relocation insights.
+          </p>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {blogCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SECTION 1 — Entrepreneurs */}
+      <ArticleSection
+        title="Top Resources for Entrepreneurs"
+        subtitle="Low bureaucracy, business-friendly, stable banking access — these attract founders thinking long-term."
+        articles={entrepreneurArticles.map(toArticle)}
+        buttonLabel="All Entrepreneur Resources"
+        bgClass="bg-gray-50"
+      />
 
-      {/* Blog Posts Grid */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredPosts.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="text-gray-400 mb-4">
-                <Search className="w-16 h-16 mx-auto" />
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-2">No articles found</h3>
-              <p className="text-gray-600">Try adjusting your search or filter criteria</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post) => (
-                <article
-                  key={post.id}
-                  onClick={() => navigateTo(`/blog/${post.slug}`)}
-                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-100 cursor-pointer group"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-[#1B7A4E] text-white hover:bg-[#156B3F]">
-                        {post.category}
-                      </Badge>
-                    </div>
-                  </div>
+      {/* SECTION 2 — Citizenship */}
+      <ArticleSection
+        title="Everything You Need to Know About Citizenship and Passports"
+        subtitle="Build trust and reduce fear around the process — these topics demystify every step."
+        articles={citizenshipArticles.map(toArticle)}
+        buttonLabel="All Citizenship Resources"
+        bgClass="bg-white"
+      />
 
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{post.publishDate}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        <span>{post.readTime}</span>
-                      </div>
-                    </div>
+      {/* SECTION 3 — Expats */}
+      <ArticleSection
+        title="Guides for Expats"
+        subtitle="Practical resources for your relocation journey — from banking to housing to family preparation."
+        articles={expatArticles.map(toArticle)}
+        buttonLabel="All Expat Resources"
+        bgClass="bg-gray-50"
+      />
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#0f3460] transition-colors">
-                      {post.title}
-                    </h3>
-
-                    <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {post.tags.slice(0, 3).map((tag, index) => (
-                        <span
-                          key={index}
-                          className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium"
-                        >
-                          <Tag className="w-3 h-3" />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <span className="inline-flex items-center gap-2 text-[#0f3460] font-semibold group-hover:text-[#1B7A4E] transition-colors">
-                      Read Article
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* NEWSLETTER */}
+      <section className="py-20 bg-gradient-to-br from-[#0f3460] via-[#1a4a7a] to-[#1a5276] text-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <Mail className="w-16 h-16 mx-auto mb-4 text-[#1B7A4E]" />
+            <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/20">
+              <Mail className="w-8 h-8 text-[#1B7A4E]" />
+            </div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Stay Updated</h2>
-            <p className="text-xl text-blue-100">
-              Subscribe to our newsletter for the latest citizenship and immigration insights
+            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+              Subscribe to our newsletter for the latest citizenship and immigration insights delivered to your inbox.
             </p>
           </div>
-
-          <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-4">
+          <form onSubmit={handleSubscribe} className="max-w-lg mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 required
-                className="flex-1 px-6 py-3 rounded-full text-gray-900 border-2 border-white focus:border-[#1B7A4E] focus:ring-2 focus:ring-[#1B7A4E]"
+                className="flex-1 px-5 py-3 rounded-xl text-gray-900 bg-white border-0 focus:ring-2 focus:ring-[#1B7A4E] placeholder:text-gray-400 text-base"
               />
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="px-8 py-3 bg-[#1B7A4E] text-white rounded-full font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap disabled:opacity-50"
+                className="px-8 py-3 bg-[#1B7A4E] text-white rounded-xl font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap disabled:opacity-50 text-base"
               >
                 {isLoading ? 'Subscribing...' : 'Subscribe'}
               </Button>
             </div>
-            {error && (
-              <p className="mt-3 text-red-300 text-sm">{error}</p>
-            )}
+            {error && <p className="mt-3 text-red-300 text-sm">{error}</p>}
+            <p className="mt-4 text-sm text-blue-200/70">No spam, unsubscribe anytime. We respect your privacy.</p>
           </form>
         </div>
       </section>

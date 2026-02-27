@@ -9,11 +9,14 @@ export default function Header({ onScheduleCall }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Company', path: '/about-us', bold: true },
+    { name: 'Company', path: '/company', bold: true },
     { name: 'Programs', path: '/programs', bold: true },
+    { name: 'Guides', path: '/guides', bold: true },
     { name: 'Articles', path: '/blog', bold: true },
-    { name: 'Research', path: '/faq', bold: true },
+    { name: 'Research', path: '/research', bold: true },
   ];
+
+
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
