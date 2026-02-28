@@ -46,7 +46,11 @@ export default function GuidePurchaseModal({
       return;
     }
 
-    onProceedToCheckout(email, guide);
+    if (guide && typeof onProceedToCheckout === 'function') {
+      onProceedToCheckout(email, guide);
+    } else {
+      setLocalError('Unable to proceed. Please try again.');
+    }
   };
 
   return (

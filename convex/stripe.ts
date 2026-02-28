@@ -1,6 +1,7 @@
 "use node";
 
 import { action } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import Stripe from "stripe";
 
@@ -10,19 +11,15 @@ const getStripe = () => {
   return new Stripe(key, { apiVersion: "2025-04-30.basil" as any });
 };
 
-// Guide product mapping - maps guide IDs to Stripe price IDs
-// These will be created via Stripe and stored here
+// Guide product mapping
 const GUIDE_PRODUCTS: Record<string, { name: string; priceInCents: number }> = {
   "golden-visa": { name: "Golden Visa 2026", priceInCents: 12500 },
   "d7-visa": { name: "D7 Visa Blueprint", priceInCents: 6700 },
   "d8-visa": { name: "D8 Digital Nomad Visa", priceInCents: 7700 },
   "caribbean-bundle": { name: "Complete Caribbean Bundle", priceInCents: 12500 },
+  "all-guides": { name: "Complete Guide Collection (All 4 Guides)", priceInCents: 29200 },
 };
 
-/**
- * Create a Stripe Checkout session for a guide purchase.
- * Returns the checkout URL to redirect the user to.
- */
 export const createCheckoutSession = action({
   args: {
     guideId: v.string(),
@@ -31,16 +28,21 @@ export const createCheckoutSession = action({
     cancelUrl: v.string(),
   },
   handler: async (ctx, args) => {
-    const stripe = getStripe();
-    const guide = GUIDE_PRODUCTS[args.guideId];
-    if (!guide) throw new Error(`Unknown guide: ${args.guideId}`);
+    try {
+      const stripe = getStripe();
+      const guide = GUIDE_PRODUCTS[args.guideId];
+      if (!guide) throw new Error(`Unknown guide: ${args.guideId}`);
 
     // Save email subscriber
-    await ctx.runMutation("mutations:createEmailSubscriber" as any, {
-      email: args.email,
-      source: "guide-purchase",
-      guideId: args.guideId,
-    });
+    try {
+      await ctx.runMutation(internal.mutations.createEmailSubscriber, {
+        email: args.email,
+        source: "guide-purchase",
+        guideId: args.guideId,
+      });
+    } catch (e) {
+      console.error("Failed to save subscriber:", e);
+    }
 
     // Create Stripe Checkout session
     const session = await stripe.checkout.sessions.create({
@@ -52,10 +54,8 @@ export const createCheckoutSession = action({
             currency: "eur",
             product_data: {
               name: guide.name,
-              description: `Digital guide - instant download after purchase`,
-              metadata: {
-                guideId: args.guideId,
-              },
+              description: "Digital guide - instant download after purchase",
+              metadata: { guideId: args.guideId },
             },
             unit_amount: guide.priceInCents,
           },
@@ -71,49 +71,39 @@ export const createCheckoutSession = action({
       },
     });
 
-    // Create order record with pending status
-    await ctx.runMutation("mutations:createGuideOrder" as any, {
-      email: args.email,
-      guideId: args.guideId,
-      guideName: guide.name,
-      priceInCents: guide.priceInCents,
-      currency: "eur",
-      stripeSessionId: session.id,
-      stripePaymentStatus: "pending",
-      downloadCount: 0,
-    });
+    // Create order record
+    try {
+      await ctx.runMutation(internal.mutations.createGuideOrder, {
+        email: args.email,
+        guideId: args.guideId,
+        guideName: guide.name,
+        priceInCents: guide.priceInCents,
+        currency: "eur",
+        stripeSessionId: session.id,
+        stripePaymentStatus: "pending",
+        downloadCount: 0,
+      });
+    } catch (e) {
+      console.error("Failed to create order:", e);
+    }
 
-    return { url: session.url, sessionId: session.id };
+      return { url: session.url, sessionId: session.id };
+    } catch (error) {
+      console.error('Checkout session error:', error);
+      throw new Error(`Failed to create checkout session: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   },
 });
 
-/**
- * Verify a Stripe Checkout session after payment.
- * Returns the payment status and guide info for the success page.
- */
 export const verifyCheckoutSession = action({
   args: {
     sessionId: v.string(),
   },
   handler: async (ctx, args) => {
     const stripe = getStripe();
-
     const session = await stripe.checkout.sessions.retrieve(args.sessionId);
 
     if (session.payment_status === "paid") {
-      // Update the order status in the database
-      const orders = await ctx.runQuery("queries:listGuideOrders" as any, {});
-      const order = (orders as any[]).find(
-        (o: any) => o.stripeSessionId === args.sessionId
-      );
-
-      if (order) {
-        await ctx.runMutation("mutations:updateGuideOrder" as any, {
-          id: order._id,
-          stripePaymentStatus: "paid",
-        });
-      }
-
       return {
         success: true,
         paymentStatus: session.payment_status,

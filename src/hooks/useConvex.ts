@@ -11,12 +11,22 @@ export function useConvexAction(actionPath: string) {
 
   return useCallback(
     async (args: Record<string, any> = {}) => {
-      const [module, fn] = actionPath.split(":");
-      const actionRef = (api as any)[module]?.[fn];
-      if (!actionRef) {
-        throw new Error(`Action not found: ${actionPath}`);
+      try {
+        const [module, fn] = actionPath.split(":");
+        const actionRef = (api as any)?.[module]?.[fn];
+        if (!actionRef) {
+          throw new Error(`Action not found: ${actionPath}. Make sure the Convex function is deployed.`);
+        }
+        return await convex.action(actionRef, args);
+      } catch (err: any) {
+        // Re-throw with clearer message
+        if (err?.message?.includes("Cannot read properties of undefined")) {
+          throw new Error(
+            `Convex action "${actionPath}" is not available. Please ensure the backend is deployed.`
+          );
+        }
+        throw err;
       }
-      return await convex.action(actionRef, args);
     },
     [convex, actionPath]
   );

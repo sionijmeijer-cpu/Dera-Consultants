@@ -1,25 +1,22 @@
 /**
  * Better Auth Setup for Convex (Local Install)
+ * Uses local schema for admin plugin support
+ * @see https://convex-better-auth.netlify.app/features/local-install
  */
-
 import { createClient, type GenericCtx } from "@convex-dev/better-auth";
 import { convex, crossDomain } from "@convex-dev/better-auth/plugins";
 import { admin, apiKey } from "better-auth/plugins";
-import { betterAuth } from "better-auth";
-
 import { components } from "./_generated/api";
 import { DataModel } from "./_generated/dataModel";
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
-
+import { betterAuth } from "better-auth";
 import authSchema from "./betterAuth/schema";
-import authConfig from "./auth.config";
 
 const siteUrl = process.env.SITE_URL || "";
 
-/**
- * Better Auth component client with LOCAL schema
- */
+// Create the Better Auth component client with LOCAL schema
+// This enables admin plugin and other plugins that require schema changes
 export const authComponent = createClient<DataModel, typeof authSchema>(
   components.betterAuth,
   {
@@ -29,69 +26,42 @@ export const authComponent = createClient<DataModel, typeof authSchema>(
   }
 );
 
-/**
- * Static trusted origins
- */
+// Static trusted origins for CORS
 const staticOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "http://localhost:8081",
+  "http://localhost:8081", // Expo Metro dev server
 ];
 
-function getTrustedOrigins(request: Request): string[] {
-  const origins = [...staticOrigins];
-  if (siteUrl) origins.push(siteUrl);
-
-  const addDynamicOrigin = (url: string | null) => {
-    if (!url) return;
-
-    const isDynamic =
-      url.includes(".w.modal.host") || url.includes(".shipper.now");
-    if (!isDynamic) return;
-
-    try {
-      const parsed = new URL(url);
-      origins.push(parsed.origin);
-    } catch {
-      if (url.startsWith("http")) {
-        origins.push(url.split("/").slice(0, 3).join("/"));
-      }
-    }
-  };
-
-  addDynamicOrigin(request.headers.get("origin"));
-  addDynamicOrigin(request.headers.get("referer"));
-
-  try {
-    const url = new URL(request.url);
-    addDynamicOrigin(url.searchParams.get("callbackURL"));
-    addDynamicOrigin(url.searchParams.get("callback"));
-    addDynamicOrigin(url.searchParams.get("redirectTo"));
-  } catch {}
-
-  return [...new Set(origins)];
-}
+/**
+ * Get trusted origins array for Better Auth CORS
+ * Includes: static origins and SITE_URL
+ */
+const trustedOrigins = [...staticOrigins];
+if (siteUrl) trustedOrigins.push(siteUrl);
 
 /**
- * Create Better Auth instance
+ * Create Better Auth instance.
+ * Returns a configured betterAuth instance for use with Convex.
+ * Compatible with @convex-dev/better-auth@0.9.x
  */
 export const createAuth = (ctx: GenericCtx<DataModel>) => {
   return betterAuth({
-    secret: process.env.BETTER_AUTH_SECRET!,
-    trustedOrigins: getTrustedOrigins,
+    secret: process.env.BETTER_AUTH_SECRET,
+    trustedOrigins,
     database: authComponent.adapter(ctx),
-
     emailAndPassword: {
       enabled: true,
       requireEmailVerification: false,
     },
-
+    // User configuration with admin plugin fields
     user: {
       additionalFields: {
         name: {
           type: "string",
           required: false,
         },
+        // Admin plugin required fields
         role: {
           type: "string",
           required: false,
@@ -112,24 +82,28 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
         },
       },
     },
-
     plugins: [
       crossDomain({ siteUrl }),
-      convex({ authConfig }), // ✅ FIXED — required argument
       admin({
-        adminRoles: ["admin", "service-admin"],
+        adminRoles: ["admin"],
       }),
       apiKey({
+        // Enable session creation for API key requests
+        // This allows API keys to authenticate admin operations
         enableSessionForAPIKeys: true,
       }),
     ],
   });
 };
 
-/* ============================================================
-   USER TYPE
-============================================================ */
+// ============================================================================
+// USER TYPE - Define explicit type for Better Auth user
+// ============================================================================
 
+/**
+ * Better Auth user type with admin plugin fields.
+ * This provides type safety for user queries.
+ */
 interface BetterAuthUser {
   _id: string;
   email: string;
@@ -138,26 +112,29 @@ interface BetterAuthUser {
   emailVerified?: boolean;
   createdAt: number;
   updatedAt: number;
+  // Admin plugin fields
   role?: string;
   banned?: boolean;
   banReason?: string;
   banExpires?: number;
 }
 
-/* ============================================================
-   USER QUERIES
-============================================================ */
+// ============================================================================
+// USER QUERIES - For settings panel and general use
+// ============================================================================
 
+/**
+ * Get the current authenticated user
+ */
 export const getCurrentUser = query({
   args: {},
   handler: async (ctx) => {
-    const user =
-      (await authComponent.getAuthUser(ctx)) as BetterAuthUser | null;
+    const user = await authComponent.getAuthUser(ctx) as BetterAuthUser | null;
     if (!user) return null;
 
     return {
       id: user._id,
-      _id: user._id,
+      _id: user._id, // Alias for compatibility - use either id or _id
       email: user.email,
       name: user.name ?? null,
       image: user.image ?? null,
@@ -168,18 +145,19 @@ export const getCurrentUser = query({
   },
 });
 
+/**
+ * Get user by email address
+ *
+ * This is the recommended way to look up other users.
+ * Email lookups use an index and avoid ID format issues.
+ */
 export const getUserByEmail = query({
   args: { email: v.string() },
   handler: async (ctx, { email }) => {
-    const user =
-      (await ctx.runQuery(
-        components.betterAuth.adapter.findOne,
-        {
-          model: "user",
-          where: [{ field: "email", value: email }],
-        }
-      )) as BetterAuthUser | null;
-
+    const user = await ctx.runQuery(components.betterAuth.adapter.findOne, {
+      model: "user",
+      where: [{ field: "email", value: email }],
+    }) as BetterAuthUser | null;
     if (!user) return null;
 
     return {
@@ -192,17 +170,23 @@ export const getUserByEmail = query({
   },
 });
 
+/**
+ * List all users (for admin dashboard)
+ *
+ * Uses the Better Auth component's findMany to query users.
+ */
 export const listAllUsers = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, { limit = 100 }) => {
-    const result = await ctx.runQuery(
-      components.betterAuth.adapter.findMany,
-      {
-        model: "user",
-        sortBy: { field: "createdAt", direction: "desc" },
-        paginationOpts: { numItems: limit, cursor: null },
-      }
-    );
+    // Use the component's findMany to query users
+    const result = await ctx.runQuery(components.betterAuth.adapter.findMany, {
+      model: "user",
+      sortBy: {
+        field: "createdAt",
+        direction: "desc",
+      },
+      paginationOpts: { numItems: limit, cursor: null },
+    });
 
     return result.page.map((user: any) => ({
       id: user._id,
@@ -218,64 +202,57 @@ export const listAllUsers = query({
   },
 });
 
-/* ============================================================
-   ADMIN DELETE USER
-============================================================ */
+// ============================================================================
+// ADMIN MUTATIONS - For user management via deploy key
+// ============================================================================
 
+/**
+ * Delete a user and all their associated data (sessions, accounts)
+ * This mutation is called via deploy key from Shipper's admin dashboard.
+ * It properly cleans up all Better Auth related data for the user.
+ */
 export const deleteUser = mutation({
   args: { userId: v.string() },
   handler: async (ctx, { userId }) => {
-    const sessions = await ctx.runQuery(
-      components.betterAuth.adapter.findMany,
-      {
-        model: "session",
-        where: [{ field: "userId", value: userId }],
-        paginationOpts: { numItems: 100, cursor: null },
-      }
-    );
+    // Delete all sessions for this user
+    const sessions = await ctx.runQuery(components.betterAuth.adapter.findMany, {
+      model: "session",
+      where: [{ field: "userId", value: userId }],
+      paginationOpts: { numItems: 100, cursor: null },
+    });
 
     for (const session of sessions.page) {
-      await ctx.runMutation(
-        components.betterAuth.adapter.deleteOne,
-        {
-          input: {
-            model: "session",
-            where: [{ field: "_id", value: session._id }],
-          },
-        }
-      );
+      await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
+        input: {
+          model: "session",
+          where: [{ field: "_id", value: session._id }],
+        },
+      });
     }
 
-    const accounts = await ctx.runQuery(
-      components.betterAuth.adapter.findMany,
-      {
-        model: "account",
-        where: [{ field: "userId", value: userId }],
-        paginationOpts: { numItems: 100, cursor: null },
-      }
-    );
+    // Delete all accounts for this user
+    const accounts = await ctx.runQuery(components.betterAuth.adapter.findMany, {
+      model: "account",
+      where: [{ field: "userId", value: userId }],
+      paginationOpts: { numItems: 100, cursor: null },
+    });
 
     for (const account of accounts.page) {
-      await ctx.runMutation(
-        components.betterAuth.adapter.deleteOne,
-        {
-          input: {
-            model: "account",
-            where: [{ field: "_id", value: account._id }],
-          },
-        }
-      );
+      await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
+        input: {
+          model: "account",
+          where: [{ field: "_id", value: account._id }],
+        },
+      });
     }
 
-    await ctx.runMutation(
-      components.betterAuth.adapter.deleteOne,
-      {
-        input: {
-          model: "user",
-          where: [{ field: "_id", value: userId }],
-        },
-      }
-    );
+    // Delete the user
+    await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
+      input: {
+        model: "user",
+        where: [{ field: "_id", value: userId }],
+      },
+    });
 
     return { success: true };
   },

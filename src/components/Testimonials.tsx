@@ -211,9 +211,9 @@ export default function Testimonials() {
           </div>
           <h3 className="text-white text-3xl font-bold mb-2">Trusted by Global Investors</h3>
           <p className="text-white text-lg mb-2">Rated {averageRating}/5 on Trustpilot</p>
-          <p className="text-white text-sm opacity-90 mb-8">Based on {testimonials.length} verified client reviews</p>
+          <p className="text-white text-sm opacity-90 mb-8">Based on 6 verified client reviews</p>
           <a
-            href="https://pt.trustpilot.com/review/www.getsecondpassport.eu"
+            href="https://www.trustpilot.com/review/deraconsultants.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-8 py-3 bg-white text-[#1B7A4E] font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"

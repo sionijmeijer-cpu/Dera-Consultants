@@ -48,15 +48,32 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   }
 }
 
+function PageSkeleton() {
+  return (
+    <div className="min-h-[400px] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-[#1B7A4E] border-t-transparent rounded-full animate-spin" />
+        <span className="text-sm text-gray-400 font-medium">Loading...</span>
+      </div>
+    </div>
+  );
+}
+
 function HomePage() {
   const handleScheduleCall = () => {
     const event = new CustomEvent('openScheduleModal');
     window.dispatchEvent(event);
   };
 
+  const handleNavigateToGuides = () => {
+    window.history.pushState({}, '', '/guides');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div>
-      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => { window.location.href = '/guides'; }} />
+      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={handleNavigateToGuides} />
       <Process />
       <Testimonials />
       <ComparisonSection />
@@ -87,7 +104,6 @@ function App() {
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
 
-  // Intercept all anchor clicks for SPA navigation
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a');
@@ -105,33 +121,18 @@ function App() {
 
   const getPageComponent = () => {
     const path = currentPath;
-
-    if (path === '/' || path === '') {
-      return <HomePage />;
-    } else if (path === '/company') {
-      return <CompanyPage />;
-    } else if (path === '/programs') {
-      return <ProgramsPage />;
-    } else if (path === '/caribbean-citizenship-by-investment') {
-      return <CaribbeanPage />;
-    } else if (path === '/portugal-europe-residency') {
-      return <PortugalPage />;
-    } else if (path === '/research') {
-      return <ResearchPage />;
-    } else if (path === '/contact') {
-      return <ContactPage />;
-    } else if (path === '/blog') {
-      return <BlogPage />;
-    } else if (path.startsWith('/blog/')) {
-      return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-    } else if (path === '/guides') {
-      return <GuidesStorePage />;
-    } else if (path === '/checkout/success') {
-      return <CheckoutSuccessPage />;
-    } else if (path === '/guides-old') {
-      return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-    }
-
+    if (path === '/' || path === '') return <HomePage />;
+    if (path === '/company') return <CompanyPage />;
+    if (path === '/programs') return <ProgramsPage />;
+    if (path === '/caribbean-citizenship-by-investment') return <CaribbeanPage />;
+    if (path === '/portugal-europe-residency') return <PortugalPage />;
+    if (path === '/research') return <ResearchPage />;
+    if (path === '/contact') return <ContactPage />;
+    if (path === '/blog') return <BlogPage />;
+    if (path.startsWith('/blog/')) return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    if (path === '/guides') return <GuidesStorePage />;
+    if (path === '/checkout/success') return <CheckoutSuccessPage />;
+    if (path === '/guides-old') return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
     return <HomePage />;
   };
 
@@ -140,11 +141,7 @@ function App() {
       <div className="min-h-screen flex flex-col bg-white">
         <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
         <main className="flex-1">
-          <Suspense fallback={
-            <div className="flex items-center justify-center min-h-[400px]">
-              <div className="animate-pulse text-gray-400 text-lg">Loading...</div>
-            </div>
-          }>
+          <Suspense fallback={<PageSkeleton />}>
             {getPageComponent()}
           </Suspense>
         </main>

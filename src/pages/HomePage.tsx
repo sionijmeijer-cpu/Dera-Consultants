@@ -3,27 +3,24 @@ import Process from '../components/Process';
 import Testimonials from '../components/Testimonials';
 import ComparisonSection from '../components/ComparisonSection';
 
-interface HomePageProps {
-  onScheduleCall?: () => void;
-}
-
-export default function HomePage({ onScheduleCall }: HomePageProps) {
+export default function HomePage() {
   const handleScheduleCall = () => {
     const event = new CustomEvent('openScheduleModal');
     window.dispatchEvent(event);
   };
 
-  try {
-    return (
-      <div>
-        <Hero onScheduleCall={handleScheduleCall} />
-        <Process />
-        <Testimonials />
-        <ComparisonSection />
-      </div>
-    );
-  } catch (error) {
-    console.error('Error rendering HomePage:', error);
-    return <div className="p-8 text-center text-red-600">Error loading page</div>;
-  }
+  const handleNavigateToGuides = () => {
+    window.history.pushState({}, '', '/guides');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <div>
+      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={handleNavigateToGuides} />
+      <Process />
+      <Testimonials />
+      <ComparisonSection />
+    </div>
+  );
 }
