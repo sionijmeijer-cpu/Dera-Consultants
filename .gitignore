@@ -1,1 +1,21 @@
 .env
+
+# local env files
+.env
+.env.*
+!.env.example
+.env.backup
+
+# build output
+dist/
+stats.html
+
+# dependencies
+node_modules/
+
+# local scratch
+test.png
+
+# temporary folders
+public/images-backup/
+public/images-junk/
