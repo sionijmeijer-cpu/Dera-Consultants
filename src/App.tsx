@@ -6,7 +6,7 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
 
-// --- Loaders (so we can prefetch) ---
+// ---- Lazy loaders (needed for prefetch + warmup) ----
 const loadCompanyPage = () => import('./pages/CompanyPage');
 const CompanyPage = lazy(loadCompanyPage);
 
@@ -43,14 +43,17 @@ const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
 const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
 const ScheduleCallModal = lazy(loadScheduleCallModal);
 
+// ---- Error Boundary ----
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: string }> {
   constructor(props: { children: ReactNode }) {
     super(props);
     this.state = { hasError: false, error: '' };
   }
+
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error: error.message };
   }
+
   render() {
     if (this.state.hasError) {
       return (
@@ -75,7 +78,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   }
 }
 
-// Helper: navigate without full reload
+// ---- SPA navigation helper ----
 function navigate(href: string) {
   window.history.pushState({}, '', href);
   window.dispatchEvent(new PopStateEvent('popstate'));
@@ -101,6 +104,28 @@ function App() {
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
+  // ---- Warm up ALL lazy routes after home loads ----
+  useEffect(() => {
+    const warm = () => {
+      loadCompanyPage();
+      loadProgramsPage();
+      loadCaribbeanPage();
+      loadPortugalPage();
+      loadResearchPage();
+      loadContactPage();
+      loadBlogPage();
+      loadBlogPostPage();
+      loadGuidesStorePage();
+      loadGuidesPage();
+      loadCheckoutSuccessPage();
+      loadScheduleCallModal();
+    };
+
+    const w = window as unknown as { requestIdleCallback?: (cb: () => void) => void };
+    if (w.requestIdleCallback) w.requestIdleCallback(warm);
+    else setTimeout(warm, 1000);
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPath]);
@@ -120,7 +145,7 @@ function App() {
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
 
-  // Intercept internal anchor clicks for SPA navigation
+  // ---- Intercept internal links ----
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a');
@@ -129,8 +154,12 @@ function App() {
       const href = target.getAttribute('href');
       if (!href) return;
 
-      // ignore external/special links
-      if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) return;
+      if (
+        href.startsWith('http') ||
+        href.startsWith('mailto') ||
+        href.startsWith('tel') ||
+        href.startsWith('#')
+      ) return;
 
       e.preventDefault();
       navigate(href);
@@ -140,7 +169,7 @@ function App() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  // Prefetch route chunks on hover/focus so clicks feel instant
+  // ---- Prefetch on hover ----
   useEffect(() => {
     const routePrefetchMap: Record<string, () => Promise<unknown>> = {
       '/company': loadCompanyPage,
@@ -161,8 +190,6 @@ function App() {
     const prefetch = (href: string) => {
       const loader = routePrefetchMap[href];
       if (loader) loader();
-
-      // blog post route
       if (href.startsWith('/blog/')) loadBlogPostPage();
     };
 
@@ -173,49 +200,25 @@ function App() {
       prefetch(href);
     };
 
-    const onFocusIn = (e: Event) => {
-      const a = (e.target as HTMLElement)?.closest?.('a');
-      const href = a?.getAttribute?.('href');
-      if (!href || shouldIgnore(href)) return;
-      prefetch(href);
-    };
-
     document.addEventListener('pointerover', onPointerOver);
-    document.addEventListener('focusin', onFocusIn);
-    return () => {
-      document.removeEventListener('pointerover', onPointerOver);
-      document.removeEventListener('focusin', onFocusIn);
-    };
+    return () => document.removeEventListener('pointerover', onPointerOver);
   }, []);
 
   const getPageComponent = () => {
     const path = currentPath;
 
-    if (path === '/' || path === '') {
-      return <HomePage />;
-    } else if (path === '/company') {
-      return <CompanyPage />;
-    } else if (path === '/programs') {
-      return <ProgramsPage />;
-    } else if (path === '/caribbean-citizenship-by-investment') {
-      return <CaribbeanPage />;
-    } else if (path === '/portugal-europe-residency') {
-      return <PortugalPage />;
-    } else if (path === '/research') {
-      return <ResearchPage />;
-    } else if (path === '/contact') {
-      return <ContactPage />;
-    } else if (path === '/blog') {
-      return <BlogPage />;
-    } else if (path.startsWith('/blog/')) {
-      return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-    } else if (path === '/guides') {
-      return <GuidesStorePage />;
-    } else if (path === '/checkout/success') {
-      return <CheckoutSuccessPage />;
-    } else if (path === '/guides-old') {
-      return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-    }
+    if (path === '/' || path === '') return <HomePage />;
+    if (path === '/company') return <CompanyPage />;
+    if (path === '/programs') return <ProgramsPage />;
+    if (path === '/caribbean-citizenship-by-investment') return <CaribbeanPage />;
+    if (path === '/portugal-europe-residency') return <PortugalPage />;
+    if (path === '/research') return <ResearchPage />;
+    if (path === '/contact') return <ContactPage />;
+    if (path === '/blog') return <BlogPage />;
+    if (path.startsWith('/blog/')) return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    if (path === '/guides') return <GuidesStorePage />;
+    if (path === '/checkout/success') return <CheckoutSuccessPage />;
+    if (path === '/guides-old') return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
 
     return <HomePage />;
   };
@@ -225,13 +228,7 @@ function App() {
       <div className="min-h-screen flex flex-col bg-white">
         <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
         <main className="flex-1">
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-pulse text-gray-400 text-lg">Loading...</div>
-              </div>
-            }
-          >
+          <Suspense fallback={null}>
             {getPageComponent()}
           </Suspense>
         </main>
