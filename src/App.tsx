@@ -154,12 +154,9 @@ function App() {
       const href = target.getAttribute('href');
       if (!href) return;
 
-      if (
-        href.startsWith('http') ||
-        href.startsWith('mailto') ||
-        href.startsWith('tel') ||
-        href.startsWith('#')
-      ) return;
+      if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) {
+        return;
+      }
 
       e.preventDefault();
       navigate(href);
@@ -228,7 +225,13 @@ function App() {
       <div className="min-h-screen flex flex-col bg-white">
         <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
         <main className="flex-1">
-          <Suspense fallback={null}>
+          <Suspense
+            fallback={
+              <div className="fixed top-0 left-0 right-0 z-50">
+                <div className="h-1 w-full animate-pulse bg-gray-200" />
+              </div>
+            }
+          >
             {getPageComponent()}
           </Suspense>
         </main>
