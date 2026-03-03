@@ -4,5 +4,6 @@
  * @see https://convex-better-auth.netlify.app/features/local-install
  */
 import { createAuth } from "../auth";
+import { getStaticAuth } from "@convex-dev/better-auth";
 
-export const auth = createAuth;
+export const auth = getStaticAuth(createAuth);

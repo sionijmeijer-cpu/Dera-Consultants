@@ -1065,7 +1065,6 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
         "query",
         "internal",
         {
-          join?: any;
           limit?: number;
           model:
             | "user"
@@ -1121,7 +1120,6 @@ export type ComponentApi<Name extends string | undefined = string | undefined> =
         "query",
         "internal",
         {
-          join?: any;
           model:
             | "user"
             | "session"

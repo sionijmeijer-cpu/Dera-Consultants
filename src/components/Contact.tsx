@@ -6,9 +6,8 @@ import { Textarea } from './ui/textarea';
 import emailjs from '@emailjs/browser';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_9gvq3kr';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
-const RECIPIENT_EMAIL = 'info@getsecondpassport.eu';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -37,9 +36,8 @@ export default function Contact() {
 
     try {
       const emailParams = {
-        to_email: RECIPIENT_EMAIL,
-        from_name: formData.name,
-        from_email: formData.email,
+        name: formData.name,
+        email: formData.email,
         phone: formData.phone,
         country: formData.country,
         service: formData.service,

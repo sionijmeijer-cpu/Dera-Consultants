@@ -14,7 +14,4 @@ export const {
   updateMany,
   deleteOne,
   deleteMany,
-} = createApi(schema, createAuth as any);
-
-// Export createAuth for use in http.ts
-export { createAuth };
+} = createApi(schema, createAuth);

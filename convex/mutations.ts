@@ -1,8 +1,8 @@
-import { mutation, internalMutation } from "./_generated/server";
+import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 // Create a new guideOrder
-export const createGuideOrder = internalMutation({
+export const createGuideOrder = mutation({
   args: {
     email: v.string(),
     guideId: v.string(),
@@ -28,7 +28,7 @@ export const createGuideOrder = internalMutation({
 });
 
 // Update a guideOrder
-export const updateGuideOrder = internalMutation({
+export const updateGuideOrder = mutation({
   args: {
     id: v.id("guideOrders"),
     email: v.optional(v.string()),
@@ -60,7 +60,7 @@ export const deleteGuideOrder = mutation({
 });
 
 // Create a new emailSubscriber
-export const createEmailSubscriber = internalMutation({
+export const createEmailSubscriber = mutation({
   args: {
     email: v.string(),
     source: v.string(),
