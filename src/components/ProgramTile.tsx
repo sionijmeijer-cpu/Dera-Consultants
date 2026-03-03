@@ -25,12 +25,42 @@ export default function ProgramTile({
   imagePosition,
   onButtonClick
 }: ProgramTileProps) {
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!buttonLink) return;
+
+    e.preventDefault();
+
+    if (buttonLink.includes('#')) {
+      const [path, hash] = buttonLink.split('#');
+
+      if (window.location.pathname !== path) {
+        window.history.pushState({}, '', buttonLink);
+        window.dispatchEvent(new PopStateEvent('popstate'));
+
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      } else {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.history.pushState({}, '', buttonLink);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  };
+
   const imageComponent = (
-    <div className="w-full h-full min-h-[180px] lg:min-h-[200px]">
+    <div className="w-full h-full min-h-[180px] lg:min-h-[200px] overflow-hidden">
       <img
         src={imageSrc}
         alt={imageAlt}
-        className="w-full h-full object-cover" style={{ filter: 'blur(2px)' }}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
+        className="w-full h-full object-cover"
       />
     </div>
   );
@@ -40,41 +70,25 @@ export default function ProgramTile({
       <h2 className="text-lg lg:text-xl font-bold text-gray-900 mb-2 leading-tight">
         {title}
       </h2>
+
       <p className="text-xs lg:text-sm text-gray-700 mb-2 leading-relaxed">
         {description}
       </p>
+
       <p className="text-xs text-gray-600 mb-3 leading-relaxed">
         {details}
       </p>
+
       {pricing && (
         <p className="text-xs lg:text-sm font-semibold text-gray-900 mb-3">
           {pricing}
         </p>
       )}
+
       {buttonLink ? (
         <a
           href={buttonLink}
-          onClick={(e) => {
-            if (buttonLink.includes('#')) {
-              e.preventDefault();
-              const [path, hash] = buttonLink.split('#');
-              if (window.location.pathname !== path) {
-                window.history.pushState({}, '', buttonLink);
-                window.dispatchEvent(new PopStateEvent('popstate'));
-                setTimeout(() => {
-                  const el = document.getElementById(hash);
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-              } else {
-                const el = document.getElementById(hash);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }
-            } else {
-              e.preventDefault();
-              window.history.pushState({}, '', buttonLink);
-              window.dispatchEvent(new PopStateEvent('popstate'));
-            }
-          }}
+          onClick={handleNavigation}
           className="w-fit px-4 py-1.5 bg-[#1a5f3f] text-white text-sm font-semibold rounded-lg
                      hover:bg-[#0f3f2a] transition-all duration-300 hover:shadow-lg
                      flex items-center gap-1.5 group"
