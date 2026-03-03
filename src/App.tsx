@@ -6,18 +6,42 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
 
-const CompanyPage = lazy(() => import('./pages/CompanyPage'));
-const ProgramsPage = lazy(() => import('./pages/ProgramsPage'));
-const CaribbeanPage = lazy(() => import('./pages/CaribbeanPage'));
-const PortugalPage = lazy(() => import('./pages/PortugalPage'));
-const ResearchPage = lazy(() => import('./pages/ResearchPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const BlogPage = lazy(() => import('./pages/BlogPage'));
-const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
-const GuidesPage = lazy(() => import('./pages/GuidesPage'));
-const GuidesStorePage = lazy(() => import('./pages/GuidesStorePage'));
-const CheckoutSuccessPage = lazy(() => import('./pages/CheckoutSuccessPage'));
-const ScheduleCallModal = lazy(() => import('./components/ScheduleCallModal'));
+// --- Loaders (so we can prefetch) ---
+const loadCompanyPage = () => import('./pages/CompanyPage');
+const CompanyPage = lazy(loadCompanyPage);
+
+const loadProgramsPage = () => import('./pages/ProgramsPage');
+const ProgramsPage = lazy(loadProgramsPage);
+
+const loadCaribbeanPage = () => import('./pages/CaribbeanPage');
+const CaribbeanPage = lazy(loadCaribbeanPage);
+
+const loadPortugalPage = () => import('./pages/PortugalPage');
+const PortugalPage = lazy(loadPortugalPage);
+
+const loadResearchPage = () => import('./pages/ResearchPage');
+const ResearchPage = lazy(loadResearchPage);
+
+const loadContactPage = () => import('./pages/ContactPage');
+const ContactPage = lazy(loadContactPage);
+
+const loadBlogPage = () => import('./pages/BlogPage');
+const BlogPage = lazy(loadBlogPage);
+
+const loadBlogPostPage = () => import('./pages/BlogPostPage');
+const BlogPostPage = lazy(loadBlogPostPage);
+
+const loadGuidesPage = () => import('./pages/GuidesPage');
+const GuidesPage = lazy(loadGuidesPage);
+
+const loadGuidesStorePage = () => import('./pages/GuidesStorePage');
+const GuidesStorePage = lazy(loadGuidesStorePage);
+
+const loadCheckoutSuccessPage = () => import('./pages/CheckoutSuccessPage');
+const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
+
+const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
+const ScheduleCallModal = lazy(loadScheduleCallModal);
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: string }> {
   constructor(props: { children: ReactNode }) {
@@ -35,7 +59,10 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
             <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
             <p className="text-gray-600 mb-4">{this.state.error}</p>
             <button
-              onClick={() => { this.setState({ hasError: false, error: '' }); window.location.reload(); }}
+              onClick={() => {
+                this.setState({ hasError: false, error: '' });
+                window.location.reload();
+              }}
               className="px-6 py-3 bg-[#0f3460] text-white rounded-lg hover:bg-[#0d2540]"
             >
               Reload Page
@@ -48,6 +75,12 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   }
 }
 
+// Helper: navigate without full reload
+function navigate(href: string) {
+  window.history.pushState({}, '', href);
+  window.dispatchEvent(new PopStateEvent('popstate'));
+}
+
 function HomePage() {
   const handleScheduleCall = () => {
     const event = new CustomEvent('openScheduleModal');
@@ -56,7 +89,7 @@ function HomePage() {
 
   return (
     <div>
-      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => { window.location.href = '/guides'; }} />
+      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => navigate('/guides')} />
       <Process />
       <Testimonials />
       <ComparisonSection />
@@ -87,20 +120,72 @@ function App() {
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
 
-  // Intercept all anchor clicks for SPA navigation
+  // Intercept internal anchor clicks for SPA navigation
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a');
       if (!target) return;
+
       const href = target.getAttribute('href');
-      if (!href || href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) return;
+      if (!href) return;
+
+      // ignore external/special links
+      if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) return;
+
       e.preventDefault();
-      window.history.pushState({}, '', href);
-      setCurrentPath(href);
-      window.scrollTo(0, 0);
+      navigate(href);
     };
+
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
+  }, []);
+
+  // Prefetch route chunks on hover/focus so clicks feel instant
+  useEffect(() => {
+    const routePrefetchMap: Record<string, () => Promise<unknown>> = {
+      '/company': loadCompanyPage,
+      '/programs': loadProgramsPage,
+      '/caribbean-citizenship-by-investment': loadCaribbeanPage,
+      '/portugal-europe-residency': loadPortugalPage,
+      '/research': loadResearchPage,
+      '/contact': loadContactPage,
+      '/blog': loadBlogPage,
+      '/guides': loadGuidesStorePage,
+      '/checkout/success': loadCheckoutSuccessPage,
+      '/guides-old': loadGuidesPage,
+    };
+
+    const shouldIgnore = (href: string) =>
+      href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#');
+
+    const prefetch = (href: string) => {
+      const loader = routePrefetchMap[href];
+      if (loader) loader();
+
+      // blog post route
+      if (href.startsWith('/blog/')) loadBlogPostPage();
+    };
+
+    const onPointerOver = (e: Event) => {
+      const a = (e.target as HTMLElement)?.closest?.('a');
+      const href = a?.getAttribute?.('href');
+      if (!href || shouldIgnore(href)) return;
+      prefetch(href);
+    };
+
+    const onFocusIn = (e: Event) => {
+      const a = (e.target as HTMLElement)?.closest?.('a');
+      const href = a?.getAttribute?.('href');
+      if (!href || shouldIgnore(href)) return;
+      prefetch(href);
+    };
+
+    document.addEventListener('pointerover', onPointerOver);
+    document.addEventListener('focusin', onFocusIn);
+    return () => {
+      document.removeEventListener('pointerover', onPointerOver);
+      document.removeEventListener('focusin', onFocusIn);
+    };
   }, []);
 
   const getPageComponent = () => {
@@ -140,11 +225,13 @@ function App() {
       <div className="min-h-screen flex flex-col bg-white">
         <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
         <main className="flex-1">
-          <Suspense fallback={
-            <div className="flex items-center justify-center min-h-[400px]">
-              <div className="animate-pulse text-gray-400 text-lg">Loading...</div>
-            </div>
-          }>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-pulse text-gray-400 text-lg">Loading...</div>
+              </div>
+            }
+          >
             {getPageComponent()}
           </Suspense>
         </main>
