@@ -115,9 +115,10 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
 
     plugins: [
       crossDomain({ siteUrl }),
-      convex({ authConfig }), // ✅ FIXED — required argument
+      convex({ authConfig }),
       admin({
-        adminRoles: ["admin", "service-admin"],
+        // ✅ FIX: remove "service-admin" (it wasn't defined in roles config)
+        adminRoles: ["admin"],
       }),
       apiKey({
         enableSessionForAPIKeys: true,
@@ -172,13 +173,10 @@ export const getUserByEmail = query({
   args: { email: v.string() },
   handler: async (ctx, { email }) => {
     const user =
-      (await ctx.runQuery(
-        components.betterAuth.adapter.findOne,
-        {
-          model: "user",
-          where: [{ field: "email", value: email }],
-        }
-      )) as BetterAuthUser | null;
+      (await ctx.runQuery(components.betterAuth.adapter.findOne, {
+        model: "user",
+        where: [{ field: "email", value: email }],
+      })) as BetterAuthUser | null;
 
     if (!user) return null;
 
@@ -235,15 +233,12 @@ export const deleteUser = mutation({
     );
 
     for (const session of sessions.page) {
-      await ctx.runMutation(
-        components.betterAuth.adapter.deleteOne,
-        {
-          input: {
-            model: "session",
-            where: [{ field: "_id", value: session._id }],
-          },
-        }
-      );
+      await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
+        input: {
+          model: "session",
+          where: [{ field: "_id", value: session._id }],
+        },
+      });
     }
 
     const accounts = await ctx.runQuery(
@@ -256,26 +251,20 @@ export const deleteUser = mutation({
     );
 
     for (const account of accounts.page) {
-      await ctx.runMutation(
-        components.betterAuth.adapter.deleteOne,
-        {
-          input: {
-            model: "account",
-            where: [{ field: "_id", value: account._id }],
-          },
-        }
-      );
+      await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
+        input: {
+          model: "account",
+          where: [{ field: "_id", value: account._id }],
+        },
+      });
     }
 
-    await ctx.runMutation(
-      components.betterAuth.adapter.deleteOne,
-      {
-        input: {
-          model: "user",
-          where: [{ field: "_id", value: userId }],
-        },
-      }
-    );
+    await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
+      input: {
+        model: "user",
+        where: [{ field: "_id", value: userId }],
+      },
+    });
 
     return { success: true };
   },
