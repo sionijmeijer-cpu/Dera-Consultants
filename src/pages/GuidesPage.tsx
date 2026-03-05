@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, BookOpen, Star, Shield, Download, Package, Check } from 'lucide-react';
+import { ArrowRight, BookOpen, Star, Shield, Download, Package, Check, Clock } from 'lucide-react';
 import DownloadModal from '../components/DownloadModal';
 
 interface Guide {
@@ -17,6 +17,10 @@ interface Guide {
   bgColor: string;
   borderColor: string;
   popular?: boolean;
+
+  // Availability gating
+  available?: boolean;
+  availabilityNote?: string;
 }
 
 const guides: Guide[] = [
@@ -27,7 +31,8 @@ const guides: Guide[] = [
     price: '€125',
     badge: 'Most Comprehensive',
     badgeColor: 'bg-amber-500',
-    description: 'The definitive guide for investors navigating Portugal\'s Golden Visa program. From fund selection to NHR tax status — everything you need to make a confident, informed investment decision.',
+    description:
+      "This guide is being refined and updated to reflect the latest rules, fund landscape, and tax considerations. We're tightening it before release.",
     highlights: [
       'Updated 2026 fund & real estate rules',
       'Step-by-step application timeline',
@@ -40,6 +45,8 @@ const guides: Guide[] = [
     bgColor: 'bg-amber-50',
     borderColor: 'border-amber-200',
     popular: true,
+    available: false,
+    availabilityNote: 'Coming soon — refining and updating the 2026 details.',
   },
   {
     id: 'd7-visa',
@@ -48,7 +55,8 @@ const guides: Guide[] = [
     price: '€67',
     badge: 'Best for Retirees',
     badgeColor: 'bg-[#1B7A4E]',
-    description: 'Retire or live in Portugal on passive income. This blueprint walks you through income requirements, the SEF process, and how to structure your finances to qualify — without the guesswork.',
+    description:
+      "Retire or live in Portugal on passive income. This blueprint walks you through income requirements, the SEF process, and how to structure your finances to qualify — without the guesswork.",
     highlights: [
       'Minimum income thresholds explained',
       'Proof of income documentation guide',
@@ -60,6 +68,7 @@ const guides: Guide[] = [
     accentColor: 'text-[#1B7A4E]',
     bgColor: 'bg-emerald-50',
     borderColor: 'border-emerald-200',
+    available: true,
   },
   {
     id: 'd8-visa',
@@ -68,7 +77,8 @@ const guides: Guide[] = [
     price: '€77',
     badge: 'For Remote Workers',
     badgeColor: 'bg-[#0f3460]',
-    description: 'Work remotely from Portugal legally. This manual covers everything from proving your remote income to finding housing, registering with the tax authority, and building a life in Lisbon or Porto.',
+    description:
+      "This guide is being refined, especially around documentation proof and renewal edge-cases. We're polishing it before launch.",
     highlights: [
       'Income proof for freelancers & employees',
       'Contract & employer letter templates',
@@ -80,6 +90,8 @@ const guides: Guide[] = [
     accentColor: 'text-[#0f3460]',
     bgColor: 'bg-blue-50',
     borderColor: 'border-blue-200',
+    available: false,
+    availabilityNote: 'Coming soon — refining templates and proof requirements.',
   },
   {
     id: 'caribbean-bundle',
@@ -89,7 +101,8 @@ const guides: Guide[] = [
     originalPrice: '€220',
     badge: 'Best Value',
     badgeColor: 'bg-purple-600',
-    description: 'Five Caribbean citizenship-by-investment programs in one comprehensive bundle. Compare St. Kitts, Dominica, Grenada, Antigua, and St. Lucia — and choose the passport that fits your goals.',
+    description:
+      "This bundle is being revised to include the latest program costs, processing time changes, and due diligence updates. Not released yet.",
     highlights: [
       'Side-by-side program comparison',
       'Processing times & approval rates',
@@ -101,6 +114,8 @@ const guides: Guide[] = [
     accentColor: 'text-purple-600',
     bgColor: 'bg-purple-50',
     borderColor: 'border-purple-200',
+    available: false,
+    availabilityNote: 'Coming soon — revising costs and program updates.',
   },
 ];
 
@@ -128,6 +143,8 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
   const handleDownloadClick = (guideId: string, guideTitle: string) => {
     setDownloadModal({ isOpen: true, guideId, guideTitle });
   };
+
+  const canSellBundle = false; // bundle disabled until all guides are available
 
   return (
     <div className="bg-white">
@@ -200,81 +217,110 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {guides.map((guide) => (
-              <div
-                key={guide.id}
-                className={`relative flex flex-col rounded-2xl border-2 ${guide.borderColor} ${guide.bgColor} p-6 sm:p-7 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer group ${
-                  guide.popular ? 'lg:scale-105 lg:shadow-xl' : ''
-                }`}
-                onClick={() => setSelectedGuide(selectedGuide === guide.id ? null : guide.id)}
-              >
-                {/* Badge */}
-                {guide.badge && (
-                  <span className={`absolute -top-3 left-6 ${guide.badgeColor} text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md`}>
-                    {guide.badge}
-                  </span>
-                )}
+            {guides.map((guide) => {
+              const isAvailable = guide.available !== false;
 
-                {/* Popular indicator */}
-                {guide.popular && (
-                  <div className="absolute top-6 right-6 bg-gradient-to-br from-amber-400 to-amber-500 text-white rounded-full p-2 shadow-lg">
-                    <Star className="w-5 h-5 fill-current" />
+              return (
+                <div
+                  key={guide.id}
+                  className={`relative flex flex-col rounded-2xl border-2 ${guide.borderColor} ${guide.bgColor} p-6 sm:p-7 shadow-md transition-all duration-300 group ${
+                    isAvailable
+                      ? 'hover:shadow-2xl hover:-translate-y-2 cursor-pointer'
+                      : 'opacity-70 cursor-not-allowed'
+                  } ${guide.popular ? 'lg:scale-105 lg:shadow-xl' : ''}`}
+                  onClick={() => {
+                    if (!isAvailable) return;
+                    setSelectedGuide(selectedGuide === guide.id ? null : guide.id);
+                  }}
+                  aria-disabled={!isAvailable}
+                >
+                  {/* Badge */}
+                  {guide.badge && (
+                    <span
+                      className={`absolute -top-3 left-6 ${
+                        isAvailable ? guide.badgeColor : 'bg-gray-600'
+                      } text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md`}
+                    >
+                      {isAvailable ? guide.badge : 'Coming soon'}
+                    </span>
+                  )}
+
+                  {/* Popular indicator */}
+                  {guide.popular && (
+                    <div className="absolute top-6 right-6 bg-gradient-to-br from-amber-400 to-amber-500 text-white rounded-full p-2 shadow-lg">
+                      <Star className="w-5 h-5 fill-current" />
+                    </div>
+                  )}
+
+                  {/* Icon */}
+                  <div className={`${guide.accentColor} mb-4 mt-2 ${isAvailable ? 'group-hover:scale-110' : ''} transition-transform duration-300`}>
+                    {guide.icon}
                   </div>
-                )}
 
-                {/* Icon */}
-                <div className={`${guide.accentColor} mb-4 mt-2 group-hover:scale-110 transition-transform duration-300`}>
-                  {guide.icon}
-                </div>
+                  {/* Title */}
+                  <h3 className="text-gray-900 font-bold text-lg sm:text-xl leading-snug mb-1">
+                    {guide.title}
+                  </h3>
+                  <p className={`${guide.accentColor} text-sm font-semibold mb-4`}>
+                    {guide.subtitle}
+                  </p>
 
-                {/* Title */}
-                <h3 className="text-gray-900 font-bold text-lg sm:text-xl leading-snug mb-1">
-                  {guide.title}
-                </h3>
-                <p className={`${guide.accentColor} text-sm font-semibold mb-4`}>
-                  {guide.subtitle}
-                </p>
+                  {/* Availability note */}
+                  {!isAvailable && (
+                    <div className="mb-4 flex items-start gap-2 text-xs sm:text-sm text-gray-700">
+                      <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <span>{guide.availabilityNote ?? 'Coming soon — currently being refined.'}</span>
+                    </div>
+                  )}
 
-                {/* Description */}
-                <p className="text-gray-700 text-sm leading-relaxed mb-5 flex-grow">
-                  {guide.description}
-                </p>
+                  {/* Description */}
+                  <p className="text-gray-700 text-sm leading-relaxed mb-5 flex-grow">
+                    {guide.description}
+                  </p>
 
-                {/* Highlights */}
-                <ul className="space-y-2.5 mb-6">
-                  {guide.highlights.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700">
-                      <Check className={`${guide.accentColor} w-4 h-4 flex-shrink-0 mt-0.5`} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                  {/* Highlights */}
+                  <ul className="space-y-2.5 mb-6">
+                    {guide.highlights.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700">
+                        <Check className={`${guide.accentColor} w-4 h-4 flex-shrink-0 mt-0.5`} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                {/* Price & CTA */}
-                <div className="mt-auto pt-4 border-t border-current border-opacity-10">
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{guide.price}</span>
-                    {guide.originalPrice && (
-                      <span className="text-sm text-gray-400 line-through">{guide.originalPrice}</span>
-                    )}
+                  {/* Price & CTA */}
+                  <div className="mt-auto pt-4 border-t border-current border-opacity-10">
+                    <div className="flex items-baseline gap-2 mb-4">
+                      <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{guide.price}</span>
+                      {guide.originalPrice && (
+                        <span className="text-sm text-gray-400 line-through">{guide.originalPrice}</span>
+                      )}
+                    </div>
+
+                    <button
+                      disabled={!isAvailable}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (!isAvailable) return;
+                        handleDownloadClick(guide.id, guide.title);
+                      }}
+                      className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
+                        isAvailable
+                          ? `hover:scale-105 hover:shadow-lg ${
+                              guide.popular
+                                ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700'
+                                : `${guide.bgColor} ${guide.accentColor} border-2 ${guide.borderColor} hover:shadow-md`
+                            }`
+                          : 'bg-gray-200 text-gray-600 cursor-not-allowed'
+                      }`}
+                    >
+                      <Download className="w-4 h-4" />
+                      {isAvailable ? 'Get Guide' : 'Coming soon'}
+                    </button>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDownloadClick(guide.id, guide.title);
-                    }}
-                    className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 hover:shadow-lg ${
-                      guide.popular
-                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700'
-                        : `${guide.bgColor} ${guide.accentColor} border-2 ${guide.borderColor} hover:shadow-md`
-                    }`}
-                  >
-                    <Download className="w-4 h-4" />
-                    Get Guide
-                  </button>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -326,12 +372,17 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
             <span className="inline-block bg-purple-100 text-purple-700 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wide mb-6">
               Complete Collection
             </span>
+
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Get All 4 Guides
+              {canSellBundle ? 'Get All 4 Guides' : 'Complete Collection (Coming soon)'}
             </h2>
+
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Download all guides together and have everything you need to explore every immigration option.
+              {canSellBundle
+                ? 'Download all guides together and have everything you need to explore every immigration option.'
+                : "We're refining the full collection before release. The bundle unlocks once all guides are available."}
             </p>
+
             <div className="mb-6">
               <div className="flex items-baseline gap-2 justify-center">
                 <span className="text-4xl font-extrabold text-gray-900">€292</span>
@@ -339,13 +390,24 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
               </div>
               <p className="text-sm text-gray-600 mt-2">All 4 guides combined</p>
             </div>
-            <button
-              onClick={() => handleDownloadClick('all-guides', 'Complete Guide Collection (All 4 Guides)')}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-10 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-            >
-              <Download className="w-5 h-5" />
-              Get All Guides
-            </button>
+
+            {canSellBundle ? (
+              <button
+                onClick={() => handleDownloadClick('all-guides', 'Complete Guide Collection (All 4 Guides)')}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-10 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                <Download className="w-5 h-5" />
+                Get All Guides
+              </button>
+            ) : (
+              <button
+                disabled
+                className="inline-flex items-center gap-2 bg-gray-300 text-gray-600 px-10 py-4 rounded-xl font-semibold cursor-not-allowed"
+              >
+                <Download className="w-5 h-5" />
+                Coming soon
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -382,7 +444,7 @@ export default function GuidesPage({ onScheduleCall }: GuidesPageProps) {
               },
               {
                 q: 'Can I download all guides at once?',
-                a: 'Absolutely! Use the "Download All Guides" button to get the complete collection in one go.'
+                a: 'The complete bundle is coming soon and will unlock once all guides are available.'
               }
             ].map((item, i) => (
               <div key={i} className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300">
