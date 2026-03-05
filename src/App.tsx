@@ -6,41 +6,44 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
 
+// Helper: force the import to match React.lazy expected shape
+const asLazy = <T extends { default: any }>(p: Promise<T>) => p.then((m) => ({ default: m.default }));
+
 // ---- Lazy loaders (needed for prefetch + warmup) ----
-const loadCompanyPage = () => import('./pages/CompanyPage');
+const loadCompanyPage = () => asLazy(import('./pages/CompanyPage'));
 const CompanyPage = lazy(loadCompanyPage);
 
-const loadProgramsPage = () => import('./pages/ProgramsPage');
+const loadProgramsPage = () => asLazy(import('./pages/ProgramsPage'));
 const ProgramsPage = lazy(loadProgramsPage);
 
-const loadCaribbeanPage = () => import('./pages/CaribbeanPage');
+const loadCaribbeanPage = () => asLazy(import('./pages/CaribbeanPage'));
 const CaribbeanPage = lazy(loadCaribbeanPage);
 
-const loadPortugalPage = () => import('./pages/PortugalPage');
+const loadPortugalPage = () => asLazy(import('./pages/PortugalPage'));
 const PortugalPage = lazy(loadPortugalPage);
 
-const loadResearchPage = () => import('./pages/ResearchPage');
+const loadResearchPage = () => asLazy(import('./pages/ResearchPage'));
 const ResearchPage = lazy(loadResearchPage);
 
-const loadContactPage = () => import('./pages/ContactPage');
+const loadContactPage = () => asLazy(import('./pages/ContactPage'));
 const ContactPage = lazy(loadContactPage);
 
-const loadBlogPage = () => import('./pages/BlogPage');
+const loadBlogPage = () => asLazy(import('./pages/BlogPage'));
 const BlogPage = lazy(loadBlogPage);
 
-const loadBlogPostPage = () => import('./pages/BlogPostPage');
+const loadBlogPostPage = () => asLazy(import('./pages/BlogPostPage'));
 const BlogPostPage = lazy(loadBlogPostPage);
 
-const loadGuidesPage = () => import('./pages/GuidesPage');
+const loadGuidesPage = () => asLazy(import('./pages/GuidesPage'));
 const GuidesPage = lazy(loadGuidesPage);
 
-const loadGuidesStorePage = () => import('./pages/GuidesStorePage');
+const loadGuidesStorePage = () => asLazy(import('./pages/GuidesStorePage'));
 const GuidesStorePage = lazy(loadGuidesStorePage);
 
-const loadCheckoutSuccessPage = () => import('./pages/CheckoutSuccessPage');
+const loadCheckoutSuccessPage = () => asLazy(import('./pages/CheckoutSuccessPage'));
 const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
 
-const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
+const loadScheduleCallModal = () => asLazy(import('./components/ScheduleCallModal'));
 const ScheduleCallModal = lazy(loadScheduleCallModal);
 
 // ---- Error Boundary ----
