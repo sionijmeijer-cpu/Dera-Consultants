@@ -4,7 +4,7 @@
  */
 import { createApi } from "@convex-dev/better-auth";
 import schema from "./schema";
-import { createAuth } from "../auth";
+import { getAuthOptions } from "../auth";
 
 export const {
   create,
@@ -14,4 +14,4 @@ export const {
   updateMany,
   deleteOne,
   deleteMany,
-} = createApi(schema, createAuth);
+} = createApi(schema, getAuthOptions);
