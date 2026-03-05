@@ -5,7 +5,7 @@
 import { createClient, type GenericCtx } from "@convex-dev/better-auth";
 import { convex, crossDomain } from "@convex-dev/better-auth/plugins";
 import { admin, apiKey } from "better-auth/plugins";
-import { betterAuth } from "better-auth";
+import { betterAuth, type BetterAuthOptions } from "better-auth";
 
 import { components } from "./_generated/api";
 import { DataModel } from "./_generated/dataModel";
@@ -38,9 +38,12 @@ const staticOrigins = [
   "http://localhost:8081",
 ];
 
-function getTrustedOrigins(request: Request): string[] {
+function getTrustedOrigins(request?: Request): string[] {
   const origins = [...staticOrigins];
   if (siteUrl) origins.push(siteUrl);
+
+  // Better Auth types allow this callback to be called with no request.
+  if (!request) return [...new Set(origins)];
 
   const addDynamicOrigin = (url: string | null) => {
     if (!url) return;
@@ -73,58 +76,65 @@ function getTrustedOrigins(request: Request): string[] {
 }
 
 /**
- * Create Better Auth instance
+ * Return Better Auth options (NOT the instance).
+ * Used by adapter/createApi which expects options.
  */
-export const createAuth = (ctx: GenericCtx<DataModel>) => {
-  return betterAuth({
-    secret: process.env.BETTER_AUTH_SECRET!,
-    trustedOrigins: getTrustedOrigins,
-    database: authComponent.adapter(ctx),
+export const getAuthOptions = (
+  ctx: GenericCtx<DataModel>
+): BetterAuthOptions => ({
+  secret: process.env.BETTER_AUTH_SECRET!,
+  trustedOrigins: getTrustedOrigins,
+  database: authComponent.adapter(ctx),
 
-    emailAndPassword: {
-      enabled: true,
-      requireEmailVerification: false,
-    },
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: false,
+  },
 
-    user: {
-      additionalFields: {
-        name: {
-          type: "string",
-          required: false,
-        },
-        role: {
-          type: "string",
-          required: false,
-          defaultValue: "user",
-        },
-        banned: {
-          type: "boolean",
-          required: false,
-          defaultValue: false,
-        },
-        banReason: {
-          type: "string",
-          required: false,
-        },
-        banExpires: {
-          type: "number",
-          required: false,
-        },
+  user: {
+    additionalFields: {
+      name: {
+        type: "string",
+        required: false,
+      },
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "user",
+      },
+      banned: {
+        type: "boolean",
+        required: false,
+        defaultValue: false,
+      },
+      banReason: {
+        type: "string",
+        required: false,
+      },
+      banExpires: {
+        type: "number",
+        required: false,
       },
     },
+  },
 
-    plugins: [
-      crossDomain({ siteUrl }),
-      convex({ authConfig }),
-      admin({
-        // ✅ FIX: remove "service-admin" (it wasn't defined in roles config)
-        adminRoles: ["admin"],
-      }),
-      apiKey({
-        enableSessionForAPIKeys: true,
-      }),
-    ],
-  });
+  plugins: [
+    crossDomain({ siteUrl }),
+    convex({ authConfig }),
+    admin({
+      adminRoles: ["admin"],
+    }),
+    apiKey({
+      enableSessionForAPIKeys: true,
+    }),
+  ],
+});
+
+/**
+ * Create Better Auth instance (runtime).
+ */
+export const createAuth = (ctx: GenericCtx<DataModel>) => {
+  return betterAuth(getAuthOptions(ctx));
 };
 
 /* ============================================================
@@ -152,8 +162,7 @@ interface BetterAuthUser {
 export const getCurrentUser = query({
   args: {},
   handler: async (ctx) => {
-    const user =
-      (await authComponent.getAuthUser(ctx)) as BetterAuthUser | null;
+    const user = (await authComponent.getAuthUser(ctx)) as BetterAuthUser | null;
     if (!user) return null;
 
     return {
@@ -172,11 +181,10 @@ export const getCurrentUser = query({
 export const getUserByEmail = query({
   args: { email: v.string() },
   handler: async (ctx, { email }) => {
-    const user =
-      (await ctx.runQuery(components.betterAuth.adapter.findOne, {
-        model: "user",
-        where: [{ field: "email", value: email }],
-      })) as BetterAuthUser | null;
+    const user = (await ctx.runQuery(components.betterAuth.adapter.findOne, {
+      model: "user",
+      where: [{ field: "email", value: email }],
+    })) as BetterAuthUser | null;
 
     if (!user) return null;
 
@@ -193,14 +201,11 @@ export const getUserByEmail = query({
 export const listAllUsers = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, { limit = 100 }) => {
-    const result = await ctx.runQuery(
-      components.betterAuth.adapter.findMany,
-      {
-        model: "user",
-        sortBy: { field: "createdAt", direction: "desc" },
-        paginationOpts: { numItems: limit, cursor: null },
-      }
-    );
+    const result = await ctx.runQuery(components.betterAuth.adapter.findMany, {
+      model: "user",
+      sortBy: { field: "createdAt", direction: "desc" },
+      paginationOpts: { numItems: limit, cursor: null },
+    });
 
     return result.page.map((user: any) => ({
       id: user._id,
@@ -223,14 +228,11 @@ export const listAllUsers = query({
 export const deleteUser = mutation({
   args: { userId: v.string() },
   handler: async (ctx, { userId }) => {
-    const sessions = await ctx.runQuery(
-      components.betterAuth.adapter.findMany,
-      {
-        model: "session",
-        where: [{ field: "userId", value: userId }],
-        paginationOpts: { numItems: 100, cursor: null },
-      }
-    );
+    const sessions = await ctx.runQuery(components.betterAuth.adapter.findMany, {
+      model: "session",
+      where: [{ field: "userId", value: userId }],
+      paginationOpts: { numItems: 100, cursor: null },
+    });
 
     for (const session of sessions.page) {
       await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
@@ -241,14 +243,11 @@ export const deleteUser = mutation({
       });
     }
 
-    const accounts = await ctx.runQuery(
-      components.betterAuth.adapter.findMany,
-      {
-        model: "account",
-        where: [{ field: "userId", value: userId }],
-        paginationOpts: { numItems: 100, cursor: null },
-      }
-    );
+    const accounts = await ctx.runQuery(components.betterAuth.adapter.findMany, {
+      model: "account",
+      where: [{ field: "userId", value: userId }],
+      paginationOpts: { numItems: 100, cursor: null },
+    });
 
     for (const account of accounts.page) {
       await ctx.runMutation(components.betterAuth.adapter.deleteOne, {
