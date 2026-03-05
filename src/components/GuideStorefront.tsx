@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ShoppingCart, Check } from 'lucide-react';
+import { ShoppingCart, Check, Clock } from 'lucide-react';
 
 interface Guide {
   id: string;
@@ -10,13 +10,18 @@ interface Guide {
   features: string[];
   image: string;
   badge?: string;
+
+  // Availability gating
+  available?: boolean;
+  availabilityNote?: string;
 }
 
 const guides: Guide[] = [
   {
     id: 'golden-visa',
     title: 'Golden Visa 2026',
-    description: 'Complete guide to Portugal\'s Golden Visa program with investment options and timeline.',
+    description:
+      "Coming soon — we're refining this guide to reflect the latest rules, fund landscape, and timelines before release.",
     price: 125,
     currency: 'EUR',
     features: [
@@ -24,10 +29,12 @@ const guides: Guide[] = [
       'Timeline & processing steps',
       'Tax implications',
       'Family sponsorship guide',
-      'Renewal requirements'
+      'Renewal requirements',
     ],
     image: '🇵🇹',
-    badge: 'Most Popular'
+    badge: 'Most Popular',
+    available: false,
+    availabilityNote: 'Coming soon — refining and updating the 2026 details.',
   },
   {
     id: 'd7-visa',
@@ -40,14 +47,16 @@ const guides: Guide[] = [
       'Document checklist',
       'Bank statement requirements',
       'Interview preparation',
-      'Common rejection reasons'
+      'Common rejection reasons',
     ],
     image: '🇵🇹',
+    available: true,
   },
   {
     id: 'd8-visa',
     title: 'D8 Digital Nomad Visa',
-    description: 'Everything you need to know about Portugal\'s digital nomad visa for remote workers.',
+    description:
+      "Coming soon — we're tightening the proof requirements, templates, and renewal edge-cases before launch.",
     price: 77,
     currency: 'EUR',
     features: [
@@ -55,14 +64,17 @@ const guides: Guide[] = [
       'Remote work verification',
       'Health insurance guide',
       'Tax residency rules',
-      'Renewal & extensions'
+      'Renewal & extensions',
     ],
     image: '🇵🇹',
+    available: false,
+    availabilityNote: 'Coming soon — refining templates and proof requirements.',
   },
   {
     id: 'caribbean-bundle',
     title: 'Complete Caribbean Bundle',
-    description: 'Comprehensive guide to all Caribbean citizenship by investment programs.',
+    description:
+      "Coming soon — we're revising program costs, timelines, and due diligence changes across all 5 CBI options.",
     price: 125,
     currency: 'EUR',
     features: [
@@ -70,11 +82,13 @@ const guides: Guide[] = [
       'Investment comparison',
       'Processing timelines',
       'Passport benefits matrix',
-      'Due diligence requirements'
+      'Due diligence requirements',
     ],
     image: '🏝️',
-    badge: 'Best Value'
-  }
+    badge: 'Best Value',
+    available: false,
+    availabilityNote: 'Coming soon — revising costs and program updates.',
+  },
 ];
 
 interface GuideCardProps {
@@ -84,17 +98,22 @@ interface GuideCardProps {
 
 function GuideCard({ guide, onBuyClick }: GuideCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const isAvailable = guide.available !== false;
 
   return (
     <div
-      className="bg-white dark:bg-slate-900 rounded-xl shadow-lg dark:shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl dark:hover:shadow-2xl flex flex-col h-full border border-gray-200 dark:border-slate-700"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={[
+        "bg-white dark:bg-slate-900 rounded-xl shadow-lg dark:shadow-xl overflow-hidden transition-all duration-300 flex flex-col h-full border border-gray-200 dark:border-slate-700",
+        isAvailable ? "hover:shadow-2xl dark:hover:shadow-2xl" : "opacity-70 cursor-not-allowed",
+      ].join(" ")}
+      onMouseEnter={() => isAvailable && setIsHovered(true)}
+      onMouseLeave={() => setIsAvailable && setIsHovered(false)}
+      aria-disabled={!isAvailable}
     >
       {/* Badge */}
       {guide.badge && (
-        <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-4 py-2 text-sm font-semibold text-center">
-          {guide.badge}
+        <div className={`text-white px-4 py-2 text-sm font-semibold text-center ${isAvailable ? 'bg-gradient-to-r from-blue-600 to-blue-500' : 'bg-gray-600'}`}>
+          {isAvailable ? guide.badge : 'Coming soon'}
         </div>
       )}
 
@@ -106,6 +125,13 @@ function GuideCard({ guide, onBuyClick }: GuideCardProps) {
 
       {/* Content */}
       <div className="p-6 flex-1 flex flex-col">
+        {!isAvailable && (
+          <div className="mb-4 flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <span>{guide.availabilityNote ?? "Coming soon — we're refining this guide before release."}</span>
+          </div>
+        )}
+
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed">
           {guide.description}
         </p>
@@ -137,15 +163,20 @@ function GuideCard({ guide, onBuyClick }: GuideCardProps) {
 
         {/* CTA Button */}
         <button
-          onClick={() => onBuyClick(guide)}
-          className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
-            isHovered
-              ? 'bg-blue-600 text-white shadow-lg scale-105'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
-          }`}
+          disabled={!isAvailable}
+          onClick={() => {
+            if (!isAvailable) return;
+            onBuyClick(guide);
+          }}
+          className={[
+            "w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2",
+            isAvailable
+              ? (isHovered ? "bg-blue-600 text-white shadow-lg scale-105" : "bg-blue-600 text-white hover:bg-blue-700")
+              : "bg-gray-200 text-gray-600 cursor-not-allowed",
+          ].join(" ")}
         >
           <ShoppingCart className="w-5 h-5" />
-          Buy Guide
+          {isAvailable ? 'Buy Guide' : 'Coming soon'}
         </button>
       </div>
     </div>
@@ -173,15 +204,9 @@ export default function GuideStorefront({ onBuyGuide }: GuideStorefrontProps) {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {guides.map((guide) => (
-            <GuideCard
-              key={guide.id}
-              guide={guide}
-              onBuyClick={onBuyGuide}
-            />
+            <GuideCard key={guide.id} guide={guide} onBuyClick={onBuyGuide} />
           ))}
         </div>
-
-
       </div>
     </div>
   );
