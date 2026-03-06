@@ -1,31 +1,13 @@
 import { useState, useEffect } from 'react';
 import { CheckCircle, Download, AlertCircle, Loader2, ArrowLeft, Mail } from 'lucide-react';
-
-// S3 download URLs mapped to guide IDs
-const GUIDE_DOWNLOADS: Record<string, { filename: string; s3Key: string }> = {
-  'golden-visa': {
-    filename: 'Golden_Visa_2026_Guide.pdf',
-    s3Key: 'guides/golden-visa-2026.pdf',
-  },
-  'd7-visa': {
-    filename: 'D7_Visa_Blueprint.pdf',
-    s3Key: 'guides/d7-visa-blueprint.pdf',
-  },
-  'd8-visa': {
-    filename: 'D8_Digital_Nomad_Visa.pdf',
-    s3Key: 'guides/d8-digital-nomad-visa.pdf',
-  },
-  'caribbean-bundle': {
-    filename: 'Complete_Caribbean_Bundle.pdf',
-    s3Key: 'guides/caribbean-bundle.pdf',
-  },
-};
+import { useConvexAction } from '../hooks/useConvex';
 
 const GUIDE_NAMES: Record<string, string> = {
   'golden-visa': 'Golden Visa 2026',
   'd7-visa': 'D7 Visa Blueprint',
   'd8-visa': 'D8 Digital Nomad Visa',
   'caribbean-bundle': 'Complete Caribbean Bundle',
+  'all-guides': 'Complete Guide Collection',
 };
 
 type VerifyStatus = 'loading' | 'success' | 'failed';
@@ -34,45 +16,39 @@ export default function CheckoutSuccessPage() {
   const [status, setStatus] = useState<VerifyStatus>('loading');
   const [guideId, setGuideId] = useState('');
   const [email, setEmail] = useState('');
+  const [sessionId, setSessionId] = useState('');
   const [error, setError] = useState('');
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const verifyCheckoutSession = useConvexAction('stripe:verifyCheckoutSession');
+  const getSignedGuideDownloadUrl = useConvexAction('downloads:getSignedGuideDownloadUrl');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const sessionId = params.get('session_id');
+    const checkoutSessionId = params.get('session_id');
     const guide = params.get('guide') || '';
-    setGuideId(guide);
 
-    if (!sessionId) {
+    if (guide) setGuideId(guide);
+
+    if (!checkoutSessionId) {
       setStatus('failed');
       setError('No checkout session found. Please try purchasing again.');
       return;
     }
 
-    verifyPayment(sessionId);
+    setSessionId(checkoutSessionId);
+    verifyPayment(checkoutSessionId);
   }, []);
 
-  const verifyPayment = async (sessionId: string) => {
+  const verifyPayment = async (checkoutSessionId: string) => {
     try {
-      // Use the Convex HTTP endpoint or action to verify
-      const convexUrl = (import.meta as any).env?.VITE_CONVEX_URL;
-      if (!convexUrl) {
-        // Fallback: trust the session_id presence as payment confirmation
-        // In production, always verify server-side
-        setStatus('success');
-        return;
-      }
-
-      const { ConvexHttpClient } = await import('convex/browser');
-      const client = new ConvexHttpClient(convexUrl);
-      const { api } = await import('../../convex/_generated/api');
-
-      const result = await client.action(api.stripe.verifyCheckoutSession, {
-        sessionId,
+      const result = await verifyCheckoutSession({
+        sessionId: checkoutSessionId,
       });
 
-      if (result.success) {
+      if (result?.success) {
         setStatus('success');
-        setEmail(result.email);
+        setEmail(result.email || '');
         if (result.guideId) setGuideId(result.guideId);
       } else {
         setStatus('failed');
@@ -80,22 +56,31 @@ export default function CheckoutSuccessPage() {
       }
     } catch (err: any) {
       console.error('Verification error:', err);
-      // If verification fails but we have session_id, show success with note
-      setStatus('success');
+      setStatus('failed');
+      setError(err?.message || 'Payment verification failed.');
     }
   };
 
-  const handleDownload = () => {
-    const guide = GUIDE_DOWNLOADS[guideId];
-    if (!guide) return;
+  const handleDownload = async () => {
+    if (!sessionId) return;
 
-    // Generate a pre-signed S3 URL or use a direct download endpoint
-    // For now, we'll use a placeholder that would be replaced with actual S3 URL
-    const s3Bucket = 'dera-consultants-guides';
-    const s3Region = 'eu-west-1';
-    const downloadUrl = `https://${s3Bucket}.s3.${s3Region}.amazonaws.com/${guide.s3Key}`;
+    try {
+      setIsDownloading(true);
+      setError('');
 
-    window.open(downloadUrl, '_blank');
+      const result = await getSignedGuideDownloadUrl({ sessionId });
+
+      if (!result?.url) {
+        throw new Error('Could not generate a download link.');
+      }
+
+      window.location.href = result.url;
+    } catch (err: any) {
+      console.error('Download error:', err);
+      setError(err?.message || 'Could not start download. Please contact support.');
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   if (status === 'loading') {
@@ -139,14 +124,11 @@ export default function CheckoutSuccessPage() {
   }
 
   const guideName = GUIDE_NAMES[guideId] || 'Your Guide';
-  const guideDownload = GUIDE_DOWNLOADS[guideId];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-16">
       <div className="max-w-lg w-full">
-        {/* Success Card */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          {/* Green Header */}
           <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-8 py-8 text-center">
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-10 h-10 text-white" />
@@ -155,9 +137,7 @@ export default function CheckoutSuccessPage() {
             <p className="text-emerald-100">Thank you for your purchase</p>
           </div>
 
-          {/* Content */}
           <div className="p-8">
-            {/* Order Summary */}
             <div className="bg-gray-50 rounded-lg p-4 mb-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -171,40 +151,53 @@ export default function CheckoutSuccessPage() {
               </div>
             </div>
 
-            {/* Download Button */}
-            {guideDownload && (
-              <button
-                onClick={handleDownload}
-                className="w-full py-4 px-6 bg-[#0f3460] text-white font-semibold rounded-lg hover:bg-[#0d2540] transition-all duration-200 flex items-center justify-center gap-3 mb-4 hover:shadow-lg"
-              >
-                <Download className="w-5 h-5" />
-                Download {guideDownload.filename}
-              </button>
-            )}
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="w-full py-4 px-6 bg-[#0f3460] text-white font-semibold rounded-lg hover:bg-[#0d2540] transition-all duration-200 flex items-center justify-center gap-3 mb-4 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {isDownloading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Preparing download...
+                </>
+              ) : (
+                <>
+                  <Download className="w-5 h-5" />
+                  Download Guide
+                </>
+              )}
+            </button>
 
-            {/* Email Confirmation */}
             {email && (
               <div className="flex items-start gap-3 p-4 bg-blue-50 border border-blue-200 rounded-lg mb-6">
                 <Mail className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-blue-900">Confirmation sent</p>
+                  <p className="text-sm font-medium text-blue-900">Purchase confirmed</p>
                   <p className="text-sm text-blue-700">
-                    A download link has also been sent to <strong>{email}</strong>
+                    Payment completed for <strong>{email}</strong>.
                   </p>
                 </div>
               </div>
             )}
 
-            {/* Help Text */}
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg mb-6">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
+
             <div className="text-center text-sm text-gray-500 space-y-2">
               <p>
-                Having trouble downloading? <a href="/contact" className="text-[#0f3460] font-medium hover:underline">Contact our support team</a>
+                Having trouble downloading?{' '}
+                <a href="/contact" className="text-[#0f3460] font-medium hover:underline">
+                  Contact our support team
+                </a>
               </p>
             </div>
           </div>
         </div>
 
-        {/* Back to Guides */}
         <div className="text-center mt-6">
           <a
             href="/guides"
