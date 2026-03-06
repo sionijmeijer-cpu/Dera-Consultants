@@ -10,18 +10,29 @@ const GUIDE_NAMES: Record<string, string> = {
   'all-guides': 'Complete Guide Collection',
 };
 
+const GUIDE_DOWNLOAD_URLS: Record<string, string> = {
+  'golden-visa':
+    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/golden-visa-2026.pdf',
+  'd7-visa':
+    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/d7-visa-blueprint.pdf',
+  'd8-visa':
+    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/d8-digital-nomad-visa.pdf',
+  'caribbean-bundle':
+    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/caribbean-bundle.pdf',
+  'all-guides':
+    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/all-guides.pdf',
+};
+
 type VerifyStatus = 'loading' | 'success' | 'failed';
 
 export default function CheckoutSuccessPage() {
   const [status, setStatus] = useState<VerifyStatus>('loading');
   const [guideId, setGuideId] = useState('');
   const [email, setEmail] = useState('');
-  const [sessionId, setSessionId] = useState('');
   const [error, setError] = useState('');
   const [isDownloading, setIsDownloading] = useState(false);
 
   const verifyCheckoutSession = useConvexAction('stripe:verifyCheckoutSession');
-  const getSignedGuideDownloadUrl = useConvexAction('downloads:getSignedGuideDownloadUrl');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -36,7 +47,6 @@ export default function CheckoutSuccessPage() {
       return;
     }
 
-    setSessionId(checkoutSessionId);
     verifyPayment(checkoutSessionId);
   }, []);
 
@@ -61,23 +71,19 @@ export default function CheckoutSuccessPage() {
     }
   };
 
-  const handleDownload = async () => {
-    if (!sessionId) return;
+  const handleDownload = () => {
+    const url = GUIDE_DOWNLOAD_URLS[guideId];
+    if (!url) {
+      setError('No download file is configured for this guide yet.');
+      return;
+    }
 
     try {
       setIsDownloading(true);
-      setError('');
-
-      const result = await getSignedGuideDownloadUrl({ sessionId });
-
-      if (!result?.url) {
-        throw new Error('Could not generate a download link.');
-      }
-
-      window.location.href = result.url;
+      window.open(url, '_blank', 'noopener,noreferrer');
     } catch (err: any) {
       console.error('Download error:', err);
-      setError(err?.message || 'Could not start download. Please contact support.');
+      setError('Could not start download. Please contact support.');
     } finally {
       setIsDownloading(false);
     }
@@ -159,7 +165,7 @@ export default function CheckoutSuccessPage() {
               {isDownloading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Preparing download...
+                  Opening download...
                 </>
               ) : (
                 <>
