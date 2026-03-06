@@ -6,44 +6,41 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
 
-// Helper: force the import to match React.lazy expected shape
-const asLazy = <T extends { default: any }>(p: Promise<T>) => p.then((m) => ({ default: m.default }));
-
 // ---- Lazy loaders (needed for prefetch + warmup) ----
-const loadCompanyPage = () => asLazy(import('./pages/CompanyPage'));
+const loadCompanyPage = () => import('./pages/CompanyPage');
 const CompanyPage = lazy(loadCompanyPage);
 
-const loadProgramsPage = () => asLazy(import('./pages/ProgramsPage'));
+const loadProgramsPage = () => import('./pages/ProgramsPage');
 const ProgramsPage = lazy(loadProgramsPage);
 
-const loadCaribbeanPage = () => asLazy(import('./pages/CaribbeanPage'));
+const loadCaribbeanPage = () => import('./pages/CaribbeanPage');
 const CaribbeanPage = lazy(loadCaribbeanPage);
 
-const loadPortugalPage = () => asLazy(import('./pages/PortugalPage'));
+const loadPortugalPage = () => import('./pages/PortugalPage');
 const PortugalPage = lazy(loadPortugalPage);
 
-const loadResearchPage = () => asLazy(import('./pages/ResearchPage'));
+const loadResearchPage = () => import('./pages/ResearchPage');
 const ResearchPage = lazy(loadResearchPage);
 
-const loadContactPage = () => asLazy(import('./pages/ContactPage'));
+const loadContactPage = () => import('./pages/ContactPage');
 const ContactPage = lazy(loadContactPage);
 
-const loadBlogPage = () => asLazy(import('./pages/BlogPage'));
+const loadBlogPage = () => import('./pages/BlogPage');
 const BlogPage = lazy(loadBlogPage);
 
-const loadBlogPostPage = () => asLazy(import('./pages/BlogPostPage'));
+const loadBlogPostPage = () => import('./pages/BlogPostPage');
 const BlogPostPage = lazy(loadBlogPostPage);
 
-const loadGuidesPage = () => asLazy(import('./pages/GuidesPage'));
+const loadGuidesPage = () => import('./pages/GuidesPage');
 const GuidesPage = lazy(loadGuidesPage);
 
-const loadGuidesStorePage = () => asLazy(import('./pages/GuidesStorePage'));
+const loadGuidesStorePage = () => import('./pages/GuidesStorePage');
 const GuidesStorePage = lazy(loadGuidesStorePage);
 
-const loadCheckoutSuccessPage = () => asLazy(import('./pages/CheckoutSuccessPage'));
+const loadCheckoutSuccessPage = () => import('./pages/CheckoutSuccessPage');
 const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
 
-const loadScheduleCallModal = () => asLazy(import('./components/ScheduleCallModal'));
+const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
 const ScheduleCallModal = lazy(loadScheduleCallModal);
 
 // ---- Error Boundary ----
@@ -241,7 +238,10 @@ function App() {
         <Footer />
         <Suspense fallback={null}>
           {isScheduleModalOpen && (
-            <ScheduleCallModal isOpen={isScheduleModalOpen} onClose={() => setIsScheduleModalOpen(false)} />
+            <ScheduleCallModal
+              isOpen={isScheduleModalOpen}
+              onClose={() => setIsScheduleModalOpen(false)}
+            />
           )}
         </Suspense>
       </div>
