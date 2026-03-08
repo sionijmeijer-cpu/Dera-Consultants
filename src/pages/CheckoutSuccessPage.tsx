@@ -11,16 +11,11 @@ const GUIDE_NAMES: Record<string, string> = {
 };
 
 const GUIDE_DOWNLOAD_URLS: Record<string, string> = {
-  'golden-visa':
-    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/golden-visa-2026.pdf',
-  'd7-visa':
-    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/d7-visa-blueprint.pdf',
-  'd8-visa':
-    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/d8-digital-nomad-visa.pdf',
-  'caribbean-bundle':
-    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/caribbean-bundle.pdf',
-  'all-guides':
-    'https://dera-consultants-guides.s3.eu-west-1.amazonaws.com/guides/all-guides.pdf',
+  'golden-visa': '',
+  'd7-visa': 'https://dera-consultants-paid-guides.s3.us-east-1.amazonaws.com/D7+Visa+Blueprint.pdf',
+  'd8-visa': '',
+  'caribbean-bundle': '',
+  'all-guides': '',
 };
 
 type VerifyStatus = 'loading' | 'success' | 'failed';
@@ -130,6 +125,7 @@ export default function CheckoutSuccessPage() {
   }
 
   const guideName = GUIDE_NAMES[guideId] || 'Your Guide';
+  const hasDownload = Boolean(GUIDE_DOWNLOAD_URLS[guideId]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-16">
@@ -159,7 +155,7 @@ export default function CheckoutSuccessPage() {
 
             <button
               onClick={handleDownload}
-              disabled={isDownloading}
+              disabled={isDownloading || !hasDownload}
               className="w-full py-4 px-6 bg-[#0f3460] text-white font-semibold rounded-lg hover:bg-[#0d2540] transition-all duration-200 flex items-center justify-center gap-3 mb-4 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isDownloading ? (
@@ -170,7 +166,7 @@ export default function CheckoutSuccessPage() {
               ) : (
                 <>
                   <Download className="w-5 h-5" />
-                  Download Guide
+                  {hasDownload ? 'Download Guide' : 'Download not available yet'}
                 </>
               )}
             </button>
