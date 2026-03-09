@@ -9,6 +9,7 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as downloads from "../downloads.js";
 import type * as http from "../http.js";
 import type * as mutations from "../mutations.js";
 import type * as queries from "../queries.js";
@@ -22,6 +23,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  downloads: typeof downloads;
   http: typeof http;
   mutations: typeof mutations;
   queries: typeof queries;
