@@ -36,26 +36,39 @@ const getBucketName = () => {
   return bucket;
 };
 
-const GUIDE_DOWNLOADS: Record<string, { filename: string; s3Key: string }> = {
+const GUIDE_DOWNLOADS: Record<
+  string,
+  { filename: string; s3Key: string; contentType: string; disposition: "inline" | "attachment" }
+> = {
   "golden-visa": {
     filename: "Golden_Visa_2026_Guide.pdf",
     s3Key: "Golden Visa 2026.pdf",
+    contentType: "application/pdf",
+    disposition: "attachment",
   },
   "d7-visa": {
-    filename: "D7_Visa_Blueprint.pdf",
-    s3Key: "D7 Visa Blueprint.pdf",
+    filename: "D7_Visa_Blueprint.html",
+    s3Key: "D7 Visa Blueprint.html",
+    contentType: "text/html",
+    disposition: "inline",
   },
   "d8-visa": {
     filename: "D8_Digital_Nomad_Visa.pdf",
     s3Key: "D8 Digital Nomad Visa.pdf",
+    contentType: "application/pdf",
+    disposition: "attachment",
   },
   "caribbean-bundle": {
     filename: "Complete_Caribbean_Bundle.pdf",
     s3Key: "Caribbean Bundle.pdf",
+    contentType: "application/pdf",
+    disposition: "attachment",
   },
   "all-guides": {
     filename: "Complete_Guide_Collection.pdf",
     s3Key: "Complete Guide Collection.pdf",
+    contentType: "application/pdf",
+    disposition: "attachment",
   },
 };
 
@@ -87,8 +100,8 @@ export const getSignedGuideDownloadUrl = action({
     const command = new GetObjectCommand({
       Bucket: bucket,
       Key: guide.s3Key,
-      ResponseContentDisposition: `attachment; filename="${guide.filename}"`,
-      ResponseContentType: "application/pdf",
+      ResponseContentDisposition: `${guide.disposition}; filename="${guide.filename}"`,
+      ResponseContentType: guide.contentType,
     });
 
     const url = await getSignedUrl(s3, command, { expiresIn: 60 });
