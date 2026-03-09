@@ -38,7 +38,12 @@ const getBucketName = () => {
 
 const GUIDE_DOWNLOADS: Record<
   string,
-  { filename: string; s3Key: string; contentType: string; disposition: "inline" | "attachment" }
+  {
+    filename: string;
+    s3Key: string;
+    contentType: string;
+    disposition: "inline" | "attachment";
+  }
 > = {
   "golden-visa": {
     filename: "Golden_Visa_2026_Guide.pdf",
@@ -46,15 +51,12 @@ const GUIDE_DOWNLOADS: Record<
     contentType: "application/pdf",
     disposition: "attachment",
   },
-
-  // UPDATED → ZIP DOWNLOAD
   "d7-visa": {
     filename: "D7 Visa Blueprint.zip",
     s3Key: "D7 Visa Blueprint.zip",
     contentType: "application/zip",
     disposition: "attachment",
   },
-
   "d8-visa": {
     filename: "D8_Digital_Nomad_Visa.pdf",
     s3Key: "D8 Digital Nomad Visa.pdf",
