@@ -39,23 +39,23 @@ const getBucketName = () => {
 const GUIDE_DOWNLOADS: Record<string, { filename: string; s3Key: string }> = {
   "golden-visa": {
     filename: "Golden_Visa_2026_Guide.pdf",
-    s3Key: "guides/golden-visa-2026.pdf",
+    s3Key: "Golden Visa 2026.pdf",
   },
   "d7-visa": {
     filename: "D7_Visa_Blueprint.pdf",
-    s3Key: "guides/d7-visa-blueprint.pdf",
+    s3Key: "D7 Visa Blueprint.pdf",
   },
   "d8-visa": {
     filename: "D8_Digital_Nomad_Visa.pdf",
-    s3Key: "guides/d8-digital-nomad-visa.pdf",
+    s3Key: "D8 Digital Nomad Visa.pdf",
   },
   "caribbean-bundle": {
     filename: "Complete_Caribbean_Bundle.pdf",
-    s3Key: "guides/caribbean-bundle.pdf",
+    s3Key: "Caribbean Bundle.pdf",
   },
   "all-guides": {
     filename: "Complete_Guide_Collection.pdf",
-    s3Key: "guides/all-guides.pdf",
+    s3Key: "Complete Guide Collection.pdf",
   },
 };
 
