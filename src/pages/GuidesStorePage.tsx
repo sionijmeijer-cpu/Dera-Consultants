@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { useConvexAction } from '../hooks/useConvex';
 import GuideStorefront from '../components/GuideStorefront';
 import GuidePurchaseModal from '../components/GuidePurchaseModal';
+import DownloadModal from '../components/DownloadModal';
 import { ArrowRight, Download, Check } from 'lucide-react';
 
 interface Guide {
@@ -15,13 +17,32 @@ interface Guide {
   badge?: string;
 }
 
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
+
 export default function GuidesStorePage() {
   const [selectedGuide, setSelectedGuide] = useState<Guide | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [downloadModal, setDownloadModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    id: string;
+  }>({
+    isOpen: false,
+    title: '',
+    id: '',
+  });
 
   const createCheckoutSession = useConvexAction('stripe:createCheckoutSession');
+
+  useEffect(() => {
+    if (EMAILJS_PUBLIC_KEY) {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+  }, []);
 
   const handleBuyGuide = (guide: Guide) => {
     setSelectedGuide(guide);
@@ -34,11 +55,35 @@ export default function GuidesStorePage() {
     window.dispatchEvent(event);
   };
 
+  const notifyGuidePurchaseLead = async (email: string, guide: Guide) => {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      name: 'Paid Guide Purchase Request',
+      email,
+      phone: 'N/A',
+      country: 'N/A',
+      service: `Paid Guide Checkout: ${guide.title}`,
+      message:
+        `New paid guide checkout started:\n\n` +
+        `Guide: ${guide.title}\n` +
+        `Guide ID: ${guide.id}\n` +
+        `Price: €${guide.price}\n` +
+        `Email: ${email}\n` +
+        `Timestamp: ${new Date().toLocaleString()}\n` +
+        `Page URL: ${window.location.href}`,
+    });
+  };
+
   const handleProceedToCheckout = async (email: string, guide: Guide) => {
     setIsCheckoutLoading(true);
     setCheckoutError('');
 
     try {
+      try {
+        await notifyGuidePurchaseLead(email, guide);
+      } catch (emailErr) {
+        console.error('EmailJS notification failed:', emailErr);
+      }
+
       const baseUrl = window.location.origin;
       const result = await createCheckoutSession({
         guideId: guide.id,
@@ -60,8 +105,35 @@ export default function GuidesStorePage() {
     }
   };
 
+  const freeGuides = [
+    {
+      id: 1,
+      title: 'Portugal Relocation Checklist',
+      description:
+        'A simple order of operations: NIF, bank account, housing, and the typical next steps.',
+      icon: '📋',
+      downloadId: 'portugal-checklist',
+    },
+    {
+      id: 2,
+      title: 'Caribbean Passport Comparison',
+      description:
+        'A quick guide to the three most commonly used Caribbean second-passport programs, and which one fits which situation.',
+      icon: '🌴',
+      downloadId: 'caribbean-comparison',
+    },
+  ];
+
   return (
     <div className="bg-white">
+      {/* Free guide modal */}
+      <DownloadModal
+        isOpen={downloadModal.isOpen}
+        onClose={() => setDownloadModal({ isOpen: false, title: '', id: '' })}
+        guideTitle={downloadModal.title}
+        guideId={downloadModal.id}
+      />
+
       {/* Hero Section */}
       <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540]">
         <div className="absolute inset-0 overflow-hidden">
@@ -74,7 +146,8 @@ export default function GuidesStorePage() {
             Expert Guides & Playbooks
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Stop Guessing.<br />
+            Stop Guessing.
+            <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-blue-300">
               Start Moving.
             </span>
@@ -110,7 +183,51 @@ export default function GuidesStorePage() {
         </div>
       </section>
 
-      {/* Main Storefront */}
+      {/* Free Guides Section */}
+      <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-5">
+              Free Guides
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Get practical, step-by-step resources to help you plan with clarity, before you speak to an advisor.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
+            {freeGuides.map((guide) => (
+              <div
+                key={guide.id}
+                className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 hover:shadow-lg transition-all duration-300 hover:border-[#1B7A4E] flex flex-col h-full"
+              >
+                <div className="text-4xl mb-4">{guide.icon}</div>
+                <h3 className="text-xl sm:text-2xl font-bold text-[#0f3460] mb-3">
+                  {guide.title}
+                </h3>
+                <p className="text-gray-600 text-sm sm:text-base mb-6 flex-grow leading-relaxed">
+                  {guide.description}
+                </p>
+                <button
+                  onClick={() =>
+                    setDownloadModal({
+                      isOpen: true,
+                      title: guide.title,
+                      id: guide.downloadId,
+                    })
+                  }
+                  className="flex items-center justify-center gap-2 w-full py-2.5 sm:py-3 px-4 bg-[#1B7A4E] text-white font-semibold rounded-lg hover:bg-[#156a3d] transition-all duration-200 hover:scale-105 hover:shadow-md text-sm sm:text-base"
+                >
+                  <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                  Download Free Guide
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Paid Guides Storefront */}
       <GuideStorefront onBuyGuide={handleBuyGuide} />
 
       {/* Complete Guide Package Section */}
