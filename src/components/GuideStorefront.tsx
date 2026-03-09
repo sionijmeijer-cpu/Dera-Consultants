@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ShoppingCart, Check, Clock } from 'lucide-react';
+import { ShoppingCart, Check } from 'lucide-react';
 
 interface Guide {
   id: string;
@@ -10,7 +10,6 @@ interface Guide {
   features: string[];
   image: string;
   badge?: string;
-
   available?: boolean;
   availabilityNote?: string;
 }
@@ -20,7 +19,7 @@ const guides: Guide[] = [
     id: 'golden-visa',
     title: 'Golden Visa 2026',
     description:
-      "Coming soon — we're refining this guide to reflect the latest rules, fund landscape, and timelines before release.",
+      'Investment routes, timelines, documentation, tax considerations, and renewal requirements for the Portugal Golden Visa process.',
     price: 79.99,
     currency: 'EUR',
     features: [
@@ -32,13 +31,13 @@ const guides: Guide[] = [
     ],
     image: '🇵🇹',
     badge: 'Most Popular',
-    available: false,
-    availabilityNote: 'Coming soon — refining and updating the 2026 details.',
+    available: true,
   },
   {
     id: 'd7-visa',
     title: 'D7 Visa Blueprint',
-    description: 'Passive income requirements, documentation, and step-by-step application process.',
+    description:
+      'Passive income requirements, documentation, and step-by-step application process.',
     price: 25.99,
     currency: 'EUR',
     features: [
@@ -55,8 +54,8 @@ const guides: Guide[] = [
     id: 'd8-visa',
     title: 'D8 Digital Nomad Visa',
     description:
-      "Coming soon — we're tightening the proof requirements, templates, and renewal edge-cases before launch.",
-    price: 29.99,
+      'Remote income requirements, documentation, tax considerations, and renewal guidance for Portugal’s D8 Digital Nomad Visa.',
+    price: 45.99,
     currency: 'EUR',
     features: [
       'Income requirements',
@@ -66,14 +65,13 @@ const guides: Guide[] = [
       'Renewal & extensions',
     ],
     image: '🇵🇹',
-    available: false,
-    availabilityNote: 'Coming soon — refining templates and proof requirements.',
+    available: true,
   },
   {
     id: 'caribbean-bundle',
     title: 'Complete Caribbean Bundle',
     description:
-      "Coming soon — we're revising program costs, timelines, and due diligence changes across all 5 CBI options.",
+      'Compare all 5 Caribbean citizenship-by-investment programs with costs, timelines, due diligence requirements, and passport benefits.',
     price: 89.99,
     currency: 'EUR',
     features: [
@@ -85,8 +83,7 @@ const guides: Guide[] = [
     ],
     image: '🏝️',
     badge: 'Best Value',
-    available: false,
-    availabilityNote: 'Coming soon — revising costs and program updates.',
+    available: true,
   },
 ];
 
@@ -102,9 +99,9 @@ function GuideCard({ guide, onBuyClick }: GuideCardProps) {
   return (
     <div
       className={[
-        "bg-white dark:bg-slate-900 rounded-xl shadow-lg dark:shadow-xl overflow-hidden transition-all duration-300 flex flex-col h-full border border-gray-200 dark:border-slate-700",
-        isAvailable ? "hover:shadow-2xl dark:hover:shadow-2xl" : "opacity-70 cursor-not-allowed",
-      ].join(" ")}
+        'bg-white dark:bg-slate-900 rounded-xl shadow-lg dark:shadow-xl overflow-hidden transition-all duration-300 flex flex-col h-full border border-gray-200 dark:border-slate-700',
+        isAvailable ? 'hover:shadow-2xl dark:hover:shadow-2xl' : 'opacity-70 cursor-not-allowed',
+      ].join(' ')}
       onMouseEnter={() => isAvailable && setIsHovered(true)}
       onMouseLeave={() => isAvailable && setIsHovered(false)}
       aria-disabled={!isAvailable}
@@ -115,7 +112,7 @@ function GuideCard({ guide, onBuyClick }: GuideCardProps) {
             isAvailable ? 'bg-gradient-to-r from-blue-600 to-blue-500' : 'bg-gray-600'
           }`}
         >
-          {isAvailable ? guide.badge : 'Coming soon'}
+          {guide.badge}
         </div>
       )}
 
@@ -125,13 +122,6 @@ function GuideCard({ guide, onBuyClick }: GuideCardProps) {
       </div>
 
       <div className="p-6 flex-1 flex flex-col">
-        {!isAvailable && (
-          <div className="mb-4 flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
-            <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
-            <span>{guide.availabilityNote ?? "Coming soon — we're refining this guide before release."}</span>
-          </div>
-        )}
-
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed">
           {guide.description}
         </p>
@@ -166,14 +156,16 @@ function GuideCard({ guide, onBuyClick }: GuideCardProps) {
             onBuyClick(guide);
           }}
           className={[
-            "w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2",
+            'w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2',
             isAvailable
-              ? (isHovered ? "bg-blue-600 text-white shadow-lg scale-105" : "bg-blue-600 text-white hover:bg-blue-700")
-              : "bg-gray-200 text-gray-600 cursor-not-allowed",
-          ].join(" ")}
+              ? isHovered
+                ? 'bg-blue-600 text-white shadow-lg scale-105'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-200 text-gray-600 cursor-not-allowed',
+          ].join(' ')}
         >
           <ShoppingCart className="w-5 h-5" />
-          {isAvailable ? 'Buy Guide' : 'Coming soon'}
+          Buy Guide
         </button>
       </div>
     </div>
