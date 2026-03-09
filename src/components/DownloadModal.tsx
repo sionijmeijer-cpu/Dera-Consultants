@@ -9,12 +9,15 @@ interface DownloadModalProps {
   onClose: () => void;
   guideTitle: string;
   guideId: string;
-  sessionId: string;
+  sessionId?: string;
 }
 
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
+const EMAILJS_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
+const EMAILJS_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
+const EMAILJS_PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
 
 export default function DownloadModal({
   isOpen,
@@ -28,7 +31,9 @@ export default function DownloadModal({
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const getSignedGuideDownloadUrl = useAction(api.downloads.getSignedGuideDownloadUrl);
+  const getSignedGuideDownloadUrl = useAction(
+    api.downloads.getSignedGuideDownloadUrl
+  );
 
   if (!isOpen) return null;
 
@@ -57,12 +62,15 @@ Page URL: ${window.location.href}`,
         });
       }
 
+      if (!sessionId) {
+        throw new Error('Missing Stripe session ID for paid download');
+      }
+
       const result = await getSignedGuideDownloadUrl({
         sessionId,
       });
 
       setIsSuccess(true);
-
       window.location.href = result.url;
 
       setTimeout(() => {
@@ -109,7 +117,8 @@ Page URL: ${window.location.href}`,
               Your guide is downloading now. Check your downloads folder.
             </p>
             <p className="text-sm text-gray-500">
-              We have also sent a copy to <span className="font-medium text-gray-700">{email}</span>
+              We have also sent a copy to{' '}
+              <span className="font-medium text-gray-700">{email}</span>
             </p>
           </div>
         ) : (
@@ -142,7 +151,9 @@ Page URL: ${window.location.href}`,
                 />
               </div>
 
-              {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+              {error && (
+                <p className="text-red-500 text-sm mb-4">{error}</p>
+              )}
 
               <button
                 type="submit"
