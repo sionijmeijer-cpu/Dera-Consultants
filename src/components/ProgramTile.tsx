@@ -26,62 +26,76 @@ export default function ProgramTile({
   imagePosition = "right",
 }: ProgramTileProps) {
   const handleClick = () => {
-    if (onButtonClick) {
-      onButtonClick();
+    // IMPORTANT: buttonLink must win when both exist
+    if (buttonLink) {
+      window.location.href = buttonLink;
       return;
     }
 
-    if (buttonLink) {
-      window.location.href = buttonLink;
+    if (onButtonClick) {
+      onButtonClick();
     }
   };
 
   const imageBlock = imageSrc ? (
-    <div className="w-full md:w-1/2">
+    <div className="w-full md:w-[42%] relative min-h-[260px] md:min-h-[320px]">
       <img
         src={imageSrc}
         alt={imageAlt}
-        className="w-full h-full object-cover rounded-xl"
+        className="w-full h-full object-cover"
       />
+      <div className="absolute inset-0 bg-[#0f3460]/35" />
     </div>
   ) : null;
 
   const contentBlock = (
-    <div className="w-full flex-1 p-6">
-      <h3 className="text-2xl font-semibold text-gray-900 mb-3">{title}</h3>
+    <div className="w-full md:w-[58%] p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
+      <h3 className="text-2xl sm:text-3xl font-bold text-[#0f3460] mb-4">
+        {title}
+      </h3>
 
-      <p className="text-gray-600 leading-relaxed mb-4">{description}</p>
+      <p className="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base">
+        {description}
+      </p>
 
       {details && (
-        <p className="text-gray-500 leading-relaxed mb-4">{details}</p>
+        <p className="text-gray-600 leading-relaxed mb-5 text-sm sm:text-base">
+          {details}
+        </p>
       )}
 
       {pricing && (
-        <p className="text-[#0f3460] font-semibold mb-4">{pricing}</p>
+        <p className="text-[#0f3460] font-semibold mb-5">{pricing}</p>
       )}
 
       {(buttonLink || onButtonClick) && (
-        <button
-          onClick={handleClick}
-          className="inline-flex items-center gap-2 text-[#0f3460] font-semibold hover:text-[#0d2540] transition-colors"
-        >
-          {buttonText}
-          <ArrowRight className="w-4 h-4" />
-        </button>
+        <div>
+          <button
+            onClick={handleClick}
+            className="inline-flex items-center gap-2 bg-[#1B7A4E] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#156a3d] transition-all duration-200 hover:scale-[1.02] hover:shadow-md"
+          >
+            {buttonText}
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       )}
     </div>
   );
 
   return (
-    <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200">
-      <div
-        className={`flex flex-col md:flex-row ${
-          imagePosition === "left" ? "md:flex-row" : "md:flex-row-reverse"
-        }`}
-      >
-        {imageBlock}
-        {contentBlock}
+    <section className="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+          <div
+            className={`flex flex-col ${
+              imagePosition === "left" ? "md:flex-row" : "md:flex-row-reverse"
+            }`}
+          >
+            {imageBlock}
+            {contentBlock}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
