@@ -46,9 +46,9 @@ const GUIDE_DOWNLOADS: Record<
   }
 > = {
   "golden-visa": {
-    filename: "Golden_Visa_2026_Guide.pdf",
-    s3Key: "Golden Visa 2026.pdf",
-    contentType: "application/pdf",
+    filename: "Golden Visa 2026.zip",
+    s3Key: "Golden Visa 2026.zip",
+    contentType: "application/zip",
     disposition: "attachment",
   },
   "d7-visa": {
@@ -58,21 +58,21 @@ const GUIDE_DOWNLOADS: Record<
     disposition: "attachment",
   },
   "d8-visa": {
-    filename: "D8_Digital_Nomad_Visa.pdf",
-    s3Key: "D8 Digital Nomad Visa.pdf",
-    contentType: "application/pdf",
+    filename: "D8 Digital Nomad Blueprint.zip",
+    s3Key: "D8 Digital Nomad Blueprint.zip",
+    contentType: "application/zip",
     disposition: "attachment",
   },
   "caribbean-bundle": {
-    filename: "Complete_Caribbean_Bundle.pdf",
-    s3Key: "Caribbean Bundle.pdf",
-    contentType: "application/pdf",
+    filename: "Caribbean CBI Bundle.zip",
+    s3Key: "Caribbean CBI Bundle.zip",
+    contentType: "application/zip",
     disposition: "attachment",
   },
   "all-guides": {
-    filename: "Complete_Guide_Collection.pdf",
-    s3Key: "Complete Guide Collection.pdf",
-    contentType: "application/pdf",
+    filename: "Complete Guide Bundle.zip",
+    s3Key: "Complete Guide Bundle.zip",
+    contentType: "application/zip",
     disposition: "attachment",
   },
 };
