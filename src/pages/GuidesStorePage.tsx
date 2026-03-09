@@ -124,9 +124,25 @@ export default function GuidesStorePage() {
     },
   ];
 
+  const completeGuide: Guide = {
+    id: 'all-guides',
+    title: 'Complete Guide Collection',
+    description:
+      'Get all 4 premium guides together in one complete bundle at the best overall price.',
+    price: 179.99,
+    currency: 'EUR',
+    features: [
+      'Golden Visa 2026',
+      'D7 Visa Blueprint',
+      'D8 Digital Nomad Visa',
+      'Complete Caribbean Bundle',
+    ],
+    image: '📚',
+    badge: 'Best Bundle',
+  };
+
   return (
     <div className="bg-white">
-      {/* Free guide modal */}
       <DownloadModal
         isOpen={downloadModal.isOpen}
         onClose={() => setDownloadModal({ isOpen: false, title: '', id: '' })}
@@ -134,7 +150,6 @@ export default function GuidesStorePage() {
         guideId={downloadModal.id}
       />
 
-      {/* Hero Section */}
       <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0f3460] via-[#1a5276] to-[#0d2540]">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl" />
@@ -171,7 +186,6 @@ export default function GuidesStorePage() {
         </div>
       </section>
 
-      {/* Honest Note */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="bg-amber-50 border-l-4 border-amber-500 rounded-r-xl p-6 sm:p-8">
@@ -183,7 +197,6 @@ export default function GuidesStorePage() {
         </div>
       </section>
 
-      {/* Free Guides Section */}
       <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
@@ -227,10 +240,8 @@ export default function GuidesStorePage() {
         </div>
       </section>
 
-      {/* Paid Guides Storefront */}
       <GuideStorefront onBuyGuide={handleBuyGuide} />
 
-      {/* Complete Guide Package Section */}
       <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-emerald-50">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl border-2 border-purple-200 p-8 sm:p-12 text-center">
@@ -239,11 +250,11 @@ export default function GuidesStorePage() {
             </span>
 
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Complete Collection (Coming soon)
+              Complete Guide Collection
             </h2>
 
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              We’re refining the remaining guides before releasing the full bundle.
+              Get all four premium guides together and save compared to buying them individually.
             </p>
 
             <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
@@ -267,7 +278,7 @@ export default function GuidesStorePage() {
                 <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-gray-900">D8 Digital Nomad Visa</p>
-                  <p className="text-sm text-gray-600">€29.99 value</p>
+                  <p className="text-sm text-gray-600">€45.99 value</p>
                 </div>
               </div>
 
@@ -283,24 +294,23 @@ export default function GuidesStorePage() {
             <div className="mb-6 p-6 bg-purple-50 rounded-xl">
               <div className="flex items-baseline gap-2 justify-center mb-2">
                 <span className="text-4xl font-extrabold text-gray-900">€179.99</span>
-                <span className="text-lg text-gray-400 line-through">€225.96</span>
+                <span className="text-lg text-gray-400 line-through">€241.96</span>
               </div>
               <p className="text-sm text-gray-600">All 4 guides combined</p>
-              <p className="text-xs text-purple-600 font-semibold mt-2">Save €45.97 when you buy the bundle</p>
+              <p className="text-xs text-purple-600 font-semibold mt-2">Save €61.97 when you buy the bundle</p>
             </div>
 
             <button
-              disabled
-              className="inline-flex items-center gap-2 bg-gray-300 text-gray-600 px-10 py-4 rounded-xl font-semibold cursor-not-allowed"
+              onClick={() => handleBuyGuide(completeGuide)}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-10 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
             >
               <Download className="w-5 h-5" />
-              Coming soon
+              Buy Complete Collection
             </button>
           </div>
         </div>
       </section>
 
-      {/* Purchase Modal */}
       <GuidePurchaseModal
         isOpen={isModalOpen}
         guide={selectedGuide}
