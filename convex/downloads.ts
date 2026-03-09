@@ -82,6 +82,8 @@ export const getSignedGuideDownloadUrl = action({
     sessionId: v.string(),
   },
   handler: async (_ctx, args) => {
+    throw new Error("TEST_NEW_DOWNLOADS_FILE");
+
     const stripe = getStripe();
     const s3 = getS3Client();
     const bucket = getBucketName();
