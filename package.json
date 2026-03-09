@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1004.0",
+    "@aws-sdk/s3-request-presigner": "^3.1004.0",
     "@convex-dev/better-auth": "^0.10.10",
     "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^5.2.1",
