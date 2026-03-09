@@ -82,6 +82,8 @@ export const getSignedGuideDownloadUrl = action({
     sessionId: v.string(),
   },
   handler: async (_ctx, args) => {
+    console.log("DOWNLOAD_ACTION_HIT_V2");
+
     const stripe = getStripe();
     const s3 = getS3Client();
     const bucket = getBucketName();
