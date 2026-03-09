@@ -10,24 +10,18 @@ const GUIDE_NAMES: Record<string, string> = {
   'all-guides': 'Complete Guide Collection',
 };
 
-const GUIDE_DOWNLOAD_URLS: Record<string, string> = {
-  'golden-visa': '',
-  'd7-visa': 'https://dera-consultants-paid-guides.s3.us-east-1.amazonaws.com/D7+Visa+Blueprint.pdf',
-  'd8-visa': '',
-  'caribbean-bundle': '',
-  'all-guides': '',
-};
-
 type VerifyStatus = 'loading' | 'success' | 'failed';
 
 export default function CheckoutSuccessPage() {
   const [status, setStatus] = useState<VerifyStatus>('loading');
   const [guideId, setGuideId] = useState('');
   const [email, setEmail] = useState('');
+  const [sessionId, setSessionId] = useState('');
   const [error, setError] = useState('');
   const [isDownloading, setIsDownloading] = useState(false);
 
   const verifyCheckoutSession = useConvexAction('stripe:verifyCheckoutSession');
+  const getSignedGuideDownloadUrl = useConvexAction('downloads:getSignedGuideDownloadUrl');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -42,6 +36,7 @@ export default function CheckoutSuccessPage() {
       return;
     }
 
+    setSessionId(checkoutSessionId);
     verifyPayment(checkoutSessionId);
   }, []);
 
@@ -66,19 +61,26 @@ export default function CheckoutSuccessPage() {
     }
   };
 
-  const handleDownload = () => {
-    const url = GUIDE_DOWNLOAD_URLS[guideId];
-    if (!url) {
-      setError('No download file is configured for this guide yet.');
+  const handleDownload = async () => {
+    if (!sessionId) {
+      setError('No payment session found.');
       return;
     }
 
     try {
       setIsDownloading(true);
-      window.open(url, '_blank', 'noopener,noreferrer');
+      setError('');
+
+      const result = await getSignedGuideDownloadUrl({ sessionId });
+
+      if (!result?.url) {
+        throw new Error('No download URL was returned.');
+      }
+
+      window.open(result.url, '_blank', 'noopener,noreferrer');
     } catch (err: any) {
       console.error('Download error:', err);
-      setError('Could not start download. Please contact support.');
+      setError(err?.message || 'Could not start download. Please contact support.');
     } finally {
       setIsDownloading(false);
     }
@@ -125,7 +127,6 @@ export default function CheckoutSuccessPage() {
   }
 
   const guideName = GUIDE_NAMES[guideId] || 'Your Guide';
-  const hasDownload = Boolean(GUIDE_DOWNLOAD_URLS[guideId]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-16">
@@ -155,18 +156,18 @@ export default function CheckoutSuccessPage() {
 
             <button
               onClick={handleDownload}
-              disabled={isDownloading || !hasDownload}
+              disabled={isDownloading}
               className="w-full py-4 px-6 bg-[#0f3460] text-white font-semibold rounded-lg hover:bg-[#0d2540] transition-all duration-200 flex items-center justify-center gap-3 mb-4 hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isDownloading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Opening download...
+                  Preparing secure download...
                 </>
               ) : (
                 <>
                   <Download className="w-5 h-5" />
-                  {hasDownload ? 'Download Guide' : 'Download not available yet'}
+                  Download Guide
                 </>
               )}
             </button>
