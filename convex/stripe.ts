@@ -10,13 +10,12 @@ const getStripe = () => {
   return new Stripe(key, { apiVersion: "2025-04-30.basil" as any });
 };
 
-// Updated pricing (in cents)
 const GUIDE_PRODUCTS: Record<string, { name: string; priceInCents: number }> = {
   "golden-visa": { name: "Golden Visa 2026", priceInCents: 7999 },
   "d7-visa": { name: "D7 Visa Blueprint", priceInCents: 2599 },
-  "d8-visa": { name: "D8 Digital Nomad Visa", priceInCents: 2999 },
+  "d8-visa": { name: "D8 Digital Nomad Visa", priceInCents: 4599 },
   "caribbean-bundle": { name: "Complete Caribbean Bundle", priceInCents: 8999 },
-  "all-guides": { name: "Complete Guide Collection", priceInCents: 17999 }, // discounted bundle
+  "all-guides": { name: "Complete Guide Collection", priceInCents: 17999 },
 };
 
 export const createCheckoutSession = action({
@@ -46,7 +45,7 @@ export const createCheckoutSession = action({
             currency: "eur",
             product_data: {
               name: guide.name,
-              description: `Digital guide - instant download after purchase`,
+              description: "Digital guide - instant download after purchase",
               metadata: {
                 guideId: args.guideId,
               },
