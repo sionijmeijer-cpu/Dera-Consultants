@@ -153,7 +153,8 @@ Entrepreneur residency programs are evolving rapidly. The countries that work to
 
 Portugal, the UAE, Georgia, Malta, and Singapore all offer strong advantages — but for very different reasons.
 
-The key is selecting the jurisdiction that fits your business strategy, not simply chasing the lowest tax rate.`,
+The key is selecting the jurisdiction that fits your business strategy, not simply chasing the lowest tax rate.
+
 Ready to find your ideal entrepreneurial base? Schedule a consultation with our team today.`
   },
   {
