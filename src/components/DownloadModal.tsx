@@ -1,39 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Download, Mail, Loader2, CheckCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { useAction } from 'convex/react';
-import { api } from '../../convex/_generated/api';
 
 interface DownloadModalProps {
   isOpen: boolean;
   onClose: () => void;
   guideTitle: string;
   guideId: string;
-  sessionId?: string;
 }
 
-const EMAILJS_SERVICE_ID =
-  import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
-const EMAILJS_TEMPLATE_ID =
-  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
-const EMAILJS_PUBLIC_KEY =
-  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
+
+const GUIDE_DOWNLOAD_URLS: Record<string, string> = {
+  'portugal-checklist':
+    'https://deraconsultants-free-guides.s3.eu-north-1.amazonaws.com/Portugal_Relocation_Guide_2026.zip',
+  'caribbean-comparison':
+    'https://deraconsultants-free-guides.s3.eu-north-1.amazonaws.com/Caribbean_CBI_Guide_2026.zip',
+};
 
 export default function DownloadModal({
   isOpen,
   onClose,
   guideTitle,
   guideId,
-  sessionId,
 }: DownloadModalProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const getSignedGuideDownloadUrl = useAction(
-    api.downloads.getSignedGuideDownloadUrl
-  );
+  useEffect(() => {
+    if (EMAILJS_PUBLIC_KEY !== 'public_key_placeholder') {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+  }, []);
 
   if (!isOpen) return null;
 
@@ -43,35 +45,35 @@ export default function DownloadModal({
     setIsSubmitting(true);
 
     try {
-      if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'public_key_placeholder') {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          name: 'Guide Download Request',
-          email,
-          phone: 'N/A',
-          country: 'N/A',
-          service: `Guide Download: ${guideTitle}`,
-          message: `New guide download request:
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        name: 'Guide Download Request',
+        email,
+        phone: 'N/A',
+        country: 'N/A',
+        service: `Guide Download: ${guideTitle}`,
+        message: `New guide download request:
 
 Guide: ${guideTitle}
 Guide ID: ${guideId}
 Email: ${email}
 Timestamp: ${new Date().toLocaleString()}
 Page URL: ${window.location.href}`,
-        });
-      }
-
-      if (!sessionId) {
-        throw new Error('Missing Stripe session ID for paid download');
-      }
-
-      const result = await getSignedGuideDownloadUrl({
-        sessionId,
       });
 
+      const downloadUrl = GUIDE_DOWNLOAD_URLS[guideId];
+      if (!downloadUrl) {
+        throw new Error(`No download URL configured for guide: ${guideId}`);
+      }
+
       setIsSuccess(true);
-      window.location.href = result.url;
+
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = '';
+      link.target = '_self';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
       setTimeout(() => {
         handleClose();
@@ -117,8 +119,7 @@ Page URL: ${window.location.href}`,
               Your guide is downloading now. Check your downloads folder.
             </p>
             <p className="text-sm text-gray-500">
-              We have also sent a copy to{' '}
-              <span className="font-medium text-gray-700">{email}</span>
+              We have also sent a copy to <span className="font-medium text-gray-700">{email}</span>
             </p>
           </div>
         ) : (
