@@ -11,7 +11,8 @@ type ParsedBlock =
   | { type: 'h3'; id: string; title: string }
   | { type: 'p'; text: string }
   | { type: 'ul'; items: string[] }
-  | { type: 'ol'; items: string[] };
+  | { type: 'ol'; items: string[] }
+  | { type: 'table'; headers: string[]; rows: string[][] };
 
 function DesktopTOC({
   sections,
@@ -214,6 +215,31 @@ function isOrderedListItem(line: string): boolean {
   return /^\d+\.\s+.+/.test(line.trim());
 }
 
+function isTableRow(line: string): boolean {
+  const trimmed = line.trim();
+  return trimmed.startsWith('|') && trimmed.endsWith('|') && trimmed.includes('|');
+}
+
+function isTableDivider(line: string): boolean {
+  const cells = line
+    .trim()
+    .split('|')
+    .map((c) => c.trim())
+    .filter(Boolean);
+
+  if (cells.length === 0) return false;
+
+  return cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+}
+
+function parseTableRow(line: string): string[] {
+  return line
+    .trim()
+    .split('|')
+    .map((cell) => cell.trim())
+    .filter(Boolean);
+}
+
 function isPlainBulletCandidate(line: string): boolean {
   const trimmed = line.trim();
   if (!trimmed) return false;
@@ -222,6 +248,7 @@ function isPlainBulletCandidate(line: string): boolean {
   if (trimmed.endsWith(':')) return false;
   if (isMarkdownH2(trimmed) || isMarkdownH3(trimmed)) return false;
   if (isOrderedListItem(trimmed)) return false;
+  if (isTableRow(trimmed)) return false;
   if (isMarkdownBullet(trimmed)) return true;
   return true;
 }
@@ -259,6 +286,30 @@ function parseContent(content: string): ParsedBlock[] {
       blocks.push({ type: 'h3', id: makeId(title), title });
       i++;
       continue;
+    }
+
+    if (isTableRow(line)) {
+      const header = parseTableRow(line);
+      const divider = lines[i + 1]?.trim() || '';
+
+      if (isTableDivider(divider)) {
+        const rows: string[][] = [];
+        let j = i + 2;
+
+        while (j < lines.length && isTableRow(lines[j].trim())) {
+          rows.push(parseTableRow(lines[j].trim()));
+          j++;
+        }
+
+        blocks.push({
+          type: 'table',
+          headers: header,
+          rows,
+        });
+
+        i = j;
+        continue;
+      }
     }
 
     if (isMarkdownBullet(line)) {
@@ -312,6 +363,7 @@ function parseContent(content: string): ParsedBlock[] {
       if (isMarkdownH2(next) || isMarkdownH3(next)) break;
       if (isMarkdownBullet(next)) break;
       if (isOrderedListItem(next)) break;
+      if (isTableRow(next)) break;
       paragraph += ` ${next}`;
       j++;
     }
@@ -468,6 +520,41 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               </li>
             ))}
           </ol>
+        );
+      }
+
+      if (block.type === 'table') {
+        return (
+          <div
+            key={`table-${idx}`}
+            className="mb-10 overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm"
+          >
+            <table className="min-w-full border-collapse bg-white dark:bg-gray-900 text-sm">
+              <thead className="bg-[#0f3460] text-white">
+                <tr>
+                  {block.headers.map((header, i) => (
+                    <th key={i} className="px-4 py-3 text-left font-semibold whitespace-nowrap">
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.rows.map((row, rIdx) => (
+                  <tr
+                    key={rIdx}
+                    className="border-t border-gray-200 dark:border-gray-800 odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-950/40"
+                  >
+                    {row.map((cell, cIdx) => (
+                      <td key={cIdx} className="px-4 py-3 align-top text-gray-700 dark:text-gray-300">
+                        {renderInlineFormatting(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         );
       }
 
