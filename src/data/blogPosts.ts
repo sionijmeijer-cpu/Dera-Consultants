@@ -34,14 +34,14 @@ In 2026 the landscape for entrepreneur residency has shifted significantly. Some
 
 This guide explains the countries that genuinely work for entrepreneurs today — not just the ones that market themselves well.
 
-What Makes a Country Truly Entrepreneur-Friendly?
+# What Makes a Country Truly Entrepreneur-Friendly?
 
 Many jurisdictions advertise low taxes or easy residency, but the real test of an entrepreneur-friendly country comes down to four pillars:
 
-Tax efficiency  
-Ease of company formation  
-Reliable banking access  
-Quality of life
+- Tax efficiency  
+- Ease of company formation  
+- Reliable banking access  
+- Quality of life
 
 Tax efficiency means understanding whether a country taxes worldwide income or only income earned locally. It also means understanding treaty networks and how foreign dividends, capital gains, and business profits are treated.
 
@@ -49,18 +49,18 @@ Banking is equally important. Many countries offer attractive tax rules but limi
 
 The best entrepreneur destinations combine practical banking, stable regulations, and a tax system that supports global operations.
 
-1. Portugal
+# Portugal
 
 Portugal continues to attract international entrepreneurs who want a European base with strong lifestyle benefits.
 
-Why Entrepreneurs Choose Portugal
+## Why Entrepreneurs Choose Portugal
 
 Access to the European Union market  
 Multiple residency routes including the D7 and Digital Nomad visas  
 High quality of life and strong international communities  
 Competitive cost of living compared with much of Western Europe
 
-Key Considerations
+## Key Considerations
 
 Portugal’s tax system has evolved and the former NHR regime has been replaced with a more targeted incentive framework. Entrepreneurs should carefully evaluate the new rules before relocating.
 
