@@ -18,39 +18,55 @@ function DesktopTOC({
   activeSection,
   onSectionClick,
 }: {
-  sections: Array<{ id: string; title: string }>;
+  sections: Array<{ id: string; title: string; level: number }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
+  let h2Index = 0;
+
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
       <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-5 uppercase tracking-[0.15em]">
         TABLE OF CONTENTS
       </h4>
+
       <nav className="space-y-1">
-        {sections.map((section, index) => {
+        {sections.map((section) => {
+          const isH2 = section.level === 2;
+          if (isH2) h2Index++;
           const isActive = activeSection === section.id;
 
           return (
             <button
               key={section.id}
               onClick={() => onSectionClick(section.id)}
-              className={`w-full text-left py-2.5 px-2 rounded-lg transition-all duration-200 flex items-start gap-3 ${
+              className={`w-full text-left py-2.5 rounded-lg transition-all duration-200 flex items-start gap-3 ${
+                isH2 ? 'px-2' : 'pl-12 pr-2'
+              } ${
                 isActive
                   ? 'text-[#1B7A4E] dark:text-[#4a9d7d] font-semibold'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
-              <span
-                className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                  isActive
-                    ? 'border-[#1B7A4E] text-[#1B7A4E] bg-[#1B7A4E]/5'
-                    : 'border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500'
-                }`}
-              >
-                {index + 1}
+              {isH2 ? (
+                <span
+                  className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-colors ${
+                    isActive
+                      ? 'border-[#1B7A4E] text-[#1B7A4E] bg-[#1B7A4E]/5'
+                      : 'border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500'
+                  }`}
+                >
+                  {h2Index}
+                </span>
+              ) : (
+                <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center text-gray-300 dark:text-gray-600 text-xs">
+                  •
+                </span>
+              )}
+
+              <span className={`flex-1 leading-snug ${isH2 ? 'text-sm font-medium' : 'text-sm'}`}>
+                {section.title}
               </span>
-              <span className="flex-1 leading-snug text-sm">{section.title}</span>
             </button>
           );
         })}
@@ -64,40 +80,57 @@ function MobileTOC({
   activeSection,
   onSectionClick,
 }: {
-  sections: Array<{ id: string; title: string }>;
+  sections: Array<{ id: string; title: string; level: number }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const current = sections.find((s) => s.id === activeSection);
 
+  let h2Index = 0;
+
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
       {isOpen && (
         <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-2xl max-h-[60vh] overflow-y-auto">
           <div className="p-4 space-y-1">
-            {sections.map((section, index) => (
-              <button
-                key={section.id}
-                onClick={() => {
-                  onSectionClick(section.id);
-                  setIsOpen(false);
-                }}
-                className={`w-full text-left text-sm py-2.5 px-4 rounded-lg transition-all flex items-start gap-3 ${
-                  activeSection === section.id
-                    ? 'bg-[#1B7A4E]/10 text-[#1B7A4E] font-semibold'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                }`}
-              >
-                <span className="flex-shrink-0 w-6 h-6 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center text-xs font-bold">
-                  {index + 1}
-                </span>
-                <span>{section.title}</span>
-              </button>
-            ))}
+            {sections.map((section) => {
+              const isH2 = section.level === 2;
+              if (isH2) h2Index++;
+
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => {
+                    onSectionClick(section.id);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full text-left text-sm py-2.5 rounded-lg transition-all flex items-start gap-3 ${
+                    isH2 ? 'px-4' : 'pl-10 pr-4'
+                  } ${
+                    activeSection === section.id
+                      ? 'bg-[#1B7A4E]/10 text-[#1B7A4E] font-semibold'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  {isH2 ? (
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center text-xs font-bold">
+                      {h2Index}
+                    </span>
+                  ) : (
+                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-300 dark:text-gray-600 text-xs">
+                      •
+                    </span>
+                  )}
+
+                  <span>{section.title}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
+
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg px-4 py-3 flex items-center justify-between"
@@ -219,14 +252,12 @@ function parseContent(content: string): ParsedBlock[] {
       continue;
     }
 
-    // Skip first article title line
     if (!skippedTitle) {
       skippedTitle = true;
       i++;
       continue;
     }
 
-    // Markdown headings
     if (/^##\s+/.test(line) || /^#\s+/.test(line)) {
       const title = stripHeadingPrefix(line);
       blocks.push({ type: 'h2', id: makeId(title), title });
@@ -241,7 +272,6 @@ function parseContent(content: string): ParsedBlock[] {
       continue;
     }
 
-    // Numbered main sections like "1. Portugal"
     if (isNumberedHeading(line) && line.length < 80) {
       const title = stripHeadingPrefix(line);
       blocks.push({ type: 'h2', id: makeId(title), title });
@@ -249,7 +279,6 @@ function parseContent(content: string): ParsedBlock[] {
       continue;
     }
 
-    // Plain subheadings like "Why Entrepreneurs Choose Portugal"
     if (isLikelySubheading(line)) {
       const next = lines[i + 1]?.trim() || '';
       if (next) {
@@ -259,7 +288,6 @@ function parseContent(content: string): ParsedBlock[] {
       }
     }
 
-    // Markdown bullet list
     if (isMarkdownBullet(line)) {
       const items: string[] = [];
       while (i < lines.length && isMarkdownBullet(lines[i])) {
@@ -270,7 +298,6 @@ function parseContent(content: string): ParsedBlock[] {
       continue;
     }
 
-    // Ordered list items: only treat as OL if there are 2+ consecutive items
     if (isOrderedListItem(line)) {
       const items: string[] = [];
       let j = i;
@@ -285,7 +312,6 @@ function parseContent(content: string): ParsedBlock[] {
       }
     }
 
-    // Plain stacked bullet lines after a subheading or colon line
     const prevBlock = blocks[blocks.length - 1];
     if (
       (prevBlock?.type === 'h3' || prevBlock?.type === 'h2' || lines[i - 1]?.trim().endsWith(':')) &&
@@ -310,7 +336,6 @@ function parseContent(content: string): ParsedBlock[] {
       }
     }
 
-    // Paragraph
     let paragraph = line;
     let j = i + 1;
     while (j < lines.length) {
@@ -373,10 +398,14 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
 
   const tocSections = useMemo(() => {
     return parsedBlocks
-      .filter((block): block is Extract<ParsedBlock, { type: 'h2' }> => block.type === 'h2')
+      .filter(
+        (block): block is Extract<ParsedBlock, { type: 'h2' | 'h3' }> =>
+          block.type === 'h2' || block.type === 'h3'
+      )
       .map((block) => ({
         id: block.id,
         title: block.title,
+        level: block.type === 'h2' ? 2 : 3,
       }));
   }, [parsedBlocks]);
 
@@ -439,7 +468,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         return (
           <h3
             key={`h3-${idx}`}
-            className="text-xl sm:text-[22px] font-bold text-[#1B7A4E] dark:text-[#4a9d7d] mt-10 mb-4 leading-snug"
+            id={block.id}
+            data-section-id={block.id}
+            className="text-xl sm:text-[22px] font-bold text-[#1B7A4E] dark:text-[#4a9d7d] mt-10 mb-4 scroll-mt-24 leading-snug"
           >
             {renderInlineFormatting(block.title)}
           </h3>
