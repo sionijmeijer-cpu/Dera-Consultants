@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { ChevronRight, ArrowRight, Calendar, Clock, Star, BookOpen, ChevronUp } from 'lucide-react';
 import { blogPosts, BlogPost } from '../data/blogPosts';
 
@@ -6,27 +6,29 @@ interface BlogPostPageProps {
   onScheduleCall?: () => void;
 }
 
-/* ─── Desktop TOC (matches screenshot: numbered circles, clean layout) ─── */
+type ParsedBlock =
+  | { type: 'h2'; id: string; title: string }
+  | { type: 'h3'; id: string; title: string }
+  | { type: 'p'; text: string }
+  | { type: 'ul'; items: string[] }
+  | { type: 'ol'; items: string[] };
+
 function DesktopTOC({
   sections,
   activeSection,
   onSectionClick,
 }: {
-  sections: Array<{ id: string; title: string; level: number }>;
+  sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
-  let h2Index = 0;
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
       <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-5 uppercase tracking-[0.15em]">
         TABLE OF CONTENTS
       </h4>
       <nav className="space-y-1">
-        {sections.map((section) => {
-          const isH2 = section.level === 2;
-          if (isH2) h2Index++;
-          const num = isH2 ? h2Index : null;
+        {sections.map((section, index) => {
           const isActive = activeSection === section.id;
 
           return (
@@ -34,24 +36,20 @@ function DesktopTOC({
               key={section.id}
               onClick={() => onSectionClick(section.id)}
               className={`w-full text-left py-2.5 px-2 rounded-lg transition-all duration-200 flex items-start gap-3 ${
-                !isH2 ? 'pl-12' : ''
-              } ${
                 isActive
                   ? 'text-[#1B7A4E] dark:text-[#4a9d7d] font-semibold'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
-              {isH2 && (
-                <span
-                  className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                    isActive
-                      ? 'border-[#1B7A4E] text-[#1B7A4E] bg-[#1B7A4E]/5'
-                      : 'border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500'
-                  }`}
-                >
-                  {num}
-                </span>
-              )}
+              <span
+                className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-colors ${
+                  isActive
+                    ? 'border-[#1B7A4E] text-[#1B7A4E] bg-[#1B7A4E]/5'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500'
+                }`}
+              >
+                {index + 1}
+              </span>
               <span className="flex-1 leading-snug text-sm">{section.title}</span>
             </button>
           );
@@ -61,13 +59,12 @@ function DesktopTOC({
   );
 }
 
-/* ─── Mobile TOC ─── */
 function MobileTOC({
   sections,
   activeSection,
   onSectionClick,
 }: {
-  sections: Array<{ id: string; title: string; level: number }>;
+  sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
@@ -79,22 +76,23 @@ function MobileTOC({
       {isOpen && (
         <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-2xl max-h-[60vh] overflow-y-auto">
           <div className="p-4 space-y-1">
-            {sections.map((section) => (
+            {sections.map((section, index) => (
               <button
                 key={section.id}
                 onClick={() => {
                   onSectionClick(section.id);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left text-sm py-2.5 px-4 rounded-lg transition-all ${
-                  section.level === 3 ? 'pl-8' : ''
-                } ${
+                className={`w-full text-left text-sm py-2.5 px-4 rounded-lg transition-all flex items-start gap-3 ${
                   activeSection === section.id
                     ? 'bg-[#1B7A4E]/10 text-[#1B7A4E] font-semibold'
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
               >
-                {section.title}
+                <span className="flex-shrink-0 w-6 h-6 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center text-xs font-bold">
+                  {index + 1}
+                </span>
+                <span>{section.title}</span>
               </button>
             ))}
           </div>
@@ -116,7 +114,6 @@ function MobileTOC({
   );
 }
 
-/* ─── Inline formatting: **bold**, *italic*, ***bold italic***, em-dashes ─── */
 function renderInlineFormatting(text: string): React.ReactNode[] {
   const regex = /(\*\*\*(.+?)\*\*\*|\*\*(.+?)\*\*|\*(.+?)\*)/g;
   const result: React.ReactNode[] = [];
@@ -148,68 +145,191 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
     }
     lastIndex = match.index + match[0].length;
   }
+
   if (lastIndex < text.length) {
     result.push(<span key={`t-${lastIndex}`}>{text.slice(lastIndex)}</span>);
   }
+
   return result.length > 0 ? result : [<span key="full">{text}</span>];
 }
 
-/* ─── Smart heading detection for plain-text content ─── */
-function classifyLine(
-  line: string,
-  prevLine: string,
-  nextLine: string,
-  idx: number,
-  totalLines: number
-): 'h2' | 'h3' | 'bullet' | 'numbered' | 'paragraph' | 'empty' {
-  const trimmed = line.trim();
-  if (!trimmed) return 'empty';
-
-  // Markdown headings
-  if (trimmed.startsWith('### ')) return 'h3';
-  if (trimmed.startsWith('## ')) return 'h2';
-  if (trimmed.startsWith('# ')) return 'h2';
-
-  // Bullet lists
-  if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) return 'bullet';
-
-  // Numbered items that are short (list items)
-  if (/^\d+\.\s/.test(trimmed) && trimmed.length < 100) return 'numbered';
-
-  // Detect heading-like lines: short, preceded by empty line, no ending punctuation
-  const prevTrimmed = prevLine.trim();
-  const nextTrimmed = nextLine.trim();
-
-  if (
-    trimmed.length < 80 &&
-    trimmed.length > 2 &&
-    prevTrimmed === '' &&
-    nextTrimmed !== '' &&
-    !trimmed.endsWith('.') &&
-    !trimmed.endsWith(',') &&
-    !trimmed.startsWith('- ') &&
-    !trimmed.startsWith('* ') &&
-    !/^\d+\.\s/.test(trimmed) &&
-    /^[A-Z]/.test(trimmed)
-  ) {
-    // "Phase X:" or "Step X:" patterns → h2
-    if (/^(Phase|Step|Part|Section)\s+\d/i.test(trimmed)) return 'h2';
-    // Very short (< 50 chars) and title-like → h2
-    if (trimmed.length < 55) return 'h2';
-    // Medium length → h3
-    if (trimmed.length < 80) return 'h3';
-  }
-
-  // "Why X Choose Y" pattern → h3
-  if (/^Why\s+\w+\s+Choose/i.test(trimmed) && trimmed.length < 60) return 'h3';
-  // "Key Considerations" pattern → h3
-  if (/^(Key|Common|Important|Critical|Essential|Final)\s/i.test(trimmed) && trimmed.length < 60 && prevTrimmed === '') return 'h3';
-
-  return 'paragraph';
+function makeId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/^\d+\.\s*/, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
-function makeId(text: string): string {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+function stripHeadingPrefix(text: string): string {
+  return text
+    .replace(/^###\s+/, '')
+    .replace(/^##\s+/, '')
+    .replace(/^#\s+/, '')
+    .replace(/^\d+\.\s+/, '')
+    .trim();
+}
+
+function isNumberedHeading(line: string): boolean {
+  return /^\d+\.\s+.+/.test(line.trim());
+}
+
+function isMarkdownBullet(line: string): boolean {
+  return /^[-*]\s+/.test(line.trim());
+}
+
+function isOrderedListItem(line: string): boolean {
+  return /^\d+\.\s+.+/.test(line.trim());
+}
+
+function isLikelySubheading(line: string): boolean {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  if (trimmed.length > 70) return false;
+  if (trimmed.endsWith('.')) return false;
+  if (trimmed.endsWith(':')) return true;
+  if (/^(What|Why|How|Key|Common|Important|Final)\b/i.test(trimmed)) return true;
+  return /^[A-Z][A-Za-z0-9\s&\-?]+$/.test(trimmed);
+}
+
+function isPlainBulletCandidate(line: string): boolean {
+  const trimmed = line.trim();
+  if (!trimmed) return false;
+  if (trimmed.length > 95) return false;
+  if (trimmed.endsWith('.')) return false;
+  if (trimmed.endsWith(':')) return false;
+  if (isNumberedHeading(trimmed)) return false;
+  if (isMarkdownBullet(trimmed)) return true;
+  return true;
+}
+
+function parseContent(content: string): ParsedBlock[] {
+  const lines = content.split('\n');
+  const blocks: ParsedBlock[] = [];
+
+  let i = 0;
+  let skippedTitle = false;
+
+  while (i < lines.length) {
+    const raw = lines[i];
+    const line = raw.trim();
+
+    if (!line) {
+      i++;
+      continue;
+    }
+
+    // Skip first article title line
+    if (!skippedTitle) {
+      skippedTitle = true;
+      i++;
+      continue;
+    }
+
+    // Markdown headings
+    if (/^##\s+/.test(line) || /^#\s+/.test(line)) {
+      const title = stripHeadingPrefix(line);
+      blocks.push({ type: 'h2', id: makeId(title), title });
+      i++;
+      continue;
+    }
+
+    if (/^###\s+/.test(line)) {
+      const title = stripHeadingPrefix(line);
+      blocks.push({ type: 'h3', id: makeId(title), title });
+      i++;
+      continue;
+    }
+
+    // Numbered main sections like "1. Portugal"
+    if (isNumberedHeading(line) && line.length < 80) {
+      const title = stripHeadingPrefix(line);
+      blocks.push({ type: 'h2', id: makeId(title), title });
+      i++;
+      continue;
+    }
+
+    // Plain subheadings like "Why Entrepreneurs Choose Portugal"
+    if (isLikelySubheading(line)) {
+      const next = lines[i + 1]?.trim() || '';
+      if (next) {
+        blocks.push({ type: 'h3', id: makeId(line), title: line.replace(/:$/, '') });
+        i++;
+        continue;
+      }
+    }
+
+    // Markdown bullet list
+    if (isMarkdownBullet(line)) {
+      const items: string[] = [];
+      while (i < lines.length && isMarkdownBullet(lines[i])) {
+        items.push(lines[i].trim().replace(/^[-*]\s+/, ''));
+        i++;
+      }
+      blocks.push({ type: 'ul', items });
+      continue;
+    }
+
+    // Ordered list items: only treat as OL if there are 2+ consecutive items
+    if (isOrderedListItem(line)) {
+      const items: string[] = [];
+      let j = i;
+      while (j < lines.length && isOrderedListItem(lines[j].trim())) {
+        items.push(lines[j].trim().replace(/^\d+\.\s+/, ''));
+        j++;
+      }
+      if (items.length >= 2) {
+        blocks.push({ type: 'ol', items });
+        i = j;
+        continue;
+      }
+    }
+
+    // Plain stacked bullet lines after a subheading or colon line
+    const prevBlock = blocks[blocks.length - 1];
+    if (
+      (prevBlock?.type === 'h3' || prevBlock?.type === 'h2' || lines[i - 1]?.trim().endsWith(':')) &&
+      isPlainBulletCandidate(line)
+    ) {
+      const items: string[] = [];
+      let j = i;
+      while (j < lines.length) {
+        const candidate = lines[j].trim();
+        if (!candidate) break;
+        if (!isPlainBulletCandidate(candidate)) break;
+        if (isLikelySubheading(candidate) && j !== i) break;
+        if (isNumberedHeading(candidate)) break;
+        items.push(candidate.replace(/^[-*]\s+/, ''));
+        j++;
+      }
+
+      if (items.length >= 2) {
+        blocks.push({ type: 'ul', items });
+        i = j;
+        continue;
+      }
+    }
+
+    // Paragraph
+    let paragraph = line;
+    let j = i + 1;
+    while (j < lines.length) {
+      const next = lines[j].trim();
+      if (!next) break;
+      if (/^#{1,3}\s+/.test(next)) break;
+      if (isNumberedHeading(next) && next.length < 80) break;
+      if (isMarkdownBullet(next)) break;
+      if (isLikelySubheading(next)) break;
+      if (isOrderedListItem(next)) break;
+      paragraph += ` ${next}`;
+      j++;
+    }
+
+    blocks.push({ type: 'p', text: paragraph });
+    i = j;
+  }
+
+  return blocks;
 }
 
 export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
@@ -246,23 +366,42 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const parsedBlocks = useMemo(() => {
+    if (!article) return [];
+    return parseContent(article.content);
+  }, [article]);
+
+  const tocSections = useMemo(() => {
+    return parsedBlocks
+      .filter((block): block is Extract<ParsedBlock, { type: 'h2' }> => block.type === 'h2')
+      .map((block) => ({
+        id: block.id,
+        title: block.title,
+      }));
+  }, [parsedBlocks]);
+
   useEffect(() => {
     if (!article) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length > 0) setActiveSection(visible[0].target.id);
+        if (visible.length > 0) {
+          setActiveSection(visible[0].target.id);
+        }
       },
       { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
     );
+
     const timer = setTimeout(() => {
       document.querySelectorAll('[data-section-id]').forEach((el) => observer.observe(el));
     }, 100);
+
     return () => {
       clearTimeout(timer);
       observer.disconnect();
     };
-  }, [article]);
+  }, [article, parsedBlocks]);
 
   const handleScheduleCall = () => {
     const event = new CustomEvent('openScheduleModal');
@@ -278,6 +417,80 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const renderContent = () => {
+    let paragraphCount = 0;
+
+    return parsedBlocks.map((block, idx) => {
+      if (block.type === 'h2') {
+        return (
+          <h2
+            key={`h2-${idx}`}
+            id={block.id}
+            data-section-id={block.id}
+            className="text-2xl sm:text-[28px] font-extrabold text-gray-900 dark:text-white mt-14 mb-5 pb-3 border-b-2 border-[#1B7A4E]/20 dark:border-[#1B7A4E]/30 scroll-mt-24 leading-tight"
+          >
+            {renderInlineFormatting(block.title)}
+          </h2>
+        );
+      }
+
+      if (block.type === 'h3') {
+        return (
+          <h3
+            key={`h3-${idx}`}
+            className="text-xl sm:text-[22px] font-bold text-[#1B7A4E] dark:text-[#4a9d7d] mt-10 mb-4 leading-snug"
+          >
+            {renderInlineFormatting(block.title)}
+          </h3>
+        );
+      }
+
+      if (block.type === 'ul') {
+        return (
+          <ul key={`ul-${idx}`} className="mb-8 space-y-3 pl-1">
+            {block.items.map((item, i) => (
+              <li key={i} className="flex items-start gap-3 text-[17px] leading-[1.8] text-gray-700 dark:text-gray-300">
+                <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#1B7A4E] mt-[10px]" />
+                <span>{renderInlineFormatting(item)}</span>
+              </li>
+            ))}
+          </ul>
+        );
+      }
+
+      if (block.type === 'ol') {
+        return (
+          <ol key={`ol-${idx}`} className="mb-8 space-y-3 pl-1">
+            {block.items.map((item, i) => (
+              <li key={i} className="flex items-start gap-3 text-[17px] leading-[1.8] text-gray-700 dark:text-gray-300">
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#1B7A4E]/10 text-[#1B7A4E] dark:text-[#4a9d7d] flex items-center justify-center text-sm font-bold mt-[3px]">
+                  {i + 1}
+                </span>
+                <span className="flex-1">{renderInlineFormatting(item)}</span>
+              </li>
+            ))}
+          </ol>
+        );
+      }
+
+      paragraphCount++;
+      const isFirstParagraph = paragraphCount === 1;
+
+      return (
+        <p
+          key={`p-${idx}`}
+          className={`mb-6 text-gray-700 dark:text-gray-300 leading-[1.9] text-[17px] ${
+            isFirstParagraph
+              ? 'first-letter:text-5xl first-letter:font-bold first-letter:text-[#1B7A4E] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-none'
+              : ''
+          }`}
+        >
+          {renderInlineFormatting(block.text)}
+        </p>
+      );
+    });
+  };
 
   if (isLoading) {
     return (
@@ -312,203 +525,8 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     );
   }
 
-  /* ─── Parse all lines and classify them ─── */
-  const rawLines = article.content.split('\n');
-  const classified = rawLines.map((line, idx) => {
-    const prev = idx > 0 ? rawLines[idx - 1] : '';
-    const next = idx < rawLines.length - 1 ? rawLines[idx + 1] : '';
-    return {
-      raw: line,
-      trimmed: line.trim(),
-      type: classifyLine(line, prev, next, idx, rawLines.length),
-    };
-  });
-
-  /* ─── Build TOC from classified lines ─── */
-  const tocSections: Array<{ id: string; title: string; level: number }> = [];
-  let skipFirstH2 = true;
-  classified.forEach((cl) => {
-    if (cl.type === 'h2' || cl.type === 'h3') {
-      let title = cl.trimmed;
-      if (title.startsWith('### ')) title = title.slice(4);
-      else if (title.startsWith('## ')) title = title.slice(3);
-      else if (title.startsWith('# ')) title = title.slice(2);
-
-      // Skip the very first heading (article title)
-      if (cl.type === 'h2' && skipFirstH2) {
-        skipFirstH2 = false;
-        return;
-      }
-
-      tocSections.push({
-        id: makeId(title),
-        title,
-        level: cl.type === 'h2' ? 2 : 3,
-      });
-    }
-  });
-
-  /* ─── Render content with rich typography ─── */
-  const renderContent = () => {
-    const elements: React.ReactElement[] = [];
-    let bulletBuffer: string[] = [];
-    let numberedBuffer: string[] = [];
-    let isFirstHeading = true;
-    let paragraphCount = 0;
-
-    const flushBullets = () => {
-      if (bulletBuffer.length > 0) {
-        elements.push(
-          <ul key={`ul-${elements.length}`} className="mb-8 space-y-3 pl-1">
-            {bulletBuffer.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-[17px] leading-[1.8] text-gray-700 dark:text-gray-300">
-                <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#1B7A4E] mt-[10px]" />
-                <span>{renderInlineFormatting(item)}</span>
-              </li>
-            ))}
-          </ul>
-        );
-        bulletBuffer = [];
-      }
-    };
-
-    const flushNumbered = () => {
-      if (numberedBuffer.length > 0) {
-        elements.push(
-          <ol key={`ol-${elements.length}`} className="mb-8 space-y-3 pl-1 counter-reset-list">
-            {numberedBuffer.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-[17px] leading-[1.8] text-gray-700 dark:text-gray-300">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#1B7A4E]/10 text-[#1B7A4E] dark:text-[#4a9d7d] flex items-center justify-center text-sm font-bold mt-[3px]">
-                  {i + 1}
-                </span>
-                <span className="flex-1">{renderInlineFormatting(item)}</span>
-              </li>
-            ))}
-          </ol>
-        );
-        numberedBuffer = [];
-      }
-    };
-
-    for (let idx = 0; idx < classified.length; idx++) {
-      const cl = classified[idx];
-
-      if (cl.type === 'empty') {
-        flushBullets();
-        flushNumbered();
-        continue;
-      }
-
-      if (cl.type === 'h2') {
-        flushBullets();
-        flushNumbered();
-
-        let title = cl.trimmed;
-        if (title.startsWith('### ')) title = title.slice(4);
-        else if (title.startsWith('## ')) title = title.slice(3);
-        else if (title.startsWith('# ')) title = title.slice(2);
-
-        // Skip first heading (article title duplicate)
-        if (isFirstHeading) {
-          isFirstHeading = false;
-          continue;
-        }
-
-        const sectionId = makeId(title);
-        elements.push(
-          <h2
-            key={`h2-${idx}`}
-            id={sectionId}
-            data-section-id={sectionId}
-            className="text-2xl sm:text-[28px] font-extrabold text-gray-900 dark:text-white mt-14 mb-5 pb-3 border-b-2 border-[#1B7A4E]/20 dark:border-[#1B7A4E]/30 scroll-mt-24 leading-tight"
-          >
-            {renderInlineFormatting(title)}
-          </h2>
-        );
-        continue;
-      }
-
-      if (cl.type === 'h3') {
-        flushBullets();
-        flushNumbered();
-
-        let title = cl.trimmed;
-        if (title.startsWith('### ')) title = title.slice(4);
-
-        const sectionId = makeId(title);
-        elements.push(
-          <h3
-            key={`h3-${idx}`}
-            id={sectionId}
-            data-section-id={sectionId}
-            className="text-xl sm:text-[22px] font-bold text-[#1B7A4E] dark:text-[#4a9d7d] mt-10 mb-4 scroll-mt-24 leading-snug"
-          >
-            {renderInlineFormatting(title)}
-          </h3>
-        );
-        continue;
-      }
-
-      if (cl.type === 'bullet') {
-        flushNumbered();
-        const text = cl.trimmed.replace(/^[-*]\s/, '');
-        bulletBuffer.push(text);
-        continue;
-      }
-
-      if (cl.type === 'numbered') {
-        flushBullets();
-        const text = cl.trimmed.replace(/^\d+\.\s/, '');
-        numberedBuffer.push(text);
-        continue;
-      }
-
-      // Paragraph
-      flushBullets();
-      flushNumbered();
-      paragraphCount++;
-
-      // Check if this looks like a key insight / bold statement (short, ends with no period, emphatic)
-      const isCallout = cl.trimmed.length < 120 && cl.trimmed.length > 20 &&
-        (cl.trimmed.includes(' — ') || cl.trimmed.includes(' - ')) &&
-        !cl.trimmed.endsWith('.') && !cl.trimmed.startsWith('-');
-
-      if (isCallout && paragraphCount > 3) {
-        // Render as a styled callout/pull-quote
-        elements.push(
-          <div
-            key={`callout-${idx}`}
-            className="my-8 pl-5 border-l-4 border-[#1B7A4E] bg-[#1B7A4E]/5 dark:bg-[#1B7A4E]/10 py-4 pr-5 rounded-r-lg"
-          >
-            <p className="text-[17px] leading-[1.8] text-gray-800 dark:text-gray-200 font-medium italic">
-              {renderInlineFormatting(cl.trimmed)}
-            </p>
-          </div>
-        );
-      } else {
-        // First paragraph gets a drop cap effect
-        const isFirstParagraph = paragraphCount === 1;
-        elements.push(
-          <p
-            key={`p-${idx}`}
-            className={`mb-6 text-gray-700 dark:text-gray-300 leading-[1.9] text-[17px] ${
-              isFirstParagraph ? 'first-letter:text-5xl first-letter:font-bold first-letter:text-[#1B7A4E] first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-none' : ''
-            }`}
-          >
-            {renderInlineFormatting(cl.trimmed)}
-          </p>
-        );
-      }
-    }
-
-    flushBullets();
-    flushNumbered();
-    return elements;
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200/50 dark:bg-gray-800/50">
         <div
           className="h-full bg-gradient-to-r from-[#1B7A4E] to-[#2E8B57] transition-all duration-150"
@@ -516,14 +534,12 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         />
       </div>
 
-      {/* Hero Header with Image */}
       <div className="relative">
         {article.image && (
           <div className="relative h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden">
             <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
-            {/* Breadcrumb */}
             <div className="absolute top-0 left-0 right-0">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
                 <div className="flex items-center flex-wrap gap-1 text-sm text-white/80">
@@ -536,7 +552,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               </div>
             </div>
 
-            {/* Title overlay */}
             <div className="absolute bottom-0 left-0 right-0">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
                 <div className="max-w-3xl">
@@ -593,7 +608,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         )}
       </div>
 
-      {/* Excerpt bar */}
       <div className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed italic">
@@ -602,14 +616,11 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         </div>
       </div>
 
-      {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
         <div className="flex gap-10 lg:gap-14">
-          {/* Article Content */}
           <article className="flex-1 min-w-0 max-w-3xl">
             <div className="article-content">{renderContent()}</div>
 
-            {/* CTA Banner */}
             <div className="mt-14 bg-gradient-to-br from-[#0f3460] to-[#1a4a8a] dark:from-[#1B7A4E] dark:to-[#156B3F] rounded-2xl p-8 sm:p-10 text-center">
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">Ready to Take the Next Step?</h3>
               <p className="text-white/80 text-lg mb-6 max-w-lg mx-auto">
@@ -624,7 +635,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               </button>
             </div>
 
-            {/* Author Card */}
             <div className="mt-10 flex items-center gap-5 p-6 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
                 DC
@@ -638,7 +648,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               </div>
             </div>
 
-            {/* Related Articles */}
             {relatedArticles.length > 0 && (
               <div className="mt-14 pt-10 border-t border-gray-200 dark:border-gray-800">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Continue Reading</h3>
@@ -678,10 +687,8 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
             )}
           </article>
 
-          {/* ─── Sidebar ─── */}
           <aside className="hidden lg:block w-[300px] flex-shrink-0">
             <div className="sticky top-8 space-y-6">
-              {/* Trustpilot + Become a Client */}
               <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -715,12 +722,10 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                 </p>
               </div>
 
-              {/* Table of Contents */}
               {tocSections.length > 0 && (
                 <DesktopTOC sections={tocSections} activeSection={activeSection} onSectionClick={scrollToSection} />
               )}
 
-              {/* Tags */}
               {article.tags && article.tags.length > 0 && (
                 <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
                   <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-widest">
@@ -743,12 +748,10 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         </div>
       </div>
 
-      {/* Mobile TOC */}
       {tocSections.length > 0 && (
         <MobileTOC sections={tocSections} activeSection={activeSection} onSectionClick={scrollToSection} />
       )}
 
-      {/* Back to Top */}
       {showBackToTop && (
         <button
           onClick={scrollToTop}
