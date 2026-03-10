@@ -28,8 +28,6 @@ export const blogPosts: BlogPost[] = [
     image: "https://i.imgur.com/EqAiozy.png",
     content: `Best Countries for Entrepreneurs Seeking Residency in 2026
 
-content: `Best Countries for Entrepreneurs Seeking Residency in 2026
-
 Where you choose to live as an entrepreneur shapes far more than your tax bill. It affects your banking access, your ability to hire, your family’s quality of life, and how easily you can operate internationally.
 
 In 2026 the landscape for entrepreneur residency has shifted significantly. Some countries have tightened their programs, while others have introduced new pathways designed specifically for founders and investors.
