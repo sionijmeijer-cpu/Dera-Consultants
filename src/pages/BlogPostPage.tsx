@@ -189,22 +189,21 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
 function makeId(text: string): string {
   return text
     .toLowerCase()
-    .replace(/^\d+\.\s*/, '')
+    .replace(/^#+\s*/, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 }
 
 function stripHeadingPrefix(text: string): string {
-  return text
-    .replace(/^###\s+/, '')
-    .replace(/^##\s+/, '')
-    .replace(/^#\s+/, '')
-    .replace(/^\d+\.\s+/, '')
-    .trim();
+  return text.replace(/^##\s+/, '').replace(/^#\s+/, '').trim();
 }
 
-function isNumberedHeading(line: string): boolean {
-  return /^\d+\.\s+.+/.test(line.trim());
+function isMarkdownH2(line: string): boolean {
+  return /^#\s+/.test(line.trim()) && !/^##\s+/.test(line.trim());
+}
+
+function isMarkdownH3(line: string): boolean {
+  return /^##\s+/.test(line.trim());
 }
 
 function isMarkdownBullet(line: string): boolean {
@@ -215,23 +214,14 @@ function isOrderedListItem(line: string): boolean {
   return /^\d+\.\s+.+/.test(line.trim());
 }
 
-function isLikelySubheading(line: string): boolean {
-  const trimmed = line.trim();
-  if (!trimmed) return false;
-  if (trimmed.length > 70) return false;
-  if (trimmed.endsWith('.')) return false;
-  if (trimmed.endsWith(':')) return true;
-  if (/^(What|Why|How|Key|Common|Important|Final)\b/i.test(trimmed)) return true;
-  return /^[A-Z][A-Za-z0-9\s&\-?]+$/.test(trimmed);
-}
-
 function isPlainBulletCandidate(line: string): boolean {
   const trimmed = line.trim();
   if (!trimmed) return false;
   if (trimmed.length > 95) return false;
   if (trimmed.endsWith('.')) return false;
   if (trimmed.endsWith(':')) return false;
-  if (isNumberedHeading(trimmed)) return false;
+  if (isMarkdownH2(trimmed) || isMarkdownH3(trimmed)) return false;
+  if (isOrderedListItem(trimmed)) return false;
   if (isMarkdownBullet(trimmed)) return true;
   return true;
 }
@@ -244,8 +234,7 @@ function parseContent(content: string): ParsedBlock[] {
   let skippedTitle = false;
 
   while (i < lines.length) {
-    const raw = lines[i];
-    const line = raw.trim();
+    const line = lines[i].trim();
 
     if (!line) {
       i++;
@@ -258,34 +247,18 @@ function parseContent(content: string): ParsedBlock[] {
       continue;
     }
 
-    if (/^##\s+/.test(line) || /^#\s+/.test(line)) {
+    if (isMarkdownH2(line)) {
       const title = stripHeadingPrefix(line);
       blocks.push({ type: 'h2', id: makeId(title), title });
       i++;
       continue;
     }
 
-    if (/^###\s+/.test(line)) {
+    if (isMarkdownH3(line)) {
       const title = stripHeadingPrefix(line);
       blocks.push({ type: 'h3', id: makeId(title), title });
       i++;
       continue;
-    }
-
-    if (isNumberedHeading(line) && line.length < 80) {
-      const title = stripHeadingPrefix(line);
-      blocks.push({ type: 'h2', id: makeId(title), title });
-      i++;
-      continue;
-    }
-
-    if (isLikelySubheading(line)) {
-      const next = lines[i + 1]?.trim() || '';
-      if (next) {
-        blocks.push({ type: 'h3', id: makeId(line), title: line.replace(/:$/, '') });
-        i++;
-        continue;
-      }
     }
 
     if (isMarkdownBullet(line)) {
@@ -313,18 +286,13 @@ function parseContent(content: string): ParsedBlock[] {
     }
 
     const prevBlock = blocks[blocks.length - 1];
-    if (
-      (prevBlock?.type === 'h3' || prevBlock?.type === 'h2' || lines[i - 1]?.trim().endsWith(':')) &&
-      isPlainBulletCandidate(line)
-    ) {
+    if ((prevBlock?.type === 'h2' || prevBlock?.type === 'h3') && isPlainBulletCandidate(line)) {
       const items: string[] = [];
       let j = i;
       while (j < lines.length) {
         const candidate = lines[j].trim();
         if (!candidate) break;
         if (!isPlainBulletCandidate(candidate)) break;
-        if (isLikelySubheading(candidate) && j !== i) break;
-        if (isNumberedHeading(candidate)) break;
         items.push(candidate.replace(/^[-*]\s+/, ''));
         j++;
       }
@@ -341,10 +309,8 @@ function parseContent(content: string): ParsedBlock[] {
     while (j < lines.length) {
       const next = lines[j].trim();
       if (!next) break;
-      if (/^#{1,3}\s+/.test(next)) break;
-      if (isNumberedHeading(next) && next.length < 80) break;
+      if (isMarkdownH2(next) || isMarkdownH3(next)) break;
       if (isMarkdownBullet(next)) break;
-      if (isLikelySubheading(next)) break;
       if (isOrderedListItem(next)) break;
       paragraph += ` ${next}`;
       j++;
