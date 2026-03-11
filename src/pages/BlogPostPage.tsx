@@ -12,19 +12,18 @@ type ParsedBlock =
   | { type: 'p'; text: string }
   | { type: 'ul'; items: string[] }
   | { type: 'ol'; items: string[] }
-  | { type: 'table'; headers: string[]; rows: string[][] };
+  | { type: 'table'; headers: string[]; rows: string[][] }
+  | { type: 'callout'; text: string };
 
 function DesktopTOC({
   sections,
   activeSection,
   onSectionClick,
 }: {
-  sections: Array<{ id: string; title: string; level: number }>;
+  sections: Array<{ id: string; title: string; level: number; numberLabel: string }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
-  let h2Index = 0;
-
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
       <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-5 uppercase tracking-[0.15em]">
@@ -34,7 +33,6 @@ function DesktopTOC({
       <nav className="space-y-1">
         {sections.map((section) => {
           const isH2 = section.level === 2;
-          if (isH2) h2Index++;
           const isActive = activeSection === section.id;
 
           return (
@@ -42,28 +40,22 @@ function DesktopTOC({
               key={section.id}
               onClick={() => onSectionClick(section.id)}
               className={`w-full text-left py-2.5 rounded-lg transition-all duration-200 flex items-start gap-3 ${
-                isH2 ? 'px-2' : 'pl-12 pr-2'
+                isH2 ? 'px-2' : 'pl-10 pr-2'
               } ${
                 isActive
                   ? 'text-[#1B7A4E] dark:text-[#4a9d7d] font-semibold'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
-              {isH2 ? (
-                <span
-                  className={`flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-colors ${
-                    isActive
-                      ? 'border-[#1B7A4E] text-[#1B7A4E] bg-[#1B7A4E]/5'
-                      : 'border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500'
-                  }`}
-                >
-                  {h2Index}
-                </span>
-              ) : (
-                <span className="flex-shrink-0 w-7 h-7 flex items-center justify-center text-gray-300 dark:text-gray-600 text-xs">
-                  •
-                </span>
-              )}
+              <span
+                className={`flex-shrink-0 min-w-[2rem] h-7 rounded-full border flex items-center justify-center text-xs font-bold transition-colors px-2 ${
+                  isActive
+                    ? 'border-[#1B7A4E] text-[#1B7A4E] bg-[#1B7A4E]/5'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500'
+                } ${isH2 ? '' : 'text-[11px]'}`}
+              >
+                {section.numberLabel}
+              </span>
 
               <span className={`flex-1 leading-snug ${isH2 ? 'text-sm font-medium' : 'text-sm'}`}>
                 {section.title}
@@ -81,14 +73,12 @@ function MobileTOC({
   activeSection,
   onSectionClick,
 }: {
-  sections: Array<{ id: string; title: string; level: number }>;
+  sections: Array<{ id: string; title: string; level: number; numberLabel: string }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const current = sections.find((s) => s.id === activeSection);
-
-  let h2Index = 0;
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
@@ -97,7 +87,6 @@ function MobileTOC({
           <div className="p-4 space-y-1">
             {sections.map((section) => {
               const isH2 = section.level === 2;
-              if (isH2) h2Index++;
 
               return (
                 <button
@@ -114,15 +103,9 @@ function MobileTOC({
                       : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
                 >
-                  {isH2 ? (
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center text-xs font-bold">
-                      {h2Index}
-                    </span>
-                  ) : (
-                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-300 dark:text-gray-600 text-xs">
-                      •
-                    </span>
-                  )}
+                  <span className="flex-shrink-0 min-w-[2rem] h-6 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center text-[11px] font-bold px-2">
+                    {section.numberLabel}
+                  </span>
 
                   <span>{section.title}</span>
                 </button>
@@ -240,6 +223,10 @@ function parseTableRow(line: string): string[] {
     .filter(Boolean);
 }
 
+function isCallout(line: string): boolean {
+  return line.trim().startsWith('>!');
+}
+
 function isPlainBulletCandidate(line: string): boolean {
   const trimmed = line.trim();
   if (!trimmed) return false;
@@ -249,6 +236,7 @@ function isPlainBulletCandidate(line: string): boolean {
   if (isMarkdownH2(trimmed) || isMarkdownH3(trimmed)) return false;
   if (isOrderedListItem(trimmed)) return false;
   if (isTableRow(trimmed)) return false;
+  if (isCallout(trimmed)) return false;
   if (isMarkdownBullet(trimmed)) return true;
   return true;
 }
@@ -284,6 +272,13 @@ function parseContent(content: string): ParsedBlock[] {
     if (isMarkdownH3(line)) {
       const title = stripHeadingPrefix(line);
       blocks.push({ type: 'h3', id: makeId(title), title });
+      i++;
+      continue;
+    }
+
+    if (isCallout(line)) {
+      const text = line.replace(/^>!\s*/, '').trim();
+      blocks.push({ type: 'callout', text });
       i++;
       continue;
     }
@@ -364,6 +359,7 @@ function parseContent(content: string): ParsedBlock[] {
       if (isMarkdownBullet(next)) break;
       if (isOrderedListItem(next)) break;
       if (isTableRow(next)) break;
+      if (isCallout(next)) break;
       paragraph += ` ${next}`;
       j++;
     }
@@ -415,16 +411,34 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
   }, [article]);
 
   const tocSections = useMemo(() => {
+    let h2Counter = 0;
+    let h3Counter = 0;
+
     return parsedBlocks
       .filter(
         (block): block is Extract<ParsedBlock, { type: 'h2' | 'h3' }> =>
           block.type === 'h2' || block.type === 'h3'
       )
-      .map((block) => ({
-        id: block.id,
-        title: block.title,
-        level: block.type === 'h2' ? 2 : 3,
-      }));
+      .map((block) => {
+        if (block.type === 'h2') {
+          h2Counter += 1;
+          h3Counter = 0;
+          return {
+            id: block.id,
+            title: block.title,
+            level: 2,
+            numberLabel: `${h2Counter}`,
+          };
+        }
+
+        h3Counter += 1;
+        return {
+          id: block.id,
+          title: block.title,
+          level: 3,
+          numberLabel: `${h2Counter}.${h3Counter}`,
+        };
+      });
   }, [parsedBlocks]);
 
   useEffect(() => {
@@ -492,6 +506,19 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
           >
             {renderInlineFormatting(block.title)}
           </h3>
+        );
+      }
+
+      if (block.type === 'callout') {
+        return (
+          <div
+            key={`callout-${idx}`}
+            className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 shadow-sm dark:border-amber-900/40 dark:bg-amber-950/20"
+          >
+            <p className="text-[16px] leading-[1.8] text-amber-900 dark:text-amber-100 italic font-medium">
+              {renderInlineFormatting(block.text)}
+            </p>
+          </div>
         );
       }
 
