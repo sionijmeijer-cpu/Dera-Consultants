@@ -1418,15 +1418,12 @@ Have questions about due diligence? Contact our team for a confidential consulta
 Portugal remains one of the most attractive destinations in Europe for internationally mobile entrepreneurs, investors, and high-net-worth families.
 
 The combination of the Golden Visa programme, the IFICI tax regime for new residents, a five-year pathway to one of the world’s strongest passports, and a stable legal environment makes Portugal one of the strongest EU relocation options in 2026.
-
 The process is straightforward in principle, but expensive mistakes usually happen when the steps are taken in the wrong order.
-
 This guide explains the process from the first decision point through to settled residency and the citizenship track.
 
 # Step 1: Choose Your Entry Route
 
 There are three main routes into Portuguese residency for non-EU nationals.
-
 The correct route depends on your income profile, investment appetite, and whether you intend to live in Portugal full time or maintain minimal physical presence.
 
 ## Main Residency Routes
@@ -1435,21 +1432,18 @@ The correct route depends on your income profile, investment appetite, and wheth
 |-------|------------------|----------|
 | Golden Visa (Fund) | EUR 500,000 in CMVM-regulated fund | Investors seeking minimal presence requirement |
 | Golden Visa (Cultural) | EUR 250,000 cultural or artistic contribution | Lower-cost entry with specific qualifying projects |
-| D7 Passive Income Visa | Approx. EUR 820 per month passive income | Retirees, dividend earners, remote workers |
+| D7 Passive Income Visa | Approx. EUR 920 per month passive income | Retirees, dividend earners, remote workers |
 | IFICI Startup Visa | Certified innovative company registration | Tech founders and startup operators |
 
 >! The property investment route for Golden Visas in Lisbon, Porto, and most coastal areas is closed. In 2026, the main investment route is the regulated Portuguese fund option.
 
 For Golden Visa applicants, the most commonly used route is the regulated fund investment.
-
 These funds must be registered in Portugal, supervised by the CMVM, invest at least 60 percent of their portfolio in Portuguese companies, and generally operate with a minimum ten-year maturity.
-
 Applicants should select funds with credible management and treat the investment as locked capital during the visa period.
 
 # Step 2: Obtain Your NIF Before Anything Else
 
 The Portuguese NIF, or Numero de Identificacao Fiscal, is the tax identification number issued by the Portuguese tax authority.
-
 Without a NIF, almost nothing else in the relocation process can move forward.
 
 ## Why the NIF Comes First
@@ -1460,15 +1454,12 @@ Making a qualifying fund investment
 Registering as a tax resident  
 
 Non-residents can obtain a NIF through a Portuguese consulate or through an appointed fiscal representative in Portugal.
-
 If the applicant does not yet have a Portuguese address, a fiscal representative is usually required.
-
 In most cases, this should be the very first action taken.
 
 # Step 3: Open a Portuguese Bank Account
 
 A Portuguese bank account is required for Golden Visa fund investment and is also an important practical step for relocation.
-
 The most commonly used retail banks for new residents are Millennium BCP and Caixa Geral de Depositos.
 
 ## Typical Requirements
@@ -1479,13 +1470,11 @@ Proof of residential address
 Supporting identity and compliance documents  
 
 Non-resident account opening usually takes between one and three weeks once the documentation is complete.
-
 For Golden Visa applicants, the account must be active before the qualifying investment is placed.
 
 # Step 4: Make the Qualifying Investment
 
 For Golden Visa applicants, the qualifying investment is made after the Portuguese bank account is open.
-
 The most common route is the EUR 500,000 investment into a CMVM-regulated Portuguese fund.
 
 ## Golden Visa Investment Rules
@@ -1496,15 +1485,12 @@ The vehicle must meet the legal maturity requirements
 Funds must be transferred from the applicant’s Portuguese account  
 
 Proof of subscription and confirmation from the fund manager form a core part of the Golden Visa application file.
-
 For D7 applicants, there is no qualifying investment. Instead, the applicant must prove sufficient passive or remote income.
-
 Typical evidence includes dividend income, rental income, bank statements, or a remote work contract.
 
 # Step 5: Submit the Residency Application to AIMA
 
 Golden Visa and D7 applications are now handled by AIMA, the Agency for Integration, Migration and Asylum.
-
 Applications are submitted online, followed by a biometric appointment in person.
 
 ## Typical Processing Timelines
@@ -1513,7 +1499,6 @@ Golden Visa: 9 to 18 months
 D7 Visa: 4 to 6 months in many cases  
 
 The initial Golden Visa residence permit is issued for two years and can be renewed for further two-year periods.
-
 The minimum physical presence requirement is one of the programme’s strongest features.
 
 ## Golden Visa Presence Requirement
@@ -1526,9 +1511,7 @@ This remains one of the lowest physical presence requirements of any EU residenc
 # Step 6: Register as a Tax Resident and Apply for IFICI
 
 Once physically present in Portugal with a valid address, the applicant can register as a Portuguese tax resident.
-
 This changes the NIF status from non-resident to resident and opens the door to the IFICI regime.
-
 IFICI is the successor to the former Non-Habitual Resident framework.
 
 ## What IFICI Can Offer
@@ -1542,7 +1525,6 @@ To qualify, the applicant must not have been a Portuguese tax resident in the pr
 >! Missing the IFICI application window can permanently forfeit the regime. This is one of the most expensive administrative mistakes applicants make.
 
 IFICI is targeted at specific categories, including innovation and technology professionals, researchers, higher education lecturers, certified startup employees, and some export-oriented businesses.
-
 Applicants should assess eligibility before assuming the regime applies automatically.
 
 # Step 7: The Path to Citizenship
@@ -1560,7 +1542,6 @@ Portugal’s long-term appeal is not just residency. It is the five-year path to
 | Year 5 onward | Portuguese passport | Full EU citizenship rights |
 
 The A2 Portuguese language requirement is manageable, but applicants who postpone it until the last year often create unnecessary delays.
-
 Starting basic Portuguese study early is the safer approach.
 
 ## Why Portuguese Citizenship Matters
@@ -1575,9 +1556,7 @@ For many applicants, the five-year path to a Portuguese passport is the single m
 # Final Perspective
 
 Relocating to Portugal is not difficult because the process is unclear.
-
 It becomes difficult when applicants complete the steps in the wrong order, misunderstand the difference between immigration and tax registration, or assume IFICI eligibility without checking the criteria.
-
 The strongest Portugal relocation strategies are built in sequence:
 
 Choose the correct entry route  
