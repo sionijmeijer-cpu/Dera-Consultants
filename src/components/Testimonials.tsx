@@ -13,7 +13,7 @@ export default function Testimonials() {
       name: 'Galli Sel',
       title: 'Business Owner',
       country: 'UAE',
-      text: "Collaboration with Dera Consultants has been beneficial to my company's growth. I highly recommend their services to any serious investor. Sylvia is really the best to work with.",
+      text: 'Collaboration with Dera Consultants has been beneficial to my company growth. I highly recommend their services to any serious investor. Sylvia is really the best to work with.',
       rating: 5,
     },
     {
@@ -31,7 +31,7 @@ export default function Testimonials() {
       name: 'Isabella Garcia',
       title: 'Lawyer',
       country: 'Spain',
-      text: "As a legal professional, I appreciate thoroughness. Dera's team demonstrated an exceptional level of diligence and expertise throughout the entire process.",
+      text: 'As a legal professional, I appreciate thoroughness. The Dera team demonstrated an exceptional level of diligence and expertise throughout the entire process.',
       rating: 5,
     },
     {
@@ -40,7 +40,7 @@ export default function Testimonials() {
       name: 'Marcus Johnson',
       title: 'Entrepreneur',
       country: 'UK',
-      text: 'Outstanding service from start to finish. The team at Dera Consultants made the entire citizenship process seamless and stress-free. Highly professional and responsive.',
+      text: 'Outstanding service from start to finish. The team at Dera Consultants made the entire citizenship process seamless and stress free. Highly professional and responsive.',
       rating: 5,
     },
     {
@@ -49,7 +49,7 @@ export default function Testimonials() {
       name: 'Sarah Rodriguez',
       title: 'Investment Manager',
       country: 'Mexico',
-      text: 'Working with Dera Consultants was a game-changer for our investment portfolio. Their expertise in residency and citizenship programs is unmatched.',
+      text: 'Working with Dera Consultants was a game changer for our investment portfolio. Their expertise in residency and citizenship programs is unmatched.',
       rating: 5,
     },
     {
@@ -91,9 +91,11 @@ export default function Testimonials() {
 
   useEffect(() => {
     if (!autoPlay) return;
+
     const interval = setInterval(() => {
       goToNext();
     }, 5000);
+
     return () => clearInterval(interval);
   }, [autoPlay, goToNext]);
 
@@ -127,9 +129,7 @@ export default function Testimonials() {
                 className={`bg-white rounded-xl p-8 shadow-lg border border-gray-200 flex flex-col justify-between h-full transition-all duration-500 hover:shadow-xl hover:scale-[1.02] ${
                   idx > 0 ? 'hidden md:flex' : 'flex'
                 }`}
-                style={{
-                  animation: 'fadeIn 0.5s ease-out',
-                }}
+                style={{ animation: 'fadeIn 0.5s ease-out' }}
               >
                 <div className="flex gap-1 mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
