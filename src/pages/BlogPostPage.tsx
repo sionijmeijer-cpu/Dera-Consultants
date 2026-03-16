@@ -618,4 +618,242 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950">
         <div className="text-center max-w-md mx-auto px-4">
-          <div clas
+          <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
+            <BookOpen className="w-10 h-10 text-gray-400" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Article Not Found</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            The article you are looking for does not exist or may have been moved.
+          </p>
+          <a
+            href="/blog"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1B7A4E] text-white rounded-lg font-semibold hover:bg-[#156B3F] transition-colors"
+          >
+            &larr; Back to Articles
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-gray-200/50 dark:bg-gray-800/50">
+        <div
+          className="h-full bg-gradient-to-r from-[#1B7A4E] to-[#2E8B57] transition-all duration-150"
+          style={{ width: `${readingProgress}%` }}
+        />
+      </div>
+
+      <div className="relative">
+        {article.image && (
+          <div className="relative h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden">
+            <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+
+            <div className="absolute top-0 left-0 right-0">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+                <div className="flex items-center flex-wrap gap-1 text-sm text-white/80">
+                  <a href="/" className="hover:text-white transition-colors">Home</a>
+                  <ChevronRight size={14} className="text-white/50" />
+                  <a href="/blog" className="hover:text-white transition-colors">Articles</a>
+                  <ChevronRight size={14} className="text-white/50" />
+                  <span className="text-white font-medium">{article.category}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute bottom-0 left-0 right-0">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+                <div className="max-w-3xl">
+                  <div className="flex items-center flex-wrap gap-3 mb-4">
+                    <span className="px-3 py-1 bg-[#1B7A4E] text-white text-sm font-semibold rounded-full">
+                      {article.category}
+                    </span>
+                    <span className="flex items-center text-white/80 text-sm">
+                      <Calendar size={14} className="mr-1.5" />
+                      {article.publishDate}
+                    </span>
+                    <span className="flex items-center text-white/80 text-sm">
+                      <Clock size={14} className="mr-1.5" />
+                      {article.readTime}
+                    </span>
+                  </div>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                    {article.title}
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!article.image && (
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 border-b border-gray-200 dark:border-gray-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              <div className="flex items-center flex-wrap gap-1 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                <a href="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">Home</a>
+                <ChevronRight size={14} />
+                <a href="/blog" className="hover:text-gray-900 dark:hover:text-white transition-colors">Articles</a>
+                <ChevronRight size={14} />
+                <span className="text-gray-900 dark:text-white font-medium">{article.category}</span>
+              </div>
+              <div className="flex items-center flex-wrap gap-3 mb-4">
+                <span className="px-3 py-1 bg-[#1B7A4E]/10 text-[#1B7A4E] text-sm font-semibold rounded-full">
+                  {article.category}
+                </span>
+                <span className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                  <Calendar size={14} className="mr-1.5" />
+                  {article.publishDate}
+                </span>
+                <span className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                  <Clock size={14} className="mr-1.5" />
+                  {article.readTime}
+                </span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight max-w-3xl">
+                {article.title}
+              </h1>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="bg-gray-50 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed italic">
+            {article.excerpt}
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+        <div className="flex gap-10 lg:gap-14">
+          <article className="flex-1 min-w-0 max-w-3xl">
+            <div className="article-content">{renderContent()}</div>
+
+            <div className="mt-14 bg-gradient-to-br from-[#0f3460] to-[#1a4a8a] dark:from-[#1B7A4E] dark:to-[#156B3F] rounded-2xl p-8 sm:p-10 text-center">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">Ready to Take the Next Step?</h3>
+              <p className="text-white/80 text-lg mb-6 max-w-lg mx-auto">
+                Schedule a free consultation with our expert team and start your journey today.
+              </p>
+              <button
+                onClick={handleScheduleCall}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0f3460] dark:text-[#1B7A4E] font-bold rounded-xl hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-lg text-lg"
+              >
+                Schedule a Free Call
+                <ArrowRight size={20} />
+              </button>
+            </div>
+
+            <div className="mt-10 flex items-center gap-5 p-6 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                DC
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Written by</p>
+                <h4 className="font-bold text-gray-900 dark:text-white text-lg">{article.author}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  Expert insights on global mobility, residency, and citizenship planning.
+                </p>
+              </div>
+            </div>
+
+            {relatedArticles.length > 0 && (
+              <div className="mt-14 pt-10 border-t border-gray-200 dark:border-gray-800">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Continue Reading</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {relatedArticles.map((ra) => (
+                    <a
+                      key={ra.id}
+                      href={`/blog/${ra.slug}`}
+                      className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                    >
+                      {ra.image && (
+                        <div className="relative h-40 overflow-hidden">
+                          <img
+                            src={ra.image}
+                            alt={ra.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      )}
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs font-semibold text-[#1B7A4E] uppercase tracking-wide">
+                            {ra.category}
+                          </span>
+                          <span className="text-gray-300 dark:text-gray-600">|</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">{ra.readTime}</span>
+                        </div>
+                        <h4 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[#1B7A4E] transition-colors">
+                          {ra.title}
+                        </h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{ra.excerpt}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </article>
+
+          <aside className="hidden lg:block w-[300px] flex-shrink-0">
+            <div className="sticky top-8 space-y-6">
+              <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
+                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 uppercase tracking-wide">
+                  Become a Client
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                  Speak with our team about residency and citizenship options tailored to your situation.
+                </p>
+                <button
+                  onClick={handleScheduleCall}
+                  className="w-full px-4 py-3 bg-[#1B7A4E] text-white text-sm font-bold rounded-lg hover:bg-[#156B3F] transition-colors uppercase tracking-wide"
+                >
+                  Become a Client
+                </button>
+              </div>
+
+              {tocSections.length > 0 && (
+                <DesktopTOC sections={tocSections} activeSection={activeSection} onSectionClick={scrollToSection} />
+              )}
+
+              {article.tags && article.tags.length > 0 && (
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
+                  <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-widest">
+                    Topics
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {article.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-medium rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      {tocSections.length > 0 && (
+        <MobileTOC sections={tocSections} activeSection={activeSection} onSectionClick={scrollToSection} />
+      )}
+
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-[#1B7A4E] text-white rounded-full shadow-lg hover:bg-[#156B3F] transition-all duration-200 hover:scale-110 flex items-center justify-center"
+          aria-label="Back to top"
+        >
+          <ChevronUp size={22} />
+        </button>
+      )}
+    </div>
+  );
+}
