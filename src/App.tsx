@@ -2,11 +2,11 @@ import { useState, useEffect, Component, ReactNode, lazy, Suspense } from 'react
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
+import QuickConsult from './components/QuickConsult';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
 
-// ---- Lazy loaders (needed for prefetch + warmup) ----
 const loadCompanyPage = () => import('./pages/CompanyPage');
 const CompanyPage = lazy(loadCompanyPage);
 
@@ -43,7 +43,6 @@ const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
 const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
 const ScheduleCallModal = lazy(loadScheduleCallModal);
 
-// ---- Error Boundary ----
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: string }> {
   constructor(props: { children: ReactNode }) {
     super(props);
@@ -78,7 +77,6 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   }
 }
 
-// ---- SPA navigation helper ----
 function navigate(href: string) {
   window.history.pushState({}, '', href);
   window.dispatchEvent(new PopStateEvent('popstate'));
@@ -93,6 +91,7 @@ function HomePage() {
   return (
     <div>
       <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => navigate('/guides')} />
+      <QuickConsult />
       <Process />
       <Testimonials />
       <ComparisonSection />
@@ -104,7 +103,6 @@ function App() {
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
-  // ---- Warm up ALL lazy routes after home loads ----
   useEffect(() => {
     const warm = () => {
       loadCompanyPage();
@@ -145,7 +143,6 @@ function App() {
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
 
-  // ---- Intercept internal links ----
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a');
@@ -166,7 +163,6 @@ function App() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  // ---- Prefetch on hover ----
   useEffect(() => {
     const routePrefetchMap: Record<string, () => Promise<unknown>> = {
       '/company': loadCompanyPage,
