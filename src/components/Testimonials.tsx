@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,9 +20,9 @@ export default function Testimonials() {
       id: 2,
       initials: 'HA',
       name: 'Harry Akande Jr',
-      title: 'Business man',
+      title: 'Businessman',
       country: 'Nigeria',
-      text: 'I was looking for a reliable partner for our global mobility needs. Dera Consultants exceeded our expectations with their deep knowledge and discretion. The support with St Lucia passport was exceptional.',
+      text: 'I was looking for a reliable partner for our global mobility needs. Dera Consultants exceeded our expectations with their deep knowledge and discretion. The support with the St Lucia passport process was exceptional.',
       rating: 5,
     },
     {
@@ -49,7 +49,7 @@ export default function Testimonials() {
       name: 'Sarah Rodriguez',
       title: 'Investment Manager',
       country: 'Mexico',
-      text: 'Working with Dera Consultants was a game changer for our investment portfolio. Their expertise in residency and citizenship programs is unmatched.',
+      text: 'Working with Dera Consultants was a game changer for our investment planning. Their expertise in residency and citizenship programs gave us confidence from the start.',
       rating: 5,
     },
     {
@@ -112,13 +112,33 @@ export default function Testimonials() {
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            WHAT OUR CLIENTS SAY
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Real stories from investors and entrepreneurs who trusted us with their citizenship journey
+        <div className="text-center mb-10">
+          <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#1B7A4E] mb-4">
+            Client trust
           </p>
+
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            Trusted support for important decisions
+          </h2>
+
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Clients work with us when they want clarity, responsiveness, and steady guidance through residency and citizenship decisions.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
+            <ShieldCheck className="w-4 h-4 text-[#1B7A4E]" />
+            Personal support
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
+            <ShieldCheck className="w-4 h-4 text-[#1B7A4E]" />
+            Clear communication
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full bg-white border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 shadow-sm">
+            <ShieldCheck className="w-4 h-4 text-[#1B7A4E]" />
+            Reliable guidance
+          </div>
         </div>
 
         <div className="relative px-12 sm:px-16">
@@ -126,23 +146,25 @@ export default function Testimonials() {
             {visibleTestimonials.map((testimonial, idx) => (
               <div
                 key={`${currentIndex}-${idx}`}
-                className={`bg-white rounded-xl p-8 shadow-lg border border-gray-200 flex flex-col justify-between h-full transition-all duration-500 hover:shadow-xl hover:scale-[1.02] ${
+                className={`bg-white rounded-2xl p-8 shadow-lg border border-gray-200 flex flex-col justify-between h-full transition-all duration-500 hover:shadow-xl hover:scale-[1.02] ${
                   idx > 0 ? 'hidden md:flex' : 'flex'
                 }`}
                 style={{ animation: 'fadeIn 0.5s ease-out' }}
               >
-                <div className="flex gap-1 mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-[#1B7A4E] text-[#1B7A4E]"
-                    />
-                  ))}
-                </div>
+                <div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-[#1B7A4E] text-[#1B7A4E]"
+                      />
+                    ))}
+                  </div>
 
-                <p className="text-gray-700 mb-8 leading-relaxed italic text-base flex-grow">
-                  &ldquo;{testimonial.text}&rdquo;
-                </p>
+                  <p className="text-gray-700 mb-8 leading-relaxed text-base flex-grow">
+                    &ldquo;{testimonial.text}&rdquo;
+                  </p>
+                </div>
 
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
@@ -151,7 +173,7 @@ export default function Testimonials() {
                   <div>
                     <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
                     <p className="text-sm text-gray-600">
-                      {testimonial.title} &bull; {testimonial.country}
+                      {testimonial.title} • {testimonial.country}
                     </p>
                   </div>
                 </div>
