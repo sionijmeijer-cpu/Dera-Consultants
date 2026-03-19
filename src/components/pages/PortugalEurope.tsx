@@ -11,8 +11,8 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Portugal & European Residency Programs",
-    "description": "Explore Portugal and European residency programs including D2, D7, D8 visas and Golden Visa",
+    "name": "Portugal Residency Services",
+    "description": "Explore Portugal residency options including D2, D7, D8, and the Golden Visa",
     "provider": {
       "@type": "Organization",
       "name": "Dera Consultants"
@@ -23,23 +23,23 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
   const visaTypes = [
     {
       id: 'D2',
-      title: 'D2 Visa (Entrepreneur Visa)',
-      details: 'Perfect for business owners and entrepreneurs looking to establish or expand a business in Portugal. Requires a solid business plan and investment in the Portuguese economy.'
+      title: 'D2 Visa',
+      details: 'Best suited to founders, entrepreneurs, and business owners who want to build or grow a business in Portugal. This route usually requires a credible plan and a business case that makes sense in practice.'
     },
     {
       id: 'D7',
-      title: 'D7 Visa (Passive Income Visa)',
-      details: 'Ideal for individuals with passive income sources such as pensions, investments, or rental income. Requires EUR 1,000/month income with low documentation requirements.'
+      title: 'D7 Visa',
+      details: 'A strong option for people living from passive income such as pensions, rental income, dividends, or savings support. This route is often chosen by retirees and families looking for a stable move to Portugal.'
     },
     {
       id: 'D8',
-      title: 'D8 Visa (Digital Nomad Visa)',
-      details: 'Designed for remote workers and digital professionals. Requires EUR 2,700/month income and allows you to legally work for international clients while living in Portugal.'
+      title: 'D8 Visa',
+      details: 'Made for remote workers and independent professionals earning from outside Portugal. This is usually the route people look at when they want to keep working online while living in Portugal.'
     },
     {
       id: 'Golden',
       title: 'Portugal Golden Visa',
-      details: 'The most attractive residency option with real estate investment of EUR 280,000+. Offers immediate residency, fast-track to citizenship (10 years), and family inclusion.'
+      details: 'A residency route for investors who want flexibility and a long term path linked to Portugal. It tends to appeal to people who want to keep residence options open while spending limited time in the country.'
     }
   ];
 
@@ -56,18 +56,22 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
             height="800"
           />
         </div>
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Portugal & European Residency
+            Portugal residency options
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Discover the gateway to Europe with Portugal&apos;s pathways
+
+          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            Looking at D7, D8, D2, or the Golden Visa and not sure what fits
+            your case? Start here and get a clearer view of your options.
           </p>
+
           <button
             onClick={onScheduleCall}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            Become a client
+            Book a Portugal strategy call
           </button>
         </div>
       </section>
@@ -75,7 +79,16 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <p className="text-lg text-gray-700 leading-relaxed mb-6">
-            Portugal offers one of the most attractive routes to European residence and citizenship, combining affordable investment options, a high quality of life, and freedom of movement across the Schengen Zone. At Dera Consultants, we help you navigate these opportunities and find the best strategy tailored to your goals.
+            Portugal remains one of the strongest residency options in Europe for
+            people who want a better lifestyle, more mobility, and a realistic
+            long term plan. The challenge is not finding information. The
+            challenge is choosing the right route and avoiding costly mistakes.
+          </p>
+
+          <p className="text-lg text-gray-700 leading-relaxed">
+            At Dera Consultants, we help you understand which path makes sense
+            for your income, your timeline, and your personal goals so you can
+            move forward with more confidence and less guesswork.
           </p>
         </div>
       </section>
@@ -85,10 +98,11 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-            Portugal&apos;s pathways to residency
+            Main Portugal residency routes
           </h2>
+
           <p className="text-center text-gray-600 mb-12 text-lg">
-            Supported by Dera
+            A simple overview of the routes most people ask us about
           </p>
 
           <div className="space-y-4">
@@ -101,6 +115,7 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
                   <h3 className="text-xl font-bold text-gray-900 text-left">
                     {visa.title}
                   </h3>
+
                   <span
                     className={`text-2xl text-[#1B7A4E] transform transition-transform duration-200 ${expandedVisa === visa.id ? 'rotate-180' : ''}`}
                   >
@@ -124,32 +139,56 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Benefits of Portugal & European Residency
+            Why people choose Portugal
           </h2>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Freedom of Movement</h3>
-              <p className="text-gray-700">Travel across all Schengen countries without restrictions.</p>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Freedom to move</h3>
+              <p className="text-gray-700">
+                Portugal gives you access to the Schengen area and makes travel
+                across much of Europe far easier.
+              </p>
             </div>
+
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">EU Rights</h3>
-              <p className="text-gray-700">Access to work, study, and establish business across the EU.</p>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">A better quality of life</h3>
+              <p className="text-gray-700">
+                Many people choose Portugal for the safety, climate, pace of
+                life, healthcare, and everyday livability.
+              </p>
             </div>
+
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7AE] mb-4">Quality of Life</h3>
-              <p className="text-gray-700">Excellent healthcare, safety, climate, and vibrant culture.</p>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">A route for families too</h3>
+              <p className="text-gray-700">
+                Several residency routes can work for couples and families who
+                want to relocate together.
+              </p>
             </div>
+
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Tax Incentives</h3>
-              <p className="text-gray-700">Favorable tax regimes, including non-habitual resident programs.</p>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Work and business opportunities</h3>
+              <p className="text-gray-700">
+                Portugal can be attractive for remote professionals, founders,
+                and people building a base in Europe.
+              </p>
             </div>
+
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Family Inclusion</h3>
-              <p className="text-gray-700">Spouses, children, and dependent relatives can often be included.</p>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Long term security</h3>
+              <p className="text-gray-700">
+                For many applicants, residency in Portugal is part of a wider
+                plan for stability, mobility, and future options.
+              </p>
             </div>
+
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Path to EU Citizenship</h3>
-              <p className="text-gray-700">Citizenship granted after 5 years, allowing full EU benefits.</p>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">A path to citizenship</h3>
+              <p className="text-gray-700">
+                Portugal is often considered by people who want residency first
+                and a possible citizenship path later on.
+              </p>
             </div>
           </div>
         </div>
@@ -158,38 +197,62 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Why choose Europe
+            What usually goes wrong
           </h2>
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-5xl mb-4">🌍</div>
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">EU Freedom</h3>
-              <p className="text-gray-700">Travel, live, and work freely across 27 EU countries.</p>
+              <div className="text-5xl mb-4">📄</div>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Wrong visa choice</h3>
+              <p className="text-gray-700">
+                Many people start with the route they like most instead of the
+                route that actually fits their case.
+              </p>
             </div>
+
             <div className="text-center">
-              <div className="text-5xl mb-4">🏥</div>
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Healthcare</h3>
-              <p className="text-gray-700">Access world-class healthcare systems in European countries.</p>
+              <div className="text-5xl mb-4">💶</div>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Weak financial planning</h3>
+              <p className="text-gray-700">
+                Income, timing, and family costs are often underestimated early
+                in the process.
+              </p>
             </div>
+
             <div className="text-center">
-              <div className="text-5xl mb-4">📚</div>
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Education</h3>
-              <p className="text-gray-700">Quality education for your family at affordable costs.</p>
+              <div className="text-5xl mb-4">⏳</div>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Leaving things too late</h3>
+              <p className="text-gray-700">
+                People often wait until the last minute, then discover documents,
+                planning, and logistics take longer than expected.
+              </p>
             </div>
+
             <div className="text-center">
-              <div className="text-5xl mb-4">💼</div>
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Career Growth</h3>
-              <p className="text-gray-700">Unlimited job opportunities across Europe's strong economies.</p>
+              <div className="text-5xl mb-4">🏠</div>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Ignoring the move itself</h3>
+              <p className="text-gray-700">
+                Residency is one part of the picture. Housing, schools, banking,
+                and settling in also matter.
+              </p>
             </div>
+
             <div className="text-center">
-              <div className="text-5xl mb-4">🏘️</div>
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Lifestyle</h3>
-              <p className="text-gray-700">Enjoy rich culture, cuisine, and vibrant communities.</p>
+              <div className="text-5xl mb-4">🧭</div>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Too much conflicting advice</h3>
+              <p className="text-gray-700">
+                Online forums and random videos create confusion fast, especially
+                when everyone claims their route is the best one.
+              </p>
             </div>
+
             <div className="text-center">
-              <div className="text-5xl mb-4">🛡️</div>
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">Security</h3>
-              <p className="text-gray-700">Safe, stable, and politically secure living environment.</p>
+              <div className="text-5xl mb-4">✅</div>
+              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-3">No clear next step</h3>
+              <p className="text-gray-700">
+                Many applicants stay stuck in research mode because they do not
+                know how to move from interest to action.
+              </p>
             </div>
           </div>
         </div>
