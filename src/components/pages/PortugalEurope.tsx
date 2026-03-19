@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PortugalEligibilityCalculator from '../PortugalEligibilityCalculator';
 
 interface PortugalEuropeProps {
   onScheduleCall: () => void;
@@ -44,12 +45,11 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* Hero Section with Image */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://i.pinimg.com/1200x/02/0a/10/020a10574717da0ffa52c256be187c22.jpg" 
-            alt="Portugal Lisbon" 
+          <img
+            src="https://i.pinimg.com/1200x/02/0a/10/020a10574717da0ffa52c256be187c22.jpg"
+            alt="Portugal Lisbon"
             className="w-full h-full object-cover opacity-20"
             loading="lazy"
             width="1920"
@@ -61,18 +61,17 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
             Portugal & European Residency
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Discover the Gateway to Europe with Portugal's Pathways
+            Discover the gateway to Europe with Portugal&apos;s pathways
           </p>
           <button
             onClick={onScheduleCall}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            Become a Client
+            Become a client
           </button>
         </div>
       </section>
 
-      {/* Introduction Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <p className="text-lg text-gray-700 leading-relaxed mb-6">
@@ -81,16 +80,17 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
         </div>
       </section>
 
-      {/* Programs Section - Accordion */}
+      <PortugalEligibilityCalculator onScheduleCall={onScheduleCall} />
+
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-            Portugal's Pathways to Residency
+            Portugal&apos;s pathways to residency
           </h2>
           <p className="text-center text-gray-600 mb-12 text-lg">
             Supported by Dera
           </p>
-          
+
           <div className="space-y-4">
             {visaTypes.map((visa) => (
               <div key={visa.id} className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -101,11 +101,13 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
                   <h3 className="text-xl font-bold text-gray-900 text-left">
                     {visa.title}
                   </h3>
-                  <span className={`text-2xl text-[#1B7A4E] transform transition-transform duration-200 ${expandedVisa === visa.id ? 'rotate-180' : ''}`}>
+                  <span
+                    className={`text-2xl text-[#1B7A4E] transform transition-transform duration-200 ${expandedVisa === visa.id ? 'rotate-180' : ''}`}
+                  >
                     ▼
                   </span>
                 </button>
-                
+
                 {expandedVisa === visa.id && (
                   <div className="px-6 py-4 bg-green-50 border-t border-green-200">
                     <p className="text-gray-700 leading-relaxed">
@@ -119,7 +121,6 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
         </div>
       </section>
 
-      {/* Benefits Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
@@ -135,7 +136,7 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
               <p className="text-gray-700">Access to work, study, and establish business across the EU.</p>
             </div>
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-2xl font-bold text-[#1B7A4E] mb-4">Quality of Life</h3>
+              <h3 className="text-2xl font-bold text-[#1B7AE] mb-4">Quality of Life</h3>
               <p className="text-gray-700">Excellent healthcare, safety, climate, and vibrant culture.</p>
             </div>
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
@@ -154,11 +155,10 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
         </div>
       </section>
 
-      {/* Why Choose Europe Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Why Choose Europe?
+            Why choose Europe
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -194,8 +194,6 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
           </div>
         </div>
       </section>
-
-
     </div>
   );
 }
