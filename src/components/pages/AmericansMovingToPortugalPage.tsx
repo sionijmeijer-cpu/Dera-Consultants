@@ -39,7 +39,6 @@ export default function AmericansMovingToPortugalPage() {
 
   return (
     <div className="bg-white">
-      {/* Hero */}
       <section className="bg-[#0f3460] text-white py-20 sm:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold tracking-[0.2em] uppercase text-white/75 mb-5">
@@ -79,7 +78,6 @@ export default function AmericansMovingToPortugalPage() {
         </div>
       </section>
 
-      {/* Why Americans Consider Portugal */}
       <section className="py-18 sm:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -123,7 +121,6 @@ export default function AmericansMovingToPortugalPage() {
         </div>
       </section>
 
-      {/* Visa Options */}
       <section id="visa-options" className="py-18 sm:py-20 bg-[#F8FAFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -145,7 +142,7 @@ export default function AmericansMovingToPortugalPage() {
             {visaOptions.map((option) => (
               <div
                 key={option.title}
-                className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm"
+                className="rounded-3xl border border-gray-200 bg-white p-8"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#1B7A4E]/10 flex items-center justify-center mb-6">
                   {option.icon}
@@ -173,7 +170,6 @@ export default function AmericansMovingToPortugalPage() {
         </div>
       </section>
 
-      {/* How You Help */}
       <section className="py-18 sm:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -219,7 +215,6 @@ export default function AmericansMovingToPortugalPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-18 sm:py-20 bg-[#0f3460] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold tracking-[0.2em] uppercase text-white/75 mb-4">
