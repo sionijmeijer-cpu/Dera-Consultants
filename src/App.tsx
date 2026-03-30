@@ -2,7 +2,6 @@ import { useState, useEffect, Component, ReactNode, lazy, Suspense } from 'react
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
-import QuickConsult from './components/QuickConsult';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import ComparisonSection from './components/ComparisonSection';
@@ -91,9 +90,8 @@ function HomePage() {
   return (
     <div>
       <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => navigate('/guides')} />
-      <QuickConsult />
-      <ComparisonSection />
       <Process />
+      <ComparisonSection />
       <Testimonials />
     </div>
   );
