@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, MapPin, Flag } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Process() {
   return (
@@ -15,19 +15,20 @@ export default function Process() {
 
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Whether you are planning a move to Portugal, exploring second citizenship
-            through investment, or looking for a Portugal pathway designed for
-            Americans, choose the route that best fits your goals.
+            through investment, or looking for a Portugal route designed for
+            Americans, choose the path that fits your goals.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Portugal */}
           <a
             href="/portugal-europe-residency"
             className="group block rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 sm:p-10 shadow-sm hover:shadow-xl hover:border-[#1B7A4E]/30 transition-all duration-300"
           >
             <div className="flex items-center justify-between mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#1B7A4E]/10 flex items-center justify-center">
-                <MapPin className="w-8 h-8 text-[#1B7A4E]" />
+              <div className="w-16 h-16 rounded-2xl bg-[#1B7A4E]/10 flex items-center justify-center text-3xl">
+                🇵🇹
               </div>
               <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-[#1B7A4E] group-hover:translate-x-1 transition-all duration-300" />
             </div>
@@ -37,28 +38,22 @@ export default function Process() {
             </h3>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              For professionals, families, retirees, and entrepreneurs seeking residency
-              in Portugal through structured legal pathways.
+              For professionals, families, retirees, and entrepreneurs exploring
+              residency in Portugal through structured legal pathways.
             </p>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-8">
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#1B7A4E]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Explore D7, D8, and D2 residency routes
-                </p>
+                <p className="text-gray-700 leading-relaxed">D7, D8, and D2 routes</p>
               </div>
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#1B7A4E]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Understand relocation, family planning, and settlement steps
-                </p>
+                <p className="text-gray-700 leading-relaxed">Relocation and family planning</p>
               </div>
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#1B7A4E]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Get clarity on which residency path fits your situation
-                </p>
+                <p className="text-gray-700 leading-relaxed">Clearer next steps</p>
               </div>
             </div>
 
@@ -68,13 +63,16 @@ export default function Process() {
             </div>
           </a>
 
+          {/* Caribbean */}
           <a
             href="/caribbean-citizenship-by-investment"
             className="group block rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 sm:p-10 shadow-sm hover:shadow-xl hover:border-[#0f3460]/30 transition-all duration-300"
           >
             <div className="flex items-center justify-between mb-8">
               <div className="w-16 h-16 rounded-2xl bg-[#0f3460]/10 flex items-center justify-center">
-                <Globe className="w-8 h-8 text-[#0f3460]" />
+                <span className="text-sm font-bold tracking-[0.12em] text-[#0f3460]">
+                  CARIB
+                </span>
               </div>
               <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-[#0f3460] group-hover:translate-x-1 transition-all duration-300" />
             </div>
@@ -84,29 +82,22 @@ export default function Process() {
             </h3>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              For investors and globally minded entrepreneurs seeking greater travel
-              freedom, diversification, and long-term security through vetted
-              citizenship by investment programs.
+              For investors seeking greater travel freedom, diversification, and
+              long-term security through vetted citizenship by investment programs.
             </p>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-8">
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#0f3460]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Compare leading Caribbean citizenship options
-                </p>
+                <p className="text-gray-700 leading-relaxed">Compare top programs</p>
               </div>
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#0f3460]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Understand investment thresholds and family eligibility
-                </p>
+                <p className="text-gray-700 leading-relaxed">Review investment thresholds</p>
               </div>
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#0f3460]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Explore a strategic plan B for mobility and protection
-                </p>
+                <p className="text-gray-700 leading-relaxed">Build a stronger plan B</p>
               </div>
             </div>
 
@@ -116,13 +107,14 @@ export default function Process() {
             </div>
           </a>
 
+          {/* USA to Portugal */}
           <a
             href="/americans-moving-to-portugal"
             className="group block rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 sm:p-10 shadow-sm hover:shadow-xl hover:border-[#B45309]/30 transition-all duration-300"
           >
             <div className="flex items-center justify-between mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#B45309]/10 flex items-center justify-center">
-                <Flag className="w-8 h-8 text-[#B45309]" />
+              <div className="w-16 h-16 rounded-2xl bg-[#B45309]/10 flex items-center justify-center text-3xl">
+                🇺🇸
               </div>
               <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-[#B45309] group-hover:translate-x-1 transition-all duration-300" />
             </div>
@@ -132,28 +124,22 @@ export default function Process() {
             </h3>
 
             <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              For US citizens looking at Portugal residency and wanting help
-              understanding the best route before making the wrong move.
+              For US citizens who want help understanding the right Portugal route
+              before wasting time on the wrong one.
             </p>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-8">
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#B45309]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Compare D7, D8, and other relevant Portugal pathways
-                </p>
+                <p className="text-gray-700 leading-relaxed">Compare D7 and D8 options</p>
               </div>
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#B45309]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Understand how your income, timeline, and family plans affect your options
-                </p>
+                <p className="text-gray-700 leading-relaxed">Match route to your profile</p>
               </div>
               <div className="flex items-start gap-3">
                 <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#B45309]" />
-                <p className="text-gray-700 leading-relaxed">
-                  Get a clearer next step tailored to Americans planning a move
-                </p>
+                <p className="text-gray-700 leading-relaxed">Plan your move with clarity</p>
               </div>
             </div>
 
