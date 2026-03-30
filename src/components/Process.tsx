@@ -26,12 +26,15 @@ export default function Process() {
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#1B7A4E]/40"
           >
             <div className="flex items-start justify-between mb-8">
-              <img
-                src="/images/pathways/portugal-coat.png"
-                alt="Portugal coat of arms"
-                className="w-16 h-16 object-contain"
-              />
-              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#1B7A4E] group-hover:translate-x-1 transition-all duration-300" />
+              <div className="h-20 flex items-center">
+                <img
+                  src="/images/pathways/portugal-coat.png"
+                  alt="Portugal coat of arms"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#1B7A4E] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -60,12 +63,15 @@ export default function Process() {
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#0f3460]/40"
           >
             <div className="flex items-start justify-between mb-8">
-              <img
-                src="/images/pathways/dominica-coat.png"
-                alt="Dominica coat of arms"
-                className="w-16 h-16 object-contain"
-              />
-              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0f3460] group-hover:translate-x-1 transition-all duration-300" />
+              <div className="h-20 flex items-center">
+                <img
+                  src="/images/pathways/dominica-coat.png"
+                  alt="Dominica coat of arms"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0f3460] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -93,12 +99,15 @@ export default function Process() {
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#B45309]/40"
           >
             <div className="flex items-start justify-between mb-8">
-              <img
-                src="/images/pathways/us-coat.png"
-                alt="United States seal"
-                className="w-16 h-16 object-contain"
-              />
-              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#B45309] group-hover:translate-x-1 transition-all duration-300" />
+              <div className="h-20 flex items-center">
+                <img
+                  src="/images/pathways/us-coat.png"
+                  alt="United States seal"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#B45309] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
             </div>
 
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#B45309] mb-3">
