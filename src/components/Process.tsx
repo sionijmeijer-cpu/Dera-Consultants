@@ -21,7 +21,6 @@ export default function Process() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Portugal */}
           <a
             href="/portugal-europe-residency"
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#1B7A4E]/40"
@@ -56,7 +55,6 @@ export default function Process() {
             </div>
           </a>
 
-          {/* Caribbean */}
           <a
             href="/caribbean-citizenship-by-investment"
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#0f3460]/40"
@@ -90,7 +88,6 @@ export default function Process() {
             </div>
           </a>
 
-          {/* Americans */}
           <a
             href="/americans-moving-to-portugal"
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#B45309]/40"
