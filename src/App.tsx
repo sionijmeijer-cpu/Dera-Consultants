@@ -75,6 +75,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
         </div>
       );
     }
+
     return this.props.children;
   }
 }
@@ -92,7 +93,10 @@ function HomePage() {
 
   return (
     <div>
-      <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => navigate('/guides')} />
+      <Hero
+        onScheduleCall={handleScheduleCall}
+        onNavigateToGuides={() => navigate('/guides')}
+      />
       <Process />
       <ComparisonSection />
       <Testimonials />
@@ -121,9 +125,15 @@ function App() {
       loadScheduleCallModal();
     };
 
-    const w = window as unknown as { requestIdleCallback?: (cb: () => void) => void };
-    if (w.requestIdleCallback) w.requestIdleCallback(warm);
-    else setTimeout(warm, 1000);
+    const w = window as unknown as {
+      requestIdleCallback?: (cb: () => void) => void;
+    };
+
+    if (w.requestIdleCallback) {
+      w.requestIdleCallback(warm);
+    } else {
+      setTimeout(warm, 1000);
+    }
   }, []);
 
   useEffect(() => {
@@ -135,12 +145,14 @@ function App() {
       setCurrentPath(window.location.pathname);
       window.scrollTo(0, 0);
     };
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   useEffect(() => {
     const handleOpenModal = () => setIsScheduleModalOpen(true);
+
     window.addEventListener('openScheduleModal', handleOpenModal);
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
@@ -153,7 +165,12 @@ function App() {
       const href = target.getAttribute('href');
       if (!href) return;
 
-      if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#')) {
+      if (
+        href.startsWith('http') ||
+        href.startsWith('mailto') ||
+        href.startsWith('tel') ||
+        href.startsWith('#')
+      ) {
         return;
       }
 
@@ -181,17 +198,24 @@ function App() {
     };
 
     const shouldIgnore = (href: string) =>
-      href.startsWith('http') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('#');
+      href.startsWith('http') ||
+      href.startsWith('mailto') ||
+      href.startsWith('tel') ||
+      href.startsWith('#');
 
     const prefetch = (href: string) => {
       const loader = routePrefetchMap[href];
       if (loader) loader();
-      if (href.startsWith('/blog/')) loadBlogPostPage();
+
+      if (href.startsWith('/blog/')) {
+        loadBlogPostPage();
+      }
     };
 
     const onPointerOver = (e: Event) => {
       const a = (e.target as HTMLElement)?.closest?.('a');
       const href = a?.getAttribute?.('href');
+
       if (!href || shouldIgnore(href)) return;
       prefetch(href);
     };
@@ -212,10 +236,14 @@ function App() {
     if (path === '/research') return <ResearchPage />;
     if (path === '/contact') return <ContactPage />;
     if (path === '/blog') return <BlogPage />;
-    if (path.startsWith('/blog/')) return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    if (path.startsWith('/blog/')) {
+      return <BlogPostPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    }
     if (path === '/guides') return <GuidesStorePage />;
     if (path === '/checkout/success') return <CheckoutSuccessPage />;
-    if (path === '/guides-old') return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    if (path === '/guides-old') {
+      return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
+    }
 
     return <HomePage />;
   };
@@ -224,6 +252,7 @@ function App() {
     <ErrorBoundary>
       <div className="min-h-screen flex flex-col bg-white">
         <Header onScheduleCall={() => setIsScheduleModalOpen(true)} />
+
         <main className="flex-1">
           <Suspense
             fallback={
@@ -235,7 +264,9 @@ function App() {
             {getPageComponent()}
           </Suspense>
         </main>
+
         <Footer />
+
         <Suspense fallback={null}>
           {isScheduleModalOpen && (
             <ScheduleCallModal
