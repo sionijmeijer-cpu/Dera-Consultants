@@ -92,9 +92,9 @@ function HomePage() {
     <div>
       <Hero onScheduleCall={handleScheduleCall} onNavigateToGuides={() => navigate('/guides')} />
       <QuickConsult />
+      <ComparisonSection />
       <Process />
       <Testimonials />
-      <ComparisonSection />
     </div>
   );
 }
