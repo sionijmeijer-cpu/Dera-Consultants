@@ -39,6 +39,9 @@ const GuidesStorePage = lazy(loadGuidesStorePage);
 const loadCheckoutSuccessPage = () => import('./pages/CheckoutSuccessPage');
 const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
 
+const loadAmericansMovingToPortugalPage = () => import('./pages/AmericansMovingToPortugalPage');
+const AmericansMovingToPortugalPage = lazy(loadAmericansMovingToPortugalPage);
+
 const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
 const ScheduleCallModal = lazy(loadScheduleCallModal);
 
@@ -114,6 +117,7 @@ function App() {
       loadGuidesStorePage();
       loadGuidesPage();
       loadCheckoutSuccessPage();
+      loadAmericansMovingToPortugalPage();
       loadScheduleCallModal();
     };
 
@@ -167,6 +171,7 @@ function App() {
       '/programs': loadProgramsPage,
       '/caribbean-citizenship-by-investment': loadCaribbeanPage,
       '/portugal-europe-residency': loadPortugalPage,
+      '/americans-moving-to-portugal': loadAmericansMovingToPortugalPage,
       '/research': loadResearchPage,
       '/contact': loadContactPage,
       '/blog': loadBlogPage,
@@ -203,6 +208,7 @@ function App() {
     if (path === '/programs') return <ProgramsPage />;
     if (path === '/caribbean-citizenship-by-investment') return <CaribbeanPage />;
     if (path === '/portugal-europe-residency') return <PortugalPage />;
+    if (path === '/americans-moving-to-portugal') return <AmericansMovingToPortugalPage />;
     if (path === '/research') return <ResearchPage />;
     if (path === '/contact') return <ContactPage />;
     if (path === '/blog') return <BlogPage />;
