@@ -2,152 +2,102 @@ import { ArrowRight } from 'lucide-react';
 
 export default function Process() {
   return (
-    <section className="py-20 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-14">
+    <section className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div className="text-center mb-16">
           <p className="text-sm font-semibold tracking-[0.2em] uppercase text-[#1B7A4E] mb-4">
-            Choose Your Path
+            Choose your path
           </p>
 
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Three Clear Routes to Greater Mobility
+            Three Routes to Greater Mobility
           </h2>
 
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Whether you are planning a move to Portugal, exploring second citizenship
-            through investment, or looking for a Portugal route designed for
-            Americans, choose the path that fits your goals.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Whether you are exploring Portugal residency, second citizenship,
+            or a pathway tailored for Americans, start with the route that fits your situation.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Portugal */}
-          <a
-            href="/portugal-europe-residency"
-            className="group block rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 sm:p-10 shadow-sm hover:shadow-xl hover:border-[#1B7A4E]/30 transition-all duration-300"
-          >
-            <div className="flex items-center justify-between mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#1B7A4E]/10 flex items-center justify-center text-3xl">
-                🇵🇹
-              </div>
-              <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-[#1B7A4E] group-hover:translate-x-1 transition-all duration-300" />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
 
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+          {/* Portugal */}
+          <a href="/portugal-europe-residency" className="group">
+            <div className="mb-6 text-3xl">🇵🇹</div>
+
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Move to Portugal
             </h3>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              For professionals, families, retirees, and entrepreneurs exploring
-              residency in Portugal through structured legal pathways.
+            <p className="text-gray-600 leading-relaxed mb-6">
+              Residency options for individuals and families planning a long-term move.
             </p>
 
-            <div className="space-y-3 mb-8">
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#1B7A4E]" />
-                <p className="text-gray-700 leading-relaxed">D7, D8, and D2 routes</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#1B7A4E]" />
-                <p className="text-gray-700 leading-relaxed">Relocation and family planning</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#1B7A4E]" />
-                <p className="text-gray-700 leading-relaxed">Clearer next steps</p>
-              </div>
+            <div className="space-y-2 mb-6 text-gray-700">
+              <p>• D7, D8, and D2 routes</p>
+              <p>• Relocation and planning</p>
+              <p>• Clear next steps</p>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-[#1B7A4E] font-semibold text-base">
-              Explore Portugal Residency
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            <div className="inline-flex items-center gap-2 text-[#1B7A4E] font-semibold">
+              Explore Portugal
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
             </div>
           </a>
 
           {/* Caribbean */}
-          <a
-            href="/caribbean-citizenship-by-investment"
-            className="group block rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 sm:p-10 shadow-sm hover:shadow-xl hover:border-[#0f3460]/30 transition-all duration-300"
-          >
-            <div className="flex items-center justify-between mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#0f3460]/10 flex items-center justify-center">
-                <span className="text-sm font-bold tracking-[0.12em] text-[#0f3460]">
-                  CARIB
-                </span>
-              </div>
-              <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-[#0f3460] group-hover:translate-x-1 transition-all duration-300" />
-            </div>
+          <a href="/caribbean-citizenship-by-investment" className="group">
+            <div className="mb-6 text-3xl">🏝️</div>
 
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Obtain a Second Citizenship
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Second Citizenship
             </h3>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              For investors seeking greater travel freedom, diversification, and
-              long-term security through vetted citizenship by investment programs.
+            <p className="text-gray-600 leading-relaxed mb-6">
+              Citizenship by investment options for global mobility and long-term flexibility.
             </p>
 
-            <div className="space-y-3 mb-8">
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#0f3460]" />
-                <p className="text-gray-700 leading-relaxed">Compare top programs</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#0f3460]" />
-                <p className="text-gray-700 leading-relaxed">Review investment thresholds</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#0f3460]" />
-                <p className="text-gray-700 leading-relaxed">Build a stronger plan B</p>
-              </div>
+            <div className="space-y-2 mb-6 text-gray-700">
+              <p>• Compare programs</p>
+              <p>• Review investments</p>
+              <p>• Build a plan B</p>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-[#0f3460] font-semibold text-base">
-              Explore Citizenship Programs
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            <div className="inline-flex items-center gap-2 text-[#0f3460] font-semibold">
+              Explore Caribbean
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
             </div>
           </a>
 
-          {/* USA to Portugal */}
-          <a
-            href="/americans-moving-to-portugal"
-            className="group block rounded-3xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 sm:p-10 shadow-sm hover:shadow-xl hover:border-[#B45309]/30 transition-all duration-300"
-          >
-            <div className="flex items-center justify-between mb-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#B45309]/10 flex items-center justify-center text-3xl">
-                🇺🇸
-              </div>
-              <ArrowRight className="w-6 h-6 text-gray-400 group-hover:text-[#B45309] group-hover:translate-x-1 transition-all duration-300" />
-            </div>
+          {/* USA SPECIALIZED */}
+          <a href="/americans-moving-to-portugal" className="group">
+            <div className="mb-6 text-3xl">🇺🇸</div>
 
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Americans Moving to Portugal
-            </h3>
-
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              For US citizens who want help understanding the right Portugal route
-              before wasting time on the wrong one.
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#B45309] mb-2">
+              Designed for US citizens
             </p>
 
-            <div className="space-y-3 mb-8">
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#B45309]" />
-                <p className="text-gray-700 leading-relaxed">Compare D7 and D8 options</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#B45309]" />
-                <p className="text-gray-700 leading-relaxed">Match route to your profile</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#B45309]" />
-                <p className="text-gray-700 leading-relaxed">Plan your move with clarity</p>
-              </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Portugal Relocation for Americans
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed mb-6">
+              A focused pathway that helps Americans understand which Portugal visa actually fits before making the wrong move.
+            </p>
+
+            <div className="space-y-2 mb-6 text-gray-700">
+              <p>• US-specific relocation considerations</p>
+              <p>• D7 vs D8 clarity</p>
+              <p>• Avoid common mistakes</p>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-[#B45309] font-semibold text-base">
-              Explore US to Portugal
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            <div className="inline-flex items-center gap-2 text-[#B45309] font-semibold">
+              Explore US pathway
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
             </div>
           </a>
+
         </div>
       </div>
     </section>
