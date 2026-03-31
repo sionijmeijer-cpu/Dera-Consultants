@@ -61,9 +61,9 @@ const countries = [
   },
   {
     name: 'Grenada',
-    image: 'https://images.unsplash.com/photo-1602002418082-dd4a4db7e9a0?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Grenada Caribbean tropical beach with clear water and palm trees',
     coatOfArms: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Coat_of_arms_of_Grenada.svg/80px-Coat_of_arms_of_Grenada.svg.png',
-    imageAlt: 'Grenada spice island harbour with colourful boats',
     tag: 'E-2 Treaty access to the US',
     tagColor: 'bg-amber-100 text-amber-800',
     options: [
@@ -79,7 +79,7 @@ const benefits = [
   {
     icon: '🛫',
     title: 'Visa-free travel to 140 plus countries',
-    body: 'Caribbean passports open doors to the Schengen Area, the UK, Singapore, and Hong Kong, among others. For many of our clients, that access is the primary driver.',
+    body: 'Caribbean passports open doors to the Schengen Area, the UK, Singapore, and Hong Kong among others. For many clients, that access is the primary driver.',
   },
   {
     icon: '💰',
@@ -108,36 +108,21 @@ const benefits = [
   },
 ];
 
-const mistakes = [
+const steps = [
   {
-    icon: '🔀',
-    title: 'Choosing the cheapest program, not the right one',
-    body: 'Dominica may have the lowest entry point, but if your goal involves US business access, Grenada is the only option. Price is one factor. Your actual objectives matter more.',
+    num: '01',
+    title: 'Understand what you want the passport to do',
+    body: 'Travel access, tax planning, US E-2 visa eligibility, family inclusion, or simply having a backup option. Your goal shapes which program we recommend.',
   },
   {
-    icon: '📋',
-    title: 'Underestimating due diligence requirements',
-    body: 'Every Caribbean CBI program runs thorough background checks. Clients with complex business histories, prior visa rejections, or dual nationals need to plan their application carefully. Issues that are not disclosed upfront cause the most problems.',
+    num: '02',
+    title: 'Match the right program to your situation',
+    body: 'We look at your investment budget, family structure, background, and timeline and give you a straight recommendation, not a menu of options to figure out yourself.',
   },
   {
-    icon: '👨‍👩‍👧',
-    title: 'Not thinking about dependants early enough',
-    body: 'Adding family members affects cost, documentation, and sometimes program eligibility. Clients who decide late that they want to include parents or adult children often end up delaying or restarting the process.',
-  },
-  {
-    icon: '🏦',
-    title: 'Confusing donation and investment routes',
-    body: 'A donation is a one-way cost. A real estate or bond investment may preserve or return capital. Many clients assume all routes work the same way financially. They do not.',
-  },
-  {
-    icon: '📰',
-    title: 'Using outdated information',
-    body: 'Program prices, processing times, and eligibility rules change regularly. Several programs raised minimum investment thresholds in 2023 and 2024. What you read two years ago may no longer be accurate.',
-  },
-  {
-    icon: '🔁',
-    title: 'Going through a firm with no regional accountability',
-    body: 'Some advisory firms sell Caribbean programs without proper authorisation or local connections. We work directly with licensed agents and government-approved intermediaries in each jurisdiction.',
+    num: '03',
+    title: 'Manage the process end to end',
+    body: 'We work with licensed agents and government-approved intermediaries in each jurisdiction. You stay informed throughout without having to chase paperwork yourself.',
   },
 ];
 
@@ -145,8 +130,8 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* HERO */}
-      <section className="relative min-h-[580px] flex items-center justify-center pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* 1. HERO */}
+      <section className="relative min-h-[580px] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=1920&q=80"
@@ -159,7 +144,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-gray-900/10" />
         </div>
 
-        <div className="max-w-3xl mx-auto text-center relative z-10">
+        <div className="max-w-3xl mx-auto text-center relative z-10 py-24">
           <span className="inline-block text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-4">
             Caribbean Citizenship by Investment
           </span>
@@ -180,22 +165,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xl text-gray-700 leading-relaxed mb-6 font-medium">
-            Caribbean citizenship by investment has been around since the 1980s. These are not obscure loopholes. They are government-run programs designed to attract foreign investment, and they come with real passports, real visa-free access, and a straightforward legal process.
-          </p>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">
-            What has changed is who is applying. It used to be a niche product for very high-net-worth individuals. Today we work with entrepreneurs, remote professionals, families relocating internationally, and people who simply want more flexibility in how they live and move.
-          </p>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            At Dera Consultants, we advise on all five main Caribbean programs and work with licensed agents and government-approved intermediaries in each jurisdiction. Our role is to help you understand which program fits your situation, and to manage the process so nothing falls through the cracks.
-          </p>
-        </div>
-      </section>
-
-      {/* COUNTRIES */}
+      {/* 2. FIVE CBI PROGRAMS */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
@@ -219,6 +189,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
                     loading="lazy"
                     width="800"
                     height="208"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
                 </div>
                 <div className="p-6">
@@ -253,41 +224,8 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
         </div>
       </section>
 
-      {/* SPLIT IMAGE + COPY */}
+      {/* 3. BENEFITS */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="order-1 lg:order-1 rounded-2xl overflow-hidden shadow-xl">
-            <img
-              src="https://images.unsplash.com/photo-1580237541049-2d715a09486e?auto=format&fit=crop&w=900&q=80"
-              alt="Antigua Caribbean beach at sunset with calm water"
-              className="w-full h-80 lg:h-[420px] object-cover"
-              loading="lazy"
-              width="900"
-              height="420"
-            />
-          </div>
-          <div className="order-2 lg:order-2">
-            <span className="text-emerald-600 font-semibold text-sm uppercase tracking-widest">
-              What clients are actually looking for
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mt-3 mb-6">
-              Not everyone wants to live there
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              That is the part people sometimes find surprising. You do not need to relocate to the Caribbean to hold Caribbean citizenship. Most programs have minimal or no residency requirements. You get the passport, the travel access, and the tax advantages without changing where you live.
-            </p>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              For some clients, the goal is straightforward: a stronger passport for travel. For others, it is about tax planning, or having a backup option for the family, or access to the US E-2 visa through Grenada.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              We take time at the start of every engagement to understand what you actually want the citizenship to do. That shapes which program we recommend, and how we structure the application.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* BENEFITS */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             What Caribbean citizenship actually gives you
@@ -300,7 +238,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
             {benefits.map((b) => (
               <div
                 key={b.title}
-                className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-gray-50 rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="text-3xl mb-4">{b.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{b.title}</h3>
@@ -311,47 +249,41 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
         </div>
       </section>
 
-      {/* MISTAKES */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      {/* 4. HOW WE HELP + CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            Where applications go wrong
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3">
+            How we work with clients on Caribbean CBI
           </h2>
-          <p className="text-gray-500 text-lg mb-12">
-            These are not rare edge cases. We see each of these regularly.
+          <p className="text-gray-400 text-lg mb-12">
+            Most clients come in knowing Caribbean CBI exists but not knowing which program is right for them. We sort that out quickly.
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mistakes.map((m) => (
-              <div
-                key={m.title}
-                className="border border-red-100 bg-red-50/40 rounded-xl p-6 hover:bg-red-50 transition-colors"
-              >
-                <div className="text-3xl mb-4">{m.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{m.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{m.body}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {steps.map((step) => (
+              <div key={step.num} className="bg-white/5 border border-white/10 rounded-xl p-8">
+                <div className="text-sm font-semibold text-emerald-400 mb-3">{step.num}</div>
+                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-gray-400 leading-relaxed text-sm">{step.body}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* BOTTOM CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Not sure which program fits your situation?
-          </h2>
-          <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-            A 30-minute call is usually enough to narrow it down. We will look at your goals, your family situation, and your investment budget and give you a straight answer on which program makes the most sense, and which ones to avoid.
-          </p>
-          <button
-            onClick={onScheduleCall}
-            className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-emerald-500/20"
-          >
-            Book a free strategy call
-          </button>
-          <p className="text-gray-500 text-sm mt-4">No commitment. No sales pitch. Just a straight conversation.</p>
+          <div className="text-center border-t border-white/10 pt-12">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+              Not sure which program fits your situation?
+            </h3>
+            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+              A 30-minute call is usually enough to narrow it down. We will look at your goals, your family situation, and your investment budget and give you a straight answer on which program makes the most sense.
+            </p>
+            <button
+              onClick={onScheduleCall}
+              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-emerald-500/20"
+            >
+              Book a free strategy call
+            </button>
+            <p className="text-gray-500 text-sm mt-4">No commitment. No sales pitch. Just a straight conversation.</p>
+          </div>
         </div>
       </section>
 
