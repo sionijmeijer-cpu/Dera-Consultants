@@ -1,72 +1,63 @@
-import { ArrowRight, CheckCircle, CircleDollarSign, Laptop, Home } from 'lucide-react';
+import { useState } from 'react';
 
-const visaOptions = [
+interface AmericansMovingToPortugalPageProps {
+  onScheduleCall?: () => void;
+}
+
+const US_GREAT_SEAL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Great_Seal_of_the_United_States_%28obverse%29.svg/80px-Great_Seal_of_the_United_States_%28obverse%29.svg.png';
+
+const visaTypes = [
   {
-    title: 'D7 Visa',
-    icon: <Home className="w-6 h-6 text-emerald-600" />,
-    tag: 'Best for retirees and passive income',
+    id: 'D7',
+    title: 'D7 Visa: Passive Income and Retirees',
+    tag: 'Most popular for US retirees',
     tagColor: 'bg-emerald-100 text-emerald-800',
-    description:
-      'If your income comes from a pension, rental property, dividends, or savings, the D7 is usually where Americans start. You need to show sustainable passive income and spend meaningful time in Portugal each year. One of the more predictable routes if your financial picture is clean.',
-    bullets: [
-      'Designed for passive income earners',
-      'Popular choice for early retirees',
-      'Requires proof of consistent, stable income',
-    ],
+    details:
+      'If your income comes from a pension, Social Security, rental property, dividends, or savings, the D7 is usually where Americans start. Portugal sets a minimum monthly income threshold, roughly €820 per month for a single applicant as of 2024, and you need to show you can sustain yourself without working locally. You do need to spend meaningful time in Portugal each year, so this is not a leave and forget visa. For US retirees specifically, coordinating Social Security with Portuguese tax residency needs early attention.',
   },
   {
-    title: 'D8 Visa',
-    icon: <Laptop className="w-6 h-6 text-emerald-600" />,
-    tag: 'Best for remote workers',
+    id: 'D8',
+    title: 'D8 Visa: Remote Workers and Freelancers',
+    tag: 'Best for Americans earning remotely',
     tagColor: 'bg-blue-100 text-blue-800',
-    description:
-      'Built for people working remotely for companies or clients outside Portugal. If you are a freelancer, contractor, or remote employee earning in USD, this is the route most Americans explore first. Your income threshold and contract arrangement both need to hold up under consulate review.',
-    bullets: [
-      'For remote employees and freelancers',
-      'Income must come from outside Portugal',
-      'No need to change your current work setup',
-    ],
+    details:
+      'Built for people working remotely for companies or clients outside Portugal. If you are a freelancer, contractor, or remote employee earning in USD, this is the route most Americans explore first. Your income threshold, typically 4x the Portuguese minimum wage, and your contract arrangement both need to hold up under consulate review. One thing that trips people up: not all remote employment structures are equal in the eyes of the consulate. We always review this carefully with US clients before they apply.',
   },
   {
-    title: 'Golden Visa',
-    icon: <CircleDollarSign className="w-6 h-6 text-emerald-600" />,
-    tag: 'Best for investors who want flexibility',
+    id: 'Golden',
+    title: 'Portugal Golden Visa: Investment Route',
+    tag: 'Residency without relocating',
     tagColor: 'bg-amber-100 text-amber-800',
-    description:
-      'Suits Americans who want a path to Portuguese residency and eventual citizenship without relocating immediately. The real estate route closed in most areas in 2023, so qualifying investments now focus on funds and specific economic contributions. Only 7 days per year in Portugal required to maintain it.',
-    bullets: [
-      'Minimal residency requirement',
-      'Investment rather than income based',
-      'Leads to citizenship eligibility after 5 years',
-    ],
+    details:
+      'Suits Americans who want a path to Portuguese residency and eventual citizenship without relocating right away. The real estate route closed in most areas in 2023, so qualifying investments now focus on funds and specific economic contributions. You only need to spend 7 days per year in Portugal to maintain it, and after 5 years you can apply for citizenship. For Americans specifically, the PFIC rules around Portuguese investment funds can create US tax complications worth reviewing with an expat tax advisor before committing.',
   },
 ];
 
-const whyPortugal = [
+const reasons = [
   {
     icon: '🛂',
     title: 'Schengen access from day one',
-    body: 'A Portuguese residence permit gives you the right to travel across 27 Schengen countries without a visa. For Americans who travel to Europe frequently, this changes things considerably.',
+    body: 'A Portuguese residence permit gives you the right to travel across 27 Schengen countries without a visa. For Americans who travel to Europe frequently for business or personal reasons, this changes the picture considerably.',
   },
   {
     icon: '💵',
     title: 'Your dollar goes further',
-    body: 'Compared to most Western European countries, Portugal is genuinely affordable. Groceries, restaurants, healthcare, and day-to-day living cost significantly less than in major US cities.',
+    body: 'Groceries, restaurants, healthcare, and day-to-day living cost significantly less than in major US cities. Many of our American clients are genuinely surprised by how far their income stretches once they are here.',
   },
   {
     icon: '🏥',
     title: 'Healthcare without the complexity',
-    body: 'Private health insurance in Portugal costs a fraction of US premiums and covers a high standard of care. This is one of the things Americans mention most after they make the move.',
+    body: 'Private health insurance in Portugal costs a fraction of US premiums and covers a high standard of care. This is one of the most common things Americans mention in the first year after making the move.',
   },
   {
     icon: '🇵🇹',
     title: 'A realistic path to a second passport',
-    body: 'After 5 years of legal residency, you can apply for Portuguese citizenship and one of the strongest passports in the world. Many Americans treat residency as step one of a longer plan.',
+    body: 'After 5 years of legal residency, you can apply for Portuguese citizenship and one of the strongest passports in the world. Many Americans treat Portugal residency as step one of a longer plan rather than just a lifestyle move.',
   },
   {
     icon: '🏫',
     title: 'Established expat infrastructure',
-    body: 'Lisbon, Porto, and the Algarve have well-developed international school networks, English-speaking communities, and services built around relocating families.',
+    body: 'Lisbon, Porto, and the Algarve have well-developed international school networks, English-speaking professional communities, and services built around relocating families.',
   },
   {
     icon: '☀️',
@@ -75,28 +66,34 @@ const whyPortugal = [
   },
 ];
 
-const steps = [
+const mistakes = [
   {
-    num: '01',
-    title: 'Understand your income and situation',
-    body: 'We look at how you earn, your family structure, and what you want the move to look like. This shapes which route deserves attention and which to rule out early.',
+    icon: '💸',
+    title: 'Missing the US tax dimension',
+    body: 'Americans are taxed on worldwide income regardless of where they live. The NHR and IFICI regimes in Portugal interact with your US obligations in ways that need coordinating between a Portuguese and a US expat tax advisor. Most people find out about this too late.',
   },
   {
-    num: '02',
-    title: 'Get clear on the right route',
-    body: 'You get a straight assessment of which visa path fits your case, what the realistic requirements are, and where the potential complications are. Your situation specifically.',
+    icon: '📆',
+    title: 'Underestimating consulate wait times',
+    body: 'US consulate appointments for Portuguese visas are booked out months in advance in New York, San Francisco, and Boston. Factor this into your timeline from the start, not after you have already committed to a move date.',
   },
   {
-    num: '03',
-    title: 'Move forward with a real plan',
-    body: 'You leave knowing what to do next, in what order, and what to watch out for. For clients who want ongoing support through the application, we stay involved throughout.',
+    icon: '📰',
+    title: 'Relying on Facebook groups and Reddit threads',
+    body: 'Portugal immigration rules changed significantly in 2022, 2023, and 2024. These communities are full of well-meaning people sharing experiences that may no longer be accurate. Outdated advice is genuinely common and genuinely costly.',
   },
 ];
 
-export default function AmericansMovingToPortugalPage() {
+export default function AmericansMovingToPortugalPage({ onScheduleCall }: AmericansMovingToPortugalPageProps) {
+  const [expandedVisa, setExpandedVisa] = useState<string | null>('D7');
+
   const handleScheduleCall = () => {
-    const event = new CustomEvent('openScheduleModal');
-    window.dispatchEvent(event);
+    if (onScheduleCall) {
+      onScheduleCall();
+    } else {
+      const event = new CustomEvent('openScheduleModal');
+      window.dispatchEvent(event);
+    }
   };
 
   return (
@@ -107,7 +104,7 @@ export default function AmericansMovingToPortugalPage() {
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1920&q=80"
-            alt="Porto Portugal colourful buildings along the Douro River"
+            alt="Porto Portugal colourful buildings along the Douro River at golden hour"
             className="w-full h-full object-cover"
             loading="eager"
             width="1920"
@@ -117,66 +114,76 @@ export default function AmericansMovingToPortugalPage() {
         </div>
 
         <div className="max-w-3xl mx-auto text-center relative z-10 py-24">
-          <span className="inline-block text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-4">
-            For US Citizens
-          </span>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <img
+              src={US_GREAT_SEAL}
+              alt="Great Seal of the United States"
+              className="h-8 w-8 object-contain opacity-90"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            />
+            <span className="text-emerald-400 text-sm font-semibold tracking-widest uppercase">
+              For US Citizens
+            </span>
+          </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Moving to Portugal from the US starts with choosing the right route
           </h1>
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Portugal is one of the best options for Americans who want a life in Europe. The hard part is understanding which visa fits your income, your family, and your timeline, and avoiding the mistakes that slow most people down.
+            Portugal is one of the best options for Americans who want a life in Europe. The hard part is understanding which visa fits your income, your family, and your timeline, and avoiding the mistakes that are specific to moving from the US.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex justify-center">
             <button
               onClick={handleScheduleCall}
               className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-emerald-500/30 hover:scale-105"
             >
-              Book a strategy call
-              <ArrowRight className="w-5 h-5" />
+              Talk through your options
             </button>
-            <a
-              href="#visa-options"
-              className="inline-flex items-center gap-2 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200"
-            >
-              Explore visa options
-              <ArrowRight className="w-5 h-5" />
-            </a>
           </div>
         </div>
       </section>
 
-      {/* 2. VISA OPTIONS */}
-      <section id="visa-options" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      {/* 2. VISA ROUTES */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             The three routes most Americans explore
           </h2>
-          <p className="text-gray-500 text-lg mb-12">
+          <p className="text-gray-500 mb-10 text-lg">
             The right one depends on how you earn and what you want the move to look like in practice.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {visaOptions.map((option) => (
+          <div className="space-y-3">
+            {visaTypes.map((visa) => (
               <div
-                key={option.title}
-                className="bg-white rounded-xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow"
+                key={visa.id}
+                className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-shadow hover:shadow-md"
               >
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-5">
-                  {option.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{option.title}</h3>
-                <span className={`inline-block text-xs font-medium px-2.5 py-0.5 rounded-full mb-4 ${option.tagColor}`}>
-                  {option.tag}
-                </span>
-                <p className="text-gray-600 leading-relaxed mb-6 text-sm">{option.description}</p>
-                <div className="space-y-3 border-t border-gray-100 pt-5">
-                  {option.bullets.map((bullet) => (
-                    <div key={bullet} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
-                      <p className="text-gray-700 text-sm leading-relaxed">{bullet}</p>
-                    </div>
-                  ))}
-                </div>
+                <button
+                  onClick={() => setExpandedVisa(expandedVisa === visa.id ? null : visa.id)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left"
+                >
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">{visa.title}</h3>
+                    <span className={`mt-1 inline-block text-xs font-medium px-2.5 py-0.5 rounded-full ${visa.tagColor}`}>
+                      {visa.tag}
+                    </span>
+                  </div>
+                  <span className={`ml-4 flex-shrink-0 text-emerald-600 text-xl transition-transform duration-200 ${expandedVisa === visa.id ? 'rotate-180' : ''}`}>
+                    ▼
+                  </span>
+                </button>
+
+                {expandedVisa === visa.id && (
+                  <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-emerald-50/50">
+                    <p className="text-gray-700 leading-relaxed text-base">{visa.details}</p>
+                    <button
+                      onClick={handleScheduleCall}
+                      className="mt-4 text-sm font-semibold text-emerald-700 hover:text-emerald-900 underline underline-offset-2"
+                    >
+                      Ask us about this route
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -194,10 +201,10 @@ export default function AmericansMovingToPortugalPage() {
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {whyPortugal.map((r) => (
+            {reasons.map((r) => (
               <div
                 key={r.title}
-                className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:shadow-md transition-shadow"
+                className="bg-gray-50 rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="text-3xl mb-4">{r.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{r.title}</h3>
@@ -208,22 +215,25 @@ export default function AmericansMovingToPortugalPage() {
         </div>
       </section>
 
-      {/* 4. HOW WE HELP + CTA */}
+      {/* 4. MISTAKES + CTA */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-            How a conversation with us works
+            Where Americans specifically run into trouble
           </h2>
           <p className="text-gray-400 text-lg mb-12">
-            Most clients come in having read a lot. They leave with a clear picture of what their specific situation actually looks like.
+            These are patterns we see regularly with US clients. None of them are unavoidable with the right preparation.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {steps.map((step) => (
-              <div key={step.num} className="bg-white/5 border border-white/10 rounded-xl p-8">
-                <div className="text-sm font-semibold text-emerald-400 mb-3">{step.num}</div>
-                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-gray-400 leading-relaxed text-sm">{step.body}</p>
+          <div className="grid sm:grid-cols-3 gap-6 mb-16">
+            {mistakes.map((m) => (
+              <div
+                key={m.title}
+                className="bg-white/5 border border-white/10 rounded-xl p-6"
+              >
+                <div className="text-3xl mb-4">{m.icon}</div>
+                <h3 className="text-lg font-bold text-white mb-2">{m.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{m.body}</p>
               </div>
             ))}
           </div>
@@ -240,7 +250,6 @@ export default function AmericansMovingToPortugalPage() {
               className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-emerald-500/20"
             >
               Book a free strategy call
-              <ArrowRight className="w-5 h-5" />
             </button>
             <p className="text-gray-500 text-sm mt-4">No commitment. No sales pitch. Just a straight conversation.</p>
           </div>
