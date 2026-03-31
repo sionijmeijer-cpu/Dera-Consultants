@@ -265,11 +265,11 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
                 <div className="text-sm font-semibold text-emerald-400 mb-3">{step.num}</div>
                 <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
                 <p className="text-gray-400 leading-relaxed text-sm">{step.body}</p>
-              </div>
+             </div>
             ))}
           </div>
+        </div>
       </section>
-
     </div>
   );
 }
