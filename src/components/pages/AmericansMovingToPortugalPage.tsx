@@ -103,8 +103,8 @@ export default function AmericansMovingToPortugalPage({ onScheduleCall }: Americ
       <section className="relative min-h-[580px] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1920&q=80"
-            alt="Porto Portugal colourful buildings along the Douro River at golden hour"
+            src="https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?auto=format&fit=crop&w=1920&q=80"
+            alt="Lisbon Portugal rooftop view with red rooftops and the Tagus river"
             className="w-full h-full object-cover"
             loading="eager"
             width="1920"
@@ -236,23 +236,6 @@ export default function AmericansMovingToPortugalPage({ onScheduleCall }: Americ
                 <p className="text-gray-400 text-sm leading-relaxed">{m.body}</p>
               </div>
             ))}
-          </div>
-
-          <div className="text-center border-t border-white/10 pt-12">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-4">
-              Ready to get a straight answer on your Portugal options?
-            </h3>
-            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              A 30-minute call is usually enough. We will look at your income, your family situation, and your timeline and tell you honestly which route makes sense and what to do next.
-            </p>
-            <button
-              onClick={handleScheduleCall}
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-emerald-500/20"
-            >
-              Book a free strategy call
-            </button>
-            <p className="text-gray-500 text-sm mt-4">No commitment. No sales pitch. Just a straight conversation.</p>
-          </div>
         </div>
       </section>
 
