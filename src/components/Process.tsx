@@ -21,20 +21,16 @@ export default function Process() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+          {/* Portugal */}
           <a
             href="/portugal-europe-residency"
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#1B7A4E]/40"
           >
             <div className="flex items-start justify-between mb-8">
-              <div className="h-20 flex items-center">
-                <img
-                  src="/images/pathways/portugal-coat.jpg"
-                  alt="Portugal coat of arms"
-                  className="h-16 w-auto object-contain"
-                />
-              </div>
+              <div className="text-4xl">🇵🇹</div>
 
-              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#1B7A4E] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#1B7A4E] group-hover:translate-x-1 transition-all duration-300" />
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -42,36 +38,30 @@ export default function Process() {
             </h3>
 
             <p className="text-gray-600 leading-relaxed mb-6">
-              For individuals and families exploring Portugal residency through
-              structured legal pathways.
+              For individuals and families exploring Portugal residency through structured legal pathways.
             </p>
 
             <div className="space-y-3 mb-8">
-              <p className="text-gray-700">• D7, D8, and D2 routes</p>
-              <p className="text-gray-700">• Relocation and family planning</p>
-              <p className="text-gray-700">• Clearer next steps</p>
+              <p>• D7, D8, and D2 routes</p>
+              <p>• Relocation and planning</p>
+              <p>• Clear next steps</p>
             </div>
 
             <div className="inline-flex items-center gap-2 text-[#1B7A4E] font-semibold">
               Explore Portugal
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-4 h-4" />
             </div>
           </a>
 
+          {/* Caribbean */}
           <a
             href="/caribbean-citizenship-by-investment"
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#0f3460]/40"
           >
             <div className="flex items-start justify-between mb-8">
-              <div className="h-20 flex items-center">
-                <img
-                  src="/images/pathways/dominica-coat.jpg"
-                  alt="Dominica coat of arms"
-                  className="h-16 w-auto object-contain"
-                />
-              </div>
+              <div className="text-4xl">🏝️</div>
 
-              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0f3460] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#0f3460] group-hover:translate-x-1 transition-all duration-300" />
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -83,31 +73,26 @@ export default function Process() {
             </p>
 
             <div className="space-y-3 mb-8">
-              <p className="text-gray-700">• Compare leading programs</p>
-              <p className="text-gray-700">• Review investment thresholds</p>
-              <p className="text-gray-700">• Build a stronger plan B</p>
+              <p>• Compare programs</p>
+              <p>• Investment thresholds</p>
+              <p>• Plan B strategy</p>
             </div>
 
             <div className="inline-flex items-center gap-2 text-[#0f3460] font-semibold">
               Explore Caribbean
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-4 h-4" />
             </div>
           </a>
 
+          {/* USA */}
           <a
             href="/americans-moving-to-portugal"
             className="group block rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 transition-all duration-300 hover:border-[#B45309]/40"
           >
             <div className="flex items-start justify-between mb-8">
-              <div className="h-20 flex items-center">
-                <img
-                  src="/images/pathways/us-coat.jpg"
-                  alt="United States seal"
-                  className="h-16 w-auto object-contain"
-                />
-              </div>
+              <div className="text-4xl">🇺🇸</div>
 
-              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#B45309] group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#B45309] group-hover:translate-x-1 transition-all duration-300" />
             </div>
 
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#B45309] mb-3">
@@ -119,21 +104,21 @@ export default function Process() {
             </h3>
 
             <p className="text-gray-600 leading-relaxed mb-6">
-              A more focused route for US citizens who want help choosing the right
-              Portugal pathway before making the wrong move.
+              A focused route for US citizens who want clarity before choosing the wrong visa.
             </p>
 
             <div className="space-y-3 mb-8">
-              <p className="text-gray-700">• D7 and D8 clarity</p>
-              <p className="text-gray-700">• US-specific considerations</p>
-              <p className="text-gray-700">• Avoid common mistakes</p>
+              <p>• D7 vs D8 clarity</p>
+              <p>• US-specific factors</p>
+              <p>• Avoid mistakes</p>
             </div>
 
             <div className="inline-flex items-center gap-2 text-[#B45309] font-semibold">
               Explore US pathway
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-4 h-4" />
             </div>
           </a>
+
         </div>
       </div>
     </section>
