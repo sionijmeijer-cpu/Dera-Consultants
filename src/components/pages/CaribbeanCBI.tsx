@@ -249,7 +249,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
         </div>
       </section>
 
-      {/* 4. HOW WE HELP + CTA */}
+      {/* 4. HOW WE HELP */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">
@@ -258,8 +258,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
           <p className="text-gray-400 text-lg mb-12">
             Most clients come in knowing Caribbean CBI exists but not knowing which program is right for them. We sort that out quickly.
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {steps.map((step) => (
               <div key={step.num} className="bg-white/5 border border-white/10 rounded-xl p-8">
                 <div className="text-sm font-semibold text-emerald-400 mb-3">{step.num}</div>
@@ -268,8 +267,6 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
               </div>
             ))}
           </div>
-
-
         </div>
       </section>
 
