@@ -1,107 +1,141 @@
-import { useState } from 'react';
-import PortugalEligibilityCalculator from '../PortugalEligibilityCalculator';
-
-interface PortugalEuropeProps {
+interface CaribbeanCBIProps {
   onScheduleCall: () => void;
 }
 
-const visaTypes = [
+const countries = [
   {
-    id: 'D7',
-    title: 'D7 Visa: Passive Income and Retirees',
-    tag: 'Most popular for retirees and families',
-    tagColor: 'bg-emerald-100 text-emerald-800',
-    details:
-      'If you live off a pension, rental income, dividends, or savings, the D7 is usually the most straightforward path. Portugal sets a minimum monthly income threshold, roughly €820 per month for a single applicant as of 2024, though this changes, and you need to show you can sustain yourself without working locally. It suits retirees and families who want a clean, stable move. One thing people often miss: you do need to spend meaningful time in Portugal each year, so this is not a leave and forget visa.',
-  },
-  {
-    id: 'D8',
-    title: 'D8 Visa: Digital Nomads and Remote Workers',
-    tag: 'Best for remote professionals',
+    name: 'Antigua and Barbuda',
+    image: 'https://images.unsplash.com/photo-1580237541049-2d715a09486e?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Antigua and Barbuda clear turquoise waters and white sand beach',
+    coatOfArms: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Coat_of_arms_of_Antigua_and_Barbuda.svg/80px-Coat_of_arms_of_Antigua_and_Barbuda.svg.png',
+    tag: 'Great for families',
     tagColor: 'bg-blue-100 text-blue-800',
-    details:
-      'Launched in 2022, the D8 was built specifically for people earning remotely: freelancers, contractors, remote employees. You need to show income from outside Portugal, typically at least 4x the Portuguese minimum wage, and you can keep doing exactly what you do now, just from Lisbon or the Algarve instead. The key question we always ask clients: is your income truly remote in the eyes of the consulate? Some situations are less clear-cut than they appear.',
+    options: [
+      { label: 'National Development Fund donation', value: 'from $100,000' },
+      { label: 'Real estate investment', value: 'from $200,000' },
+      { label: 'Residency requirement', value: '5 days within 5 years' },
+    ],
+    note: 'One of the most family-friendly programs. Dependants up to age 30 can be included, and parents over 58 are eligible too.',
   },
   {
-    id: 'D2',
-    title: 'D2 Visa: Entrepreneurs and Business Founders',
-    tag: 'For founders building in Portugal',
+    name: 'St. Kitts and Nevis',
+    image: 'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'St Kitts and Nevis tropical coastline with lush green hills',
+    coatOfArms: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Coat_of_Arms_of_Saint_Kitts_and_Nevis.svg/80px-Coat_of_Arms_of_Saint_Kitts_and_Nevis.svg.png',
+    tag: 'Oldest CBI program',
+    tagColor: 'bg-emerald-100 text-emerald-800',
+    options: [
+      { label: 'Sustainable Growth Fund donation', value: 'from $150,000' },
+      { label: 'Real estate investment', value: 'from $200,000' },
+      { label: 'Residency requirement', value: 'None' },
+    ],
+    note: 'The world\'s first citizenship by investment program, launched in 1984. That history matters: St. Kitts passports are among the most respected in this category.',
+  },
+  {
+    name: 'Dominica',
+    image: 'https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Dominica lush rainforest and volcanic island coastline',
+    coatOfArms: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Coat_of_arms_of_Dominica.svg/80px-Coat_of_arms_of_Dominica.svg.png',
+    tag: 'Most affordable entry',
+    tagColor: 'bg-teal-100 text-teal-800',
+    options: [
+      { label: 'Economic Diversification Fund donation', value: 'from $100,000' },
+      { label: 'Real estate investment', value: 'from $200,000' },
+      { label: 'Processing time', value: 'Around 3 to 4 months' },
+    ],
+    note: 'Dominica consistently ranks as one of the most cost-effective programs globally. No residency requirement and a straightforward process make it a practical starting point.',
+  },
+  {
+    name: 'Saint Lucia',
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Saint Lucia Piton mountains rising from the Caribbean sea',
+    coatOfArms: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Coat_of_arms_of_Saint_Lucia.svg/80px-Coat_of_arms_of_Saint_Lucia.svg.png',
+    tag: 'Multiple investment routes',
     tagColor: 'bg-purple-100 text-purple-800',
-    details:
-      'The D2 is for people who want to start or grow a business in Portugal. Unlike the D7 or D8, you are not just living there, you are creating economic activity. This means a credible business plan, demonstrated capacity to execute, and in some cases a minimum investment or job creation component. The approval process is more subjective than other visas, which is honestly where good advisory makes a real difference.',
+    options: [
+      { label: 'National Economic Fund donation', value: 'from $100,000' },
+      { label: 'Real estate investment', value: 'from $300,000' },
+      { label: 'Government bonds', value: 'from $500,000' },
+    ],
+    note: 'Saint Lucia offers more investment pathways than most programs, including a government bond option that is capital-preserving rather than a straight donation.',
   },
   {
-    id: 'Golden',
-    title: 'Portugal Golden Visa: Investment Route',
-    tag: 'Residency without relocating',
+    name: 'Grenada',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Grenada Caribbean tropical beach with clear water and palm trees',
+    coatOfArms: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Coat_of_arms_of_Grenada.svg/80px-Coat_of_arms_of_Grenada.svg.png',
+    tag: 'E-2 Treaty access to the US',
     tagColor: 'bg-amber-100 text-amber-800',
-    details:
-      'The Golden Visa changed significantly in 2023. Real estate is no longer a qualifying investment in most areas, which surprised a lot of people. The current routes focus on fund investments, research donations, and business creation. The big appeal remains: you only need to spend 7 days per year in Portugal to maintain residency, and after 5 years you can apply for citizenship. It is the route for people who want optionality, a Portuguese passport eventually, without uprooting their life right now.',
+    options: [
+      { label: 'National Transformation Fund donation', value: 'from $150,000' },
+      { label: 'Real estate investment', value: 'from $350,000' },
+      { label: 'Processing time', value: '4 to 6 months' },
+    ],
+    note: 'Grenada is the only Caribbean CBI country with an E-2 Treaty with the United States, which means Grenadian citizens can apply for a US investor visa. For clients with US business interests, this changes the calculus entirely.',
   },
 ];
 
-const reasons = [
+const benefits = [
   {
-    icon: '🛂',
-    title: 'Schengen travel without the hassle',
-    body: 'Portuguese residency gives you freedom of movement across 27 Schengen countries. For non-EU citizens, this alone transforms how you travel and work in Europe.',
+    icon: '🛫',
+    title: 'Visa-free travel to 140 plus countries',
+    body: 'Caribbean passports open doors to the Schengen Area, the UK, Singapore, and Hong Kong among others. For many clients, that access is the primary driver.',
   },
   {
-    icon: '☀️',
-    title: 'A pace of life most places cannot match',
-    body: '300 plus days of sunshine, affordable cost of living compared to Western Europe, and a genuine sense of safety. Lisbon, Porto, and the Algarve attract people who have been everywhere and still choose to stay.',
+    icon: '💰',
+    title: 'Favourable tax environments',
+    body: 'Most Caribbean CBI countries have no capital gains tax, no inheritance tax, and no estate tax. Combined with no residency requirement, this can be a meaningful planning tool.',
   },
   {
-    icon: '💶',
-    title: 'Tax planning opportunities',
-    body: "Portugal's NHR regime, now transitioning to IFICI, has attracted thousands of high-earning professionals and retirees. Tax planning is highly personal, but the options here are real and worth understanding.",
+    icon: '👨‍👩‍👧‍👦',
+    title: 'Your whole family can be included',
+    body: 'Spouses, dependent children, and in many cases parents and grandparents can be included in a single application. You are not just getting a passport, you are getting options for your family.',
   },
   {
-    icon: '👨‍👩‍👧',
-    title: 'Family-friendly residency routes',
-    body: 'Most visa routes allow you to include a spouse and dependent children. Family reunification rules in Portugal are relatively straightforward compared to many EU countries.',
+    icon: '⏱️',
+    title: 'Fast processing, no residency needed',
+    body: 'Most programs process in 3 to 6 months. You do not need to live there, visit regularly, or change your day-to-day life in any way.',
   },
   {
-    icon: '🇵🇹',
-    title: 'A realistic path to a second passport',
-    body: "After 5 years of legal residency, you can apply for Portuguese citizenship, one of the world's most powerful passports with visa-free access to 190 plus countries. Many clients treat residency as step one of a longer plan.",
+    icon: '🔒',
+    title: 'A real plan B',
+    body: 'A second citizenship is not about distrust in your home country. It is about having options. Many of our clients simply want the security of knowing there is another door open.',
   },
   {
-    icon: '🏥',
-    title: 'Healthcare that works',
-    body: "The public SNS system is genuinely good, and private healthcare costs a fraction of what you'd pay in the US or UK. Many expats use a mix of both.",
-  },
-];
-
-const mistakes = [
-  {
-    icon: '🔀',
-    title: 'Picking the visa you like, not the one that fits',
-    body: 'The D8 sounds appealing to almost everyone. But if your income structure does not clearly qualify, you risk a rejection that complicates future applications.',
-  },
-  {
-    icon: '📆',
-    title: 'Underestimating the timeline',
-    body: 'Consulate appointments can be booked out 3 to 6 months in advance. Add document apostilles, translations, and AIMA processing and you are often looking at 12 to 18 months from start to approval.',
-  },
-  {
-    icon: '📰',
-    title: 'Trusting outdated forum advice',
-    body: 'Portuguese immigration rules changed significantly in 2022, 2023, and 2024. What worked for someone three years ago, including on the Golden Visa, may no longer apply.',
+    icon: '🌐',
+    title: 'Business and banking flexibility',
+    body: 'A second passport can simplify international business, improve access to global banking, and in some cases open markets that are otherwise restricted.',
   },
 ];
 
-export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) {
-  const [expandedVisa, setExpandedVisa] = useState<string | null>('D7');
+const steps = [
+  {
+    num: '01',
+    title: 'Understand what you want the passport to do',
+    body: 'Travel access, tax planning, US E-2 visa eligibility, family inclusion, or simply having a backup option. Your goal shapes which program we recommend.',
+  },
+  {
+    num: '02',
+    title: 'Match the right program to your situation',
+    body: 'We look at your investment budget, family structure, background, and timeline and give you a straight recommendation, not a menu of options to figure out yourself.',
+  },
+  {
+    num: '03',
+    title: 'Manage the process end to end',
+    body: 'We work with licensed agents and government-approved intermediaries in each jurisdiction. You stay informed throughout without having to chase paperwork yourself.',
+  },
+];
 
+export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
   return (
     <div className="min-h-screen bg-white">
+
       {/* 1. HERO */}
       <section className="relative min-h-[580px] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?auto=format&fit=crop&w=1920&q=80"
-            alt="Lisbon Portugal rooftop view with red rooftops and the Tagus river"
+            src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=1920&q=80"
+            alt="Caribbean island turquoise waters aerial view"
             className="w-full h-full object-cover"
             loading="eager"
             width="1920"
@@ -112,13 +146,13 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
 
         <div className="max-w-3xl mx-auto text-center relative z-10 py-24">
           <span className="inline-block text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-4">
-            Portugal Residency
+            Caribbean Citizenship by Investment
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            D7, D8, D2, or Golden Visa. Which one actually fits your situation?
+            A second passport is not just for the ultra-wealthy anymore
           </h1>
           <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            There is no shortage of information about moving to Portugal. What is harder to find is someone who will tell you honestly which route makes sense for your income, your timeline, and your family, and which ones to avoid.
+            Five Caribbean nations offer legitimate, government-run citizenship by investment programs. The right one depends on your goals, your family situation, and what you actually want the passport to do for you.
           </p>
           <div className="flex justify-center">
             <button
@@ -131,124 +165,114 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
         </div>
       </section>
 
-      {/* 2. RESIDENCY ROUTES + CALCULATOR */}
+      {/* 2. FIVE CBI PROGRAMS */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            The four main residency routes
+            The five Caribbean CBI programs
           </h2>
-          <p className="text-gray-500 mb-10 text-lg">
-            Click each one to see what it actually involves, not just the headline, but the details that matter.
+          <p className="text-gray-500 text-lg mb-12">
+            Each program has different investment thresholds, processing times, and strategic advantages. Here is what you need to know about each one.
           </p>
 
-          <div className="space-y-3 mb-16">
-            {visaTypes.map((visa) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {countries.map((country) => (
               <div
-                key={visa.id}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-shadow hover:shadow-md"
+                key={country.name}
+                className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
               >
-                <button
-                  onClick={() =>
-                    setExpandedVisa(expandedVisa === visa.id ? null : visa.id)
-                  }
-                  className="w-full px-6 py-5 flex items-center justify-between text-left"
-                >
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">{visa.title}</h3>
-                    <span
-                      className={`mt-1 inline-block text-xs font-medium px-2.5 py-0.5 rounded-full ${visa.tagColor}`}
-                    >
-                      {visa.tag}
-                    </span>
+                <div className="h-52 overflow-hidden">
+                  <img
+                    src={country.image}
+                    alt={country.imageAlt}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    width="800"
+                    height="208"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <img
+                      src={country.coatOfArms}
+                      alt={`${country.name} coat of arms`}
+                      className="h-10 w-auto object-contain flex-shrink-0"
+                      loading="lazy"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                    <h3 className="text-xl font-bold text-gray-900">{country.name}</h3>
                   </div>
-                  <span
-                    className={`ml-4 flex-shrink-0 text-emerald-600 text-xl transition-transform duration-200 ${
-                      expandedVisa === visa.id ? 'rotate-180' : ''
-                    }`}
-                  >
-                    ▼
+                  <span className={`inline-block text-xs font-medium px-2.5 py-0.5 rounded-full mb-4 ${country.tagColor}`}>
+                    {country.tag}
                   </span>
-                </button>
-
-                {expandedVisa === visa.id && (
-                  <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-emerald-50/50">
-                    <p className="text-gray-700 leading-relaxed text-base">
-                      {visa.details}
-                    </p>
-                    <button
-                      onClick={onScheduleCall}
-                      className="mt-4 text-sm font-semibold text-emerald-700 hover:text-emerald-900 underline underline-offset-2"
-                    >
-                      Ask us about this route
-                    </button>
+                  <div className="space-y-2 mb-4">
+                    {country.options.map((opt) => (
+                      <div key={opt.label} className="flex justify-between text-sm">
+                        <span className="text-gray-500">{opt.label}</span>
+                        <span className="font-semibold text-gray-800 ml-2 text-right">{opt.value}</span>
+                      </div>
+                    ))}
                   </div>
-                )}
+                  <p className="text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+                    {country.note}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-
-        <PortugalEligibilityCalculator onScheduleCall={onScheduleCall} />
       </section>
 
-      {/* 3. WHY PORTUGAL */}
+      {/* 3. BENEFITS */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            What actually draws people here
+            What Caribbean citizenship actually gives you
           </h2>
           <p className="text-gray-500 text-lg mb-12">
-            Beyond the lifestyle content. The practical reasons our clients choose Portugal.
+            Beyond the brochure. The practical advantages our clients care about most.
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {reasons.map((r) => (
+            {benefits.map((b) => (
               <div
-                key={r.title}
+                key={b.title}
                 className="bg-gray-50 rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="text-3xl mb-4">{r.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{r.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{r.body}</p>
+                <div className="text-3xl mb-4">{b.icon}</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{b.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{b.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. WHAT GOES WRONG + CTA */}
+      {/* 4. HOW WE HELP + CTA */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-            Where the process tends to go wrong
+            How we work with clients on Caribbean CBI
           </h2>
           <p className="text-gray-400 text-lg mb-12">
-            These are not rare edge cases. We see each of these regularly.
+            Most clients come in knowing Caribbean CBI exists but not knowing which program is right for them. We sort that out quickly.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-6 mb-16">
-            {mistakes.map((m) => (
-              <div
-                key={m.title}
-                className="bg-white/5 border border-white/10 rounded-xl p-6"
-              >
-                <div className="text-3xl mb-4">{m.icon}</div>
-                <h3 className="text-lg font-bold text-white mb-2">{m.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{m.body}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {steps.map((step) => (
+              <div key={step.num} className="bg-white/5 border border-white/10 rounded-xl p-8">
+                <div className="text-sm font-semibold text-emerald-400 mb-3">{step.num}</div>
+                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-gray-400 leading-relaxed text-sm">{step.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="text-center">
-            <button
-              onClick={onScheduleCall}
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-emerald-500/30 hover:scale-105"
-            >
-              Talk through your options
-            </button>
-          </div>
+
         </div>
       </section>
+
     </div>
   );
 }
