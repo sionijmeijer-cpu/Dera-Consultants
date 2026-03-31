@@ -268,23 +268,6 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
               </div>
             ))}
           </div>
-
-          <div className="text-center border-t border-white/10 pt-12">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-4">
-              Not sure which program fits your situation?
-            </h3>
-            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              A 30-minute call is usually enough to narrow it down. We will look at your goals, your family situation, and your investment budget and give you a straight answer on which program makes the most sense.
-            </p>
-            <button
-              onClick={onScheduleCall}
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-emerald-500/20"
-            >
-              Book a free strategy call
-            </button>
-            <p className="text-gray-500 text-sm mt-4">No commitment. No sales pitch. Just a straight conversation.</p>
-          </div>
-        </div>
       </section>
 
     </div>
