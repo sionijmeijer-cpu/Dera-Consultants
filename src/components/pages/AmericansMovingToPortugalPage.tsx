@@ -236,6 +236,9 @@ export default function AmericansMovingToPortugalPage({ onScheduleCall }: Americ
                 <p className="text-gray-400 text-sm leading-relaxed">{m.body}</p>
               </div>
             ))}
+          </div>
+
+
         </div>
       </section>
 
