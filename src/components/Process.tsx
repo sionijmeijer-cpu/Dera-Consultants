@@ -28,7 +28,7 @@ export default function Process() {
             <div className="flex items-start justify-between mb-8">
               <div className="h-20 flex items-center">
                 <img
-                  src="/images/pathways/portugal-coat.png"
+                  src="/images/pathways/portugal-coat.jpg"
                   alt="Portugal coat of arms"
                   className="h-16 w-auto object-contain"
                 />
@@ -65,7 +65,7 @@ export default function Process() {
             <div className="flex items-start justify-between mb-8">
               <div className="h-20 flex items-center">
                 <img
-                  src="/images/pathways/dominica-coat.png"
+                  src="/images/pathways/dominica-coat.jpg"
                   alt="Dominica coat of arms"
                   className="h-16 w-auto object-contain"
                 />
@@ -101,7 +101,7 @@ export default function Process() {
             <div className="flex items-start justify-between mb-8">
               <div className="h-20 flex items-center">
                 <img
-                  src="/images/pathways/us-coat.png"
+                  src="/images/pathways/us-coat.jpg"
                   alt="United States seal"
                   className="h-16 w-auto object-contain"
                 />
