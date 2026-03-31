@@ -229,5 +229,8 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
               </div>
             ))}
           </div>
+        </div>
+      </section>
+    </div>
   );
 }
