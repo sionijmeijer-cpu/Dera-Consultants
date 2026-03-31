@@ -151,13 +151,13 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
         <div className="max-w-3xl mx-auto">
           <p className="text-xl text-gray-700 leading-relaxed mb-6 font-medium">
-            Portugal keeps coming up for a reason. It offers something most countries don't — a realistic, relatively affordable path to EU residency and eventually citizenship, without requiring you to give up your existing life overnight.
+            Portugal keeps coming up for a reason. It offers something most countries don't, a realistic, relatively affordable path to EU residency and eventually citizenship, without requiring you to give up your existing life overnight.
           </p>
           <p className="text-lg text-gray-600 leading-relaxed mb-6">
-            The four main routes — D7, D8, D2, and the Golden Visa — look similar on the surface but suit very different situations. Choosing the wrong one doesn't just slow you down. It can affect your tax position, your renewal timeline, and in some cases your entire plan.
+            The four main routes: D7, D8, D2, and the Golden Visa, look similar on the surface but suit very different situations. Choosing the wrong one doesn't just slow you down. It can affect your tax position, your renewal timeline, and in some cases your entire plan.
           </p>
           <p className="text-lg text-gray-600 leading-relaxed">
-            At Dera Consultants, we work with clients who've already spent months reading forums and watching YouTube videos. Our job isn't to add to the noise — it's to cut through it and give you a clear picture of what your specific case actually looks like.
+            At Dera Consultants, we work with clients who've already spent months reading forums and watching YouTube videos. Our job isn't to add to the noise, it's to cut through it and give you a clear picture of what your specific case actually looks like.
           </p>
         </div>
       </section>
