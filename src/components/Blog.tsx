@@ -20,6 +20,10 @@ function getInitials(name: string) {
   return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 }
 
+// ─── SHARED CONTAINER — wider than before, still centered ────────────────────
+// max-w-screen-2xl = 1536px. Feels full on large monitors, still padded.
+const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
+
 // ─── CATEGORY PILL ───────────────────────────────────────────────────────────
 function CategoryPill({ label }: { label: string }) {
   const colors: Record<string, string> = {
@@ -40,15 +44,9 @@ function CategoryPill({ label }: { label: string }) {
 // ─── SECTION RULE ────────────────────────────────────────────────────────────
 function SectionRule({ label, color = '#1B7A4E' }: { label: string; color?: string }) {
   return (
-    <div
-      className="w-full flex items-center gap-3 px-4 sm:px-8 lg:px-14 py-4"
-      style={{ borderBottom: '1px solid #e5e7eb', borderTop: '1px solid #e5e7eb' }}
-    >
-      <div className="w-[4px] h-6 flex-shrink-0" style={{ background: color }} />
-      <span
-        className="text-[11px] font-black uppercase tracking-[0.22em] text-gray-900"
-        style={{ fontFamily: "'Inter', sans-serif" }}
-      >
+    <div className="flex items-center gap-3 mb-8">
+      <div className="w-1 h-6 flex-shrink-0" style={{ background: color }} />
+      <span className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900" style={{ fontFamily: "'Inter', sans-serif" }}>
         {label}
       </span>
       <div className="flex-1 h-px bg-gray-200" />
@@ -60,50 +58,44 @@ function SectionRule({ label, color = '#1B7A4E' }: { label: string; color?: stri
 function LeadStory({ post }: { post: typeof blogPosts[0] }) {
   return (
     <div
-      className="w-full grid grid-cols-1 lg:grid-cols-2 cursor-pointer group"
-      style={{ borderBottom: '3px solid #1B7A4E' }}
+      className="group cursor-pointer grid grid-cols-1 lg:grid-cols-2 border border-gray-200 overflow-hidden"
+      style={{ borderTop: '3px solid #1B7A4E' }}
       onClick={() => goTo(post.slug)}
     >
-      {/* Image */}
-      <div className="relative h-[260px] sm:h-[380px] lg:h-[520px] overflow-hidden bg-gray-100">
+      {/* Fixed-height image — never stretches weirdly */}
+      <div className="relative overflow-hidden bg-gray-100" style={{ height: '340px' }}>
         <img
           src={post.image}
           alt={post.title}
           className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
       </div>
 
-      {/* Text */}
-      <div
-        className="flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-12 lg:py-20 bg-white"
-        style={{ borderLeft: '1px solid #e5e7eb' }}
-      >
-        <div className="flex items-center gap-3 mb-5">
+      {/* Text panel */}
+      <div className="flex flex-col justify-center px-8 lg:px-12 py-10 bg-white" style={{ borderLeft: '1px solid #e5e7eb' }}>
+        <div className="flex items-center gap-3 mb-4">
           <CategoryPill label={post.category} />
-          <span
-            className="text-[10px] text-gray-400 uppercase tracking-widest font-bold"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
+          <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold" style={{ fontFamily: "'Inter', sans-serif" }}>
             Editor's Pick
           </span>
         </div>
 
         <h2
-          className="text-[28px] sm:text-[36px] lg:text-[44px] font-black text-gray-900 leading-[1.08] mb-6 group-hover:text-[#1B7A4E] transition-colors duration-300"
+          className="text-[26px] sm:text-[32px] font-black text-gray-900 leading-[1.1] mb-5 group-hover:text-[#1B7A4E] transition-colors duration-300"
           style={{ fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif" }}
         >
           {post.title}
         </h2>
 
         <p
-          className="text-[17px] text-gray-600 leading-[1.8] mb-8 line-clamp-4"
+          className="text-[15px] text-gray-600 leading-[1.75] mb-7 line-clamp-3"
           style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}
         >
           {post.excerpt}
         </p>
 
-        <div className="flex items-center gap-3 mb-8" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <div className="flex items-center gap-3 mb-7" style={{ fontFamily: "'Inter', sans-serif" }}>
           <div className="w-8 h-8 rounded-full bg-[#1B7A4E] flex items-center justify-center text-white font-black text-[11px]">
             {getInitials(post.author)}
           </div>
@@ -115,11 +107,11 @@ function LeadStory({ post }: { post: typeof blogPosts[0] }) {
 
         <div>
           <span
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white text-[11px] font-black uppercase tracking-widest group-hover:bg-[#1B7A4E] transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white text-[11px] font-black uppercase tracking-widest group-hover:bg-[#1B7A4E] transition-colors duration-300"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Read Full Article
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
           </span>
@@ -133,23 +125,24 @@ function LeadStory({ post }: { post: typeof blogPosts[0] }) {
 function LargeCard({ post }: { post: typeof blogPosts[0] }) {
   return (
     <div className="group cursor-pointer flex flex-col h-full" onClick={() => goTo(post.slug)}>
-      <div className="relative overflow-hidden bg-gray-100" style={{ height: '240px' }}>
+      {/* Fixed height image */}
+      <div className="relative overflow-hidden bg-gray-100 flex-shrink-0" style={{ height: '200px' }}>
         <img
           src={post.image}
           alt={post.title}
           className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
         />
       </div>
-      <div className="pt-5 pb-6 pr-4 flex flex-col flex-1">
+      <div className="pt-4 pb-5 pr-6 flex flex-col flex-1">
         <CategoryPill label={post.category} />
         <h3
-          className="mt-3 mb-3 text-[21px] font-black text-gray-900 leading-[1.15] group-hover:text-[#1B7A4E] transition-colors line-clamp-3"
+          className="mt-3 mb-2 text-[19px] font-black text-gray-900 leading-[1.2] group-hover:text-[#1B7A4E] transition-colors line-clamp-3"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
           {post.title}
         </h3>
         <p
-          className="text-[15px] text-gray-600 leading-[1.7] line-clamp-3 mb-4 flex-1"
+          className="text-[14px] text-gray-600 leading-[1.65] line-clamp-2 mb-3 flex-1"
           style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}
         >
           {post.excerpt}
@@ -166,26 +159,27 @@ function LargeCard({ post }: { post: typeof blogPosts[0] }) {
 function SmallCard({ post, last = false }: { post: typeof blogPosts[0]; last?: boolean }) {
   return (
     <div
-      className="group cursor-pointer flex gap-4 py-4"
+      className="group cursor-pointer flex gap-3 py-4"
       style={{ borderBottom: last ? 'none' : '1px solid #e5e7eb' }}
       onClick={() => goTo(post.slug)}
     >
-      <div className="w-[88px] h-[72px] flex-shrink-0 overflow-hidden bg-gray-100">
+      {/* Fixed size thumbnail */}
+      <div className="flex-shrink-0 overflow-hidden bg-gray-100" style={{ width: '80px', height: '64px' }}>
         <img
           src={post.image}
           alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-400"
+          className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-300"
         />
       </div>
       <div className="flex flex-col justify-center flex-1 min-w-0">
         <CategoryPill label={post.category} />
         <h4
-          className="mt-1.5 text-[14px] font-black text-gray-900 leading-[1.25] group-hover:text-[#1B7A4E] transition-colors line-clamp-2"
+          className="mt-1 text-[13px] font-black text-gray-900 leading-[1.3] group-hover:text-[#1B7A4E] transition-colors line-clamp-2"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
           {post.title}
         </h4>
-        <p className="mt-1 text-[11px] text-gray-400" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <p className="mt-0.5 text-[11px] text-gray-400" style={{ fontFamily: "'Inter', sans-serif" }}>
           {post.publishDate} · {post.readTime}
         </p>
       </div>
@@ -197,12 +191,12 @@ function SmallCard({ post, last = false }: { post: typeof blogPosts[0]; last?: b
 function NumberedItem({ post, index }: { post: typeof blogPosts[0]; index: number }) {
   return (
     <div
-      className="group cursor-pointer flex items-start gap-5 py-4"
+      className="group cursor-pointer flex items-start gap-4 py-4"
       style={{ borderBottom: '1px solid #e5e7eb' }}
       onClick={() => goTo(post.slug)}
     >
       <span
-        className="flex-shrink-0 text-[30px] font-black leading-none select-none text-gray-200"
+        className="flex-shrink-0 text-[28px] font-black leading-none select-none text-gray-200"
         style={{ fontFamily: "'Playfair Display', Georgia, serif", lineHeight: 1 }}
       >
         {String(index + 1).padStart(2, '0')}
@@ -210,12 +204,12 @@ function NumberedItem({ post, index }: { post: typeof blogPosts[0]; index: numbe
       <div className="flex-1 min-w-0">
         <CategoryPill label={post.category} />
         <h4
-          className="mt-1.5 text-[15px] font-black text-gray-900 leading-[1.3] group-hover:text-[#1B7A4E] transition-colors line-clamp-2"
+          className="mt-1 text-[14px] font-black text-gray-900 leading-[1.3] group-hover:text-[#1B7A4E] transition-colors line-clamp-2"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
           {post.title}
         </h4>
-        <p className="mt-1 text-[11px] text-gray-400" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <p className="mt-0.5 text-[11px] text-gray-400" style={{ fontFamily: "'Inter', sans-serif" }}>
           {post.publishDate} · {post.readTime}
         </p>
       </div>
@@ -225,10 +219,10 @@ function NumberedItem({ post, index }: { post: typeof blogPosts[0]; index: numbe
 
 // ─── NEWSPAPER SECTION ────────────────────────────────────────────────────────
 function NewspaperSection({
-  sectionId, label, color, posts, flipped = false,
+  sectionId, label, color, posts, bgClass = 'bg-white',
 }: {
   sectionId: string; label: string; color: string;
-  posts: typeof blogPosts; flipped?: boolean;
+  posts: typeof blogPosts; bgClass?: string;
 }) {
   const [expanded, setExpanded] = useState(false);
   const main  = posts[0];
@@ -237,23 +231,23 @@ function NewspaperSection({
   if (!main) return null;
 
   return (
-    <div id={sectionId} className="w-full" style={{ background: flipped ? '#fafaf8' : '#fff' }}>
-      <SectionRule label={label} color={color} />
+    <section id={sectionId} className={`py-12 ${bgClass}`}>
+      <div className={CONTAINER}>
+        <SectionRule label={label} color={color} />
 
-      <div className="w-full px-4 sm:px-8 lg:px-14 py-8">
-        {/* Main 2+1 grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0" style={{ border: '1px solid #e5e7eb' }}>
-          <div className="lg:col-span-2 p-6" style={{ borderRight: '1px solid #e5e7eb' }}>
+        {/* 2-col + 1-col grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-gray-200 overflow-hidden">
+          <div className="lg:col-span-2 p-6 border-r border-gray-200">
             <LargeCard post={main} />
           </div>
-          <div className="p-5">
+          <div className="p-5 divide-y divide-gray-100">
             {stack.map((post, i) => (
               <SmallCard key={post.id} post={post} last={i === stack.length - 1} />
             ))}
           </div>
         </div>
 
-        {/* Expanded extra articles */}
+        {/* Extra articles */}
         {expanded && extra.length > 0 && (
           <div className="border-x border-b border-gray-200 px-6 pb-2">
             {extra.map((post, i) => (
@@ -262,26 +256,22 @@ function NewspaperSection({
           </div>
         )}
 
-        {/* Show more toggle */}
         {extra.length > 0 && (
-          <div className="mt-6">
+          <div className="mt-5">
             <button
               onClick={() => setExpanded(!expanded)}
               className="inline-flex items-center gap-2 px-5 py-2 border border-gray-300 text-[11px] font-black uppercase tracking-widest text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-all"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               {expanded ? 'Show Less' : `${extra.length} More ${label}`}
-              <svg
-                className={`w-3 h-3 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
+              <svg className={`w-3 h-3 transition-transform ${expanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -309,7 +299,7 @@ export default function Blog() {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         name: 'Blog Subscriber', email, phone: 'N/A', country: 'N/A',
         service: 'Newsletter Subscription',
-        message: `New subscriber from: Blog Listing Page\n\nPage URL: ${window.location.href}\n\nTimestamp: ${new Date().toLocaleString()}`,
+        message: `New subscriber from Blog page\n\nURL: ${window.location.href}\n\nTime: ${new Date().toLocaleString()}`,
       });
       setShowSuccessModal(true);
       setEmail('');
@@ -322,7 +312,7 @@ export default function Blog() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white overflow-x-hidden">
+    <div className="min-h-screen w-full bg-white">
 
       {/* SUCCESS MODAL */}
       {showSuccessModal && (
@@ -347,9 +337,8 @@ export default function Blog() {
 
       {/* ── MASTHEAD ───────────────────────────────────────────────────── */}
       <header className="w-full border-b border-gray-200 bg-white">
-
         {/* Top bar */}
-        <div className="w-full px-4 sm:px-8 lg:px-14 py-2 flex items-center justify-between" style={{ borderBottom: '1px solid #e5e7eb', fontFamily: "'Inter', sans-serif" }}>
+        <div className={`${CONTAINER} py-2 flex items-center justify-between border-b border-gray-100`} style={{ fontFamily: "'Inter', sans-serif" }}>
           <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest">
             {new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </span>
@@ -367,109 +356,101 @@ export default function Blog() {
         </div>
 
         {/* Nameplate */}
-        <div className="w-full px-4 sm:px-8 lg:px-14 py-6 text-center" style={{ borderBottom: '3px double #111' }}>
-          {/* Decorative rules */}
-          <div className="flex items-center mb-5">
+        <div className={`${CONTAINER} py-6 text-center`} style={{ borderBottom: '3px double #111' }}>
+          <div className="flex items-center mb-4">
             <div className="flex-1 h-px bg-gray-900" />
-            <div className="w-24 h-[3px] bg-gray-900 mx-2" />
+            <div className="w-20 h-[3px] bg-gray-900 mx-2" />
             <div className="flex-1 h-px bg-gray-900" />
           </div>
-
           <h1
-            className="text-[40px] sm:text-[60px] lg:text-[80px] font-black text-gray-900 leading-none"
+            className="text-[38px] sm:text-[56px] lg:text-[72px] font-black text-gray-900 leading-none"
             style={{ fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif", letterSpacing: '-0.02em' }}
           >
             Dera Mobility Brief
           </h1>
-          <p
-            className="mt-3 text-[10px] text-gray-500 uppercase tracking-[0.3em] font-semibold"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
+          <p className="mt-2 text-[10px] text-gray-500 uppercase tracking-[0.28em] font-semibold" style={{ fontFamily: "'Inter', sans-serif" }}>
             Global Mobility · Second Citizenship · Portugal Residency · Advisory Intelligence
           </p>
-
-          {/* Decorative rules */}
-          <div className="flex items-center mt-5">
+          <div className="flex items-center mt-4">
             <div className="flex-1 h-px bg-gray-900" />
-            <div className="w-24 h-[3px] bg-gray-900 mx-2" />
+            <div className="w-20 h-[3px] bg-gray-900 mx-2" />
             <div className="flex-1 h-px bg-gray-900" />
           </div>
         </div>
 
         {/* Category nav */}
-        <nav className="w-full px-4 sm:px-8 lg:px-14 flex items-center gap-0 overflow-x-auto" style={{ borderBottom: '1px solid #e5e7eb' }}>
-          {[
-            { label: 'All Articles',  id: 'top' },
-            { label: 'Entrepreneurs', id: 'section-entrepreneurs' },
-            { label: 'Citizenship',   id: 'section-citizenship' },
-            { label: 'Expats',        id: 'section-expats' },
-            { label: 'Newsletter',    id: 'section-newsletter' },
-          ].map((item, i) => (
-            <button
-              key={item.label}
-              onClick={() => item.id === 'top' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
-              className={`px-5 py-3.5 text-[11px] font-black uppercase tracking-widest whitespace-nowrap transition-all border-b-[3px] ${i === 0 ? 'border-[#1B7A4E] text-[#1B7A4E]' : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-400'}`}
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
+        <div className={CONTAINER}>
+          <nav className="flex items-center gap-0 overflow-x-auto">
+            {[
+              { label: 'All Articles',  id: 'top' },
+              { label: 'Entrepreneurs', id: 'section-entrepreneurs' },
+              { label: 'Citizenship',   id: 'section-citizenship' },
+              { label: 'Expats',        id: 'section-expats' },
+              { label: 'Newsletter',    id: 'section-newsletter' },
+            ].map((item, i) => (
+              <button
+                key={item.label}
+                onClick={() => item.id === 'top' ? window.scrollTo({ top: 0, behavior: 'smooth' }) : document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
+                className={`px-5 py-3.5 text-[11px] font-black uppercase tracking-widest whitespace-nowrap transition-all border-b-[3px] ${
+                  i === 0 ? 'border-[#1B7A4E] text-[#1B7A4E]' : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        </div>
       </header>
 
       {/* ── LEAD STORY ────────────────────────────────────────────────── */}
-      {leadPost && <LeadStory post={leadPost} />}
+      {leadPost && (
+        <div className="py-10 bg-white border-b border-gray-200">
+          <div className={CONTAINER}>
+            <SectionRule label="Editor's Pick" color="#1B7A4E" />
+            <LeadStory post={leadPost} />
+          </div>
+        </div>
+      )}
 
       {/* ── SECTIONS ──────────────────────────────────────────────────── */}
-      <NewspaperSection sectionId="section-entrepreneurs" label="For Entrepreneurs" color="#1B7A4E" posts={entrepreneurArticles} />
-      <div className="w-full h-px bg-gray-200" />
-      <NewspaperSection sectionId="section-citizenship" label="Citizenship & Passports" color="#0f3460" posts={citizenshipArticles} flipped />
-      <div className="w-full h-px bg-gray-200" />
-      <NewspaperSection sectionId="section-expats" label="Expat Guides" color="#7c3aed" posts={expatArticles} />
+      <NewspaperSection sectionId="section-entrepreneurs" label="For Entrepreneurs"     color="#1B7A4E" posts={entrepreneurArticles} bgClass="bg-white" />
+      <div className={`${CONTAINER} h-px bg-gray-200`} />
+      <NewspaperSection sectionId="section-citizenship"   label="Citizenship & Passports" color="#0f3460" posts={citizenshipArticles}  bgClass="bg-gray-50" />
+      <div className={`${CONTAINER} h-px bg-gray-200`} />
+      <NewspaperSection sectionId="section-expats"        label="Expat Guides"          color="#7c3aed" posts={expatArticles}         bgClass="bg-white" />
 
       {/* ── NEWSLETTER ────────────────────────────────────────────────── */}
-      <section id="section-newsletter" className="w-full py-24 relative overflow-hidden" style={{ background: '#0f3460' }}>
-        {/* Newspaper rule texture */}
-        <div className="absolute inset-0 overflow-hidden opacity-[0.04]">
-          {Array.from({ length: 30 }).map((_, i) => (
-            <div key={i} className="h-px w-full bg-white" style={{ marginTop: `${i * 38}px` }} />
-          ))}
-        </div>
+      <section id="section-newsletter" className="py-20 relative overflow-hidden" style={{ background: '#0f3460' }}>
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#1B7A4E]" />
-
-        <div className="relative z-10 w-full px-4 sm:px-8 lg:px-14">
-          <div className="max-w-2xl">
+        <div className={CONTAINER}>
+          <div className="max-w-2xl mx-auto text-center">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#1B7A4E] block mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
               Intelligence Delivered Free
             </span>
             <h2
-              className="text-[34px] sm:text-[50px] font-black text-white leading-[1.05] mb-5"
+              className="text-[32px] sm:text-[44px] font-black text-white leading-[1.08] mb-4"
               style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             >
               Stay Ahead of Every Policy Change.
             </h2>
             <p
-              className="text-[17px] text-white/60 mb-10 leading-[1.7]"
+              className="text-[16px] text-white/60 mb-8 leading-[1.7]"
               style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}
             >
-              Subscribe to the Dera Mobility Brief — expert analysis on citizenship, residency, and global mobility delivered to your inbox.
+              Subscribe to the Dera Mobility Brief — expert analysis on citizenship, residency, and global mobility.
             </p>
-
             <form onSubmit={handleSubscribe}>
-              <div className="flex flex-col sm:flex-row gap-0 max-w-lg">
+              <div className="flex flex-col sm:flex-row gap-0 max-w-md mx-auto">
                 <Input
-                  type="email"
-                  placeholder="Your email address"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  required
-                  className="flex-1 px-5 py-4 rounded-none text-gray-900 bg-white border-0 focus:ring-0 placeholder:text-gray-400 text-base h-auto"
+                  type="email" placeholder="Your email address" value={email}
+                  onChange={e => setEmail(e.target.value)} required
+                  className="flex-1 px-5 py-4 rounded-none text-gray-900 bg-white border-0 focus:ring-0 placeholder:text-gray-400 text-sm h-auto"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 />
                 <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="px-8 py-4 bg-[#1B7A4E] text-white rounded-none font-black uppercase tracking-widest hover:bg-[#156B3F] transition-colors disabled:opacity-50 text-[11px] whitespace-nowrap h-auto"
+                  type="submit" disabled={isLoading}
+                  className="px-7 py-4 bg-[#1B7A4E] text-white rounded-none font-black uppercase tracking-widest hover:bg-[#156B3F] transition-colors disabled:opacity-50 text-[11px] whitespace-nowrap h-auto"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   {isLoading ? 'Sending...' : 'Subscribe Free'}
@@ -477,14 +458,13 @@ export default function Blog() {
               </div>
               {error && <p className="mt-3 text-red-300 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>{error}</p>}
               <p className="mt-4 text-[11px] text-white/30 uppercase tracking-widest" style={{ fontFamily: "'Inter', sans-serif" }}>
-                No spam · Unsubscribe anytime · Free forever
+                No spam · Unsubscribe anytime
               </p>
             </form>
           </div>
         </div>
       </section>
 
-      {/* Bottom accent bar */}
       <div className="w-full h-1" style={{ background: 'linear-gradient(to right, #1B7A4E 50%, #0f3460 50%)' }} />
     </div>
   );
