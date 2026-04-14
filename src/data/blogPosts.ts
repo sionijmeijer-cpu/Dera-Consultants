@@ -1567,6 +1567,7 @@ With careful planning, thorough documentation, and the right guidance, you can s
 
 Considering the D8 Visa? Book a free consultation with our team and we will map out exactly what your application needs to succeed.`
   },
+  {
     id: "x3",
     title: "Cost of Living Comparison: Portugal vs. Caribbean vs. UAE",
     slug: "cost-living-comparison-portugal-caribbean-uae",
