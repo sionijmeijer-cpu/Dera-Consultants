@@ -681,10 +681,10 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {relatedArticles.map(ra => (
-                      // Fix: use anchor tag with href so navigation works correctly
                       <a
                         key={ra.id}
                         href={`/blog/${ra.slug}`}
+                        onClick={e => { e.preventDefault(); window.location.assign(`/blog/${ra.slug}`); }}
                         className="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
                         style={{ borderTop: '3px solid transparent', textDecoration: 'none' }}
                         onMouseEnter={e => (e.currentTarget.style.borderTopColor = '#1B7A4E')}
