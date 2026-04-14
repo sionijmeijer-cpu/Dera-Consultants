@@ -404,9 +404,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               loading="lazy"
             />
           </div>
-            className="mt-2 text-[11px] text-gray-400 uppercase tracking-widest text-center"
-            style={{ fontFamily: "'Inter',sans-serif" }}
-          >
         </figure>
       );
 
