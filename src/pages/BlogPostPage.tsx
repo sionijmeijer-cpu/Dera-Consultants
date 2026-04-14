@@ -219,8 +219,8 @@ function parseContent(content: string, images: string[]): ParsedBlock[] {
       if (h2Count === 3 && images[0]) {
         blocks.push({ type: 'image', src: images[0], index: 0 });
       }
-      // Inject image after 6th H2
-      if (h2Count === 6 && images[1]) {
+      // Inject image after 4th H2
+      if (h2Count === 4 && images[1]) {
         blocks.push({ type: 'image', src: images[1], index: 1 });
       }
       i++; continue;
@@ -404,12 +404,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               loading="lazy"
             />
           </div>
-          <figcaption
             className="mt-2 text-[11px] text-gray-400 uppercase tracking-widest text-center"
             style={{ fontFamily: "'Inter',sans-serif" }}
           >
-            {block.index === 0 ? 'Global mobility in practice' : 'Strategic advisory insight'}
-          </figcaption>
         </figure>
       );
 
