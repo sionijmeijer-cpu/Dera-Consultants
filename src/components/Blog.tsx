@@ -15,7 +15,7 @@ const expatArticles        = blogPosts.filter(p => p.category === 'Expats');
 const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
 
 function goTo(slug: string) {
-  window.location.pathname = `/blog/${slug}`;
+  window.location.assign(`/blog/${slug}`);
 }
 
 function getInitials(name: string) {
@@ -505,7 +505,7 @@ export default function Blog() {
               className="text-[15px] mb-8 leading-relaxed"
               style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#9ca3af' }}
             >
-              Expert analysis on citizenship, residency, and global mobility delivered to your inbox.
+              Expert analysis on citizenship, residency, and global mobility — delivered to your inbox.
             </p>
 
             {/* Form — no divider, clean inline layout */}
