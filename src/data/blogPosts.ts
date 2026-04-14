@@ -1,3 +1,20 @@
+// ─── HOW TO ADD IMAGES TO AN ARTICLE ────────────────────────────────────────
+// Each article can have up to 2 mid-article images.
+// Add them like this:
+//
+//   images: [
+//     "https://i.imgur.com/YOUR_IMAGE_1.jpg",
+//     "https://i.imgur.com/YOUR_IMAGE_2.jpg",
+//   ]
+//
+// Image 1 appears after the 3rd H2 section heading.
+// Image 2 appears after the 6th H2 section heading.
+// If you only have 1 image, just put one URL in the array.
+// If you have no images yet, leave the array empty: images: []
+//
+// When you rewrite an article with real photos, just replace the URLs.
+// ─────────────────────────────────────────────────────────────────────────────
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -10,8 +27,14 @@ export interface BlogPost {
   tags: string[];
   readTime: string;
   image: string;
-  images?: string[];
+  images?: string[]; // Up to 2 mid-article images. Leave empty [] if none yet.
 }
+
+// PLACEHOLDER image used when no mid-article images are set yet.
+// Replace with real images when you rewrite each article.
+// Using picsum.photos which is reliable and free for placeholders.
+const PLACEHOLDER_1 = "https://picsum.photos/seed/mobility1/900/420";
+const PLACEHOLDER_2 = "https://picsum.photos/seed/mobility2/900/420";
 
 export const blogPosts: BlogPost[] = [
 
@@ -27,9 +50,10 @@ export const blogPosts: BlogPost[] = [
     tags: ["Entrepreneurs", "Residency", "Business", "2026"],
     readTime: "9 min read",
     image: "https://i.imgur.com/EqAiozy.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Best Countries for Entrepreneurs Seeking Residency in 2026
 
-Where you choose to live as an entrepreneur shapes far more than your tax bill. It affects your banking access, your ability to hire, your family’s quality of life, and how easily you can operate internationally.
+Where you choose to live as an entrepreneur shapes far more than your tax bill. It affects your banking access, your ability to hire, your family's quality of life, and how easily you can operate internationally.
 
 In 2026 the landscape for entrepreneur residency has shifted significantly. Some countries have tightened their programs, while others have introduced new pathways designed specifically for founders and investors.
 
@@ -63,7 +87,7 @@ Competitive cost of living compared with much of Western Europe
 
 ## Key Considerations
 
-Portugal’s tax system has evolved and the former NHR regime has been replaced with a more targeted incentive framework. Entrepreneurs should carefully evaluate the new rules before relocating.
+Portugal's tax system has evolved and the former NHR regime has been replaced with a more targeted incentive framework. Entrepreneurs should carefully evaluate the new rules before relocating.
 
 Portugal also offers a long-term advantage: after five years of legal residency, individuals may become eligible to apply for Portuguese citizenship.
 
@@ -94,7 +118,7 @@ Georgia has quietly become one of the most entrepreneur-friendly jurisdictions i
 - Affordable cost of living  
 - Visa-free stays for many nationalities for up to one year
 
-Georgia’s Virtual Zone program allows qualifying IT companies to benefit from favorable tax treatment on foreign-sourced income.
+Georgia's Virtual Zone program allows qualifying IT companies to benefit from favorable tax treatment on foreign-sourced income.
 
 While Georgia lacks the scale of larger financial hubs, it offers a highly efficient environment for remote and online-based businesses.
 
@@ -109,11 +133,11 @@ Malta combines EU residency with a business-friendly legal and financial system.
 - Established financial services sector  
 - Attractive tax framework for international businesses
 
-Malta’s corporate tax system can be particularly advantageous when structured correctly, especially for companies receiving dividends or capital gains from foreign operations.
+Malta's corporate tax system can be particularly advantageous when structured correctly, especially for companies receiving dividends or capital gains from foreign operations.
 
 # Singapore: Business Hub
 
-Singapore remains one of the world’s most respected business hubs.
+Singapore remains one of the world's most respected business hubs.
 
 ## Why Entrepreneurs Choose Singapore
 
@@ -169,6 +193,7 @@ Ready to find your ideal entrepreneurial base? Schedule a consultation with our 
     tags: ["Entrepreneurs", "Relocation", "Business Continuity", "Planning"],
     readTime: "8 min read",
     image: "https://i.imgur.com/zx64iSl.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `How to Structure Your International Move Without Disrupting Your Business
 
 How to Structure Your International Move Without Disrupting Your Business
@@ -242,7 +267,7 @@ Restructuring the company so the operational entity aligns with the new jurisdic
 
 or
 
-Redefining the founder’s role as passive ownership rather than operational management.
+Redefining the founder's role as passive ownership rather than operational management.
 
 The correct strategy depends heavily on the jurisdictions involved.
 
@@ -352,6 +377,7 @@ Planning an international move? Book a consultation with our team to build your 
     tags: ["Entrepreneurs", "Residency", "Citizenship", "Strategy"],
     readTime: "7 min read",
     image: "https://i.imgur.com/Gs38vRz.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Residency vs. Citizenship: What Makes More Sense for Founders?
     
 For founders exploring international mobility, the decision often comes down to one question: do you want residency in another country, or do you want a second passport?
@@ -368,7 +394,7 @@ Residency and citizenship are often discussed together, but they are fundamental
 
 Residency gives you the legal right to live in a country.
 
-It does not make you a citizen. You do not receive that country’s passport, cannot vote, and most residency permits remain conditional on factors such as minimum stay requirements, investment maintenance, or continued compliance.
+It does not make you a citizen. You do not receive that country's passport, cannot vote, and most residency permits remain conditional on factors such as minimum stay requirements, investment maintenance, or continued compliance.
 
 Typical benefits include:
 
@@ -382,7 +408,7 @@ Residency is therefore conditional and, in some cases, revocable.
 
 Citizenship is permanent and significantly more powerful.
 
-A citizen holds the country’s passport and usually gains full political and economic rights. Citizenship remains valid regardless of where you live globally.
+A citizen holds the country's passport and usually gains full political and economic rights. Citizenship remains valid regardless of where you live globally.
 
 Key benefits include:
 
@@ -414,7 +440,7 @@ Each route solves a different problem for founders.
 
 Residency is usually the better option when the main goal is tax optimisation or the right to live in a specific country, rather than obtaining a passport immediately.
 
-Portugal’s Golden Visa remains one of the strongest residency options in 2026.
+Portugal's Golden Visa remains one of the strongest residency options in 2026.
 
 ## Portugal Golden Visa
 
@@ -428,7 +454,7 @@ Portugal is particularly attractive for founders who qualify for the IFICI tax r
 
 20% flat tax on qualifying Portuguese income  
 Broad exemption on many foreign income streams  
-Long-term access to EU residency and a path to citizenship  
+10 consecutive years of tax treatment  
 
 For founders, the combination of Golden Visa residency and IFICI can be one of the most efficient legal structures currently available in Europe.
 
@@ -497,13 +523,13 @@ This allows a founder to secure immediate mobility while building a long-term Eu
 
 Residency and citizenship solve different problems.
 
-Residency provides access to a country’s legal and tax framework and may create a path to citizenship later.
+Residency provides access to a country's legal and tax framework and may create a path to citizenship later.
 
 Citizenship provides immediate mobility, a passport, and permanent status.
 
 For founders thinking globally, the smartest choice depends on what they need first: a place to operate, a better tax base, faster travel freedom, or long-term strategic optionality.
 
-In many cases, the best answer is not residency or citizenship alone, but a combination of both.`,
+In many cases, the best answer is not residency or citizenship alone, but a combination of both.`
   },
   {
     id: "e4",
@@ -516,6 +542,7 @@ In many cases, the best answer is not residency or citizenship alone, but a comb
     tags: ["Entrepreneurs", "Visa", "Mobility", "Strategy"],
     readTime: "7 min read",
     image: "https://i.imgur.com/K87kfOY.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `How Global Entrepreneurs Protect Mobility Amid Changing Visa Policies
 
 Visa policy has always evolved. What is different in 2026 is the speed and unpredictability of those changes.
@@ -644,6 +671,7 @@ Ready to build your mobility strategy? Contact our team for a personalised asses
     tags: ["Entrepreneurs", "Business Relocation", "Legal", "Tax"],
     readTime: "10 min read",
     image: "https://i.imgur.com/Gs38vRz.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Relocating Your Business: Key Legal and Practical Considerations
 
 Relocating a business to a new jurisdiction is one of the most significant strategic decisions an entrepreneur can make.
@@ -837,13 +865,14 @@ Considering relocating your business? Contact us for a confidential consultation
     tags: ["Citizenship", "CBI", "Investment", "2026"],
     readTime: "9 min read",
     image: "https://i.imgur.com/AoVZO3P.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Citizenship by Investment: How It Works in 2026
 
 Citizenship by investment, commonly referred to as CBI, is a government-regulated process through which a foreign national acquires full citizenship of a country in exchange for a qualifying economic contribution.
 
-The applicant typically does not need to live in the country, learn its language, or have any prior connection to it. Once granted, the citizenship is permanent, the passport is fully valid, and in most programmes the status can be passed to the applicant’s children.
+The applicant typically does not need to live in the country, learn its language, or have any prior connection to it. Once granted, the citizenship is permanent, the passport is fully valid, and in most programmes the status can be passed to the applicant's children.
 
-Citizenship by investment has existed for decades. Saint Kitts and Nevis launched the world’s first programme in 1984.
+Citizenship by investment has existed for decades. Saint Kitts and Nevis launched the world's first programme in 1984.
 
 What has changed in 2026 is the compliance environment. Caribbean programmes now operate under stricter due diligence standards, minimum investment levels have been standardised across the region, and European citizenship routes have largely closed.
 
@@ -894,7 +923,7 @@ Today there are five active citizenship by investment programmes in the Caribbea
 | Saint Lucia | USD 200,000 (fund) | Government bond option |
 | Dominica | USD 200,000 (fund) | Lowest cost structure |
 
-Each programme offers slightly different advantages depending on the applicant’s goals.
+Each programme offers slightly different advantages depending on the applicant's goals.
 
 # Programme Differences in 2026
 
@@ -962,7 +991,7 @@ Applicants must complete a residency period before citizenship is granted.
 
 Malta citizenship provides full EU rights, including the ability to live and work anywhere in the European Union.
 
-It is important to note that Malta’s previous direct citizenship-by-investment programme was closed following a 2026 European Court ruling.
+It is important to note that Malta's previous direct citizenship-by-investment programme was closed following a 2026 European Court ruling.
 
 The current framework operates as a **citizenship-by-merit naturalisation process**.
 
@@ -1026,6 +1055,7 @@ Ready to explore citizenship by investment? Schedule a consultation with our tea
     tags: ["Caribbean", "CBI", "Passport", "Comparison"],
     readTime: "8 min read",
     image: "https://i.imgur.com/jPm7L1o.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Caribbean Passport Comparison: Which Program Fits Which Profile?
 
 All five Caribbean CBI programmes lead to citizenship and a passport. But they are not identical — each has distinct advantages that make it better suited to certain applicant profiles.
@@ -1122,6 +1152,7 @@ Ready to choose your Caribbean passport? Book a consultation with our team.`
     tags: ["Citizenship", "Passport", "Timeline", "CBI"],
     readTime: "6 min read",
     image: "https://i.imgur.com/d7LpGvX.png",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `How Long Does It Really Take to Get a Second Passport?
 
 One of the most common questions we receive is: how long will this take? The honest answer is: it depends on the programme, your preparation, and factors outside your control.
@@ -1216,6 +1247,7 @@ Ready to start your second passport journey? Contact our team for a timeline ass
     tags: ["Citizenship", "Residency", "Strategy", "Planning"],
     readTime: "7 min read",
     image: "https://i.imgur.com/EUyYagb.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Residency First or Direct Citizenship? Choosing the Right Path
 
 When people first explore second citizenship, they often assume there is one standard route. In reality, there are two fundamentally different pathways.
@@ -1307,6 +1339,7 @@ Not sure which path is right for you? Book a consultation with our team for a pe
     tags: ["Citizenship", "Due Diligence", "CBI", "Application"],
     readTime: "8 min read",
     image: "https://i.imgur.com/E5vB2w6.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `What Governments Actually Check During Due Diligence
 
 Due diligence is the most misunderstood part of the citizenship by investment process. Some applicants fear it unnecessarily. Others underestimate it. Both approaches lead to problems.
@@ -1414,11 +1447,12 @@ Have questions about due diligence? Contact our team for a confidential consulta
     tags: ["Expats", "Portugal", "Relocation", "Guide"],
     readTime: "5 min read",
     image: "https://i.imgur.com/msA1wCC.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Step-by-Step Guide to Relocating to Portugal
 
 Portugal remains one of the most attractive destinations in Europe for internationally mobile entrepreneurs, investors, and high-net-worth families.
 
-The combination of the Golden Visa programme, the IFICI tax regime for new residents, a five-year pathway to one of the world’s strongest passports, and a stable legal environment makes Portugal one of the strongest EU relocation options in 2026.
+The combination of the Golden Visa programme, the IFICI tax regime for new residents, a five-year pathway to one of the world's strongest passports, and a stable legal environment makes Portugal one of the strongest EU relocation options in 2026.
 The process is straightforward in principle, but expensive mistakes usually happen when the steps are taken in the wrong order.
 This guide explains the process from the first decision point through to settled residency and the citizenship track.
 
@@ -1483,7 +1517,7 @@ The most common route is the EUR 500,000 investment into a CMVM-regulated Portug
 Fund must be registered in Portugal  
 At least 60 percent of assets must be invested in Portuguese companies  
 The vehicle must meet the legal maturity requirements  
-Funds must be transferred from the applicant’s Portuguese account  
+Funds must be transferred from the applicant's Portuguese account  
 
 Proof of subscription and confirmation from the fund manager form a core part of the Golden Visa application file.
 For D7 applicants, there is no qualifying investment. Instead, the applicant must prove sufficient passive or remote income.
@@ -1500,7 +1534,7 @@ Golden Visa: 9 to 18 months
 D7 Visa: 4 to 6 months in many cases  
 
 The initial Golden Visa residence permit is issued for two years and can be renewed for further two-year periods.
-The minimum physical presence requirement is one of the programme’s strongest features.
+The minimum physical presence requirement is one of the programme's strongest features.
 
 ## Golden Visa Presence Requirement
 
@@ -1530,7 +1564,7 @@ Applicants should assess eligibility before assuming the regime applies automati
 
 # Step 7: The Path to Citizenship
 
-Portugal’s long-term appeal is not just residency. It is the five-year path to citizenship.
+Portugal's long-term appeal is not just residency. It is the five-year path to citizenship.
 
 ## Citizenship Timeline
 
@@ -1549,7 +1583,7 @@ Starting basic Portuguese study early is the safer approach.
 
 Full EU citizenship rights  
 Right to live and work in all 27 EU member states  
-One of the world’s strongest passports  
+One of the world's strongest passports  
 Broad visa-free global access  
 
 For many applicants, the five-year path to a Portuguese passport is the single most compelling reason to begin the process.
@@ -1584,6 +1618,7 @@ Ready to make the move to Portugal? Contact our team for a personalised relocati
     tags: ["Expats", "Banking", "Europe", "Finance"],
     readTime: "7 min read",
     image: "https://i.imgur.com/lsiDYjv.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `How to Open a Bank Account as a New Resident in Europe
 
 Opening a bank account in Europe as a new resident sounds straightforward. In practice, it is one of the most frustrating parts of the relocation process.
@@ -1696,6 +1731,7 @@ Moving to Europe and need banking support? Contact our team for guidance.`
     tags: ["Expats", "Cost of Living", "Portugal", "Caribbean", "UAE"],
     readTime: "9 min read",
     image: "https://i.imgur.com/3iwVF0o.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Cost of Living Comparison: Portugal vs. Caribbean vs. UAE
 
 Choosing where to relocate involves many factors, but cost of living is almost always near the top of the list.
@@ -1828,6 +1864,7 @@ Want a personalised cost analysis for your relocation? Contact our team for a co
     tags: ["Expats", "Relocation", "Mistakes", "Planning"],
     readTime: "8 min read",
     image: "https://i.imgur.com/fEdWAo1.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `Common Relocation Mistakes Expats Make (And How to Avoid Them)
 
 After helping hundreds of clients relocate internationally, we have seen the same mistakes made over and over again. Some are minor inconveniences. Others are costly, time-consuming, and occasionally irreversible.
@@ -1972,6 +2009,7 @@ Planning an international relocation? Contact our team for a personalised consul
     tags: ["Expats", "Family", "Relocation", "Children"],
     readTime: "9 min read",
     image: "https://i.imgur.com/GUqCyvt.jpeg",
+    images: [PLACEHOLDER_1, PLACEHOLDER_2],
     content: `How to Prepare Your Family for International Relocation
 
 Moving internationally with a family is a fundamentally different experience from moving as a single person or couple. Every family member has different needs, different fears, and different ways of adapting.
