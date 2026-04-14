@@ -505,7 +505,7 @@ export default function Blog() {
               className="text-[15px] mb-8 leading-relaxed"
               style={{ fontFamily: "'Source Serif 4', Georgia, serif", color: '#9ca3af' }}
             >
-              Expert analysis on citizenship, residency, and global mobility — delivered to your inbox.
+              Expert analysis on citizenship, residency, and global mobility delivered to your inbox.
             </p>
 
             {/* Form — no divider, clean inline layout */}
