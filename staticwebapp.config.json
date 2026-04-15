@@ -14,6 +14,13 @@
       "/api/*"
     ]
   },
+  "routes": [
+    {
+      "route": "/share/*",
+      "serve": "/share/*",
+      "statusCode": 200
+    }
+  ],
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html",
