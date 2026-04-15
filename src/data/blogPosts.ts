@@ -345,6 +345,70 @@ Do not wait for a problem to arise before addressing your legal structure. Build
 Ready to review your legal structure for international expansion? Book a free consultation with our team and we will help you build the right framework for your business.`
   },
   {
+    id: "x6",
+    title: "Breaking News: Portugal's 5-to-10 Year Citizenship Rule: Countdown to Presidential Decision",
+    slug: "portugal-citizenship-5-to-10-year-rule-presidential-decision-2026",
+    excerpt: "A legislative proposal to double Portugal's naturalisation period from 5 to 10 years has passed Parliament and now sits on the President's desk. The decision is expected by April 21st, 2026. Here is what it means for every D7, D8, and Golden Visa holder.",
+    author: "Sylvia Awoudu",
+    publishDate: "Apr 15, 2026",
+    category: "Expats",
+    tags: ["Portugal", "Citizenship", "Naturalization", "D7 Visa", "Golden Visa", "2026"],
+    readTime: "6 min read",
+    image: "https://i.imgur.com/zV7KRA2.png",
+    images: ["https://i.imgur.com/0J6CZyJ.png", "https://i.imgur.com/DNLqjXY.png"],
+    content: `Breaking News: Portugal's 5-to-10 Year Citizenship Rule: Countdown to Presidential Decision
+
+For thousands of individuals and families who have chosen Portugal as their new home, the path to citizenship has been a cornerstone of their long-term planning. However, a recent legislative proposal to extend the naturalisation period from 5 to 10 years has sent ripples of concern through the expat community.
+
+While the Constitutional Court previously blocked a similar attempt, the proposal has now navigated its way back through Parliament. The critical date is fast approaching: **April 21st, 2026**, when the President of Portugal is expected to make a final decision. As an expert deeply embedded in Portugal's immigration landscape, I understand the anxiety this uncertainty creates. This article breaks down the current situation, its potential implications, and what you need to know as the countdown begins.
+
+# The Proposed Change: From 5 to 10 Years
+
+Currently, individuals who have legally resided in Portugal for at least five years are eligible to apply for Portuguese citizenship by naturalisation. This five-year period has been a significant draw for many, including those on D7, D8 Digital Nomad, and Golden Visa pathways.
+
+The proposed legislative amendment seeks to double this residency requirement to ten years before citizenship eligibility. For those who have meticulously planned their lives around the existing five-year rule, this represents a fundamental shift in their long-term goals.
+
+# Why the Push for Change?
+
+The rationale behind this proposal often cites concerns over integration, language proficiency, and a desire to align Portugal's naturalisation period with some other European nations. Critics argue, however, that Portugal built its residency programmes on the explicit promise of a five-year path to citizenship, and that changing the rules now fundamentally undermines the trust of those who planned their lives around that commitment.
+
+# A Familiar Battle: The Constitutional Court's Previous Intervention
+
+This is not the first time such a proposal has emerged. In a crucial development last year, the Portuguese Constitutional Court intervened and effectively blocked a similar attempt to extend the naturalisation period. The Court ruled that the proposed changes were unconstitutional, primarily due to concerns about legal certainty and the retroactive application of new rules to individuals who had already begun their residency process under existing law.
+
+# What Is Different This Time?
+
+This time, the legislative process has been carefully structured to address the Constitutional Court's previous objections. The current proposal aims to be prospective, meaning it would apply to new applicants or those who have not yet reached the five-year mark, rather than retroactively impacting those already eligible.
+
+This legal positioning has allowed the bill to pass through Parliament and land on the President's desk. Whether it survives that final review is now the critical question.
+
+# The President's Role: The Final Hurdle
+
+The fate of this legislative proposal now rests with **President Marcelo Rebelo de Sousa**. The President has several options available to him.
+
+He may promulgate the law and sign the bill into effect, making the 10-year rule official. He may veto the law and send the bill back to Parliament with objections, though Parliament could override that veto with a qualified majority. Or he may refer the bill to the Constitutional Court again, requesting a preventive review of the new version, which could delay or block it once more.
+
+With the decision expected by **April 21st, 2026**, the next days are critical for everyone on a Portuguese residency pathway.
+
+>! The political landscape around immigration and citizenship is constantly evolving, and Portugal is no exception. While the Constitutional Court's previous decision offered a reprieve, the current situation highlights the need for proactive and informed planning. Act decisively when eligible, and stay informed. The next few days will define the path forward for many.
+
+# Implications for Current and Future Applicants
+
+For those already eligible with five or more years of residency, it is highly unlikely that the new law would retroactively affect you. However, this situation underscores the importance of applying for citizenship as soon as you meet the eligibility requirement rather than delaying.
+
+For those approaching the five-year mark, the timing of the President's decision is paramount. If the law is promulgated before you reach your five-year anniversary, you could fall under the new ten-year rule. Expediting your application where possible is strongly advisable.
+
+For new applicants considering Portugal for the first time, if the law passes, you will need to plan for a ten-year residency period before applying for citizenship. This changes the long-term calculus of the Golden Visa and D7 routes significantly.
+
+# Conclusion: Stay Informed, Act Decisively
+
+The upcoming Presidential decision on **April 21st, 2026** will mark a pivotal moment for Portugal's citizenship laws. Whether the five-year rule remains or transitions to ten years, the underlying message for global citizens is clear: the window for certain opportunities can close rapidly and without warning.
+
+Staying informed through reliable sources and consulting with experienced professionals is essential to ensure your global mobility strategy remains robust and aligned with your long-term goals. If you are on a Portuguese residency pathway and have questions about how this decision affects you specifically, now is the time to get clarity.
+
+Ready to understand how this affects your situation? Book a free consultation with our team today and we will give you a clear picture of your options.`
+  },
+  {
     id: "c1",
     title: "Caribbean CBI: The New Era of Enhanced Due Diligence",
     slug: "caribbean-cbi-enhanced-due-diligence-2026",
