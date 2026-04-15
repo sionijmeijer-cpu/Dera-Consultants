@@ -354,7 +354,7 @@ Ready to review your legal structure for international expansion? Book a free co
     category: "Expats",
     tags: ["Portugal", "Citizenship", "Naturalization", "D7 Visa", "Golden Visa", "2026"],
     readTime: "6 min read",
-    image: "https://i.imgur.com/zV7KRA2.png",
+    image: "https://www.getsecondpassport.eu/images/articles/portugal-citizenship-5-to-10-year-rule-presidential-decision-april-2026.png",
     images: ["https://i.imgur.com/0J6CZyJ.png", "https://i.imgur.com/DNLqjXY.png"],
     content: `Breaking News: Portugal's 5-to-10 Year Citizenship Rule: Countdown to Presidential Decision
 
