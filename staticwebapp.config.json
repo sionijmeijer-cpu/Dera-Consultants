@@ -19,5 +19,8 @@
       "rewrite": "/index.html",
       "statusCode": 200
     }
+  },
+  "globalHeaders": {
+    "cache-control": "no-cache, no-store, must-revalidate"
   }
 }
