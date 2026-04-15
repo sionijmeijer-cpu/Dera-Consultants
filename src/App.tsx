@@ -1,10 +1,7 @@
 import { useState, useEffect, Component, ReactNode, lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Hero from './components/Hero';
-import Process from './components/Process';
-import Testimonials from './components/Testimonials';
-import ComparisonSection from './components/ComparisonSection';
+import HomePage from './pages/HomePage';
 
 const loadCompanyPage = () => import('./pages/CompanyPage');
 const CompanyPage = lazy(loadCompanyPage);
@@ -85,25 +82,6 @@ function navigate(href: string) {
   window.dispatchEvent(new PopStateEvent('popstate'));
 }
 
-function HomePage() {
-  const handleScheduleCall = () => {
-    const event = new CustomEvent('openScheduleModal');
-    window.dispatchEvent(event);
-  };
-
-  return (
-    <div>
-      <Hero
-        onScheduleCall={handleScheduleCall}
-        onNavigateToGuides={() => navigate('/guides')}
-      />
-      <Process />
-      <ComparisonSection />
-      <Testimonials />
-    </div>
-  );
-}
-
 function App() {
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -152,7 +130,6 @@ function App() {
 
   useEffect(() => {
     const handleOpenModal = () => setIsScheduleModalOpen(true);
-
     window.addEventListener('openScheduleModal', handleOpenModal);
     return () => window.removeEventListener('openScheduleModal', handleOpenModal);
   }, []);
@@ -206,16 +183,12 @@ function App() {
     const prefetch = (href: string) => {
       const loader = routePrefetchMap[href];
       if (loader) loader();
-
-      if (href.startsWith('/blog/')) {
-        loadBlogPostPage();
-      }
+      if (href.startsWith('/blog/')) loadBlogPostPage();
     };
 
     const onPointerOver = (e: Event) => {
       const a = (e.target as HTMLElement)?.closest?.('a');
       const href = a?.getAttribute?.('href');
-
       if (!href || shouldIgnore(href)) return;
       prefetch(href);
     };
