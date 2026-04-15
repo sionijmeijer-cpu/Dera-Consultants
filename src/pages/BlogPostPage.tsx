@@ -17,6 +17,7 @@ type ParsedBlock =
   | { type: 'image'; src: string; index: number };
 
 const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
+const SITE_URL = "https://www.getsecondpassport.eu";
 
 function getInitials(name: string) {
   return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
@@ -28,43 +29,70 @@ function getCategoryColor(category: string) {
   return '#7c3aed';
 }
 
-// ─── SHARE BUTTONS (Facebook, LinkedIn, Copy only) ────────────────────────────
-function ShareButtons({ title }: { title: string }) {
-  const url = typeof window !== 'undefined' ? window.location.href : '';
+// Build the /share/ URL for a given slug — this is what LinkedIn/Facebook read
+function getShareUrl(slug: string) {
+  return `${SITE_URL}/share/${slug}.html`;
+}
+
+// ─── SHARE BUTTONS ────────────────────────────────────────────────────────────
+function ShareButtons({ slug, title, vertical = true }: { slug: string; title: string; vertical?: boolean }) {
+  const shareUrl = getShareUrl(slug);
+  const articleUrl = `${SITE_URL}/blog/${slug}`;
   const [copied, setCopied] = useState(false);
+
   const copy = () => {
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(articleUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+  const liUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+
+  if (!vertical) {
+    // Horizontal layout for mobile bar
+    return (
+      <div className="flex items-center gap-3">
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 mr-1"
+          style={{ fontFamily: "'Inter', sans-serif" }}>Share</span>
+        <a href={fbUrl} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3 py-2 bg-[#1877f2] text-white text-[11px] font-bold hover:bg-[#166fe5] transition-colors"
+          style={{ fontFamily: "'Inter', sans-serif" }}>
+          <Facebook size={13} /> Facebook
+        </a>
+        <a href={liUrl} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3 py-2 bg-[#0077b5] text-white text-[11px] font-bold hover:bg-[#006097] transition-colors"
+          style={{ fontFamily: "'Inter', sans-serif" }}>
+          <Linkedin size={13} /> LinkedIn
+        </a>
+        <button onClick={copy}
+          className="flex items-center gap-1.5 px-3 py-2 bg-gray-100 text-gray-700 text-[11px] font-bold hover:bg-gray-200 transition-colors"
+          style={{ fontFamily: "'Inter', sans-serif" }}>
+          <Link2 size={13} /> {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+    );
+  }
+
+  // Vertical layout for sidebar
   return (
     <div className="space-y-2">
       <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3"
-        style={{ fontFamily: "'Inter', sans-serif" }}>
-        Share
-      </p>
+        style={{ fontFamily: "'Inter', sans-serif" }}>Share</p>
       <div className="flex flex-col gap-2">
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
-          target="_blank" rel="noopener noreferrer"
+        <a href={fbUrl} target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2 px-3 py-2 bg-[#1877f2] text-white text-[11px] font-bold hover:bg-[#166fe5] transition-colors"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
+          style={{ fontFamily: "'Inter', sans-serif" }}>
           <Facebook size={13} /> Facebook
         </a>
-        <a
-          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
-          target="_blank" rel="noopener noreferrer"
+        <a href={liUrl} target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2 px-3 py-2 bg-[#0077b5] text-white text-[11px] font-bold hover:bg-[#006097] transition-colors"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
+          style={{ fontFamily: "'Inter', sans-serif" }}>
           <Linkedin size={13} /> LinkedIn
         </a>
-        <button
-          onClick={copy}
-          className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-[11px] font-bold hover:bg-gray-200 transition-colors"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
+        <button onClick={copy}
+          className="flex items-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-[11px] font-bold hover:bg-gray-200 transition-colors"
+          style={{ fontFamily: "'Inter', sans-serif" }}>
           <Link2 size={13} /> {copied ? 'Copied!' : 'Copy link'}
         </button>
       </div>
@@ -72,38 +100,26 @@ function ShareButtons({ title }: { title: string }) {
   );
 }
 
-// ─── DESKTOP TOC (H2 only — no subheadings) ──────────────────────────────────
-function DesktopTOC({
-  sections, activeSection, onSectionClick,
-}: {
+// ─── DESKTOP TOC ──────────────────────────────────────────────────────────────
+function DesktopTOC({ sections, activeSection, onSectionClick }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
 }) {
   return (
-    <div className="border border-gray-200 dark:border-gray-800 p-5"
-      style={{ borderTop: '3px solid #1B7A4E' }}>
-      <h4 className="text-[10px] font-black text-gray-900 dark:text-white mb-4 uppercase tracking-[0.2em]"
-        style={{ fontFamily: "'Inter', sans-serif" }}>
-        In This Article
-      </h4>
+    <div className="border border-gray-200 p-5" style={{ borderTop: '3px solid #1B7A4E' }}>
+      <h4 className="text-[10px] font-black text-gray-900 mb-4 uppercase tracking-[0.2em]"
+        style={{ fontFamily: "'Inter', sans-serif" }}>In This Article</h4>
       <nav className="space-y-0">
         {sections.map(s => {
           const isActive = activeSection === s.id;
           return (
-            <button
-              key={s.id}
-              onClick={() => onSectionClick(s.id)}
+            <button key={s.id} onClick={() => onSectionClick(s.id)}
               className={`w-full text-left py-2 transition-all flex items-start border-l-2 pl-3 ${
-                isActive
-                  ? 'border-[#1B7A4E] text-[#1B7A4E]'
-                  : 'border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300'
-              }`}
-            >
+                isActive ? 'border-[#1B7A4E] text-[#1B7A4E]' : 'border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300'
+              }`}>
               <span className="flex-1 leading-snug text-[12px] font-semibold"
-                style={{ fontFamily: "'Inter', sans-serif" }}>
-                {s.title}
-              </span>
+                style={{ fontFamily: "'Inter', sans-serif" }}>{s.title}</span>
             </button>
           );
         })}
@@ -113,9 +129,7 @@ function DesktopTOC({
 }
 
 // ─── MOBILE TOC ──────────────────────────────────────────────────────────────
-function MobileTOC({
-  sections, activeSection, onSectionClick,
-}: {
+function MobileTOC({ sections, activeSection, onSectionClick }: {
   sections: Array<{ id: string; title: string }>;
   activeSection: string;
   onSectionClick: (id: string) => void;
@@ -125,29 +139,23 @@ function MobileTOC({
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40">
       {isOpen && (
-        <div className="bg-white dark:bg-gray-900 border-t border-gray-200 shadow-2xl max-h-[60vh] overflow-y-auto">
+        <div className="bg-white border-t border-gray-200 shadow-2xl max-h-[60vh] overflow-y-auto">
           <div className="p-4">
             {sections.map(s => (
-              <button
-                key={s.id}
+              <button key={s.id}
                 onClick={() => { onSectionClick(s.id); setIsOpen(false); }}
                 className={`w-full text-left py-2.5 text-sm border-l-2 transition-all pl-4 ${
-                  activeSection === s.id
-                    ? 'border-[#1B7A4E] text-[#1B7A4E] font-bold'
-                    : 'border-transparent text-gray-600'
+                  activeSection === s.id ? 'border-[#1B7A4E] text-[#1B7A4E] font-bold' : 'border-transparent text-gray-600'
                 }`}
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
+                style={{ fontFamily: "'Inter', sans-serif" }}>
                 {s.title}
               </button>
             ))}
           </div>
         </div>
       )}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white dark:bg-gray-900 border-t-2 border-[#1B7A4E] shadow-lg px-4 py-3 flex items-center justify-between"
-      >
+      <button onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-white border-t-2 border-[#1B7A4E] shadow-lg px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <BookOpen size={15} className="text-[#1B7A4E]" />
           <span className="text-gray-700 text-sm font-bold truncate max-w-[250px]"
@@ -181,16 +189,16 @@ function renderInline(text: string): React.ReactNode[] {
 }
 
 // ─── PARSING HELPERS ─────────────────────────────────────────────────────────
-const makeId   = (t: string) => t.toLowerCase().replace(/^#+\s*/, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-const stripH   = (t: string) => t.replace(/^##\s+/, '').replace(/^#\s+/, '').trim();
-const isH2     = (l: string) => /^#\s+/.test(l.trim()) && !/^##\s+/.test(l.trim());
-const isH3     = (l: string) => /^##\s+/.test(l.trim());
-const isBullet = (l: string) => /^[-*]\s+/.test(l.trim());
-const isOL     = (l: string) => /^\d+\.\s+.+/.test(l.trim());
-const isTable  = (l: string) => { const t = l.trim(); return t.startsWith('|') && t.endsWith('|') && t.includes('|'); };
-const isDivider= (l: string) => { const c = l.trim().split('|').map(x => x.trim()).filter(Boolean); return c.length > 0 && c.every(x => /^:?-{3,}:?$/.test(x)); };
-const parseRow = (l: string) => l.trim().split('|').map(c => c.trim()).filter(Boolean);
-const isCallout= (l: string) => l.trim().startsWith('>!');
+const makeId    = (t: string) => t.toLowerCase().replace(/^#+\s*/, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const stripH    = (t: string) => t.replace(/^##\s+/, '').replace(/^#\s+/, '').trim();
+const isH2      = (l: string) => /^#\s+/.test(l.trim()) && !/^##\s+/.test(l.trim());
+const isH3      = (l: string) => /^##\s+/.test(l.trim());
+const isBullet  = (l: string) => /^[-*]\s+/.test(l.trim());
+const isOL      = (l: string) => /^\d+\.\s+.+/.test(l.trim());
+const isTable   = (l: string) => { const t = l.trim(); return t.startsWith('|') && t.endsWith('|') && t.includes('|'); };
+const isDivider = (l: string) => { const c = l.trim().split('|').map(x => x.trim()).filter(Boolean); return c.length > 0 && c.every(x => /^:?-{3,}:?$/.test(x)); };
+const parseRow  = (l: string) => l.trim().split('|').map(c => c.trim()).filter(Boolean);
+const isCallout = (l: string) => l.trim().startsWith('>!');
 
 function isPlainBullet(l: string) {
   const t = l.trim();
@@ -215,14 +223,8 @@ function parseContent(content: string, images: string[]): ParsedBlock[] {
       const title = stripH(line);
       blocks.push({ type: 'h2', id: makeId(title), title });
       h2Count++;
-      // Inject image after 3rd H2
-      if (h2Count === 3 && images[0]) {
-        blocks.push({ type: 'image', src: images[0], index: 0 });
-      }
-      // Inject image after 4th H2
-      if (h2Count === 4 && images[1]) {
-        blocks.push({ type: 'image', src: images[1], index: 1 });
-      }
+      if (h2Count === 3 && images[0]) blocks.push({ type: 'image', src: images[0], index: 0 });
+      if (h2Count === 4 && images[1]) blocks.push({ type: 'image', src: images[1], index: 1 });
       i++; continue;
     }
 
@@ -242,10 +244,7 @@ function parseContent(content: string, images: string[]): ParsedBlock[] {
       if (isDivider(lines[i + 1]?.trim() || '')) {
         const rows: string[][] = [];
         let j = i + 2;
-        while (j < lines.length && isTable(lines[j].trim())) {
-          rows.push(parseRow(lines[j].trim()));
-          j++;
-        }
+        while (j < lines.length && isTable(lines[j].trim())) { rows.push(parseRow(lines[j].trim())); j++; }
         blocks.push({ type: 'table', headers: header, rows });
         i = j; continue;
       }
@@ -253,20 +252,14 @@ function parseContent(content: string, images: string[]): ParsedBlock[] {
 
     if (isBullet(line)) {
       const items: string[] = [];
-      while (i < lines.length && isBullet(lines[i])) {
-        items.push(lines[i].trim().replace(/^[-*]\s+/, ''));
-        i++;
-      }
+      while (i < lines.length && isBullet(lines[i])) { items.push(lines[i].trim().replace(/^[-*]\s+/, '')); i++; }
       blocks.push({ type: 'ul', items }); continue;
     }
 
     if (isOL(line)) {
       const items: string[] = [];
       let j = i;
-      while (j < lines.length && isOL(lines[j].trim())) {
-        items.push(lines[j].trim().replace(/^\d+\.\s+/, ''));
-        j++;
-      }
+      while (j < lines.length && isOL(lines[j].trim())) { items.push(lines[j].trim().replace(/^\d+\.\s+/, '')); j++; }
       if (items.length >= 2) { blocks.push({ type: 'ol', items }); i = j; continue; }
     }
 
@@ -275,8 +268,7 @@ function parseContent(content: string, images: string[]): ParsedBlock[] {
       const items: string[] = [];
       let j = i;
       while (j < lines.length && lines[j].trim() && isPlainBullet(lines[j].trim())) {
-        items.push(lines[j].trim().replace(/^[-*]\s+/, ''));
-        j++;
+        items.push(lines[j].trim().replace(/^[-*]\s+/, '')); j++;
       }
       if (items.length >= 2) { blocks.push({ type: 'ul', items }); i = j; continue; }
     }
@@ -295,23 +287,19 @@ function parseContent(content: string, images: string[]): ParsedBlock[] {
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
-  const [article, setArticle]          = useState<BlogPost | null>(null);
-  const [relatedArticles, setRelated]  = useState<BlogPost[]>([]);
-  const [activeSection, setActive]     = useState('');
-  const [isLoading, setLoading]        = useState(true);
-  const [readingProgress, setProgress] = useState(0);
-  const [showBackToTop, setShowBTT]    = useState(false);
+  const [article, setArticle]         = useState<BlogPost | null>(null);
+  const [relatedArticles, setRelated] = useState<BlogPost[]>([]);
+  const [activeSection, setActive]    = useState('');
+  const [isLoading, setLoading]       = useState(true);
+  const [readingProgress, setProgress]= useState(0);
+  const [showBackToTop, setShowBTT]   = useState(false);
 
   useEffect(() => {
     const slug = window.location.pathname.split('/blog/')[1];
     const found = blogPosts.find(p => p.slug === slug);
     if (found) {
       setArticle(found);
-      setRelated(
-        blogPosts
-          .filter(p => p.category === found.category && p.id !== found.id)
-          .slice(0, 3)
-      );
+      setRelated(blogPosts.filter(p => p.category === found.category && p.id !== found.id).slice(0, 3));
     }
     setLoading(false);
     window.scrollTo(0, 0);
@@ -332,20 +320,17 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     return parseContent(article.content, article.images || []);
   }, [article]);
 
-  // TOC: H2 only — no subheadings
-  const tocSections = useMemo(() => {
-    return parsedBlocks
+  const tocSections = useMemo(() =>
+    parsedBlocks
       .filter((b): b is Extract<ParsedBlock, { type: 'h2' }> => b.type === 'h2')
-      .map(b => ({ id: b.id, title: b.title }));
-  }, [parsedBlocks]);
+      .map(b => ({ id: b.id, title: b.title })),
+    [parsedBlocks]
+  );
 
   useEffect(() => {
     if (!article) return;
     const obs = new IntersectionObserver(
-      entries => {
-        const v = entries.filter(e => e.isIntersecting);
-        if (v.length > 0) setActive(v[0].target.id);
-      },
+      entries => { const v = entries.filter(e => e.isIntersecting); if (v.length > 0) setActive(v[0].target.id); },
       { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
     );
     const t = setTimeout(() => {
@@ -361,70 +346,44 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
 
   const handleScheduleCall = () => window.dispatchEvent(new CustomEvent('openScheduleModal'));
 
-  // ─── NAVIGATE TO RELATED ARTICLE ─────────────────────────────────────────
-  // Fix: use href navigation not pathname assignment to prevent scroll-to-top issue
-  const goToArticle = (slug: string) => {
-    window.location.href = `/blog/${slug}`;
-  };
-
-  // ─── RENDER CONTENT ──────────────────────────────────────────────────────
   const renderContent = () => {
     let pCount = 0;
     return parsedBlocks.map((block, idx) => {
-
       if (block.type === 'h2') return (
-        <h2
-          key={`h2-${idx}`} id={block.id} data-section-id={block.id}
-          className="text-[26px] sm:text-[30px] font-black text-gray-900 dark:text-white mt-14 mb-5 leading-tight scroll-mt-24"
-          style={{ fontFamily: "'Playfair Display',Georgia,serif", borderBottom: '2px solid #e5e7eb', paddingBottom: '0.6rem' }}
-        >
+        <h2 key={`h2-${idx}`} id={block.id} data-section-id={block.id}
+          className="text-[26px] sm:text-[30px] font-black text-gray-900 mt-14 mb-5 leading-tight scroll-mt-24"
+          style={{ fontFamily: "'Playfair Display',Georgia,serif", borderBottom: '2px solid #e5e7eb', paddingBottom: '0.6rem' }}>
           {renderInline(block.title)}
         </h2>
       );
-
       if (block.type === 'h3') return (
-        <h3
-          key={`h3-${idx}`} id={block.id} data-section-id={block.id}
+        <h3 key={`h3-${idx}`} id={block.id} data-section-id={block.id}
           className="text-[11px] font-black text-gray-400 mt-10 mb-3 scroll-mt-24 uppercase tracking-[0.18em]"
-          style={{ fontFamily: "'Inter',sans-serif" }}
-        >
+          style={{ fontFamily: "'Inter',sans-serif" }}>
           {renderInline(block.title)}
         </h3>
       );
-
-      // Mid-article image
       if (block.type === 'image') return (
         <figure key={`img-${idx}`} className="my-10 -mx-2 sm:-mx-4">
           <div className="overflow-hidden" style={{ borderTop: '3px solid #1B7A4E' }}>
-            <img
-              src={block.src}
-              alt={`Article image ${block.index + 1}`}
-              className="w-full object-cover"
-              style={{ maxHeight: '420px', objectPosition: 'center' }}
-              loading="lazy"
-            />
+            <img src={block.src} alt={`Article image ${block.index + 1}`}
+              className="w-full object-cover" style={{ maxHeight: '420px', objectPosition: 'center' }} loading="lazy" />
           </div>
         </figure>
       );
-
       if (block.type === 'callout') return (
-        <blockquote
-          key={`callout-${idx}`} className="my-10"
-          style={{ borderLeft: '4px solid #1B7A4E', paddingLeft: '1.5rem' }}
-        >
-          <p
-            className="text-[19px] leading-[1.75] text-gray-700 dark:text-gray-200 italic"
-            style={{ fontFamily: "'Playfair Display',Georgia,serif" }}
-          >
+        <blockquote key={`callout-${idx}`} className="my-10"
+          style={{ borderLeft: '4px solid #1B7A4E', paddingLeft: '1.5rem' }}>
+          <p className="text-[19px] leading-[1.75] text-gray-700 italic"
+            style={{ fontFamily: "'Playfair Display',Georgia,serif" }}>
             {renderInline(block.text)}
           </p>
         </blockquote>
       );
-
       if (block.type === 'ul') return (
         <ul key={`ul-${idx}`} className="mb-8 space-y-3 pl-0">
           {block.items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 leading-[1.8] text-gray-700 dark:text-gray-300"
+            <li key={i} className="flex items-start gap-3 leading-[1.8] text-gray-700"
               style={{ fontFamily: "'Source Serif 4',Georgia,serif", fontSize: '18px' }}>
               <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#1B7A4E] mt-[12px]" />
               <span>{renderInline(item)}</span>
@@ -432,28 +391,22 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
           ))}
         </ul>
       );
-
       if (block.type === 'ol') return (
         <ol key={`ol-${idx}`} className="mb-8 space-y-3 pl-0">
           {block.items.map((item, i) => (
-            <li key={i} className="flex items-start gap-4 leading-[1.8] text-gray-700 dark:text-gray-300"
+            <li key={i} className="flex items-start gap-4 leading-[1.8] text-gray-700"
               style={{ fontFamily: "'Source Serif 4',Georgia,serif", fontSize: '18px' }}>
-              <span
-                className="flex-shrink-0 w-7 h-7 bg-[#1B7A4E]/10 text-[#1B7A4E] flex items-center justify-center text-sm font-black mt-[2px]"
-                style={{ fontFamily: "'Inter',sans-serif" }}
-              >
-                {i + 1}
-              </span>
+              <span className="flex-shrink-0 w-7 h-7 bg-[#1B7A4E]/10 text-[#1B7A4E] flex items-center justify-center text-sm font-black mt-[2px]"
+                style={{ fontFamily: "'Inter',sans-serif" }}>{i + 1}</span>
               <span className="flex-1">{renderInline(item)}</span>
             </li>
           ))}
         </ol>
       );
-
       if (block.type === 'table') return (
         <div key={`table-${idx}`} className="mb-10 overflow-x-auto"
           style={{ borderTop: '3px solid #1B7A4E', borderBottom: '1px solid #e5e7eb' }}>
-          <table className="min-w-full border-collapse bg-white dark:bg-gray-900 text-sm">
+          <table className="min-w-full border-collapse bg-white text-sm">
             <thead>
               <tr style={{ background: '#f8f8f6' }}>
                 {block.headers.map((h, i) => (
@@ -468,7 +421,7 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               {block.rows.map((row, rIdx) => (
                 <tr key={rIdx} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                   {row.map((cell, cIdx) => (
-                    <td key={cIdx} className="px-5 py-3.5 align-top text-gray-700 dark:text-gray-300"
+                    <td key={cIdx} className="px-5 py-3.5 align-top text-gray-700"
                       style={{ fontFamily: "'Source Serif 4',Georgia,serif", fontSize: '16px' }}>
                       {renderInline(cell)}
                     </td>
@@ -479,27 +432,18 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
           </table>
         </div>
       );
-
-      // PARAGRAPH
       pCount++;
       const isFirst = pCount === 1;
       return (
-        <p
-          key={`p-${idx}`}
-          className={`mb-7 text-gray-800 dark:text-gray-200 ${
-            isFirst
-              ? 'first-letter:text-[64px] first-letter:font-black first-letter:text-[#1B7A4E] first-letter:float-left first-letter:mr-3 first-letter:mt-0 first-letter:leading-[0.85]'
-              : ''
-          }`}
-          style={{ fontFamily: "'Source Serif 4',Georgia,'Times New Roman',serif", fontSize: '18.5px', lineHeight: '1.85' }}
-        >
+        <p key={`p-${idx}`}
+          className={`mb-7 text-gray-800 ${isFirst ? 'first-letter:text-[64px] first-letter:font-black first-letter:text-[#1B7A4E] first-letter:float-left first-letter:mr-3 first-letter:mt-0 first-letter:leading-[0.85]' : ''}`}
+          style={{ fontFamily: "'Source Serif 4',Georgia,'Times New Roman',serif", fontSize: '18.5px', lineHeight: '1.85' }}>
           {renderInline(block.text)}
         </p>
       );
     });
   };
 
-  // ─── LOADING ─────────────────────────────────────────────────────────────
   if (isLoading) return (
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="flex flex-col items-center gap-4">
@@ -520,10 +464,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         <p className="text-gray-600 mb-6" style={{ fontFamily: "'Inter',sans-serif" }}>
           This article may have been moved or does not exist.
         </p>
-        <a href="/blog"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-[#1B7A4E] text-white font-bold hover:bg-[#156B3F] transition-colors"
+        <a href="/blog" className="inline-flex items-center gap-2 px-6 py-3 bg-[#1B7A4E] text-white font-bold hover:bg-[#156B3F] transition-colors"
           style={{ fontFamily: "'Inter',sans-serif" }}>
-          ← Back to Articles
+          Back to Articles
         </a>
       </div>
     </div>
@@ -532,14 +475,14 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
   const categoryColor = getCategoryColor(article.category);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-white">
 
       {/* Reading progress bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-gray-200/50">
         <div className="h-full bg-[#1B7A4E] transition-all duration-150" style={{ width: `${readingProgress}%` }} />
       </div>
 
-      {/* ── BREADCRUMB — thin bar ABOVE the image, always readable ───── */}
+      {/* Breadcrumb */}
       <div className="w-full bg-white border-b border-gray-100">
         <div className={`${CONTAINER} py-2.5`}>
           <div className="flex items-center gap-1 text-[12px] text-gray-500 flex-wrap"
@@ -553,26 +496,20 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         </div>
       </div>
 
-      {/* ── HERO IMAGE ────────────────────────────────────────────────── */}
+      {/* Hero image */}
       {article.image && (
         <div className="relative h-[260px] sm:h-[380px] lg:h-[460px] overflow-hidden w-full">
           <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/5" />
-
-          {/* Title block — bottom of image */}
           <div className="absolute bottom-0 left-0 right-0">
             <div className={`${CONTAINER} pb-8`}>
               <div className="max-w-3xl">
-                <span
-                  className="inline-block px-2.5 py-0.5 text-white text-[10px] font-black uppercase tracking-widest mb-4"
-                  style={{ background: categoryColor, fontFamily: "'Inter',sans-serif" }}
-                >
+                <span className="inline-block px-2.5 py-0.5 text-white text-[10px] font-black uppercase tracking-widest mb-4"
+                  style={{ background: categoryColor, fontFamily: "'Inter',sans-serif" }}>
                   {article.category}
                 </span>
-                <h1
-                  className="text-[26px] sm:text-[36px] lg:text-[48px] font-black text-white leading-[1.08] tracking-tight mb-5"
-                  style={{ fontFamily: "'Playfair Display',Georgia,'Times New Roman',serif" }}
-                >
+                <h1 className="text-[26px] sm:text-[36px] lg:text-[48px] font-black text-white leading-[1.08] tracking-tight mb-5"
+                  style={{ fontFamily: "'Playfair Display',Georgia,'Times New Roman',serif" }}>
                   {article.title}
                 </h1>
                 <div className="flex items-center gap-3" style={{ fontFamily: "'Inter',sans-serif" }}>
@@ -590,20 +527,16 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         </div>
       )}
 
-      {/* ── HERO WITHOUT IMAGE ────────────────────────────────────────── */}
+      {/* Hero without image */}
       {!article.image && (
         <div className="w-full border-b border-gray-200" style={{ background: '#fafaf8' }}>
           <div className={`${CONTAINER} py-10`}>
-            <span
-              className="inline-block px-2.5 py-0.5 text-white text-[10px] font-black uppercase tracking-widest mb-5"
-              style={{ background: categoryColor, fontFamily: "'Inter',sans-serif" }}
-            >
+            <span className="inline-block px-2.5 py-0.5 text-white text-[10px] font-black uppercase tracking-widest mb-5"
+              style={{ background: categoryColor, fontFamily: "'Inter',sans-serif" }}>
               {article.category}
             </span>
-            <h1
-              className="text-[28px] sm:text-[40px] lg:text-[52px] font-black text-gray-900 leading-[1.08] tracking-tight max-w-4xl mb-6"
-              style={{ fontFamily: "'Playfair Display',Georgia,'Times New Roman',serif" }}
-            >
+            <h1 className="text-[28px] sm:text-[40px] lg:text-[52px] font-black text-gray-900 leading-[1.08] tracking-tight max-w-4xl mb-6"
+              style={{ fontFamily: "'Playfair Display',Georgia,'Times New Roman',serif" }}>
               {article.title}
             </h1>
             <div className="flex items-center gap-3" style={{ fontFamily: "'Inter',sans-serif" }}>
@@ -619,39 +552,34 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         </div>
       )}
 
-      {/* ── STANDFIRST — full width, no share buttons here ───────────── */}
+      {/* Standfirst + mobile share bar */}
       <div className="w-full border-b border-gray-200 bg-white">
         <div className={`${CONTAINER} py-5`}>
-          <p
-            className="text-[18px] text-gray-700 leading-relaxed italic max-w-3xl"
-            style={{
-              fontFamily: "'Source Serif 4',Georgia,serif",
-              borderLeft: '4px solid #1B7A4E',
-              paddingLeft: '1.25rem',
-            }}
-          >
+          <p className="text-[18px] text-gray-700 leading-relaxed italic max-w-3xl mb-4"
+            style={{ fontFamily: "'Source Serif 4',Georgia,serif", borderLeft: '4px solid #1B7A4E', paddingLeft: '1.25rem' }}>
             {article.excerpt}
           </p>
+          {/* Mobile share buttons — visible on mobile only */}
+          <div className="lg:hidden mt-4">
+            <ShareButtons slug={article.slug} title={article.title} vertical={false} />
+          </div>
         </div>
       </div>
 
-      {/* ── ARTICLE BODY ──────────────────────────────────────────────── */}
+      {/* Article body */}
       <div className={`${CONTAINER} py-10 lg:py-14`}>
-        {/* Centered inner wrapper — article + sidebar as a balanced unit */}
         <div className="mx-auto" style={{ maxWidth: '1100px' }}>
           <div className="flex gap-12 xl:gap-16">
 
-            {/* ── ARTICLE COLUMN ──────────────────────────────────────── */}
+            {/* Article column */}
             <article className="flex-1 min-w-0" style={{ maxWidth: '720px' }}>
               {renderContent()}
 
-              {/* Author bio — right after content */}
+              {/* Author bio */}
               <div className="mt-10 flex items-center gap-5 p-6 border border-gray-200"
                 style={{ borderTop: '3px solid #1B7A4E' }}>
-                <div
-                  className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] flex items-center justify-center text-white font-black text-lg flex-shrink-0"
-                  style={{ fontFamily: "'Inter',sans-serif" }}
-                >
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1B7A4E] to-[#2E8B57] flex items-center justify-center text-white font-black text-lg flex-shrink-0"
+                  style={{ fontFamily: "'Inter',sans-serif" }}>
                   {getInitials(article.author)}
                 </div>
                 <div>
@@ -675,15 +603,12 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {relatedArticles.map(ra => (
-                      <a
-                        key={ra.id}
-                        href={`/blog/${ra.slug}`}
+                      <a key={ra.id} href={`/blog/${ra.slug}`}
                         onClick={e => { e.preventDefault(); window.location.assign(`/blog/${ra.slug}`); }}
                         className="group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
                         style={{ borderTop: '3px solid transparent', textDecoration: 'none' }}
                         onMouseEnter={e => (e.currentTarget.style.borderTopColor = '#1B7A4E')}
-                        onMouseLeave={e => (e.currentTarget.style.borderTopColor = 'transparent')}
-                      >
+                        onMouseLeave={e => (e.currentTarget.style.borderTopColor = 'transparent')}>
                         {ra.image && (
                           <div className="relative h-40 overflow-hidden">
                             <img src={ra.image} alt={ra.title}
@@ -691,16 +616,12 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                           </div>
                         )}
                         <div className="p-5">
-                          <span
-                            className="inline-block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-white mb-2"
-                            style={{ background: getCategoryColor(ra.category), fontFamily: "'Inter',sans-serif" }}
-                          >
+                          <span className="inline-block px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-white mb-2"
+                            style={{ background: getCategoryColor(ra.category), fontFamily: "'Inter',sans-serif" }}>
                             {ra.category}
                           </span>
-                          <h4
-                            className="font-black text-gray-900 mb-2 line-clamp-2 group-hover:text-[#1B7A4E] transition-colors leading-tight"
-                            style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: '16px' }}
-                          >
+                          <h4 className="font-black text-gray-900 mb-2 line-clamp-2 group-hover:text-[#1B7A4E] transition-colors leading-tight"
+                            style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: '16px' }}>
                             {ra.title}
                           </h4>
                           <p className="text-xs text-gray-400" style={{ fontFamily: "'Inter',sans-serif" }}>
@@ -714,11 +635,11 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               )}
             </article>
 
-            {/* ── SIDEBAR ─────────────────────────────────────────────── */}
+            {/* Sidebar — desktop only */}
             <aside className="hidden lg:block w-[260px] xl:w-[280px] flex-shrink-0">
               <div className="sticky top-8 space-y-5">
 
-                {/* Work With Us CTA */}
+                {/* Work With Us */}
                 <div className="p-5 border border-gray-200" style={{ borderTop: '3px solid #1B7A4E' }}>
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-900 mb-2"
                     style={{ fontFamily: "'Inter',sans-serif" }}>Work With Us</h4>
@@ -726,27 +647,21 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                     style={{ fontFamily: "'Source Serif 4',Georgia,serif" }}>
                     Get expert guidance on residency and citizenship tailored to your goals.
                   </p>
-                  <button
-                    onClick={handleScheduleCall}
+                  <button onClick={handleScheduleCall}
                     className="w-full px-4 py-3 bg-[#1B7A4E] text-white text-[10px] font-black uppercase tracking-widest hover:bg-[#156B3F] transition-colors"
-                    style={{ fontFamily: "'Inter',sans-serif" }}
-                  >
+                    style={{ fontFamily: "'Inter',sans-serif" }}>
                     Book a Free Call
                   </button>
                 </div>
 
-                {/* Share — in sidebar, below Work With Us */}
+                {/* Share — sidebar (vertical, desktop only) */}
                 <div className="p-5 border border-gray-200">
-                  <ShareButtons title={article.title} />
+                  <ShareButtons slug={article.slug} title={article.title} vertical={true} />
                 </div>
 
-                {/* Table of Contents — H2 only */}
+                {/* TOC */}
                 {tocSections.length > 0 && (
-                  <DesktopTOC
-                    sections={tocSections}
-                    activeSection={activeSection}
-                    onSectionClick={scrollToSection}
-                  />
+                  <DesktopTOC sections={tocSections} activeSection={activeSection} onSectionClick={scrollToSection} />
                 )}
 
                 {/* Topics */}
@@ -756,23 +671,18 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                       style={{ fontFamily: "'Inter',sans-serif" }}>Topics</h4>
                     <div className="flex flex-wrap gap-2">
                       {article.tags.map(tag => (
-                        <span key={tag}
-                          className="px-2.5 py-1 bg-gray-100 text-gray-600 text-[11px] font-semibold"
-                          style={{ fontFamily: "'Inter',sans-serif" }}>
-                          {tag}
-                        </span>
+                        <span key={tag} className="px-2.5 py-1 bg-gray-100 text-gray-600 text-[11px] font-semibold"
+                          style={{ fontFamily: "'Inter',sans-serif" }}>{tag}</span>
                       ))}
                     </div>
                   </div>
                 )}
 
                 {/* Back link */}
-                <a
-                  href="/blog"
+                <a href="/blog"
                   className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-gray-500 hover:text-[#1B7A4E] transition-colors"
-                  style={{ fontFamily: "'Inter',sans-serif" }}
-                >
-                  ← Back to Dera Mobility Brief
+                  style={{ fontFamily: "'Inter',sans-serif" }}>
+                  Back to Dera Mobility Brief
                 </a>
               </div>
             </aside>
@@ -782,20 +692,14 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
 
       {/* Mobile TOC */}
       {tocSections.length > 0 && (
-        <MobileTOC
-          sections={tocSections}
-          activeSection={activeSection}
-          onSectionClick={scrollToSection}
-        />
+        <MobileTOC sections={tocSections} activeSection={activeSection} onSectionClick={scrollToSection} />
       )}
 
       {/* Back to top */}
       {showBackToTop && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed bottom-20 lg:bottom-6 right-6 z-40 w-10 h-10 bg-[#1B7A4E] text-white shadow-lg hover:bg-[#156B3F] transition-all hover:scale-110 flex items-center justify-center"
-          aria-label="Back to top"
-        >
+          aria-label="Back to top">
           <ChevronUp size={18} />
         </button>
       )}
