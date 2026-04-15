@@ -9,7 +9,8 @@
       "/static/*",
       "/favicon.ico",
       "/robots.txt",
-      "/sitemap.xml"
+      "/sitemap.xml",
+      "/api/*"
     ]
   },
   "responseOverrides": {
