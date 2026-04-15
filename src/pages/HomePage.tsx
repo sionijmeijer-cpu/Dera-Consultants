@@ -1,7 +1,6 @@
 import Hero from '../components/Hero';
 import Process from '../components/Process';
 import Testimonials from '../components/Testimonials';
-import ComparisonSection from '../components/ComparisonSection';
 
 interface HomePageProps {
   onScheduleCall?: () => void;
@@ -19,7 +18,6 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
         <Hero onScheduleCall={handleScheduleCall} />
         <Process />
         <Testimonials />
-        <ComparisonSection />
       </div>
     );
   } catch (error) {
