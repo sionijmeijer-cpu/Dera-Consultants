@@ -128,62 +128,60 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
       {/* VISA ROUTES */}
       <section className="py-20 bg-gray-50">
         <div className={CONTAINER}>
-          <div className="max-w-3xl">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
-              style={{ fontFamily: "'Inter', sans-serif" }}>
-              The routes
-            </p>
-            <h2 className="text-[30px] sm:text-[38px] font-black text-gray-900 mb-3 leading-tight"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-              Four main residency routes
-            </h2>
-            <p className="text-gray-500 mb-10 text-[16px]"
-              style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
-              Click each one to see what it actually involves. Not just the headline, but the details that matter.
-            </p>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
+            style={{ fontFamily: "'Inter', sans-serif" }}>
+            The routes
+          </p>
+          <h2 className="text-[30px] sm:text-[38px] font-black text-gray-900 mb-3 leading-tight"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            Four main residency routes
+          </h2>
+          <p className="text-gray-500 mb-10 text-[16px] max-w-2xl"
+            style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+            Click each one to see what it actually involves. Not just the headline, but the details that matter.
+          </p>
 
-            <div className="space-y-3 mb-16">
-              {visaTypes.map(visa => (
-                <div key={visa.id}
-                  className="bg-white border border-gray-200 overflow-hidden"
-                  style={{ borderLeft: expandedVisa === visa.id ? '3px solid #1B7A4E' : '3px solid transparent' }}>
-                  <button
-                    onClick={() => setExpandedVisa(expandedVisa === visa.id ? null : visa.id)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-left"
-                  >
-                    <div>
-                      <h3 className="text-[17px] font-black text-gray-900"
-                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                        {visa.title}
-                      </h3>
-                      <p className="text-[12px] text-gray-500 mt-0.5"
-                        style={{ fontFamily: "'Inter', sans-serif" }}>
-                        {visa.subtitle}
-                      </p>
-                    </div>
-                    <span className={`ml-4 flex-shrink-0 text-[#1B7A4E] text-sm transition-transform duration-200 font-black ${expandedVisa === visa.id ? 'rotate-180' : ''}`}>
-                      ▼
-                    </span>
-                  </button>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-16">
+            {visaTypes.map(visa => (
+              <div key={visa.id}
+                className="bg-white border border-gray-200 overflow-hidden"
+                style={{ borderTop: expandedVisa === visa.id ? '3px solid #1B7A4E' : '3px solid #e5e7eb' }}>
+                <button
+                  onClick={() => setExpandedVisa(expandedVisa === visa.id ? null : visa.id)}
+                  className="w-full px-6 py-6 flex items-center justify-between text-left"
+                >
+                  <div>
+                    <h3 className="text-[19px] font-black text-gray-900"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                      {visa.title}
+                    </h3>
+                    <p className="text-[12px] text-gray-500 mt-1"
+                      style={{ fontFamily: "'Inter', sans-serif" }}>
+                      {visa.subtitle}
+                    </p>
+                  </div>
+                  <span className={`ml-4 flex-shrink-0 text-[#1B7A4E] text-sm transition-transform duration-200 font-black ${expandedVisa === visa.id ? 'rotate-180' : ''}`}>
+                    ▼
+                  </span>
+                </button>
 
-                  {expandedVisa === visa.id && (
-                    <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-[#1B7A4E]/5">
-                      <p className="text-gray-700 leading-relaxed text-[16px]"
-                        style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
-                        {visa.details}
-                      </p>
-                      <button
-                        onClick={onScheduleCall}
-                        className="mt-4 text-[11px] font-black uppercase tracking-widest text-[#1B7A4E] hover:text-[#156B3F]"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                      >
-                        Ask us about this route
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                {expandedVisa === visa.id && (
+                  <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-[#1B7A4E]/5">
+                    <p className="text-gray-700 leading-relaxed text-[15px]"
+                      style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+                      {visa.details}
+                    </p>
+                    <button
+                      onClick={onScheduleCall}
+                      className="mt-4 text-[11px] font-black uppercase tracking-widest text-[#1B7A4E] hover:text-[#156B3F]"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      Ask us about this route
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
           <PortugalEligibilityCalculator onScheduleCall={onScheduleCall} />
