@@ -300,6 +300,40 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     if (found) {
       setArticle(found);
       setRelated(blogPosts.filter(p => p.category === found.category && p.id !== found.id).slice(0, 3));
+
+      // Inject structured data for Google
+      const existing = document.getElementById('article-structured-data');
+      if (existing) existing.remove();
+      const script = document.createElement('script');
+      script.id = 'article-structured-data';
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": found.title,
+        "description": found.excerpt,
+        "image": found.image,
+        "datePublished": found.publishDate,
+        "dateModified": found.publishDate,
+        "author": {
+          "@type": "Person",
+          "name": found.author,
+          "url": "https://www.getsecondpassport.eu/company"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Dera Consultants",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://i.imgur.com/KTSBU1c.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://www.getsecondpassport.eu/blog/${found.slug}`
+        }
+      });
+      document.head.appendChild(script);
     }
     setLoading(false);
     window.scrollTo(0, 0);
