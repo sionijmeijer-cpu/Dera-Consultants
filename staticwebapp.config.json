@@ -14,13 +14,18 @@
       "/api/*"
     ]
   },
+  "routes": [
+    {
+      "route": "/sitemap.xml",
+      "headers": {
+        "content-type": "application/xml"
+      }
+    }
+  ],
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html",
       "statusCode": 200
     }
-  },
-  "globalHeaders": {
-    "cache-control": "no-cache, no-store, must-revalidate"
   }
 }
