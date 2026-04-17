@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { blogPosts } from '../../data/blogPosts';
-import OtherProgrammes from './OtherProgrammes';
+import OtherProgrammes from '../OtherProgrammes';
 
 interface AmericansMovingToPortugalPageProps {
   onScheduleCall?: () => void;
