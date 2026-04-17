@@ -1,4 +1,5 @@
 import { blogPosts } from '../../data/blogPosts';
+import OtherProgrammes from '../OtherProgrammes';
 
 interface CaribbeanCBIProps {
   onScheduleCall: () => void;
@@ -387,6 +388,7 @@ export default function CaribbeanCBI({ onScheduleCall }: CaribbeanCBIProps) {
         </div>
       </section>
 
+      <OtherProgrammes exclude="caribbean" />
     </div>
   );
 }
