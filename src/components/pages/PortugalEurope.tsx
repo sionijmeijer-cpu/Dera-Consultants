@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PortugalEligibilityCalculator from '../PortugalEligibilityCalculator';
 import { blogPosts } from '../../data/blogPosts';
+import OtherProgrammes from '../OtherProgrammes';
 
 interface PortugalEuropeProps {
   onScheduleCall: () => void;
@@ -347,6 +348,7 @@ export default function PortugalEurope({ onScheduleCall }: PortugalEuropeProps) 
         </div>
       </section>
 
+      <OtherProgrammes exclude="portugal" />
     </div>
   );
 }
