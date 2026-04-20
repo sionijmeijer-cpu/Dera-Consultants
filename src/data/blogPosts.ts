@@ -409,6 +409,64 @@ Staying informed through reliable sources and consulting with experienced profes
 Ready to understand how this affects your situation? Book a free consultation with our team today and we will give you a clear picture of your options.`
   },
   {
+    id: "x7",
+    title: "Final 24 Hours: The President's Decision on Portugal's 5-to-10 Year Citizenship Rule",
+    slug: "portugal-citizenship-presidential-decision-final-24-hours-april-2026",
+    excerpt: "Tomorrow, April 21st, 2026, is the deadline for the President of Portugal to make his final decision on the proposed 10-year citizenship rule. Here is what the three possible outcomes mean for your residency plans and what to do right now.",
+    author: "Sylvia Awoudu",
+    publishDate: "Apr 20, 2026",
+    category: "Expats",
+    tags: ["Portugal", "Citizenship", "Presidential Decision", "Residency", "2026"],
+    readTime: "7 min read",
+    image: "https://i.imgur.com/LJVcDAf.png",
+    images: ["https://i.imgur.com/sMQnO3L.png", "https://i.imgur.com/qVpZg4J.png"],
+    content: `Final 24 Hours: The President's Decision on Portugal's 5-to-10 Year Citizenship Rule
+
+For weeks, the expat community in Portugal has been watching, waiting, and wondering. The legislative proposal to extend the naturalisation period from 5 to 10 years has been a source of significant anxiety, and now the countdown is almost over. Tomorrow, **April 21st, 2026**, marks the deadline for **President Marcelo Rebelo de Sousa** to make his final decision. This is the moment of truth that will shape the future for thousands of residents who have chosen Portugal as their home.
+
+# A Quick Recap: The Journey to the President's Desk
+
+The proposal to extend the citizenship timeline from 5 to 10 years has had a turbulent journey. Initially, a similar attempt was blocked by the Constitutional Court, which cited concerns about legal certainty and retroactivity. However, the government refined the proposal, ensuring it would apply prospectively, meaning only to new applicants or those not yet eligible under the 5-year rule, which allowed it to pass through Parliament.
+
+Now it rests with **President Marcelo Rebelo de Sousa**, who has until **April 21st** to act. His decision will either solidify the new 10-year rule, send it back for further review, or allow the 5-year rule to remain unchallenged.
+
+# The President's Three Options
+
+Each of the three paths the President can take carries distinct implications for applicants.
+
+| Presidential Action | Description | Immediate Impact |
+|--------------------|-------------|-----------------|
+| Promulgate the Law | The President signs the bill into law | The 10-year rule becomes official immediately |
+| Veto the Law | The President sends the bill back to Parliament with objections | Parliament can override with a qualified majority, or revise the bill |
+| Refer to Constitutional Court | The President requests a preventive review | Delays implementation, potential for the law to be blocked again |
+
+While a direct veto is possible, the most likely scenarios are either promulgation or a referral back to the Constitutional Court. The latter would buy more time and potentially lead to further revisions, but it would also prolong the uncertainty for applicants already in the residency pipeline.
+
+# Who is Most Affected by This Decision
+
+Current residents with less than 5 years of residency face the most significant exposure. If the 10-year rule is promulgated, these individuals will likely fall under the new, longer timeline for citizenship eligibility. This requires a real re-evaluation of long-term plans for anyone who structured their move around the 5-year citizenship clock.
+
+New applicants considering Portugal face a straightforward calculation. Any applications submitted after the law's promulgation would almost certainly be subject to the 10-year rule. If Portugal is on your list and you have been delaying, the next 24 hours matter.
+
+Those nearing the 5-year mark face the most immediate pressure. If the law is signed tomorrow, the window to apply under the 5-year rule could close abruptly. Expediting a citizenship application, where eligibility exists, is the most urgent action available right now.
+
+# The Importance of Legal Certainty
+
+This entire situation underscores a critical principle in immigration law: legal certainty. Investors and individuals make life-altering decisions based on existing rules. Frequent or sudden changes erode trust and make a country less attractive for long-term residency and investment.
+
+The President's decision will not only affect individual applicants but will also send a strong signal about Portugal's commitment to a stable and predictable legal framework. Countries that change the rules after people have committed to a path pay a reputational cost that takes years to recover.
+
+>! In these final hours, the best course of action is not to panic but to be prepared. For my clients, this means understanding the potential outcomes and having a clear strategy for each. If you are close to your 5-year mark, ensure all your documentation is in order. If you are considering Portugal, factor in the possibility of a longer citizenship timeline. The landscape is dynamic, and proactive informed planning is your strongest asset.
+
+# Conclusion: Stay Tuned for Tomorrow
+
+The next 24 hours are pivotal. **The President of Portugal's decision on April 21st** will bring much-needed clarity to the citizenship timeline. Regardless of the outcome, we remain committed to providing accurate, up-to-date analysis and expert guidance to help you navigate your global mobility journey.
+
+We will be closely monitoring the announcement and will provide an immediate update once the decision is made.
+
+If you have questions about how the potential 10-year rule might affect your Portugal citizenship plans, do not wait. Book a free consultation with our team today. Time is genuinely of the essence.`
+  },
+  {
     id: "c1",
     title: "Caribbean CBI: The New Era of Enhanced Due Diligence",
     slug: "caribbean-cbi-enhanced-due-diligence-2026",
