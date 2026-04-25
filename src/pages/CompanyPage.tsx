@@ -1,91 +1,241 @@
-import WhyChooseDera from '../components/WhyChooseDera';
+import { MapPin, Award, Globe } from 'lucide-react';
 
 interface CompanyPageProps {
   onScheduleCall?: () => void;
 }
 
+const pillars = [
+  {
+    num: '01',
+    title: 'Current knowledge',
+    body: 'The world of global mobility changes constantly. Laws shift, programmes evolve, and geopolitical factors play an outsized role. We stay on top of legislative changes and policy nuances so our clients do not have to.',
+  },
+  {
+    num: '02',
+    title: 'Unbiased programme matching',
+    body: 'We do not push a single programme because it is our specialty or offers the highest margin. We listen to your needs, goals, and risk tolerance, then recommend what genuinely fits. Sometimes that means telling you a programme is not right for you.',
+  },
+  {
+    num: '03',
+    title: 'Full process coordination',
+    body: 'We manage the process end to end, coordinating with licensed local lawyers, tax advisors, and government-approved intermediaries so you are never chasing paperwork yourself or dealing with multiple parties without a clear point of contact.',
+  },
+  {
+    num: '04',
+    title: 'Transparent from day one',
+    body: 'We provide a clear, itemised breakdown of all costs upfront including government fees, legal fees, due diligence costs, and ancillary expenses. We set realistic timelines and keep you informed at every stage.',
+  },
+];
+
+const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
+
 export default function CompanyPage({ onScheduleCall }: CompanyPageProps) {
   const handleScheduleCall = () => {
-    const event = new CustomEvent('openScheduleModal');
-    window.dispatchEvent(event);
+    window.dispatchEvent(new CustomEvent('openScheduleModal'));
   };
 
   return (
-    <div className="bg-white">
-      {/* Hero Section with Video */}
-      <section className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
-        {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+    <div className="min-h-screen bg-white">
+
+      {/* HERO VIDEO */}
+      <section className="relative min-h-[620px] flex items-center justify-center overflow-hidden">
+        <video autoPlay muted loop playsInline
+          className="absolute inset-0 w-full h-full object-cover">
           <source src="https://i.imgur.com/50w2Me0.mp4" type="video/mp4" />
         </video>
+        <div className="absolute inset-0 bg-[#0f3460]/70" />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
-
-        {/* Content */}
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Global Mobility, Structured Properly
-          </h1>
-          <p className="text-lg md:text-xl text-white/95 leading-relaxed max-w-3xl mx-auto">
-            When investors, entrepreneurs, and internationally minded families seek greater mobility and optionality, they look for clear guidance and trusted coordination. We are a private immigration advisory focused on second citizenship and residency pathways. Our role is to help clients understand legitimate options, navigate complex processes, coordinate with licensed professionals, and secure additional residency or citizenship with confidence. Every case is approached individually, with discretion and clarity.
-          </p>
+        <div className={`${CONTAINER} relative z-10 py-24`}>
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-black uppercase tracking-[0.25em] text-[#4ade80] mb-5"
+              style={{ fontFamily: "'Inter', sans-serif" }}>
+              Dera Consultants
+            </p>
+            <h1 className="text-[36px] sm:text-[48px] lg:text-[58px] font-black text-white leading-[1.08] tracking-tight mb-6"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              Global Mobility, Structured Properly
+            </h1>
+            <p className="text-[17px] text-white/80 mb-10 max-w-2xl leading-relaxed"
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+              A private advisory for investors, entrepreneurs, and families navigating second citizenship and residency pathways. Every case is approached individually, with discretion and clarity.
+            </p>
+            <button onClick={handleScheduleCall}
+              className="inline-flex items-center gap-2 bg-[#1B7A4E] text-white px-8 py-4 font-black uppercase tracking-widest text-[12px] hover:bg-[#156B3F] transition-all duration-200 shadow-lg hover:scale-105"
+              style={{ fontFamily: "'Inter', sans-serif" }}>
+              Book a free consultation
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Our Journey Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Journey</h2>
-              <p className="text-[#1B7A4E] font-bold text-lg mb-6">Built on Practical Experience</p>
-              
-              <div className="space-y-4 text-gray-700">
-                <p>
-                  Our firm was founded on a simple observation: many capable, globally active individuals struggle to navigate residency and citizenship options efficiently.
-                </p>
-                
-                <p>
-                  The information is fragmented, the processes are complex, and clients often deal with multiple parties without clear coordination.
-                </p>
-                
-                <p>
-                  We created our advisory to simplify that journey.
-                </p>
-                
-                <p>
-                  Today, we support clients by acting as a structured point of guidance and a reliable connector to vetted legal and tax professionals.
-                </p>
-              </div>
+      {/* SYLVIA SECTION */}
+      <section className="py-20 bg-white">
+        <div className={CONTAINER}>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <p className="text-gray-900 font-bold text-lg mb-2">Not hype. Not shortcuts.</p>
-                <p className="text-gray-900 font-bold text-lg">Just clear direction and proper coordination.</p>
+            {/* Photo */}
+            <div className="flex justify-center lg:justify-start">
+              <div className="relative">
+                <img
+                  src="https://i.imgur.com/moWaeQd.jpeg"
+                  alt="Sylvia Awoudu, Founder of Dera Consultants"
+                  className="w-full max-w-md object-cover"
+                  style={{ borderTop: '4px solid #1B7A4E' }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-white/95 px-6 py-4"
+                  style={{ borderTop: '1px solid #e5e7eb' }}>
+                  <p className="font-black text-gray-900 text-[17px]"
+                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                    Sylvia Awoudu
+                  </p>
+                  <p className="text-[12px] text-[#1B7A4E] font-black uppercase tracking-widest mt-0.5"
+                    style={{ fontFamily: "'Inter', sans-serif" }}>
+                    Founder, Dera Consultants
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Right Image */}
-            <div className="flex justify-center">
-              <img 
-                src="https://i.imgur.com/moWaeQd.jpeg"
-                alt="Dera Consultants Team Member"
-                className="rounded-lg shadow-lg w-full max-w-md h-auto object-cover"
-              />
+            {/* Content */}
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
+                style={{ fontFamily: "'Inter', sans-serif" }}>
+                Our story
+              </p>
+              <h2 className="text-[30px] sm:text-[38px] font-black text-gray-900 mb-6 leading-tight"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                Built on practical experience
+              </h2>
+
+              <div className="space-y-4 text-gray-700 mb-8"
+                style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: '17px', lineHeight: '1.8' }}>
+                <p>
+                  Our firm was founded on a simple observation: many capable, globally active individuals struggle to navigate residency and citizenship options efficiently.
+                </p>
+                <p>
+                  The information is fragmented, the processes are complex, and clients often deal with multiple parties without clear coordination or a single point of accountability.
+                </p>
+                <p>
+                  We created this advisory to simplify that journey. Today we support clients by acting as a structured point of guidance and a reliable connector to vetted legal and tax professionals across Portugal and the Caribbean.
+                </p>
+              </div>
+
+              <div className="border-t border-gray-200 pt-8 mb-8">
+                <p className="text-gray-900 font-black text-[18px] mb-1"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  Not hype. Not shortcuts.
+                </p>
+                <p className="text-gray-900 font-black text-[18px]"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  Just clear direction and proper coordination.
+                </p>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center p-4 border border-gray-200"
+                  style={{ borderTop: '3px solid #1B7A4E' }}>
+                  <div className="flex items-center justify-center gap-1 mb-1">
+                    <Award size={14} className="text-[#1B7A4E]" />
+                    <span className="text-[26px] font-black text-gray-900"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>5+</span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold"
+                    style={{ fontFamily: "'Inter', sans-serif" }}>Years</p>
+                </div>
+                <div className="text-center p-4 border border-gray-200"
+                  style={{ borderTop: '3px solid #1B7A4E' }}>
+                  <div className="flex items-center justify-center gap-1 mb-1">
+                    <Globe size={14} className="text-[#1B7A4E]" />
+                    <span className="text-[26px] font-black text-gray-900"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>6+</span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold"
+                    style={{ fontFamily: "'Inter', sans-serif" }}>Countries</p>
+                </div>
+                <div className="text-center p-4 border border-gray-200"
+                  style={{ borderTop: '3px solid #1B7A4E' }}>
+                  <div className="flex items-center justify-center gap-1 mb-1">
+                    <MapPin size={14} className="text-[#1B7A4E]" />
+                    <span className="text-[26px] font-black text-gray-900"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>15+</span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold"
+                    style={{ fontFamily: "'Inter', sans-serif" }}>Programmes</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Dera Section */}
-      <WhyChooseDera />
+      {/* WHY DERA */}
+      <section className="py-20 bg-gray-50">
+        <div className={CONTAINER}>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
+            style={{ fontFamily: "'Inter', sans-serif" }}>
+            Why Dera
+          </p>
+          <h2 className="text-[30px] sm:text-[38px] font-black text-gray-900 mb-3 leading-tight"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            What we actually do differently
+          </h2>
+          <p className="text-gray-500 text-[16px] mb-12 max-w-2xl"
+            style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+            Not marketing language. The practical things that make a real difference when you are navigating a complex, high-stakes process.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {pillars.map(p => (
+              <div key={p.num} className="p-8 bg-white border border-gray-200"
+                style={{ borderTop: '3px solid #1B7A4E' }}>
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"
+                  style={{ fontFamily: "'Inter', sans-serif" }}>
+                  {p.num}
+                </p>
+                <h3 className="text-[20px] font-black text-gray-900 mb-3"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  {p.title}
+                </h3>
+                <p className="text-gray-600 text-[15px] leading-relaxed"
+                  style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+                  {p.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BASED IN PORTUGAL */}
+      <section className="py-20 bg-gray-900 text-white">
+        <div className={CONTAINER}>
+          <div className="max-w-3xl">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4ade80] mb-3"
+              style={{ fontFamily: "'Inter', sans-serif" }}>
+              On the ground
+            </p>
+            <h2 className="text-[30px] sm:text-[38px] font-black text-white mb-6 leading-tight"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              We live inside the systems we advise on
+            </h2>
+            <p className="text-gray-300 text-[17px] leading-relaxed mb-8"
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+              Sylvia Awoudu, our founder, is based in Portugal. She navigates the same immigration systems, the same AIMA appointments, and the same legislative changes that her clients face. That is a fundamentally different level of knowledge than advising from a distance.
+            </p>
+            <p className="text-gray-300 text-[17px] leading-relaxed mb-10"
+              style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+              When a law changes, we know about it immediately. When AIMA changes its processing approach, we see it first-hand. That real-time, on-the-ground knowledge is what we bring to every client engagement.
+            </p>
+            <button onClick={handleScheduleCall}
+              className="inline-flex items-center gap-2 bg-[#1B7A4E] text-white px-8 py-4 font-black uppercase tracking-widest text-[12px] hover:bg-[#156B3F] transition-all duration-200 shadow-lg hover:scale-105"
+              style={{ fontFamily: "'Inter', sans-serif" }}>
+              Book a free consultation
+            </button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
