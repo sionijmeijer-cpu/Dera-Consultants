@@ -39,7 +39,7 @@ const PLACEHOLDER_2 = "https://picsum.photos/seed/mobility2/900/420";
 export const blogPosts: BlogPost[] = [
 
   // ─── ENTREPRENEURS ───────────────────────────────────────────────────────────
-  {
+ {
     id: "e9",
     title: "What Your Nigerian, South African or Ghanaian Passport Actually Gets You in 2026 — And What to Do About It",
     slug: "nigerian-south-african-ghanaian-passport-visa-free-access-2026",
