@@ -40,6 +40,100 @@ export const blogPosts: BlogPost[] = [
 
   // ─── ENTREPRENEURS ───────────────────────────────────────────────────────────
   {
+    id: "x8",
+    title: "Portugal Just Signed the 10-Year Citizenship Law. Here Is What It Actually Means.",
+    slug: "portugal-10-year-citizenship-law-signed-may-2026",
+    excerpt: "Yesterday, President António José Seguro signed Portugal's revised Nationality Law into effect. After months of uncertainty, the decision has been made. Here is what actually changed, what did not, and what the right move is depending on where you stand right now.",
+    author: "Sylvia Awoudu",
+    publishDate: "May 4, 2026",
+    category: "Expats",
+    tags: ["Portugal", "Citizenship", "10-Year Law", "Golden Visa", "Residency", "Breaking News", "2026"],
+    readTime: "10 min read",
+    image: "https://i.imgur.com/PzjIHvC.png",
+    images: ["https://i.imgur.com/govCUii.png"],
+    content: `Portugal Just Signed the 10-Year Citizenship Law. Here Is What It Actually Means.
+
+Yesterday, President António José Seguro signed Portugal's revised Nationality Law into effect. After months of parliamentary votes, constitutional court referrals, political deals, and genuine uncertainty about which direction the President would go, the decision has been made.
+
+I want to be honest with you about what this means, because there is a lot of noise right now and most of it is either panic or spin. I live in Portugal. I work with clients who are in this process right now. And I want to give you the clearest picture I can of what just changed, what did not, and what the right move is depending on where you stand.
+
+# What Actually Happened
+
+The short version is this. On April 1st, the Portuguese Parliament passed a revised Nationality Law by a two-thirds majority, 152 votes in favour and 64 against. That law was then sent to the President, who had 20 days to sign it, veto it, or refer it back to the Constitutional Court for review.
+
+Most observers, including myself, expected either a veto or a referral to the court, largely because President Seguro is affiliated with the Socialist Party, which had opposed the law throughout the entire legislative process and had argued that it contained constitutional problems. A veto was possible. A referral was widely considered the most likely outcome.
+
+Instead, he signed it. On May 3rd, 2026.
+
+The law now awaits publication in the Diario da Republica, which is Portugal's official government gazette. Once it is published there, it enters into force. That publication typically happens within days to a few weeks of a presidential signature. By the time you are reading this, it may already be live.
+
+# What Changed
+
+The core change is the length of time you must be a legal resident in Portugal before you can apply for citizenship by naturalisation.
+
+Under the previous law, most applicants needed five years of legal residency. Under the new law, that rises to ten years for most nationalities. Citizens of European Union member states and CPLP countries, which include Brazil, Angola, Cape Verde, Guinea-Bissau, Mozambique, Sao Tome and Principe, Equatorial Guinea and East Timor, face a seven-year requirement instead of the previous five.
+
+There is also a change to when the residency clock starts. Under the new law, the countdown begins from the date your first residence permit was issued by AIMA, which is the Agency for Integration, Migration and Asylum. It no longer counts from the date you submitted your application. For many people, this distinction alone adds one to two years to their timeline, because there can be significant processing delays between when you apply and when your permit is actually issued.
+
+# What Did Not Change
+
+This is important, and it is the part that is getting lost in most of the coverage I am seeing.
+
+The Portugal Golden Visa programme itself is completely unaffected by this law. The investment routes, the fund options, the family inclusion rules, the renewal process, none of that changed. The programme remains open and fully operational.
+
+Permanent residency after five years of legal residency is also unchanged. You can still apply for permanent residency at the five-year mark, which gives you the right to live and work in Portugal indefinitely without renewing your temporary permit every two years. Permanent residency also gives you Schengen travel freedom. What changed is the step after that. The path to citizenship and a Portuguese passport now takes longer.
+
+Schengen access remains available to you from the moment your residency permit is issued. That has not changed.
+
+# The Question Everyone Is Asking: What About Me?
+
+The answer depends entirely on where you are in the process right now.
+
+If you have already submitted a citizenship application and it is being processed, you are protected. The Constitutional Court ruling from December 2025 made this clear, and it has not been reversed. Pending applications submitted before the new law enters into force must be processed under the rules that applied when you applied. You do not need to refile. You do not need to supplement your application. You are in the queue under the old five-year rule, and that is where you will stay.
+
+If you have five or more years of legal residency in Portugal and have not yet submitted a citizenship application, this is the most important moment in your entire residency journey. The law is signed but not yet published. There may still be a narrow window to submit your application before it enters force, in which case you would be protected in the same way as existing applicants. I would encourage you to speak to a qualified immigration lawyer in Portugal this week, not next week.
+
+If you have three or four years of residency, the new rules will almost certainly apply to you by the time you reach the citizenship threshold. Your Golden Visa or D7 residency remains valid. Your permanent residency at five years remains on track. But citizenship will now be a ten-year journey for most nationalities rather than a five-year one.
+
+If you are just starting your Portugal residency journey, you are entering with clear eyes and a longer horizon. Ten years to citizenship is more in line with most European countries. Germany requires eight years. Italy requires ten. Portugal is no longer the outlier it was. That does not make it a bad investment. It makes it a different investment, and one that needs to be positioned correctly within a broader mobility strategy.
+
+# The President Signed It. But He Said Something Else Too.
+
+This is the detail that almost no one is talking about, and I think it matters.
+
+President Seguro did not sign the law without comment. He attached a public statement to his decision in which he said his signing was informed by the view that stricter criteria and longer timelines do not and should not prevent what he called the indispensable humanitarian protection of children and minors born in Portugal, including their access to health and education. He called for future legislation and policy to give special attention to children of immigrants.
+
+These are not binding legal provisions. The President cannot unilaterally change the law through a statement. But presidential interpretive remarks do shape how courts read legislation, and they may prove relevant in future cases, particularly any brought by investors or residents who challenge the law on constitutional grounds.
+
+There is also the matter of the second decree. Seguro signed only one of the two laws sent to him after the April 1st vote. A separate measure that would have created loss of nationality as a criminal penalty remains suspended. A parliamentary group filed for preventive constitutional review of that decree, and the Constitutional Court has not yet ruled. Whether that provision survives will determine something significant about how the Portuguese state treats naturalised citizens going forward.
+
+# What This Means for the Broader Strategy
+
+I have been saying this for months, and the events of this week make it more relevant than ever. Portugal was never meant to be your only option. It was always meant to be the anchor in a layered strategy.
+
+For clients who are in the early stages of their Portugal journey, the question is no longer just about citizenship. It is about what you do with the next five to ten years while that citizenship matures. And the answer for most internationally mobile professionals and investors is to pair a Portugal residency with a Caribbean citizenship.
+
+A Caribbean passport gives you what Portugal gives you on a ten-year timeline in three to six months. Visa-free Schengen access. UK access. Singapore. Hong Kong. Over 140 countries without a queue or an application. You invest from USD 200,000, you go through due diligence, and within six months you are travelling on a document that works for you immediately.
+
+The two strategies are not in competition. They work together. Caribbean now, for immediate mobility. Portugal for the long game, the EU passport, the permanent residency at five years, and the asset-backed stability of building roots in one of the most livable countries in Europe.
+
+The people I am speaking to this week are not panicking. They are adjusting their sequence. They are asking the right questions about what their current position means and what the most efficient path forward looks like given what just changed. That is the right response.
+
+>! Portugal is still worth it. The Golden Visa programme is still open. Permanent residency at five years is still there. Schengen access is immediate. The passport, when you do get it after ten years, is still one of the most powerful in the world. What changed is the timeline to citizenship and the way the residency clock is counted. That is significant. For some people it changes their strategy considerably. For others it changes very little. The answer depends on where you are in the process and what your original goal was.
+
+# The Honest Bottom Line
+
+If your goal was always Portugal as a permanent home and an eventual EU passport, you are still on the right path. The road is longer. It was always a long road. It is just a bit longer now.
+
+If your goal was citizenship at five years specifically, and that was the primary reason you chose Portugal, then the conversation has shifted. The combination of Caribbean CBI plus Portugal residency becomes the strategy that closes that gap.
+
+Whatever your situation, the worst thing you can do right now is nothing. The window for pending applications may still be open. The programme is still active. The options are still real.
+
+If you want to understand exactly where you stand and what the right move is from here, book a free 30-minute call and we will give you a straight answer based on your specific position.
+
+Ready to understand your options? Book a free consultation with our team today.`
+  },
+  {
     id: "e9",
     title: "What Your Nigerian, South African or Ghanaian Passport Actually Gets You in 2026, And What to Do About It",
     slug: "nigerian-south-african-ghanaian-passport-visa-free-access-2026",
