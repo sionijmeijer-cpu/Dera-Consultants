@@ -41,7 +41,7 @@ export const blogPosts: BlogPost[] = [
   // ─── ENTREPRENEURS ───────────────────────────────────────────────────────────
   {
     id: "e9",
-    title: "What Your Nigerian, South African or Ghanaian Passport Actually Gets You in 2026 — And What to Do About It",
+    title: "What Your Nigerian, South African or Ghanaian Passport Actually Gets You in 2026, And What to Do About It",
     slug: "nigerian-south-african-ghanaian-passport-visa-free-access-2026",
     excerpt: "A Nigerian, South African, or Ghanaian passport is not a weak document. But in 2026, the gap between what it offers and what a second passport unlocks is significant enough to matter for anyone building an international career, business, or family plan.",
     author: "Sylvia Awoudu",
@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     image: "https://i.imgur.com/JkP7ioA.png",
     images: ["https://i.imgur.com/PkDc3Kr.png"],
-    content: `What Your Nigerian, South African or Ghanaian Passport Actually Gets You in 2026 — And What to Do About It
+    content: `What Your Nigerian, South African or Ghanaian Passport Actually Gets You in 2026, And What to Do About It
 
 I want to start by saying something clearly: holding a Nigerian, South African, or Ghanaian passport is not a disadvantage you should be ashamed of. These are real countries with real economies and real citizens who travel, do business, and build lives across the world every single day.
 
