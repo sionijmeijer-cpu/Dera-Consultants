@@ -27,7 +27,21 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
       },
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-dom/client'],
+          'radix-vendor': [
+            '@radix-ui/react-select',
+            '@radix-ui/react-slot',
+            '@radix-ui/react-alert-dialog',
+          ],
+          'utils': ['class-variance-authority', 'clsx', 'tailwind-merge'],
+        },
+      },
     },
+    chunkSizeWarningLimit: 500,
+    minify: 'esbuild',
+    target: 'esnext',
   },
   optimizeDeps: {
     entries: ["index.html", "src/**/*.{ts,tsx,js,jsx}"],
