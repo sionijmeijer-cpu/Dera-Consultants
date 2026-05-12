@@ -40,6 +40,141 @@ export const blogPosts: BlogPost[] = [
 
   // ─── ENTREPRENEURS ───────────────────────────────────────────────────────────
   {
+    id: "x9",
+    title: "Portugal's New Civic Knowledge Test: What It Is, What It Covers, and What It Means for You",
+    slug: "portugal-civic-knowledge-test-citizenship-2026",
+    excerpt: "Portugal's new nationality law introduces a civic knowledge test for anyone applying for citizenship. Here is what it covers, what is still unknown, how it compares to the UK, Germany, and the Netherlands, and what it means if you are planning to move to Portugal.",
+    author: "Sylvia Awoudu",
+    publishDate: "May 11, 2026",
+    category: "Expats",
+    tags: ["Portugal", "Citizenship", "Civic Test", "Nationality Law", "Residency", "2026"],
+    readTime: "14 min read",
+    image: "https://www.getsecondpassport.eu/images/articles/portugal-civic-knowledge-test-citizenship-2026.png",
+    images: [],
+    content: `Portugal's New Civic Knowledge Test: What It Is, What It Covers, and What It Means for You
+
+On May 3rd 2026, President Marcelo signed Portugal's new nationality law. Most of the coverage focused on one thing: the citizenship timeline moving from five years to ten years for most nationalities. That is the headline, and it is significant. But buried inside the same legislation is a change that has received far less attention and that will affect every single person who eventually applies for a Portuguese passport.
+
+Portugal is introducing a civic knowledge test.
+
+If you are planning to relocate to Portugal, if you already have a residency visa, or if you are just starting to research your options, you need to understand what this test is, what it covers, and what it does not yet tell us. This article covers all of it, including how Portugal compares to other European countries that have been running similar tests for years.
+
+# What Exactly Is the Civic Knowledge Test?
+
+The civic knowledge test is a new requirement added to the naturalisation process under the revised Portuguese Nationality Law. It is separate from the A2 Portuguese language certificate, which has been required for years and remains unchanged. You need both.
+
+The distinction matters. The language test, known as the CIPLE or PLA, proves that you can communicate in Portuguese at a basic level. The civic test proves something different: that you understand Portugal. Its history, its institutions, its values, and how the state is organised.
+
+Think of it this way. You can speak a country's language fluently and still know very little about how that country actually works. The civic test is designed to close that gap before someone becomes a citizen.
+
+It also comes alongside a formal declaration. As part of the naturalisation application, you will be required to sign a written commitment affirming your adherence to democratic principles. This is not the test itself. It is a separate step in the process.
+
+# What Will the Test Cover?
+
+Based on the law as signed, the civic knowledge assessment will examine your understanding of Portuguese history from its founding through to the modern era, national culture and symbols, fundamental rights and duties of residents and citizens, the political organisation of the Portuguese state including how government functions and how institutions are structured, and democratic values and principles including the constitutional framework.
+
+The law describes it as a requirement to demonstrate sufficient knowledge of fundamental rights and the political organisation of the State. That language is deliberate. It is not asking you to memorise obscure trivia. It is asking you to demonstrate that you understand the country you are joining as a citizen.
+
+# What Is Still Unknown
+
+Here is where complete transparency is necessary, because a lot of people are presenting this as settled when it is not.
+
+As of May 2026, the exact format of the test has not been published. Nobody knows whether it will be written, oral, or multiple choice. The number of questions, the passing threshold, the institution responsible for administering it, where it will be taken, whether it can be done abroad, the cost if any, and whether there will be exemptions for certain applicants are all still to be confirmed.
+
+The implementing regulations are still pending. They will be published after the law comes into force through the Diário da República, which is Portugal's official government gazette. Until that publication happens, the law is not yet technically in effect.
+
+This is not unusual in Portugal. The law creates the requirement. The administrative machinery follows. The same happened when the A2 language test was introduced: the obligation came first, and the specific exam format and approved testing centres were defined afterwards.
+
+>! If you are starting your residency journey now, you will not be applying for citizenship for at minimum ten years. The civic test format, study materials, and preparation resources will be fully available long before you reach that stage. This is not something to lose sleep over today.
+
+# Why Is Portugal Doing This Now?
+
+Portugal is not doing this in isolation. The country is following a pattern that most of Western Europe established years ago.
+
+The political context matters. Portugal has seen significant immigration growth over the past decade. Between the Golden Visa programme, the D7, the D8, and a general increase in people relocating from Africa, South America, Asia, and North America, the pressure on AIMA has been intense. Processing backlogs have been severe. Public debate about integration and belonging has grown louder.
+
+The government's position is clear: citizenship should represent a genuine connection to Portugal, not just a document issued after a waiting period. Extending the residency requirement to ten years and adding a civic test are both expressions of that position. Whether you agree with that policy or not, that is the reasoning behind it.
+
+# How Does Portugal Compare to the Rest of Europe?
+
+This is the part of the conversation that most people are missing. Portugal is not breaking new ground here. It is arriving late to something the rest of Europe did years ago.
+
+| Country | Test Name | Introduced | What It Covers |
+|---------|-----------|------------|----------------|
+| United Kingdom | Life in the UK Test | 2005 | British history, culture, government, and everyday life. 24 questions, 75% pass mark required |
+| Austria | Integration Exam | 2006 | German language and knowledge of Austrian society and values |
+| Germany | Einbürgerungstest | 2008 | German history, law, society, and democratic values. 33 questions, pass mark of 17 required |
+| Netherlands | Inburgering Exam | 2013 | Dutch language at A2 level plus knowledge of Dutch society, norms, and institutions |
+| Spain | CCSE | 2015 | Spanish constitution, culture, history, and society. Administered by the Instituto Cervantes |
+| Portugal | Civic Knowledge Test | 2026 | Portuguese history, culture, rights, duties, and democratic institutions |
+
+The pattern across all of these countries is consistent. Civic integration requirements have become a standard part of the naturalisation process across Western Europe. Portugal was one of the last major destination countries in the EU not to have one. That has now changed.
+
+# A Closer Look at How Other Countries Do It
+
+The UK has required a citizenship knowledge test since 2005. The Life in the UK test covers British history, culture, government, and everyday life. It costs £50 per attempt and can be retaken if failed. Studies have shown that only around one in seven British-born citizens could pass it without studying, which tells you something about how culturally specific the questions can get. The point is that preparation matters far more than nationality.
+
+Germany's Einbürgerungstest consists of 33 multiple-choice questions: 30 covering general knowledge of German history, law, society, and values, and three questions specific to the federal state where the applicant lives. A passing score of 17 out of 33 is required. Germany's approach is notably civic in its focus, emphasising how the government and law work, labour rights, and the country's place within the European Union.
+
+The Dutch integration system has existed in various forms for decades. Under the Civic Integration Act of 2021, most non-EU nationals who wish to obtain permanent residency or Dutch citizenship must pass a comprehensive integration examination covering Dutch language skills and a separate component testing knowledge of Dutch society. The Netherlands takes this seriously enough that applicants who are required to integrate but fail to do so within the set timeframe can face financial penalties.
+
+Spain's CCSE has been administered by the Instituto Cervantes since 2015, the same body that runs Spanish language certifications globally. The test is conducted entirely in Spanish and costs €85 per attempt, with results valid for four years.
+
+Portugal was watching all of this for over twenty years. It has now made the same decision.
+
+# Is the Test Going to Be Hard?
+
+Nobody can say definitively until the format is published. What the experience of other countries tells us is that these tests are manageable when you prepare for them, and that people who have genuinely lived in a country for several years tend to absorb much of the required knowledge through everyday life.
+
+The German test has a pass rate high enough that it is not considered a major barrier for most applicants. The UK test, despite its controversies, is passed by the majority of applicants who study the official handbook. The Dutch system provides extensive support materials and municipal guidance.
+
+Portugal's test covers Portuguese history, culture, rights, duties, and democratic institutions. If you are going to live in Portugal for ten years before applying for citizenship, you will have a decade to learn these things. Most of it will come naturally through living, working, paying taxes, and building a life there. The formal exam will simply require you to demonstrate that knowledge in a structured setting.
+
+>! The people who struggle with these tests are almost always the ones who did not prepare. That is a solvable problem, and for anyone starting their Portugal journey today, there is no shortage of time to prepare.
+
+# What Has Not Changed
+
+Given how much misinformation is circulating about this law, it is worth being very clear about what remains exactly as it was.
+
+| What People Think Changed | Reality |
+|--------------------------|---------|
+| All visa routes are closed | False. D7, D8, D2, and Golden Visa are fully open |
+| Permanent residency now takes 10 years | False. Permanent residency at 5 years is unchanged |
+| Schengen access is affected | False. Schengen access is immediate from day one of your permit |
+| Pending applications fall under new rules | False. Applications submitted before the law takes effect are protected |
+| The Golden Visa programme is gone | False. The programme was not touched by this legislation |
+
+# Who Does This Actually Affect?
+
+The civic test affects anyone applying for Portuguese citizenship through naturalisation. That is the process of becoming a citizen after a period of legal residency.
+
+It does not affect your residency. It does not affect your right to live, work, or do business in Portugal. It does not affect your access to Schengen. These are all governed by your residency status, not your citizenship status.
+
+If you hold a passport from a CPLP country, meaning a Portuguese-speaking nation such as Brazil, Cape Verde, Angola, or Mozambique, your citizenship timeline is seven years rather than ten. The civic test will still apply to you. EU nationals face a seven-year timeline as well. Nigerian, Ghanaian, South African, and most other nationalities are on the ten-year track.
+
+# The Bigger Picture
+
+Portugal has made citizenship harder. That is not spin. That is the reality of what was signed on May 3rd.
+
+What it has not done is close its doors. The routes to residency are open. The quality of life is still exceptional. The real estate market still offers strong fundamentals. The ability to build a business, invest in property, and access the entirety of the European Union remains intact.
+
+For people considering Portugal today, the question has shifted. The question used to be: can I get citizenship in five years? Now it is: can I build a life here over ten years that is worth having? That is actually a better question, because the best decisions about where to live have never been driven purely by the speed of a passport timeline.
+
+Portugal still makes sense. It just requires a longer commitment than it used to. For some people, that changes the calculation. For others, a decade in one of the most liveable countries in Europe is not a burden. It is the point.
+
+>! Every situation is different. Your passport, your income structure, your timeline, and what you actually want your life to look like all affect which path makes sense for you. If you want a straight answer on where you stand, book a consultation and we will give you clarity without the jargon.
+
+# What Should You Do Right Now?
+
+If you are already in the process, talk to your lawyer about whether your application falls under the old or new rules. Do not assume either way.
+
+If you are considering Portugal and you have not started yet, the clock on your residency timeline starts from when your first permit is issued, not from when you apply. Starting sooner rather than later is always in your favour.
+
+If you are weighing Portugal against other options, countries like Greece and Malta still offer different timelines and structures worth understanding. The Caribbean citizenship by investment programmes offer a completely different route to a second passport if your priority is speed and global mobility rather than a European base.
+
+Ready to understand your options? Book a consultation with our team and we will give you a straight answer based on where you stand and what your goals actually are.`
+  },
+  {
     id: "x8",
     title: "Portugal Just Signed the 10-Year Citizenship Law. Here Is What It Actually Means.",
     slug: "portugal-10-year-citizenship-law-signed-may-2026",
