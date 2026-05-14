@@ -110,8 +110,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email Us</h3>
-                    <a href="mailto:info@getsecondpassport.eu" className="text-[#0f3460] hover:underline font-medium">
-                      info@getsecondpassport.eu
+                    <a href="mailto:s.awoudu@getsecondpassport.eu" className="text-[#0f3460] hover:underline font-medium">
+                      s.awoudu@getsecondpassport.eu
                     </a>
                     <p className="text-sm text-gray-600 mt-1">We will respond within 24 hours</p>
                   </div>

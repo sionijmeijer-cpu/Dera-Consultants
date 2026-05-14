@@ -222,8 +222,8 @@ export default function ResearchPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-sm">Email Us</h3>
-                    <a href="mailto:info@getsecondpassport.eu" className="text-[#0f3460] hover:underline text-sm font-medium">
-                      info@getsecondpassport.eu
+                    <a href="mailto:s.awoudu@getsecondpassport.eu" className="text-[#0f3460] hover:underline text-sm font-medium">
+                      s.awoudu@getsecondpassport.eu
                     </a>
                   </div>
                 </div>
