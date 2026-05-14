@@ -3,10 +3,12 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { shipperIdsPlugin } from "./plugins/vite-plugin-shipper-ids";
+import { ogInjectPlugin } from "./plugins/vite-plugin-og-inject";
 
 export default defineConfig({
   plugins: [
     shipperIdsPlugin(),
+    ogInjectPlugin(),
     react(),
     tailwindcss(),
     {
