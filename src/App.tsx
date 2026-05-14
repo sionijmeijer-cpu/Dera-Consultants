@@ -27,9 +27,6 @@ const BlogPage = lazy(loadBlogPage);
 const loadBlogPostPage = () => import('./pages/BlogPostPage');
 const BlogPostPage = lazy(loadBlogPostPage);
 
-const loadGuidesPage = () => import('./pages/GuidesPage');
-const GuidesPage = lazy(loadGuidesPage);
-
 const loadGuidesStorePage = () => import('./pages/GuidesStorePage');
 const GuidesStorePage = lazy(loadGuidesStorePage);
 
@@ -97,7 +94,6 @@ function App() {
       loadBlogPage();
       loadBlogPostPage();
       loadGuidesStorePage();
-      loadGuidesPage();
       loadCheckoutSuccessPage();
       loadAmericansMovingToPortugalPage();
       loadScheduleCallModal();
@@ -171,7 +167,6 @@ function App() {
       '/blog': loadBlogPage,
       '/guides': loadGuidesStorePage,
       '/checkout/success': loadCheckoutSuccessPage,
-      '/guides-old': loadGuidesPage,
     };
 
     const shouldIgnore = (href: string) =>
@@ -214,9 +209,6 @@ function App() {
     }
     if (path === '/guides') return <GuidesStorePage />;
     if (path === '/checkout/success') return <CheckoutSuccessPage />;
-    if (path === '/guides-old') {
-      return <GuidesPage onScheduleCall={() => setIsScheduleModalOpen(true)} />;
-    }
 
     return <HomePage />;
   };
