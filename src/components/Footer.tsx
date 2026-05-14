@@ -78,10 +78,10 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Mail className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#1B7A4E]" />
                 <a
-                  href="mailto:info@getsecondpassport.eu"
+                  href="mailto:s.awoudu@getsecondpassport.eu"
                   className="hover:text-[#1B7A4E] transition-colors duration-200 break-all"
                 >
-                  info@getsecondpassport.eu
+                  s.awoudu@getsecondpassport.eu
                 </a>
               </li>
 
