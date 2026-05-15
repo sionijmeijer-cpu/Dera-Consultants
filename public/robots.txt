@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /.shipper/
-Sitemap: https://www.getsecondpassport.eu/api/sitemap
+Sitemap: https://www.getsecondpassport.eu/sitemap.xml

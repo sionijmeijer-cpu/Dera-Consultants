@@ -2,22 +2,13 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { shipperIdsPlugin } from "./plugins/vite-plugin-shipper-ids";
 import { ogInjectPlugin } from "./plugins/vite-plugin-og-inject";
 
 export default defineConfig({
   plugins: [
-    shipperIdsPlugin(),
     ogInjectPlugin(),
     react(),
     tailwindcss(),
-    {
-      name: 'remove-monitor-script',
-      apply: 'build',
-      transformIndexHtml(html) {
-        return html.replace(/<script[^>]*src="\/.shipper\/monitor\.js"[^>]*><\/script>/g, '');
-      },
-    },
   ],
   resolve: {
     alias: {
@@ -62,7 +53,7 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     strictPort: true,
-    allowedHosts: [".modal.host", ".shipper.now", "shipper.now", "localhost", ".localhost"],
+    allowedHosts: [".modal.host", "localhost", ".localhost"],
     hmr: {
       clientPort: 443,
     },
