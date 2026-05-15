@@ -3,10 +3,12 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { ogInjectPlugin } from "./plugins/vite-plugin-og-inject";
+import { ssgArticlesPlugin } from "./plugins/vite-plugin-ssg-articles";
 
 export default defineConfig({
   plugins: [
     ogInjectPlugin(),
+    ssgArticlesPlugin(),
     react(),
     tailwindcss(),
   ],

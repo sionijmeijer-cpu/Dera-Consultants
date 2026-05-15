@@ -1,38 +1,14 @@
 {
-  "routes": [
-    {
-      "route": "/sitemap.xml",
-      "serve": "/sitemap.xml",
-      "statusCode": 200,
-      "headers": {
-        "content-type": "application/xml; charset=utf-8",
-        "cache-control": "no-cache, no-store, must-revalidate"
-      }
-    },
-    {
-      "route": "/robots.txt",
-      "serve": "/robots.txt",
-      "statusCode": 200
-    }
-  ],
   "navigationFallback": {
-    "rewrite": "index.html",
+    "rewrite": "/index.html",
     "exclude": [
       "/assets/*",
       "/images/*",
-      "/css/*",
-      "/js/*",
-      "/static/*",
       "/share/*",
-      "/favicon.ico",
-      "/robots.txt",
-      "/sitemap.xml",
-      "/api/*"
+      "/*.xml",
+      "/*.txt",
+      "/*.ico",
+      "/*.json"
     ]
-  },
-  "responseOverrides": {
-    "404": {
-      "rewrite": "/index.html"
-    }
   }
 }
