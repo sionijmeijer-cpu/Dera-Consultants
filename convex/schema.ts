@@ -26,4 +26,10 @@ export default defineSchema({
     guideId: v.optional(v.string()),
   })
     .index("by_email", ["email"]),
+
+  articleViews: defineTable({
+    slug: v.string(),
+    count: v.number(),
+  })
+    .index("by_slug", ["slug"]),
 });
