@@ -10,6 +10,15 @@ export interface ArticleMeta {
 
 export const articlesMeta: ArticleMeta[] = [
   {
+    slug: "dominica-citizenship-by-investment-complete-guide-2026",
+    title: "Dominica Citizenship by Investment 2026: The Complete Guide",
+    description: "Dominica's citizenship by investment programme has been running since 1993 and remains the most affordable entry point in the Caribbean at $200,000. This is the complete, honest guide to how it works in 2026, what it costs in full, what the passport actually gets you, and what changed this year.",
+    image: "https://www.getsecondpassport.eu/images/articles/dominica-cbi-complete-guide-2026.png",
+    lastmod: "2026-05-15",
+    priority: "0.9",
+    changefreq: "monthly",
+  },
+  {
     slug: "golden-visa-investors-lawsuit-portugal-citizenship-law-2026",
     title: "500 Golden Visa Investors Are Preparing to Sue Portugal. Here Is What It Means for You.",
     description: "More than 500 Golden Visa holders, most of them American, are preparing a collective lawsuit against the Portuguese government after the citizenship timeline was extended from five years to ten. Here is what their legal argument is, what protection exists for people already in the process, and what this means for anyone considering Portugal right now.",

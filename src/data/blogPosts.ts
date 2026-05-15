@@ -38,6 +38,211 @@ const PLACEHOLDER_2 = "https://picsum.photos/seed/mobility2/900/420";
 
 export const blogPosts: BlogPost[] = [
 
+  {
+    id: "c6",
+    title: "Dominica Citizenship by Investment 2026: The Complete Guide",
+    slug: "dominica-citizenship-by-investment-complete-guide-2026",
+    excerpt: "Dominica's citizenship by investment programme has been running since 1993 and remains the most affordable entry point in the Caribbean at $200,000. This is the complete, honest guide to how it works in 2026, what it costs in full, what the passport actually gets you, and what changed this year.",
+    author: "Sylvia Awoudu",
+    publishDate: "May 15, 2026",
+    category: "Citizenship",
+    tags: ["Dominica", "CBI", "Caribbean", "Second Passport", "Citizenship by Investment", "2026"],
+    readTime: "14 min read",
+    image: "https://www.getsecondpassport.eu/images/articles/dominica-cbi-complete-guide-2026.png",
+    images: [],
+    content: `Dominica Citizenship by Investment 2026: The Complete Guide
+
+When people ask me which Caribbean citizenship programme to start with, Dominica is almost always the first conversation. Not because it is perfect. But because it has been running since 1993, it is the most affordable entry point in the Caribbean at $200,000, and it has a track record that newer programmes simply cannot match.
+
+That said, 2026 has brought changes that every serious applicant needs to understand before they commit. The programme has tightened. Processing times have lengthened. The United States has downgraded visa access for Dominican passport holders. And a regional regulatory body is now reshaping how the entire Caribbean CBI industry operates.
+
+This article covers everything: how the programme works, what it costs in full, what the passport actually gets you and where it does not reach, what changed in 2026, and who Dominica is genuinely right for.
+
+## What Is the Dominica CBI Programme?
+
+The Commonwealth of Dominica launched its citizenship by investment programme in 1993, making it the longest-running CBI programme in the world. It allows foreign nationals to obtain full Dominican citizenship and a passport by making a qualifying financial investment into the country's economy.
+
+You do not need to live in Dominica. You do not need to speak a language. You do not need to pass a cultural knowledge test. The entire process can be completed remotely through a licensed agent.
+
+Citizenship is permanent once granted, can be passed to future generations, and Dominica permits unrestricted dual citizenship. You keep your original passport.
+
+## The Two Investment Routes
+
+Dominica offers two qualifying investment pathways.
+
+| Route | Minimum Investment | Key Details |
+|-------|-------------------|-------------|
+| Economic Diversification Fund (EDF) | $200,000 for a single applicant | Non-refundable donation to the national development fund. Lowest entry point in the Caribbean |
+| Approved Real Estate | $200,000 purchase price | Government-approved eco-resort and hospitality developments only. Property must be held for 3 years minimum, 5 years if selling to another CBI investor |
+
+The EDF route is the more straightforward of the two. You make the donation, it supports government infrastructure and development, and there is no property to manage, maintain, or eventually sell. For most of my clients who are adding Dominica to a broader mobility strategy rather than seeking a Caribbean holiday home, the EDF is the cleaner choice.
+
+The real estate route suits investors who want a tangible asset and are comfortable with the holding period requirements. Some approved developments also offer rental income and complimentary stays during the holding period, which can offset costs over time.
+
+>! Neither route is better in absolute terms. The right choice depends on whether you want simplicity or a physical asset. What I tell clients is this: if you are buying Dominica purely for the passport and global mobility, take the EDF. If you want the passport and are genuinely interested in Caribbean real estate as an investment, the real estate route deserves a proper conversation.
+
+## The Full Cost Breakdown
+
+The $200,000 investment is the headline. The total commitment is higher, and understanding the full picture before you begin is essential.
+
+For a single applicant via the EDF route:
+
+| Cost Item | Amount |
+|-----------|--------|
+| EDF Contribution | $200,000 |
+| Government Due Diligence Fee | $7,500 |
+| Application Processing Fee | $1,000 |
+| Interview Fee | $1,000 |
+| Certificate of Naturalization Fee | $500 |
+| Passport Issuance | Approximately $500 |
+| Agent and Advisory Fees | $15,000 to $25,000 |
+| Document Preparation (translation, notarization) | $1,000 to $2,500 |
+| Total Estimated for Single Applicant | $226,500 to $237,500 |
+
+For a family of four via EDF:
+
+| Cost Item | Amount |
+|-----------|--------|
+| EDF Contribution | $250,000 (government family rate) |
+| Government Fees (main applicant and three dependents) | $100,000 |
+| Agent and Advisory Fees | $20,000 to $35,000 |
+| Document Preparation | $3,000 to $5,000 |
+| Total Estimated for Family of Four | $373,000 to $390,000 |
+
+The agent fee range is wide because it reflects the level of service, the complexity of the application, and the experience of the advisory team. An application with a straightforward financial background and clean documentation is less expensive to prepare than one involving multiple jurisdictions, complex corporate structures, or politically sensitive employment history.
+
+No funds are transferred before approval in principle is received from the Citizenship by Investment Unit. This is an important protection for applicants and a standard feature of the programme.
+
+## Processing Times: What Is Advertised and What Really Happens
+
+This is where I am going to be direct with you, because most of what you will read elsewhere gives you the marketing figure rather than the reality.
+
+Dominica advertises a processing time of three to six months. In practice, the IMI Processing Times Tool, which tracks real case data, showed an average of 9.3 months in Q4 2025, with reported cases ranging from four to eighteen months.
+
+That is the widest spread of any Caribbean programme. Some applicants do process in four to five months when their documentation is complete and their profile is straightforward. Others wait considerably longer, particularly where enhanced due diligence is triggered or where documents need to be re-submitted.
+
+| Advertised Timeline | Real Average (Q4 2025) | Range Reported |
+|--------------------|----------------------|----------------|
+| 3 to 6 months | 9.3 months | 4 to 18 months |
+
+The factors that extend processing the most are incomplete documentation submitted at the start, discrepancies between financial records and stated source of funds, politically exposed person status or close associations with PEPs, and applications from nationalities subject to enhanced review protocols.
+
+The factors that shorten processing are a complete and accurate file submitted in one go, a clean and well-documented financial history, no prior visa refusals or criminal record of any kind, and working with an agent who knows exactly what the CBI Unit is looking for before submission.
+
+## What the Dominica Passport Actually Gets You
+
+Dominica passport holders have visa-free or visa-on-arrival access to over 140 countries. Key destinations include the entire Schengen Area covering 27 European countries, China, Singapore, Hong Kong, and Russia.
+
+Now for the part that most guides quietly skip.
+
+The Dominica passport does not give visa-free access to the United Kingdom or Ireland. If UK access is a primary goal, Dominica alone does not solve that problem. Grenada and St Kitts offer better UK access options, and a Portugal residency pathway opens UK access via the Schengen Area without a UK-specific visa for short stays.
+
+The United States situation in 2026 is also worth understanding clearly. The US downgraded Dominican B-1 and B-2 visitor visa validity from ten years multiple entry to three months single entry, and Dominica was included in the January 2026 immigrant visa freeze covering 75 countries. The State Department has not signalled a timeline for reversal.
+
+This does not eliminate the value of the Dominica passport for US travel. US visa access is not visa-free under any Caribbean CBI programme. What it does mean is that the Dominica passport holder applying for a US visa in 2026 will face a shorter validity period than they would have a year ago.
+
+| Destination | Access |
+|------------|--------|
+| Schengen Area (27 countries) | Visa-free |
+| China | Visa-free |
+| Singapore | Visa-free |
+| Hong Kong | Visa-free |
+| United Kingdom | Visa required |
+| United States | Visa required |
+| Canada | Visa required |
+
+## The Tax Environment
+
+Dominica has no wealth tax, no inheritance tax, and no capital gains tax. For investors who do not live in Dominica, worldwide income is generally not subject to Dominican taxation.
+
+One clarification worth making: Dominica does impose income tax on income sourced within Dominica for tax residents. If you are not living in Dominica, which most CBI applicants are not, this does not apply to you.
+
+For Nigerian, Ghanaian, and South African investors using Dominica as part of a broader tax planning strategy, the absence of wealth, inheritance, and capital gains taxes is a meaningful advantage. Always consult a qualified international tax advisor about your specific situation before making any decisions based on tax considerations.
+
+## Family Inclusion
+
+One of Dominica's strongest features for families is the breadth of who can be included in a single application.
+
+| Family Member | Eligible |
+|--------------|---------|
+| Spouse | Yes |
+| Dependent children under 18 | Yes |
+| Children aged 18 to 30 in full-time education, supported by the main applicant | Yes |
+| Unmarried daughters under 25, supported by and living with the main applicant | Yes |
+| Dependent parents of the main applicant or spouse | Yes |
+| Mentally or physically challenged dependent children | Yes |
+
+The inclusion of dependent parents and adult children in full-time education is a significant advantage over some other Caribbean programmes, which restrict inclusion more narrowly to spouse and minor children.
+
+Each dependent pays their own due diligence and processing fees, which is reflected in the family cost breakdown above.
+
+## Due Diligence: What West African Applicants Need to Know
+
+Caribbean CBI programmes apply the same due diligence standards to all applicants, but the depth of documentation expected varies based on the applicant's country of origin and financial profile.
+
+For applicants from Nigeria, Ghana, and South Africa, enhanced due diligence is standard. This means thorough source of funds documentation going back several years, source of wealth narrative with supporting evidence, background checks conducted by specialist third-party firms, and in some cases on-the-ground verification.
+
+This is not a reason not to apply. It is a reason to prepare properly.
+
+A well-prepared application from a Nigerian entrepreneur with a clean business history, clear corporate structure, and documented income consistently succeeds. A poorly prepared application from any nationality does not. The difference between the two is preparation and the quality of the advisory support behind the application.
+
+The mandatory interview introduced in 2023 applies to all applicants regardless of nationality. It is conducted virtually and focuses on confirming the information in your application, your knowledge of Dominica, and your intentions as a future citizen. An experienced advisor will prepare you for this thoroughly.
+
+>! I have supported clients from Lagos, Accra, Cape Town, and Johannesburg through the Dominica process. The ones who succeed share one characteristic above everything else: they approach the process with complete transparency and organise their documentation as if every decision they have ever made about money is going to be questioned. Because it will be. That is not a threat. It is how legitimate programmes protect their integrity and yours.
+
+## What Changed in 2026
+
+Several developments in 2026 are reshaping the Dominica programme and the broader Caribbean CBI landscape. Every applicant needs to understand these before they begin.
+
+In March 2026, Dominica's CIU suspended new applications from Iranian nationals, with narrow exceptions for Iranians who can demonstrate at least ten years of separation from the country and no Iranian assets or business ties. This mirrors restrictions Dominica already applied to North Korean and Sudanese nationals.
+
+Since June 2024, the CBI Unit has revoked 68 Dominican passports for fraud or material misrepresentation. This signals a meaningfully tighter post-approval enforcement posture than existed in earlier years of the programme. It is also a strong signal to applicants: the programme is being actively managed and historical approvals are subject to ongoing review.
+
+The ECCIRA agreement, the Eastern Caribbean Citizenship by Investment Regulatory Authority signed in September 2025, is the most significant structural change to the regional industry in years. It introduces a centralized regional database that prevents an applicant denied by one CBI unit from filing in another. It also commits signatory nations to a 30-day physical residency requirement, though the implementation timeline varies by country and Dominica's specific legislative process for this requirement is still being drafted.
+
+The US visa changes described above, while not directly a programme change, represent a shift in the value of the Dominican passport for US-focused applicants.
+
+| 2026 Change | Impact on Applicants |
+|-------------|---------------------|
+| Iranian nationals suspended | No direct impact for most clients |
+| 68 passports revoked | Reinforces need for complete transparency from day one |
+| ECCIRA regional database | Cannot apply to another programme after rejection in any Caribbean country |
+| 30-day residency requirement (pending) | May require a short stay in Dominica in future. Timeline not confirmed |
+| US visa downgrade | Shorter US visa validity for Dominican passport holders |
+
+## Who Dominica Is Right For
+
+Dominica makes strong strategic sense for a specific profile of investor and globally mobile professional.
+
+It is the right programme if you hold a Nigerian, Ghanaian, or South African passport and your primary goal is Schengen access without a visa queue for every European trip. The $200,000 entry point is the most accessible route to that outcome available anywhere in the world.
+
+It suits investors who want fast processing relative to European residency programmes, no physical relocation, and the option to add parents and adult children to the same application.
+
+It works well as the immediate mobility piece in a broader strategy. Many of my clients hold Dominica alongside a Portugal Golden Visa: the Caribbean passport gives them Schengen freedom now while the Portugal clock runs toward an EU passport in ten years.
+
+It is also well suited to entrepreneurs who travel frequently for business across Africa, Asia, and Europe and need to enter those markets without applying for visas weeks in advance.
+
+## Who Dominica Is Not Right For
+
+Dominica does not make sense as your primary strategy if your main goal is US access or UK access. The programme does not solve those problems and you should not structure a significant financial commitment around the expectation that it will.
+
+It is also not the right programme if you want a refundable investment. The EDF contribution is non-refundable. If capital recovery matters to you, St Lucia's National Action Bond route or a real estate programme with a clear exit is worth comparing.
+
+And it is not suitable if you are in a hurry and expecting the three to four month timeline to be reliable. Based on Q4 2025 data, plan for nine months minimum and be pleasantly surprised if it moves faster.
+
+>! Dominica is not the flashiest passport in the Caribbean. It does not have the US E-2 treaty that Grenada has. It does not have the fastest advertised processing of St Kitts. What it has is thirty years of consistent operation, the lowest cost of entry in the market, and a well-understood due diligence process that rewards transparency and preparation. For investors who go in with clear eyes and complete documentation, it remains one of the most reliable second citizenship routes available in 2026.
+
+## The Honest Bottom Line
+
+Dominica's CBI programme is a serious, well-established pathway to a second citizenship that opens over 140 countries and provides a genuine Plan B for internationally mobile families and investors.
+
+The $200,000 entry point is real, but the total commitment including government fees, agent fees, and document costs is closer to $230,000 for a single applicant and $380,000 for a family of four. Plan for nine months of processing rather than three. Accept that the US and UK require separate visa strategies. And approach the due diligence process with the same rigour you would apply to any major financial transaction.
+
+If those terms work for your situation, Dominica remains one of the strongest value propositions in the global citizenship by investment market.
+
+If you want to understand whether Dominica is the right programme for your specific passport, income structure, and mobility goals, book a consultation and we will give you a straight answer based on your actual situation rather than a generic recommendation.`,
+  },
+
   // ─── ENTREPRENEURS ───────────────────────────────────────────────────────────
   {
     id: "x10",
