@@ -1,0 +1,38 @@
+{
+  "routes": [
+    {
+      "route": "/sitemap.xml",
+      "serve": "/sitemap.xml",
+      "statusCode": 200,
+      "headers": {
+        "content-type": "application/xml; charset=utf-8",
+        "cache-control": "public, max-age=3600"
+      }
+    },
+    {
+      "route": "/robots.txt",
+      "serve": "/robots.txt",
+      "statusCode": 200
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": [
+      "/assets/*",
+      "/images/*",
+      "/css/*",
+      "/js/*",
+      "/static/*",
+      "/share/*",
+      "/favicon.ico",
+      "/robots.txt",
+      "/sitemap.xml",
+      "/api/*"
+    ]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html"
+    }
+  }
+}
