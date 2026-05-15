@@ -61,6 +61,15 @@ export default function Testimonials() {
       text: 'As a tech founder, I needed a partner who understood global mobility. Dera Consultants delivered beyond expectations with their strategic guidance and support.',
       rating: 5,
     },
+    {
+      id: 7,
+      initials: 'IY',
+      name: 'Isaac Yalah',
+      title: 'Advisor, Oil & Gas',
+      country: 'Nigeria',
+      text: 'I recommend Dera Consultant for their excellent support in handling my Portugal D7 Visa process. Their team has been professional, prompt, and very efficient at every stage of the ongoing application. Communication has been clear, and they have handled matters with great attention to details and responsiveness, making the process much smoother and less stressful. I appreciate their dedication.',
+      rating: 5,
+    },
   ];
 
   const goToSlide = useCallback(
