@@ -68,7 +68,7 @@ export default function Testimonials() {
       title: 'Advisor, Oil & Gas',
       country: 'Nigeria',
       text: 'I recommend Dera Consultant for their excellent support in handling my Portugal D7 Visa process. Their team has been professional, prompt, and very efficient at every stage of the ongoing application. Communication has been clear, and they have handled matters with great attention to details and responsiveness, making the process much smoother and less stressful. I appreciate their dedication.',
-      rating: 5,
+      rating: 4,
     },
   ];
 
