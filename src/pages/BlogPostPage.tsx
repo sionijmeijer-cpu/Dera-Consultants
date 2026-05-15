@@ -334,6 +334,16 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
         }
       });
       document.head.appendChild(script);
+    } else {
+      // Article not found — tell Google not to index this URL
+      let noindex = document.getElementById('noindex-tag') as HTMLMetaElement | null;
+      if (!noindex) {
+        noindex = document.createElement('meta');
+        noindex.id = 'noindex-tag';
+        noindex.name = 'robots';
+        document.head.appendChild(noindex);
+      }
+      noindex.content = 'noindex, follow';
     }
     setLoading(false);
     window.scrollTo(0, 0);
