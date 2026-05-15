@@ -2,6 +2,7 @@ import { useState, useEffect, Component, ReactNode, lazy, Suspense } from 'react
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import CookieConsent from './components/CookieConsent';
 
 const loadCompanyPage = () => import('./pages/CompanyPage');
 const CompanyPage = lazy(loadCompanyPage);
@@ -240,6 +241,8 @@ function App() {
             />
           )}
         </Suspense>
+
+        <CookieConsent />
       </div>
     </ErrorBoundary>
   );

@@ -101,3 +101,36 @@ export const deleteEmailSubscriber = mutation({
     return args.id;
   },
 });
+
+// Subscribe from a blog article — deduplicates by email
+export const subscribeFromArticle = mutation({
+  args: { email: v.string(), slug: v.string() },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("emailSubscribers")
+      .withIndex("by_email", q => q.eq("email", args.email))
+      .first();
+    if (existing) return { status: "already_subscribed" as const };
+    await ctx.db.insert("emailSubscribers", {
+      email: args.email,
+      source: `blog-article:${args.slug}`,
+    });
+    return { status: "subscribed" as const };
+  },
+});
+
+// Record a view for an article slug
+export const recordArticleView = mutation({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("articleViews")
+      .withIndex("by_slug", q => q.eq("slug", args.slug))
+      .first();
+    if (existing) {
+      await ctx.db.patch(existing._id, { count: existing.count + 1 });
+    } else {
+      await ctx.db.insert("articleViews", { slug: args.slug, count: 1 });
+    }
+  },
+});

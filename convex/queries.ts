@@ -32,3 +32,15 @@ export const getEmailSubscriber = query({
     return await ctx.db.get(args.id);
   },
 });
+
+// Get view count for an article slug
+export const getArticleViews = query({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    const record = await ctx.db
+      .query("articleViews")
+      .withIndex("by_slug", q => q.eq("slug", args.slug))
+      .first();
+    return record?.count ?? 0;
+  },
+});

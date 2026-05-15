@@ -1,6 +1,9 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useMutation, useQuery } from 'convex/react';
 import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook } from 'lucide-react';
 import { blogPosts, BlogPost } from '../data/blogPosts';
+import { api } from '../../convex/_generated/api';
+import ArticleSubscribe from '../components/ArticleSubscribe';
 
 interface BlogPostPageProps {
   onScheduleCall?: () => void;
@@ -18,6 +21,11 @@ type ParsedBlock =
 
 const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
 const SITE_URL = "https://www.getsecondpassport.eu";
+
+function formatViewCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
 
 function getInitials(name: string) {
   return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
@@ -294,6 +302,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
   const [readingProgress, setProgress]= useState(0);
   const [showBackToTop, setShowBTT]   = useState(false);
 
+  const recordView = useMutation(api.mutations.recordArticleView);
+  const viewCount  = useQuery(api.queries.getArticleViews, article ? { slug: article.slug } : 'skip');
+
   useEffect(() => {
     const slug = window.location.pathname.split('/blog/')[1];
     const found = blogPosts.find(p => p.slug === slug);
@@ -348,6 +359,15 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     setLoading(false);
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!article) return;
+    const key = `viewed_${article.slug}`;
+    if (!sessionStorage.getItem(key)) {
+      sessionStorage.setItem(key, '1');
+      recordView({ slug: article.slug });
+    }
+  }, [article, recordView]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -562,7 +582,10 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm leading-none">{article.author}</p>
-                    <p className="text-white/60 text-xs mt-1">{article.publishDate} · {article.readTime}</p>
+                    <p className="text-white/60 text-xs mt-1">
+                      {article.publishDate} · {article.readTime}
+                      {viewCount != null && viewCount > 0 && ` · ${formatViewCount(viewCount)} reads`}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -589,7 +612,10 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               </div>
               <div>
                 <p className="text-gray-900 font-bold text-sm leading-none">{article.author}</p>
-                <p className="text-gray-500 text-xs mt-1">{article.publishDate} · {article.readTime}</p>
+                <p className="text-gray-500 text-xs mt-1">
+                  {article.publishDate} · {article.readTime}
+                  {viewCount != null && viewCount > 0 && ` · ${formatViewCount(viewCount)} reads`}
+                </p>
               </div>
             </div>
           </div>
@@ -618,6 +644,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
             {/* Article column */}
             <article className="flex-1 min-w-0" style={{ maxWidth: '720px' }}>
               {renderContent()}
+
+              {/* Subscribe */}
+              <ArticleSubscribe slug={article.slug} />
 
               {/* Author bio */}
               <div className="mt-10 flex items-center gap-5 p-6 border border-gray-200"
