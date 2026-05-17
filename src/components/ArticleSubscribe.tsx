@@ -8,16 +8,16 @@ interface Props {
 
 export default function ArticleSubscribe({ slug }: Props) {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'duplicate' | 'error'>('idle');
-  const subscribe = useMutation(api.mutations.subscribeFromArticle);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const subscribe = useMutation(api.mutations.createEmailSubscriber);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     setStatus('loading');
     try {
-      const result = await subscribe({ email: email.trim().toLowerCase(), slug });
-      setStatus(result.status === 'already_subscribed' ? 'duplicate' : 'success');
+      await subscribe({ email: email.trim().toLowerCase(), source: `blog-article:${slug}` });
+      setStatus('success');
     } catch {
       setStatus('error');
     }
@@ -35,15 +35,6 @@ export default function ArticleSubscribe({ slug }: Props) {
           </p>
           <p className="text-gray-600 text-sm" style={{ fontFamily: "'Inter',sans-serif" }}>
             We'll send you updates on residency and citizenship news.
-          </p>
-        </div>
-      ) : status === 'duplicate' ? (
-        <div className="text-center py-2">
-          <p className="text-gray-800 font-semibold text-base mb-1" style={{ fontFamily: "'Inter',sans-serif" }}>
-            You're already on the list
-          </p>
-          <p className="text-gray-500 text-sm" style={{ fontFamily: "'Inter',sans-serif" }}>
-            We have your email and will keep you updated.
           </p>
         </div>
       ) : (
@@ -95,3 +86,4 @@ export default function ArticleSubscribe({ slug }: Props) {
     </div>
   );
 }
+
