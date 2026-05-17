@@ -1,12 +1,10 @@
 import { useEffect, useState, useCallback, useMemo, Component, ReactNode } from 'react';
-import { useMutation, useQuery } from 'convex/react';
 import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook } from 'lucide-react';
 import { blogPosts, BlogPost } from '../data/blogPosts';
-import { api } from '../../convex/_generated/api';
 import ArticleSubscribe from '../components/ArticleSubscribe';
 
-// Silently swallows errors from Convex features that may not be deployed yet
-class ConvexFeatureBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
+// Silently swallows errors from features that may fail (e.g. network, Convex)
+class FeatureBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
   constructor(props: { children: ReactNode }) {
     super(props);
     this.state = { error: false };
@@ -37,20 +35,28 @@ function formatViewCount(n: number): string {
   return String(n);
 }
 
-function ArticleViewCounter({ slug, className }: { slug: string; className?: string }) {
-  const recordView = useMutation(api.mutations.recordArticleView);
-  const viewCount  = useQuery(api.queries.getArticleViews, { slug });
+const COUNT_NS = 'getsecondpassport-eu';
+
+function ArticleViewCounter({ slug }: { slug: string }) {
+  const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
     const key = `viewed_${slug}`;
-    if (!sessionStorage.getItem(key)) {
-      sessionStorage.setItem(key, '1');
-      recordView({ slug });
-    }
-  }, [slug, recordView]);
+    const alreadyCounted = sessionStorage.getItem(key);
+    const endpoint = alreadyCounted
+      ? `https://api.countapi.xyz/get/${COUNT_NS}/${slug}`
+      : `https://api.countapi.xyz/hit/${COUNT_NS}/${slug}`;
 
-  if (!viewCount) return null;
-  return <span className={className}> · {formatViewCount(viewCount)} reads</span>;
+    if (!alreadyCounted) sessionStorage.setItem(key, '1');
+
+    fetch(endpoint)
+      .then(r => r.json())
+      .then(d => { if (typeof d.value === 'number') setCount(d.value); })
+      .catch(() => {});
+  }, [slug]);
+
+  if (!count || count < 2) return null;
+  return <span> · {formatViewCount(count)} reads</span>;
 }
 
 function getInitials(name: string) {
@@ -599,9 +605,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                     <p className="text-white font-bold text-sm leading-none">{article.author}</p>
                     <p className="text-white/60 text-xs mt-1">
                       {article.publishDate} · {article.readTime}
-                      <ConvexFeatureBoundary>
+                      <FeatureBoundary>
                         <ArticleViewCounter slug={article.slug} />
-                      </ConvexFeatureBoundary>
+                      </FeatureBoundary>
                     </p>
                   </div>
                 </div>
@@ -631,9 +637,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                 <p className="text-gray-900 font-bold text-sm leading-none">{article.author}</p>
                 <p className="text-gray-500 text-xs mt-1">
                   {article.publishDate} · {article.readTime}
-                  <ConvexFeatureBoundary>
+                  <FeatureBoundary>
                     <ArticleViewCounter slug={article.slug} />
-                  </ConvexFeatureBoundary>
+                  </FeatureBoundary>
                 </p>
               </div>
             </div>
@@ -665,9 +671,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               {renderContent()}
 
               {/* Subscribe */}
-              <ConvexFeatureBoundary>
+              <FeatureBoundary>
                 <ArticleSubscribe slug={article.slug} />
-              </ConvexFeatureBoundary>
+              </FeatureBoundary>
 
               {/* Author bio */}
               <div className="mt-10 flex items-center gap-5 p-6 border border-gray-200"
