@@ -30,34 +30,7 @@ type ParsedBlock =
 const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
 const SITE_URL = "https://www.getsecondpassport.eu";
 
-function formatViewCount(n: number): string {
-  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
-  return String(n);
-}
 
-const COUNT_NS = 'getsecondpassport-eu';
-
-function ArticleViewCounter({ slug }: { slug: string }) {
-  const [count, setCount] = useState<number | null>(null);
-
-  useEffect(() => {
-    const key = `viewed_${slug}`;
-    const alreadyCounted = sessionStorage.getItem(key);
-    const endpoint = alreadyCounted
-      ? `https://api.countapi.xyz/get/${COUNT_NS}/${slug}`
-      : `https://api.countapi.xyz/hit/${COUNT_NS}/${slug}`;
-
-    if (!alreadyCounted) sessionStorage.setItem(key, '1');
-
-    fetch(endpoint)
-      .then(r => r.json())
-      .then(d => { if (typeof d.value === 'number') setCount(d.value); })
-      .catch(() => {});
-  }, [slug]);
-
-  if (!count || count < 2) return null;
-  return <span> · {formatViewCount(count)} reads</span>;
-}
 
 function getInitials(name: string) {
   return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
@@ -605,9 +578,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                     <p className="text-white font-bold text-sm leading-none">{article.author}</p>
                     <p className="text-white/60 text-xs mt-1">
                       {article.publishDate} · {article.readTime}
-                      <FeatureBoundary>
-                        <ArticleViewCounter slug={article.slug} />
-                      </FeatureBoundary>
                     </p>
                   </div>
                 </div>
@@ -637,9 +607,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                 <p className="text-gray-900 font-bold text-sm leading-none">{article.author}</p>
                 <p className="text-gray-500 text-xs mt-1">
                   {article.publishDate} · {article.readTime}
-                  <FeatureBoundary>
-                    <ArticleViewCounter slug={article.slug} />
-                  </FeatureBoundary>
                 </p>
               </div>
             </div>
