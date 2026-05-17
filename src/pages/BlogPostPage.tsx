@@ -1,9 +1,19 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, Component, ReactNode } from 'react';
 import { useMutation, useQuery } from 'convex/react';
 import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook } from 'lucide-react';
 import { blogPosts, BlogPost } from '../data/blogPosts';
 import { api } from '../../convex/_generated/api';
 import ArticleSubscribe from '../components/ArticleSubscribe';
+
+// Silently swallows errors from Convex features that may not be deployed yet
+class ConvexFeatureBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { error: false };
+  }
+  static getDerivedStateFromError() { return { error: true }; }
+  render() { return this.state.error ? null : this.props.children; }
+}
 
 interface BlogPostPageProps {
   onScheduleCall?: () => void;
@@ -25,6 +35,22 @@ const SITE_URL = "https://www.getsecondpassport.eu";
 function formatViewCount(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
   return String(n);
+}
+
+function ArticleViewCounter({ slug, className }: { slug: string; className?: string }) {
+  const recordView = useMutation(api.mutations.recordArticleView);
+  const viewCount  = useQuery(api.queries.getArticleViews, { slug });
+
+  useEffect(() => {
+    const key = `viewed_${slug}`;
+    if (!sessionStorage.getItem(key)) {
+      sessionStorage.setItem(key, '1');
+      recordView({ slug });
+    }
+  }, [slug, recordView]);
+
+  if (!viewCount) return null;
+  return <span className={className}> · {formatViewCount(viewCount)} reads</span>;
 }
 
 function getInitials(name: string) {
@@ -302,8 +328,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
   const [readingProgress, setProgress]= useState(0);
   const [showBackToTop, setShowBTT]   = useState(false);
 
-  const recordView = useMutation(api.mutations.recordArticleView);
-  const viewCount  = useQuery(api.queries.getArticleViews, article ? { slug: article.slug } : 'skip');
 
   useEffect(() => {
     const slug = window.location.pathname.split('/blog/')[1];
@@ -359,15 +383,6 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
     setLoading(false);
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    if (!article) return;
-    const key = `viewed_${article.slug}`;
-    if (!sessionStorage.getItem(key)) {
-      sessionStorage.setItem(key, '1');
-      recordView({ slug: article.slug });
-    }
-  }, [article, recordView]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -584,7 +599,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                     <p className="text-white font-bold text-sm leading-none">{article.author}</p>
                     <p className="text-white/60 text-xs mt-1">
                       {article.publishDate} · {article.readTime}
-                      {viewCount != null && viewCount > 0 && ` · ${formatViewCount(viewCount)} reads`}
+                      <ConvexFeatureBoundary>
+                        <ArticleViewCounter slug={article.slug} />
+                      </ConvexFeatureBoundary>
                     </p>
                   </div>
                 </div>
@@ -614,7 +631,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                 <p className="text-gray-900 font-bold text-sm leading-none">{article.author}</p>
                 <p className="text-gray-500 text-xs mt-1">
                   {article.publishDate} · {article.readTime}
-                  {viewCount != null && viewCount > 0 && ` · ${formatViewCount(viewCount)} reads`}
+                  <ConvexFeatureBoundary>
+                    <ArticleViewCounter slug={article.slug} />
+                  </ConvexFeatureBoundary>
                 </p>
               </div>
             </div>
@@ -646,7 +665,9 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
               {renderContent()}
 
               {/* Subscribe */}
-              <ArticleSubscribe slug={article.slug} />
+              <ConvexFeatureBoundary>
+                <ArticleSubscribe slug={article.slug} />
+              </ConvexFeatureBoundary>
 
               {/* Author bio */}
               <div className="mt-10 flex items-center gap-5 p-6 border border-gray-200"
