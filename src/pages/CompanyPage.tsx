@@ -27,6 +27,29 @@ const pillars = [
   },
 ];
 
+const processSteps = [
+  {
+    num: '01',
+    title: 'A free first call',
+    body: 'We talk for thirty minutes. You tell me what you actually want: a passport, a residency permit, tax options, a backup for your family. I tell you which programmes fit, which ones do not, and what the realistic timelines look like.',
+  },
+  {
+    num: '02',
+    title: 'A written strategy',
+    body: 'If we are a fit, I send you a written plan. It lists the programme, the full cost breakdown including government fees, legal fees, due diligence costs, and our advisory fee, and a realistic timeline. No verbal promises, no fee surprises later.',
+  },
+  {
+    num: '03',
+    title: 'Filing with vetted partners',
+    body: 'Once you decide to move forward, we file your case. The legal work is handled by licensed local lawyers in Portugal or the Caribbean country you choose. I stay your single point of contact through the whole file. You never chase three parties for an update.',
+  },
+  {
+    num: '04',
+    title: 'Aftercare',
+    body: 'The work does not stop the day your residency or citizenship is approved. We help with renewals, tax registration, banking introductions, and the next step if your goal is citizenship after residency. Once you are a client, you stay one.',
+  },
+];
+
 const CONTAINER = "w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-10";
 
 export default function CompanyPage({ onScheduleCall }: CompanyPageProps) {
@@ -200,6 +223,44 @@ export default function CompanyPage({ onScheduleCall }: CompanyPageProps) {
                 <p className="text-gray-600 text-[15px] leading-relaxed"
                   style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
                   {p.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW WE WORK */}
+      <section className="py-20 bg-white">
+        <div className={CONTAINER}>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
+            style={{ fontFamily: "'Inter', sans-serif" }}>
+            How we work
+          </p>
+          <h2 className="text-[30px] sm:text-[38px] font-black text-gray-900 mb-3 leading-tight"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            Four steps. No mystery. No surprise fees.
+          </h2>
+          <p className="text-gray-500 text-[16px] mb-12 max-w-2xl"
+            style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+            This is what working with us actually looks like, from the first conversation to long after your approval.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {processSteps.map(s => (
+              <div key={s.num} className="p-8 bg-gray-50 border border-gray-200"
+                style={{ borderTop: '3px solid #1B7A4E' }}>
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3"
+                  style={{ fontFamily: "'Inter', sans-serif" }}>
+                  Step {s.num}
+                </p>
+                <h3 className="text-[20px] font-black text-gray-900 mb-3"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  {s.title}
+                </h3>
+                <p className="text-gray-600 text-[15px] leading-relaxed"
+                  style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+                  {s.body}
                 </p>
               </div>
             ))}
