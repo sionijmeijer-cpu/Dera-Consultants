@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useMutation } from 'convex/react';
+import emailjs from '@emailjs/browser';
 import { api } from '../../convex/_generated/api';
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'iwJKHyLFnEj-_NXor';
 
 interface Props {
   slug: string;
@@ -15,8 +20,24 @@ export default function ArticleSubscribe({ slug }: Props) {
     e.preventDefault();
     if (!email.trim()) return;
     setStatus('loading');
+    const cleanEmail = email.trim().toLowerCase();
     try {
-      await subscribe({ email: email.trim().toLowerCase(), source: `blog-article:${slug}` });
+      await subscribe({ email: cleanEmail, source: `blog-article:${slug}` });
+      emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: 'Newsletter Subscriber',
+          email: cleanEmail,
+          phone: '',
+          country: '',
+          service: 'Newsletter signup',
+          message: `New newsletter subscriber from blog article: ${slug}`,
+        },
+        EMAILJS_PUBLIC_KEY,
+      ).catch((err) => {
+        console.error('Newsletter notification email failed:', err);
+      });
       setStatus('success');
     } catch {
       setStatus('error');
