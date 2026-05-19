@@ -39,6 +39,113 @@ const PLACEHOLDER_2 = "https://picsum.photos/seed/mobility2/900/420";
 export const blogPosts: BlogPost[] = [
 
   {
+    id: "x11",
+    title: "Portugal's New Nationality Law Is Now in Force. Here Is What That Means for You.",
+    slug: "portugal-nationality-law-diario-da-republica-published-may-2026",
+    excerpt: "Portugal's revised Nationality Law was published in the Diário da República on May 18, 2026 and entered into force on May 19, 2026. The 10-year citizenship rule is now live. Here is exactly what changed today, who is protected, and what you need to do right now depending on your situation.",
+    author: "Sylvia Awoudu",
+    publishDate: "May 19, 2026",
+    category: "Expats",
+    tags: ["Portugal", "Nationality Law", "Citizenship", "Diário da República", "10-Year Rule", "2026"],
+    readTime: "10 min read",
+    image: "https://www.getsecondpassport.eu/images/articles/portugal-nationality-law-diario-da-republica-may-2026.png",
+    images: [],
+    content: `Portugal's New Nationality Law Is Now in Force. Here Is What That Means for You.
+
+This is not a warning about what might happen. This is a confirmation of what has happened.
+
+Portugal's revised Nationality Law, Lei Orgânica No. 1/2026 de 18 de maio, was published in the Diário da República on May 18, 2026. Under Article 8 of the law, it entered into force on May 19, 2026. Today.
+
+The months of speculation, constitutional debates, presidential decisions, and waiting are over. The 10-year citizenship rule is no longer a proposal. It is the law of Portugal as of this morning.
+
+If you have been following this story, you already know the broad strokes. But what matters now is not the politics of how we got here. What matters is what this means for your specific situation and what, if anything, you can still do today.
+
+# What Changed Today
+
+The core change is straightforward. Portugal's standard residency requirement for citizenship by naturalisation has moved from five years to ten years for most foreign nationals.
+
+| Nationality | Old Requirement | New Requirement |
+|-------------|----------------|-----------------|
+| EU citizens | 5 years | 7 years |
+| CPLP nationals (Brazil, Angola, Cape Verde, Mozambique, Guinea-Bissau, São Tomé and Príncipe, Equatorial Guinea, East Timor) | 5 years | 7 years |
+| All other nationalities including Nigerian, Ghanaian, South African, American, and British | 5 years | 10 years |
+
+Three additional changes came into force alongside the timeline extension.
+
+The residency clock now starts from the date your residence permit was issued by AIMA, not from the date you submitted your application. For people who have been waiting years for AIMA to process their files, this is the most painful detail in the entire law.
+
+A civic knowledge test has been added as a new requirement for citizenship applicants. It will cover Portuguese history, democratic institutions, and civic rights and duties. As of today, the format, the passing threshold, and the testing centre arrangements have not yet been published. The government has 90 days from today to issue the implementing regulations that will define how this test works in practice.
+
+The criminal record threshold for citizenship applications has been tightened. Anyone sentenced to three or more years of effective imprisonment for a serious crime including terrorism, violent crime, and certain other categories is now barred from naturalisation.
+
+# What Did Not Change
+
+Given the volume of misinformation circulating, it is worth being precise about what this law does not touch.
+
+Permanent residency remains at five years. Becoming a permanent resident of Portugal and becoming a citizen of Portugal are two separate legal processes. The new law changes the citizenship timeline. It does not change your right to apply for permanent residency after five years of legal residence.
+
+Your existing residency visa is completely unaffected. D7, D8, D2, and Golden Visa holders continue under exactly the same conditions as before. The visa you hold, the rights it gives you, and its renewal process have not changed.
+
+Schengen access remains immediate from day one of your residence permit. Nothing in this law touches that.
+
+The Golden Visa investment programme itself is unchanged. The law adjusts the naturalisation timeline for all residents including Golden Visa holders, but the programme continues to operate and applications continue to be accepted.
+
+# Who Is Protected Under the Transitional Rules
+
+This is the most important section for anyone currently in the process.
+
+Applications for Portuguese nationality that were already submitted and pending before May 19, 2026 are protected. They will be assessed under the rules that applied when the application was submitted. The Constitutional Court made this explicit in its December 2025 ruling and the transitional provisions of the new law respect that position.
+
+Keep every single piece of documentation that shows your application was submitted before today. Email confirmations, IRN reference numbers, payment receipts, lawyer correspondence, anything that establishes the date of your submission. If there is any dispute about whether your application was pending before the law entered into force, that documentation is your protection.
+
+>! If your citizenship application was pending before May 19, 2026, you are under the old five-year rule. That position is legally protected and you do not need to resubmit or supplement your application. What you do need is to keep your proof of submission somewhere safe.
+
+# What Happens Now for Different Situations
+
+The practical impact of today varies significantly depending on where you are in your Portugal journey.
+
+| Your Situation | What Happens From Today |
+|----------------|------------------------|
+| Citizenship application already submitted and pending | Protected under old five-year rule. Keep proof of submission |
+| Five or more years of residency, application not yet submitted | Get legal advice today. The five-year window has closed |
+| Three to four years of residency | You are on the ten-year track for most nationalities, seven years for EU and CPLP |
+| Just starting your Portugal residency | You are entering with full knowledge of the new framework. Plan for ten years to citizenship, five years to permanent residency |
+| Golden Visa investor, focused on permanent residency | Your five-year permanent residency timeline is unchanged. Only citizenship now takes longer |
+
+The situation that requires the most urgent attention is anyone who had accumulated five or more years of legal residency and had not yet submitted a citizenship application as of today. The five-year window closed this morning. If you are in that position, the question for your lawyer now is whether any legal argument exists about how your specific circumstances interact with the transitional provisions. Do not assume the answer without qualified legal advice.
+
+# The Clock Issue Nobody Is Talking About Clearly Enough
+
+There is a detail in the new law that is more significant than most commentators have acknowledged, and it directly affects Golden Visa investors and everyone who has been caught in the AIMA backlog.
+
+Under the new rules, the residency clock for citizenship counts from the date your first residence permit card was issued by AIMA. Not when you applied. Not when you paid your fees. Not when your biometrics appointment took place. The date on the actual card.
+
+For people who submitted their Golden Visa applications in 2021 or 2022 and waited two or three years for AIMA to issue their cards due to the well-documented processing crisis, this means those waiting years do not count toward their citizenship timeline. The state created the delay. The investor carries the consequence.
+
+This is the core of the legal challenge being mounted by 500-plus Golden Visa holders who are preparing to sue the Portuguese government. The President himself, when signing the law on May 3rd, stated explicitly that administrative delays attributable to the state should not undermine legally fixed timelines for obtaining nationality. Whether that presidential statement has any practical effect on how AIMA and the courts implement the new rules remains to be seen.
+
+# The 90-Day Regulation Window
+
+The government now has 90 days from today, May 19, 2026, to publish updated implementing regulations.
+
+Those regulations will define how the civic knowledge test works. They will clarify how transitional cases are handled in practice. They will specify how AIMA counts residency periods in disputed cases. They will address the treatment of family members included on pending applications.
+
+The law as published today is the framework. The regulations are the operational detail. There will be a period of interpretation and adjustment as AIMA begins applying the new rules and as lawyers and courts work through the edge cases. This is normal in Portuguese administrative law and it is not a reason to panic. It is a reason to stay informed and to work with advisors who are tracking the implementation closely.
+
+# What You Should Do Today
+
+If you are not yet in the Portugal process and have been thinking about it, today is the day to get clarity. The five-year citizenship path is gone. What Portugal still offers is permanent residency at five years, immediate Schengen access, and one of the most liveable environments in Europe. Whether the ten-year citizenship timeline still fits your strategy depends on what you are trying to achieve.
+
+If you are already in the process, review your documentation, confirm your application status with your lawyer, and make sure you have written proof of everything that was submitted before today.
+
+If you are weighing Portugal against other options, the Caribbean citizenship programmes offer a completely different timeline. Dominica, St Lucia, and Grenada can deliver a second passport in three to six months with no relocation required. That does not replace Portugal. It solves a different problem on a different timeline.
+
+>! My honest view: Portugal is still worth it for the right person with the right goals. Permanent residency at five years, Schengen access from day one, and a genuine quality of life that is hard to match anywhere in Europe. What changed today is the speed of the passport, not the quality of the destination. If your primary goal is a passport quickly, Portugal was never the fastest route. It was always the most thorough. That remains true.
+
+If you want to understand exactly where you stand under the new law and what the best path forward looks like for your specific situation, book a consultation this week. The rules changed this morning. Your strategy should reflect that.`
+  },
+
+  {
     id: "c6",
     title: "Dominica Citizenship by Investment 2026: The Complete Guide",
     slug: "dominica-citizenship-by-investment-complete-guide-2026",
