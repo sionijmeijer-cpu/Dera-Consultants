@@ -1,5 +1,6 @@
 import { ArrowRight, MapPin, Award, Globe } from 'lucide-react';
 import { openBooking } from '../lib/booking';
+import CounselSeal from './CounselSeal';
 
 interface HeroProps {
   onScheduleCall: () => void;
@@ -102,7 +103,7 @@ export default function Hero({ onScheduleCall }: HeroProps) {
                 className="w-16 h-16 rounded-full object-cover flex-shrink-0"
                 style={{ border: '3px solid #1B7A4E' }}
               />
-              <div>
+              <div className="flex-1">
                 <p
                   className="text-[10px] font-black uppercase tracking-widest text-[#1B7A4E] mb-1"
                   style={{ fontFamily: "'Inter', sans-serif" }}
@@ -121,6 +122,9 @@ export default function Hero({ onScheduleCall }: HeroProps) {
                 >
                   Sylvia Awoudu · Founder, Dera Consultants
                 </p>
+              </div>
+              <div className="hidden sm:block flex-shrink-0">
+                <CounselSeal size={96} />
               </div>
             </div>
 
