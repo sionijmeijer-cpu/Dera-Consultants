@@ -282,9 +282,43 @@ export default function CompanyPage({ onScheduleCall }: CompanyPageProps) {
                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                 Qualified legal representation for every client
               </h2>
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-white border border-gray-200"
-                style={{ borderTop: '3px solid #1B7A4E' }}>
-                <Scale size={24} className="text-[#1B7A4E]" />
+
+              {/* Circular trust seal */}
+              <div className="relative inline-block mt-2">
+                <svg viewBox="0 0 200 200" width="180" height="180" aria-label="Backed by Licensed Portuguese Counsel">
+                  <defs>
+                    <path id="seal-outer-text" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
+                    <path id="seal-inner-text" d="M 100,100 m -78,0 a 78,78 0 1,0 156,0 a 78,78 0 1,0 -156,0" />
+                  </defs>
+                  <circle cx="100" cy="100" r="92" fill="none" stroke="#1B7A4E" strokeWidth="2" />
+                  <circle cx="100" cy="100" r="86" fill="none" stroke="#1B7A4E" strokeWidth="1" />
+                  <circle cx="100" cy="100" r="62" fill="none" stroke="#1B7A4E" strokeWidth="1" />
+                  <text fill="#1B7A4E" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '10.5px', letterSpacing: '2px' }}>
+                    <textPath href="#seal-outer-text" startOffset="0">
+                      BACKED BY LICENSED PORTUGUESE COUNSEL
+                    </textPath>
+                  </text>
+                  <text fill="#1B7A4E" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: '8.5px', letterSpacing: '3px' }}>
+                    <textPath href="#seal-inner-text" startOffset="22%">
+                      DERA CONSULTANTS · IH SALVO
+                    </textPath>
+                  </text>
+                  <foreignObject x="76" y="78" width="48" height="48">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B7A4E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                        <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+                        <path d="M7 21h10"/>
+                        <path d="M12 3v18"/>
+                        <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+                      </svg>
+                    </div>
+                  </foreignObject>
+                  <text x="100" y="135" textAnchor="middle" fill="#1B7A4E"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '8px', letterSpacing: '2px' }}>
+                    VERIFIED PARTNERSHIP
+                  </text>
+                </svg>
               </div>
             </div>
 
