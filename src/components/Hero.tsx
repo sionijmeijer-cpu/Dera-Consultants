@@ -1,4 +1,5 @@
 import { ArrowRight, MapPin, Award, Globe } from 'lucide-react';
+import { openBooking } from '../lib/booking';
 
 interface HeroProps {
   onScheduleCall: () => void;
@@ -7,6 +8,7 @@ interface HeroProps {
 }
 
 export default function Hero({ onScheduleCall }: HeroProps) {
+  const handleBooking = () => openBooking(onScheduleCall);
   return (
     <div className="bg-white">
       <style>{`
@@ -70,11 +72,11 @@ export default function Hero({ onScheduleCall }: HeroProps) {
               <ArrowRight className="w-4 h-4" />
             </a>
             <button
-              onClick={onScheduleCall}
+              onClick={handleBooking}
               className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-4 font-black uppercase tracking-widest hover:bg-white/20 transition-all duration-300 min-w-[220px] text-[12px]"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              Book a Strategy Call
+              Book a Consultation
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

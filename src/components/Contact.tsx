@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Mail, Phone, Clock, Send } from 'lucide-react';
+import { Mail, Phone, Clock, Send, Calendar } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import emailjs from '@emailjs/browser';
+import { openBooking } from '../lib/booking';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_zuw0jdg';
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_kdvvybl';
@@ -84,9 +85,16 @@ export default function Contact() {
       <section className="bg-gradient-to-r from-[#0f3460] to-[#1a5276] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-blue-100 max-w-3xl">
+          <p className="text-xl text-blue-100 max-w-3xl mb-8">
             Get in touch with our immigration experts for a free consultation
           </p>
+          <button
+            onClick={() => openBooking()}
+            className="inline-flex items-center gap-2 bg-[#1B7A4E] text-white px-6 py-3 rounded-md font-semibold hover:bg-[#156B3F] transition-all duration-300 shadow-md hover:shadow-lg"
+          >
+            <Calendar className="w-5 h-5" />
+            Book a Consultation
+          </button>
         </div>
       </section>
 

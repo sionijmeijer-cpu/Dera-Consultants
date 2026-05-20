@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback, useMemo, Component, ReactNode } from 'react';
-import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook } from 'lucide-react';
+import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook, Calendar } from 'lucide-react';
 import { blogPosts, BlogPost } from '../data/blogPosts';
 import ArticleSubscribe from '../components/ArticleSubscribe';
+import { openBooking } from '../lib/booking';
 
 // Silently swallows errors from features that may fail (e.g. network, Convex)
 class FeatureBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
@@ -403,6 +404,7 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
   }, []);
 
   const handleScheduleCall = () => window.dispatchEvent(new CustomEvent('openScheduleModal'));
+  const handleBooking = () => openBooking(handleScheduleCall);
 
   const renderContent = () => {
     let pCount = 0;
@@ -637,6 +639,29 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
             <article className="flex-1 min-w-0" style={{ maxWidth: '720px' }}>
               {renderContent()}
 
+              {/* Bottom-of-article booking CTA */}
+              <div className="mt-12 p-6 sm:p-8 bg-[#0f3460] text-white"
+                style={{ borderTop: '4px solid #1B7A4E' }}>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4ade80] mb-3"
+                  style={{ fontFamily: "'Inter',sans-serif" }}>
+                  Ready to talk through your case?
+                </p>
+                <h3 className="text-[22px] sm:text-[26px] font-black text-white mb-3 leading-tight"
+                  style={{ fontFamily: "'Playfair Display',Georgia,serif" }}>
+                  Book a consultation with Sylvia
+                </h3>
+                <p className="text-white/80 text-[15px] leading-relaxed mb-6 max-w-2xl"
+                  style={{ fontFamily: "'Source Serif 4',Georgia,serif" }}>
+                  Thirty minutes. No obligation. You leave with a clear view of which programmes fit your situation and what the realistic next steps look like.
+                </p>
+                <button onClick={handleBooking}
+                  className="inline-flex items-center gap-2 bg-[#1B7A4E] text-white px-6 py-3 font-black uppercase tracking-widest text-[11px] hover:bg-[#156B3F] transition-all duration-200"
+                  style={{ fontFamily: "'Inter',sans-serif" }}>
+                  <Calendar size={14} />
+                  Book a Consultation
+                </button>
+              </div>
+
               {/* Subscribe */}
               <FeatureBoundary>
                 <ArticleSubscribe slug={article.slug} />
@@ -714,10 +739,10 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                     style={{ fontFamily: "'Source Serif 4',Georgia,serif" }}>
                     Get expert guidance on residency and citizenship tailored to your goals.
                   </p>
-                  <button onClick={handleScheduleCall}
+                  <button onClick={handleBooking}
                     className="w-full px-4 py-3 bg-[#1B7A4E] text-white text-[10px] font-black uppercase tracking-widest hover:bg-[#156B3F] transition-colors"
                     style={{ fontFamily: "'Inter',sans-serif" }}>
-                    Book a Free Call
+                    Book a Consultation
                   </button>
                 </div>
 

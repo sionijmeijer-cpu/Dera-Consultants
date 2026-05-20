@@ -1,5 +1,6 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { openBooking } from '../lib/booking';
 
 interface HeaderProps {
   onScheduleCall: () => void;
@@ -7,6 +8,8 @@ interface HeaderProps {
 
 export default function Header({ onScheduleCall }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleBooking = () => openBooking(onScheduleCall);
 
   const navLinks = [
     { name: 'Company', path: '/company', bold: true },
@@ -61,10 +64,10 @@ export default function Header({ onScheduleCall }: HeaderProps) {
               </a>
             ))}
             <button
-              onClick={onScheduleCall}
+              onClick={handleBooking}
               className="bg-[#1B7A4E] text-white px-6 py-3 rounded-md hover:bg-[#156B3F] transition-all duration-300 shadow-md hover:shadow-lg font-semibold whitespace-nowrap"
             >
-              Become a Client
+              Book a Consultation
             </button>
           </nav>
 
@@ -102,12 +105,12 @@ export default function Header({ onScheduleCall }: HeaderProps) {
               ))}
               <button
                 onClick={() => {
-                  onScheduleCall();
+                  handleBooking();
                   setMobileMenuOpen(false);
                 }}
                 className="bg-[#1B7A4E] text-white px-4 py-3 rounded-md hover:bg-[#156B3F] transition-all duration-300 font-semibold text-sm mt-2 shadow-md hover:shadow-lg"
               >
-                Become a Client
+                Book a Consultation
               </button>
             </nav>
           </div>

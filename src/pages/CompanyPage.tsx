@@ -1,4 +1,4 @@
-import { MapPin, Award, Globe } from 'lucide-react';
+import { MapPin, Award, Globe, Scale, ExternalLink } from 'lucide-react';
 
 interface CompanyPageProps {
   onScheduleCall?: () => void;
@@ -264,6 +264,67 @@ export default function CompanyPage({ onScheduleCall }: CompanyPageProps) {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRUSTED LEGAL PARTNER */}
+      <section className="py-20 bg-gray-50">
+        <div className={CONTAINER}>
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+
+            <div className="lg:col-span-5">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
+                style={{ fontFamily: "'Inter', sans-serif" }}>
+                Trusted legal partner
+              </p>
+              <h2 className="text-[30px] sm:text-[38px] font-black text-gray-900 mb-6 leading-tight"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                Qualified legal representation for every client
+              </h2>
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-white border border-gray-200"
+                style={{ borderTop: '3px solid #1B7A4E' }}>
+                <Scale size={24} className="text-[#1B7A4E]" />
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="space-y-5 text-gray-700"
+                style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: '17px', lineHeight: '1.8' }}>
+                <p>
+                  Dera Consultants works alongside licensed Portuguese immigration lawyers to ensure every client has qualified legal representation throughout their process.
+                </p>
+                <p>
+                  Our trusted legal partner in Portugal is <span className="font-bold text-gray-900">Inês Horta Salvo of IH Salvo</span>, a boutique law firm specialising in immigration, real estate, and corporate law for international clients.
+                </p>
+              </div>
+
+              <div className="mt-8 p-6 bg-white border border-gray-200"
+                style={{ borderTop: '3px solid #1B7A4E' }}>
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2"
+                  style={{ fontFamily: "'Inter', sans-serif" }}>
+                  Legal partner
+                </p>
+                <p className="text-gray-900 font-black text-[18px] mb-1"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                  Inês Horta Salvo
+                </p>
+                <p className="text-gray-600 text-[14px] mb-4"
+                  style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}>
+                  IH Salvo · Immigration, Real Estate, and Corporate Law
+                </p>
+                <a
+                  href="https://ihsalvo.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[#1B7A4E] hover:text-[#156B3F] text-[12px] font-black uppercase tracking-widest transition-colors"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Visit ihsalvo.com
+                  <ExternalLink size={12} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
