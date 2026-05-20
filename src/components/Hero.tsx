@@ -123,8 +123,8 @@ export default function Hero({ onScheduleCall }: HeroProps) {
                   Sylvia Awoudu · Founder, Dera Consultants
                 </p>
               </div>
-              <div className="hidden sm:block flex-shrink-0">
-                <CounselSeal size={96} />
+              <div className="hidden md:block flex-shrink-0">
+                <CounselSeal size="sm" />
               </div>
             </div>
 

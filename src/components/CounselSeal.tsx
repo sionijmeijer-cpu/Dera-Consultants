@@ -1,66 +1,68 @@
 interface CounselSealProps {
-  size?: number;
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
-export default function CounselSeal({ size = 180, className = '' }: CounselSealProps) {
-  const color = '#1B7A4E';
+const SIZES = {
+  sm: { width: 200, padding: 'p-3', iconSize: 22, headlineSize: 'text-[9px]', bodySize: 'text-[11px]', footSize: 'text-[8px]' },
+  md: { width: 240, padding: 'p-4', iconSize: 28, headlineSize: 'text-[10px]', bodySize: 'text-[13px]', footSize: 'text-[9px]' },
+  lg: { width: 320, padding: 'p-6', iconSize: 40, headlineSize: 'text-[11px]', bodySize: 'text-[18px]', footSize: 'text-[10px]' },
+};
+
+export default function CounselSeal({ size = 'md', className = '' }: CounselSealProps) {
+  const s = SIZES[size];
   return (
-    <svg
-      viewBox="0 0 200 200"
-      width={size}
-      height={size}
-      className={className}
-      aria-label="Backed by Licensed Portuguese Counsel"
-      role="img"
+    <div
+      className={`inline-flex flex-col bg-white border border-gray-300 shadow-sm ${className}`}
+      style={{ width: s.width, borderTop: '3px solid #1B7A4E' }}
     >
-      <defs>
-        <path
-          id="seal-outer-text-path"
-          d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"
-        />
-        <path
-          id="seal-inner-text-path"
-          d="M 100,100 m -62,0 a 62,62 0 1,0 124,0 a 62,62 0 1,0 -124,0"
-        />
-      </defs>
+      {/* Icon row */}
+      <div className={`flex items-center justify-center bg-[#1B7A4E] ${s.padding}`}>
+        <svg
+          width={s.iconSize}
+          height={s.iconSize}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+          <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+          <path d="M7 21h10" />
+          <path d="M12 3v18" />
+          <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+        </svg>
+      </div>
 
-      <circle cx="100" cy="100" r="94" fill="#ffffff" stroke={color} strokeWidth="2" />
-      <circle cx="100" cy="100" r="87" fill="none" stroke={color} strokeWidth="1" />
-      <circle cx="100" cy="100" r="55" fill="none" stroke={color} strokeWidth="1" />
-
-      <text fill={color} fontFamily="Inter, sans-serif" fontWeight="900" fontSize="10.5" letterSpacing="2">
-        <textPath href="#seal-outer-text-path" startOffset="0%">
-          BACKED BY LICENSED PORTUGUESE COUNSEL ·
-        </textPath>
-      </text>
-
-      <text fill={color} fontFamily="Inter, sans-serif" fontWeight="700" fontSize="7.5" letterSpacing="2.5">
-        <textPath href="#seal-inner-text-path" startOffset="25%">
-          DERA CONSULTANTS · IH SALVO
-        </textPath>
-      </text>
-
-      <g transform="translate(100,100)" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none">
-        <line x1="0" y1="-22" x2="0" y2="18" />
-        <line x1="-16" y1="-22" x2="16" y2="-22" />
-        <path d="M -16,-22 L -22,-4 a 6,6 0 0 0 12,0 Z" />
-        <path d="M  16,-22 L  10,-4 a 6,6 0 0 0 12,0 Z" />
-        <line x1="-10" y1="20" x2="10" y2="20" />
-      </g>
-
-      <text
-        x="100"
-        y="148"
-        textAnchor="middle"
-        fill={color}
-        fontFamily="Inter, sans-serif"
-        fontWeight="900"
-        fontSize="7.5"
-        letterSpacing="2.5"
-      >
-        VERIFIED PARTNERSHIP
-      </text>
-    </svg>
+      {/* Text block */}
+      <div className={`${s.padding} text-center`}>
+        <p
+          className={`${s.headlineSize} font-black uppercase tracking-[0.22em] text-[#1B7A4E] mb-1.5`}
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          Backed by
+        </p>
+        <p
+          className={`${s.bodySize} font-black uppercase tracking-[0.08em] text-gray-900 leading-tight`}
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          Licensed
+          <br />
+          Portuguese
+          <br />
+          Counsel
+        </p>
+        <div className="my-3 mx-auto h-px w-8 bg-gray-300" />
+        <p
+          className={`${s.footSize} font-bold uppercase tracking-[0.18em] text-gray-500`}
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          IH Salvo Partnership
+        </p>
+      </div>
+    </div>
   );
 }

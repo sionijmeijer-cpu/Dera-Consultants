@@ -285,7 +285,7 @@ export default function CompanyPage({ onScheduleCall }: CompanyPageProps) {
               </h2>
 
               <div className="mt-2">
-                <CounselSeal size={200} />
+                <CounselSeal size="lg" />
               </div>
             </div>
 
