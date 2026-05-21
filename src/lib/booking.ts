@@ -1,6 +1,6 @@
 // Paste your Microsoft Bookings URL here once you generate it from M365.
 // Leave as empty string to fall back to the existing schedule call modal.
-export const BOOKING_URL = '';
+export const BOOKING_URL = 'https://outlook.office.com/book/DeraConsultants1@getsecondpassport.eu/?ismsaljsauthenabled';
 
 export function openBooking(fallback?: () => void): void {
   if (BOOKING_URL) {
