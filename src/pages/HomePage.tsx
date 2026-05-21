@@ -17,8 +17,8 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
     return (
       <div>
         <Hero onScheduleCall={handleScheduleCall} />
-        <Process />
         <WatchPromo />
+        <Process />
         <Testimonials />
       </div>
     );
