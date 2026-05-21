@@ -1,6 +1,7 @@
 import Hero from '../components/Hero';
 import Process from '../components/Process';
 import Testimonials from '../components/Testimonials';
+import WatchPromo from '../components/WatchPromo';
 
 interface HomePageProps {
   onScheduleCall?: () => void;
@@ -17,6 +18,7 @@ export default function HomePage({ onScheduleCall }: HomePageProps) {
       <div>
         <Hero onScheduleCall={handleScheduleCall} />
         <Process />
+        <WatchPromo />
         <Testimonials />
       </div>
     );

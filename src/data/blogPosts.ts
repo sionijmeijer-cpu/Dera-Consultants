@@ -28,6 +28,10 @@ export interface BlogPost {
   readTime: string;
   image: string;
   images?: string[]; // Up to 2 mid-article images. Leave empty [] if none yet.
+  // Paste an Instagram post or reel URL here to show the video above the
+  // article body with the line "Prefer to watch? I covered this on Instagram."
+  // Example: instagramVideoUrl: "https://www.instagram.com/reel/Cxyz123/"
+  instagramVideoUrl?: string;
 }
 
 // PLACEHOLDER image used when no mid-article images are set yet.

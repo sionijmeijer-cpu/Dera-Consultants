@@ -3,6 +3,7 @@ import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook, Calendar 
 import { blogPosts, BlogPost } from '../data/blogPosts';
 import ArticleSubscribe from '../components/ArticleSubscribe';
 import { openBooking } from '../lib/booking';
+import { toInstagramEmbedUrl } from '../data/videos';
 
 // Silently swallows errors from features that may fail (e.g. network, Convex)
 class FeatureBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
@@ -637,6 +638,31 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
 
             {/* Article column */}
             <article className="flex-1 min-w-0" style={{ maxWidth: '720px' }}>
+              {article.instagramVideoUrl && (
+                <div
+                  className="mb-10 p-5 sm:p-6 bg-gray-50 border border-gray-200"
+                  style={{ borderTop: '3px solid #1B7A4E' }}
+                >
+                  <p
+                    className="text-[10px] font-black uppercase tracking-[0.2em] text-[#1B7A4E] mb-3"
+                    style={{ fontFamily: "'Inter',sans-serif" }}
+                  >
+                    Prefer to watch? I covered this on Instagram.
+                  </p>
+                  <div className="w-full bg-white" style={{ minHeight: '600px' }}>
+                    <iframe
+                      src={toInstagramEmbedUrl(article.instagramVideoUrl)}
+                      title={`Instagram video: ${article.title}`}
+                      loading="lazy"
+                      allow="encrypted-media"
+                      allowFullScreen
+                      scrolling="no"
+                      className="w-full h-full bg-white"
+                      style={{ border: 0, minHeight: '600px' }}
+                    />
+                  </div>
+                </div>
+              )}
               {renderContent()}
 
               {/* Bottom-of-article booking CTA */}

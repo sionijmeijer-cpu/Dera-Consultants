@@ -37,6 +37,9 @@ const CheckoutSuccessPage = lazy(loadCheckoutSuccessPage);
 const loadAmericansMovingToPortugalPage = () => import('./pages/AmericansMovingToPortugalPage');
 const AmericansMovingToPortugalPage = lazy(loadAmericansMovingToPortugalPage);
 
+const loadWatchPage = () => import('./pages/WatchPage');
+const WatchPage = lazy(loadWatchPage);
+
 const loadScheduleCallModal = () => import('./components/ScheduleCallModal');
 const ScheduleCallModal = lazy(loadScheduleCallModal);
 
@@ -97,6 +100,7 @@ function App() {
       loadGuidesStorePage();
       loadCheckoutSuccessPage();
       loadAmericansMovingToPortugalPage();
+      loadWatchPage();
       loadScheduleCallModal();
     };
 
@@ -168,6 +172,7 @@ function App() {
       '/blog': loadBlogPage,
       '/guides': loadGuidesStorePage,
       '/checkout/success': loadCheckoutSuccessPage,
+      '/watch': loadWatchPage,
     };
 
     const shouldIgnore = (href: string) =>
@@ -210,6 +215,7 @@ function App() {
     }
     if (path === '/guides') return <GuidesStorePage />;
     if (path === '/checkout/success') return <CheckoutSuccessPage />;
+    if (path === '/watch') return <WatchPage />;
 
     return <HomePage />;
   };
