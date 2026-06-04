@@ -1,56 +1,96 @@
 import { useMemo } from 'react';
-import { Play } from 'lucide-react';
-import { videos, toInstagramEmbedUrl, VideoEntry } from '../data/videos';
+import { Play, Instagram } from 'lucide-react';
+import { videos, VideoEntry } from '../data/videos';
 
 const CONTAINER = 'w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-10';
 
-function aspectStyle(aspect?: string): React.CSSProperties {
-  if (aspect === '9/16') return { aspectRatio: '9 / 16', maxWidth: '420px' };
-  if (aspect === '1/1') return { aspectRatio: '1 / 1' };
-  return { aspectRatio: '16 / 9' };
+function aspectFor(aspect?: string): string {
+  if (aspect === '9/16') return '9 / 16';
+  if (aspect === '1/1') return '1 / 1';
+  return '16 / 9';
 }
 
-function VideoEmbed({ entry }: { entry: VideoEntry }) {
-  if (entry.source.type === 'github') {
-    return (
-      <video
-        controls
-        preload="metadata"
-        poster={entry.source.poster}
-        className="w-full h-full object-cover bg-black"
-      >
-        <source src={entry.source.src} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    );
-  }
-  const embedUrl = toInstagramEmbedUrl(entry.source.url);
+function InstagramCard({ entry }: { entry: VideoEntry & { source: Extract<VideoEntry['source'], { type: 'instagram' }> } }) {
+  const ratio = aspectFor(entry.source.aspect);
   return (
-    <iframe
-      src={embedUrl}
-      title={entry.title}
-      loading="lazy"
-      allow="encrypted-media"
-      allowFullScreen
-      scrolling="no"
-      className="w-full h-full bg-white"
-      style={{ border: 0 }}
-    />
+    <a
+      href={entry.source.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300"
+      style={{ borderTop: '3px solid #1B7A4E' }}
+    >
+      {/* Poster with overlay */}
+      <div
+        className="relative w-full bg-gray-900 overflow-hidden"
+        style={{ aspectRatio: ratio }}
+      >
+        <img
+          src={entry.source.poster}
+          alt={entry.title}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        {/* Dark gradient overlay for legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
+        {/* Centered play button */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <Play
+              className="w-7 h-7 sm:w-9 sm:h-9 text-[#1B7A4E]"
+              fill="#1B7A4E"
+              style={{ marginLeft: '4px' }}
+            />
+          </div>
+        </div>
+        {/* Watch on Instagram badge */}
+        <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 shadow-md">
+          <Instagram size={12} className="text-[#1B7A4E]" />
+          <span
+            className="text-[9px] font-black uppercase tracking-widest text-gray-900"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Watch on Instagram
+          </span>
+        </div>
+      </div>
+
+      {/* Text */}
+      <div className="p-5 sm:p-6">
+        <h3
+          className="text-[20px] font-black text-gray-900 mb-2 leading-tight group-hover:text-[#1B7A4E] transition-colors"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
+          {entry.title}
+        </h3>
+        <p
+          className="text-gray-600 text-[15px] leading-relaxed"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}
+        >
+          {entry.description}
+        </p>
+      </div>
+    </a>
   );
 }
 
-function VideoCard({ entry }: { entry: VideoEntry }) {
-  const isInstagram = entry.source.type === 'instagram';
+function GithubVideoCard({ entry }: { entry: VideoEntry & { source: Extract<VideoEntry['source'], { type: 'github' }> } }) {
+  const ratio = aspectFor(entry.source.aspect);
   return (
     <article
       className="bg-white border border-gray-200 overflow-hidden flex flex-col"
       style={{ borderTop: '3px solid #1B7A4E' }}
     >
-      <div
-        className="w-full bg-gray-100"
-        style={isInstagram ? { minHeight: '560px' } : aspectStyle(entry.source.aspect)}
-      >
-        <VideoEmbed entry={entry} />
+      <div className="w-full bg-black" style={{ aspectRatio: ratio }}>
+        <video
+          controls
+          preload="metadata"
+          poster={entry.source.poster}
+          className="w-full h-full object-cover bg-black"
+        >
+          <source src={entry.source.src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div className="p-5 sm:p-6 flex-1 flex flex-col">
         <h3
@@ -68,6 +108,13 @@ function VideoCard({ entry }: { entry: VideoEntry }) {
       </div>
     </article>
   );
+}
+
+function VideoCard({ entry }: { entry: VideoEntry }) {
+  if (entry.source.type === 'instagram') {
+    return <InstagramCard entry={entry as VideoEntry & { source: Extract<VideoEntry['source'], { type: 'instagram' }> }} />;
+  }
+  return <GithubVideoCard entry={entry as VideoEntry & { source: Extract<VideoEntry['source'], { type: 'github' }> }} />;
 }
 
 export default function WatchPage() {
@@ -102,7 +149,7 @@ export default function WatchPage() {
             className="text-[17px] sm:text-[19px] text-white/85 max-w-3xl leading-relaxed"
             style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}
           >
-            Short videos on Portugal residency, Caribbean citizenship, and the questions clients ask most. Watch the ones that match your situation before you book a consultation.
+            Short videos on Portugal residency, Caribbean citizenship, and the questions clients ask most. Tap any video to watch the full version on Instagram.
           </p>
         </div>
       </section>
