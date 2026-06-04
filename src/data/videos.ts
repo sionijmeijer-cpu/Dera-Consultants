@@ -45,7 +45,7 @@ export const videos: VideoEntry[] = [
     source: {
       type: 'instagram',
       url: 'https://www.instagram.com/p/DYmzBJcIIOy/',
-      poster: '/videos/What_I_exactly_do.png',
+      poster: '/images/videos/What_I_exactly_do.png',
       aspect: '9/16',
     },
   },
@@ -57,7 +57,7 @@ export const videos: VideoEntry[] = [
     source: {
       type: 'instagram',
       url: 'https://www.instagram.com/p/DYPppHMoiyH/',
-      poster: '/videos/Americans_are_suing.png',
+      poster: '/images/videos/Americans_are_suing.png',
       aspect: '9/16',
     },
   },
@@ -69,7 +69,7 @@ export const videos: VideoEntry[] = [
     source: {
       type: 'instagram',
       url: 'https://www.instagram.com/p/DXFFni6iLdt/',
-      poster: '/videos/Build_your_passport.png',
+      poster: '/images/videos/Build_your_passport.png',
       aspect: '9/16',
     },
   },
