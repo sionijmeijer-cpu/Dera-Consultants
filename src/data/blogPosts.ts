@@ -48,6 +48,214 @@ const PLACEHOLDER_2 = "https://picsum.photos/seed/mobility2/900/420";
 export const blogPosts: BlogPost[] = [
 
   {
+    id: "c8",
+    title: "Dominica vs St Lucia in 2026: Which Caribbean Passport Is Actually Better for You?",
+    slug: "dominica-vs-st-lucia-citizenship-2026",
+    excerpt: "These are the two most searched Caribbean citizenship programmes right now and for good reason. Both give you Schengen access, no wealth tax, and a second passport without relocating. But they are built for different people. Here is the honest comparison.",
+    author: "Sylvia Awoudu",
+    publishDate: "June 26, 2026",
+    category: "Citizenship",
+    tags: ["Dominica", "St Lucia", "Caribbean CBI", "Second Passport", "Citizenship by Investment", "2026"],
+    readTime: "12 min read",
+    image: "https://www.getsecondpassport.eu/images/articles/dominica-vs-st-lucia-citizenship-2026.png",
+    images: [],
+    content: `Dominica vs St Lucia in 2026: Which Caribbean Passport Is Actually Better for You?
+
+Every week I get asked some version of the same question. Dominica or St Lucia? Which one should I go with?
+
+The honest answer is that it depends entirely on who you are, what you need the passport for, and how much flexibility you want in how you invest. There is no universally correct answer. But there is a correct answer for your situation.
+
+This article gives you the full comparison so you can make that call clearly.
+
+# The Quick Version
+
+If you want the lowest entry cost and fastest processing, Dominica wins. If you want more investment flexibility, a refundable option, or a slightly easier family inclusion criteria, St Lucia is worth the extra investment. If your priority is Schengen access and a second passport with no residency requirement, both programmes deliver.
+
+# Side by Side: The Core Numbers
+
+| Feature | Dominica | St Lucia |
+|---------|----------|----------|
+| Programme established | 1993 | 2015 |
+| Minimum investment (single applicant) | $200,000 | $240,000 |
+| Visa-free countries | 160 | 155 |
+| Schengen access | Yes | Yes |
+| UK access | Yes | Yes |
+| US access | Visa required | Visa required |
+| Average processing time | 9 months | 12 to 18 months |
+| Investment options | 2 | 4 |
+| Mandatory interview | Yes | Yes |
+| Residency requirement | None | None |
+| Physical presence to maintain citizenship | None | None |
+
+Both programmes grant citizenship for life. Both allow dual nationality. Both extend to your children and future generations automatically once you are a citizen.
+
+# Investment Options: Where They Differ
+
+This is where St Lucia has a meaningful advantage for certain investors.
+
+Dominica offers two routes. A non-refundable donation to the Economic Diversification Fund starting from $200,000, or a real estate investment in an approved development starting from $200,000 held for a minimum of three years.
+
+St Lucia offers four routes. A non-refundable donation to the National Economic Fund from $240,000. Real estate investment in an approved project from $300,000. Government bonds from $300,000 held for five years and fully refundable at maturity with no interest. Or an enterprise investment of $3.5 million creating at least three permanent jobs.
+
+The government bonds route is unique to St Lucia in the Caribbean CBI market. It is the only fully refundable investment option available through a Caribbean citizenship programme. For investors who want to preserve capital while still accessing a second passport, this matters significantly.
+
+# Family Eligibility: St Lucia Is More Flexible
+
+If you have a larger or more complex family structure, St Lucia is the more accommodating programme.
+
+| Family member | Dominica | St Lucia |
+|--------------|----------|----------|
+| Spouse | Yes | Yes |
+| Children | Up to 18 (or 30 if student/dependent) | Up to 30 |
+| Parents and grandparents | Age 65 and over | Age 55 and over |
+| Siblings | Not eligible | Unmarried siblings under 18 |
+
+The difference in age thresholds matters particularly for parents and grandparents. If your parents are between 55 and 65 and you want to include them in the application, St Lucia is your only option between these two programmes.
+
+# Processing Times: What They Advertise vs What Actually Happens
+
+Both programmes advertise processing times of three to six months. Both are currently running longer than that.
+
+Dominica's real average is running at approximately nine months in 2026. St Lucia's real average has extended to between twelve and eighteen months in the same period, reflecting the impact of ECCIRA's enhanced due diligence requirements which came into effect from September 2025.
+
+For applicants from West Africa specifically, enhanced due diligence is standard on both programmes. This adds time to the process regardless of the programme you choose. My advice to every client is to plan for twelve months and be genuinely pleased if it arrives sooner. Building your travel plans or business strategy around a three-month processing timeline is how people end up disappointed.
+
+# Passport Strength: Both Are Competitive
+
+Dominica's passport currently provides visa-free or visa-on-arrival access to 160 countries. St Lucia provides access to 155. The difference is small and in practice both passports open the same destinations that matter most to most applicants, the full Schengen Area, the UK, Singapore, Hong Kong, and much of Asia.
+
+Neither gives you visa-free access to the United States. Dominica's B-1 and B-2 visitor visa validity was downgraded by the US government in recent years, reducing it from ten-year multiple entry to a shorter validity period. This is an ongoing political pressure point on Dominica's programme specifically.
+
+If US access or a pathway to US business visas is part of your strategy, neither Dominica nor St Lucia solves that problem. Grenada, through its unique E-2 treaty with the United States, is the Caribbean programme that does.
+
+>! The question most people ask is which passport is stronger. The question they should ask is which passport solves the specific problem they have right now. Both Dominica and St Lucia give you Schengen and UK access immediately. If that is your priority, you do not need to overthink the comparison.
+
+# The Cost Comparison: What You Actually Pay
+
+The headline investment number is not the full picture. Here is a realistic total cost for a single applicant on each programme.
+
+| Cost item | Dominica (donation route) | St Lucia (donation route) |
+|-----------|--------------------------|--------------------------|
+| Government contribution | $200,000 | $240,000 |
+| Due diligence fees | $7,500 | $7,500 |
+| Application and processing fees | $1,000 | $2,000 |
+| Interview fee | $1,000 | $1,000 |
+| Passport and naturalisation fees | $250 | $200 |
+| Advisory and legal fees | $8,000 to $15,000 | $8,000 to $15,000 |
+| Approximate total | $218,000 to $225,000 | $260,000 to $267,000 |
+
+For a family of four the gap widens. Dominica adds approximately $35,000 per adult dependent and $25,000 per child. St Lucia adds $15,000 per additional dependent, which makes it the more affordable option for larger families applying through the donation route.
+
+# So Which One Is Right for You?
+
+Choose Dominica if your priorities are lower entry cost, faster processing, and a straightforward two-option investment structure. It is a well-established programme with a thirty-year track record and the most affordable entry point in the Caribbean.
+
+Choose St Lucia if you have a larger family you want to include, if you want the option of a refundable investment through government bonds, or if your parents are between 55 and 65 and you want them on the application. St Lucia is also the right choice if you are a larger group and the per-dependent fee differential makes the total cost more competitive.
+
+Neither is wrong. Both programmes have issued tens of thousands of passports to legitimate investors over many years. The differences come down to your family structure, your investment preferences, and how much the entry cost matters relative to the options you want.
+
+If you want to work through which programme fits your specific passport, family situation, and mobility goals, book a consultation and we will give you a clear answer based on your actual circumstances.`
+  },
+
+  {
+    id: "c9",
+    title: "What Is the Real Processing Time for Dominica Citizenship by Investment in 2026? Not What They Are Advertising.",
+    slug: "dominica-citizenship-real-processing-time-2026",
+    excerpt: "Every Dominica CBI brochure says three to six months. The real average in 2026 is significantly longer. If you are planning around the advertised timeline you are going to be caught off guard. Here is what is actually happening and why.",
+    author: "Sylvia Awoudu",
+    publishDate: "June 26, 2026",
+    category: "Citizenship",
+    tags: ["Dominica", "Caribbean CBI", "Processing Time", "Second Passport", "Citizenship by Investment", "2026"],
+    readTime: "9 min read",
+    image: "https://www.getsecondpassport.eu/images/articles/dominica-cbi-real-processing-time-2026.png",
+    images: [],
+    content: `What Is the Real Processing Time for Dominica Citizenship by Investment in 2026? Not What They Are Advertising.
+
+Let me be direct about something the brochures do not tell you.
+
+Every Dominica CBI programme summary you will find online advertises a processing time of three to six months. That figure is not accurate for 2026. The real average is running closer to nine months, and for certain applicant profiles it is running longer.
+
+This is not a crisis. The programme is still working. Passports are still being issued. But if you are making business plans, travel plans, or family decisions based on a six-month timeline, you need to adjust that expectation now rather than after you have submitted your application.
+
+# What the Official Timeline Says
+
+The Dominica Citizenship by Investment Unit publishes a processing framework that describes the following stages after a complete application is submitted.
+
+First, due diligence and background checks are conducted on all applicants. This stage typically takes sixty to ninety days under normal processing conditions. Second, the application is reviewed by the CBI Unit and a decision in principle is issued. Third, the investor completes the qualifying investment within sixty to ninety days of approval in principle. Fourth, the passport and naturalisation certificate are issued within two weeks of the investment being confirmed.
+
+On paper this sequence suggests a total timeline of approximately four to six months from submission to passport. In practice, each of these stages is currently taking longer than the published framework suggests.
+
+# What Is Actually Happening in 2026
+
+The current real average processing time for Dominica CBI applications is approximately nine months from submission to passport receipt. Some straightforward applications from lower-risk applicant profiles are completing closer to six months. Applications involving enhanced due diligence are running longer, in some cases twelve months or more.
+
+Three specific factors are driving the extension.
+
+# Factor 1: ECCIRA and Enhanced Due Diligence
+
+In September 2025, Dominica signed the ECCIRA agreement alongside Antigua and Barbuda, Grenada, St Kitts and Nevis, and St Lucia, establishing a regional regulatory authority for Caribbean CBI programmes. One of the immediate practical consequences was the harmonisation of due diligence standards across all five programmes.
+
+Previously, programmes competed partly on the speed and lightness of their due diligence process. Under ECCIRA, all five programmes now apply the same enhanced background check requirements. Every application, regardless of nationality or risk profile, goes through the same thorough process. This adds time uniformly.
+
+>! This is actually a good development for anyone who wants their passport to hold its value long term. A stricter, more credible programme is a more respected passport. The extra weeks of processing are an investment in the long-term standing of the document you are acquiring.
+
+# Factor 2: The Mandatory Interview
+
+Since July 2023, all applicants aged sixteen and over are required to complete a mandatory interview as part of the Dominica CBI process. These interviews can be conducted in person on the island or online. They are designed to verify the applicant's identity, the source of their funds, and their understanding of the programme.
+
+For most legitimate applicants this is a straightforward step. It is not designed to be an obstacle. But it does add a scheduling step to the process, and during peak application periods interview slots have a waiting period of several weeks before availability opens.
+
+The interview fee is $1,000 per applicant and is included in the total cost of the application.
+
+# Factor 3: Application Volume
+
+Dominica remains the most affordable Caribbean CBI programme at $200,000 minimum. In a market where Grenada starts from $235,000, St Kitts from $250,000, and St Lucia from $240,000, the price differential consistently drives higher application volumes to Dominica. Higher volume means longer queues.
+
+# What This Means for Different Applicant Profiles
+
+Not all applicants experience the same timeline. Here is a realistic guide based on current processing patterns.
+
+| Applicant profile | Realistic timeline |
+|------------------|-------------------|
+| Single applicant, straightforward background, complete documentation | 6 to 8 months |
+| Family application, clean backgrounds, complete documentation | 8 to 10 months |
+| Any applicant from a country on the enhanced due diligence list | 10 to 14 months |
+| Applications with incomplete documentation at submission | Add 2 to 4 months to any of the above |
+
+West African applicants, including Nigerians and Ghanaians, are subject to enhanced due diligence as standard. This is not a rejection signal. It is a process requirement that adds thorough background verification to the application. The outcome for a legitimate applicant with clean documentation and transparent source of funds is still approval. It simply takes longer.
+
+# The Most Common Way People Slow Down Their Own Application
+
+In my experience working with clients on Caribbean CBI applications, the single biggest cause of delays beyond the standard processing time is incomplete or incorrectly prepared documentation at submission.
+
+The CBI Unit will pause review of an application if supporting documents are missing, incorrectly certified, outdated, or inconsistently formatted. Recovering from a documentation pause can add two to four months to the total timeline because you are effectively re-entering the queue once the missing items are provided.
+
+The categories where documentation problems most commonly arise are source of funds evidence, criminal record certificates that have expired or been incorrectly apostilled, bank statements that do not cover the required period in the required format, and passport copies that are unclear or from a document that will expire during the processing period.
+
+An advisor or lawyer who has submitted Dominica applications recently knows exactly what the CBI Unit wants to see and how they want to see it. Getting the documentation right before submission is worth far more than any promised accelerated timeline.
+
+# The Accelerated Processing Question
+
+Dominica does offer an accelerated processing option for certain applicants. If you have seen this mentioned, it is a real programme feature, but it applies to a narrow set of circumstances and comes with additional fees and requirements.
+
+It is not a way to skip the queue. It is a specific pathway for applicants who have a documented urgent need and who meet additional eligibility criteria. I strongly recommend not relying on accelerated processing as a strategy for getting your passport faster. Build your timeline around the standard process and treat any speed as a bonus.
+
+# The Honest Planning Framework
+
+If you are considering Dominica CBI and are thinking about timelines, here is the framework I give every client.
+
+Plan for twelve months from the moment you begin preparing your documentation to the moment the passport is in your hand. If it arrives in nine months, you are ahead. If enhanced due diligence adds a few extra months, you have not been caught off guard.
+
+Do not make any irreversible travel, business, or family decisions that depend on having the passport by a specific date unless that date is at least twelve months away.
+
+Start the documentation preparation before you submit the application, not after. Every week you spend gathering documents before submission is a week you avoid adding to the end of the process.
+
+Work with an advisor who has submitted successful Dominica applications in the past twelve months and can show you current realistic timelines from their own client portfolio. Anyone quoting you three to four months in mid-2026 is either uninformed or telling you what you want to hear.
+
+If you want to understand exactly what your Dominica CBI application would look like based on your nationality, family structure, and investment budget, book a consultation and we will map it out clearly before you commit to anything.`
+  },
+
+  {
     id: "e11",
     title: "Two Investment Opportunities in Portugal That Are Still Wide Open in 2026. And Why Braga Is the City Nobody Is Talking About Yet.",
     slug: "investment-opportunities-portugal-braga-real-estate-food-beverage-2026",
