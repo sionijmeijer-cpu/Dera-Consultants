@@ -163,6 +163,7 @@ function App() {
   useEffect(() => {
     const routePrefetchMap: Record<string, () => Promise<unknown>> = {
       '/company': loadCompanyPage,
+      '/services': loadProgramsPage,
       '/programs': loadProgramsPage,
       '/caribbean-citizenship-by-investment': loadCaribbeanPage,
       '/portugal-europe-residency': loadPortugalPage,
@@ -203,7 +204,14 @@ function App() {
 
     if (path === '/' || path === '') return <HomePage />;
     if (path === '/company') return <CompanyPage />;
-    if (path === '/programs') return <ProgramsPage />;
+    if (path === '/services') return <ProgramsPage />;
+    if (path === '/programs') {
+      // Legacy route: redirect to /services so the canonical URL is the new one.
+      if (typeof window !== 'undefined') {
+        window.history.replaceState({}, '', '/services');
+      }
+      return <ProgramsPage />;
+    }
     if (path === '/caribbean-citizenship-by-investment') return <CaribbeanPage />;
     if (path === '/portugal-europe-residency') return <PortugalPage />;
     if (path === '/americans-moving-to-portugal') return <AmericansMovingToPortugalPage />;

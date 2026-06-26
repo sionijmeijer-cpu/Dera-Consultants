@@ -1,4 +1,7 @@
 {
+  "routes": [
+    { "route": "/programs", "redirect": "/services", "statusCode": 301 }
+  ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [

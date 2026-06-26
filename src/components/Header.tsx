@@ -10,7 +10,7 @@ export default function Header({ onScheduleCall }: HeaderProps) {
 
   const navLinks = [
     { name: 'Company', path: '/company', bold: true },
-    { name: 'Programs', path: '/programs', bold: true },
+    { name: 'Services', path: '/services', bold: true },
     { name: 'Guides', path: '/guides', bold: true },
     { name: 'Articles', path: '/blog', bold: true },
     { name: 'Research', path: '/research', bold: true },
