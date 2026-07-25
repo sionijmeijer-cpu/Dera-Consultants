@@ -1,4 +1,4 @@
-import { Mail, Phone, Facebook, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
 import TrustpilotFooter from './TrustpilotFooter';
 
 export default function Footer() {
@@ -126,6 +126,16 @@ export default function Footer() {
                 className="hover:text-[#1B7A4E] transition-colors duration-200"
               >
                 <Linkedin className="w-5 h-5" />
+              </a>
+
+              <a
+                href="https://www.youtube.com/@deraconsultants"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="hover:text-[#1B7A4E] transition-colors duration-200"
+              >
+                <Youtube className="w-5 h-5" />
               </a>
 
             </div>
