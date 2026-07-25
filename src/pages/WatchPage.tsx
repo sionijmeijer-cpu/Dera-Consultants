@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { Play, Instagram } from 'lucide-react';
-import { videos, VideoEntry } from '../data/videos';
+import { Play, Instagram, Youtube } from 'lucide-react';
+import { videos, VideoEntry, getYouTubeThumbnail } from '../data/videos';
 
 const CONTAINER = 'w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-10';
 
@@ -110,9 +110,74 @@ function GithubVideoCard({ entry }: { entry: VideoEntry & { source: Extract<Vide
   );
 }
 
+function YouTubeCard({ entry }: { entry: VideoEntry & { source: Extract<VideoEntry['source'], { type: 'youtube' }> } }) {
+  const ratio = aspectFor(entry.source.aspect ?? '16/9');
+  const posterSrc = entry.source.poster ?? getYouTubeThumbnail(entry.source.url) ?? '';
+  return (
+    <a
+      href={entry.source.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300"
+      style={{ borderTop: '3px solid #FF0000' }}
+    >
+      <div
+        className="relative w-full bg-gray-900 overflow-hidden"
+        style={{ aspectRatio: ratio }}
+      >
+        {posterSrc && (
+          <img
+            src={posterSrc}
+            alt={entry.title}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <Play
+              className="w-7 h-7 sm:w-9 sm:h-9 text-[#FF0000]"
+              fill="#FF0000"
+              style={{ marginLeft: '4px' }}
+            />
+          </div>
+        </div>
+        <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 shadow-md">
+          <Youtube size={12} className="text-[#FF0000]" />
+          <span
+            className="text-[9px] font-black uppercase tracking-widest text-gray-900"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Watch on YouTube
+          </span>
+        </div>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <h3
+          className="text-[20px] font-black text-gray-900 mb-2 leading-tight group-hover:text-[#FF0000] transition-colors"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
+          {entry.title}
+        </h3>
+        <p
+          className="text-gray-600 text-[15px] leading-relaxed"
+          style={{ fontFamily: "'Source Serif 4', Georgia, serif" }}
+        >
+          {entry.description}
+        </p>
+      </div>
+    </a>
+  );
+}
+
 function VideoCard({ entry }: { entry: VideoEntry }) {
   if (entry.source.type === 'instagram') {
     return <InstagramCard entry={entry as VideoEntry & { source: Extract<VideoEntry['source'], { type: 'instagram' }> }} />;
+  }
+  if (entry.source.type === 'youtube') {
+    return <YouTubeCard entry={entry as VideoEntry & { source: Extract<VideoEntry['source'], { type: 'youtube' }> }} />;
   }
   return <GithubVideoCard entry={entry as VideoEntry & { source: Extract<VideoEntry['source'], { type: 'github' }> }} />;
 }

@@ -1,18 +1,28 @@
 // ─── HOW TO ADD A VIDEO ─────────────────────────────────────────────────────
 // Each entry has a topic, a title, a short description, and a source.
 //
-// Two source types are supported:
+// Three source types are supported:
 //
-//   1) Instagram (recommended). Drop a poster image (a screenshot from the
-//      reel, saved as PNG) into public/videos/. Paste the Instagram URL.
-//      The /watch page renders a clickable card. Clicks open Instagram
-//      in a new tab. No video file is hosted on our side.
+//   1) Instagram. Drop a poster image (a screenshot from the reel, saved as
+//      PNG) into public/images/videos/. Paste the Instagram URL. The /watch
+//      page renders a clickable card. Clicks open Instagram in a new tab.
 //
 //      { type: 'instagram',
 //        url: 'https://www.instagram.com/p/Cxyz123/',
-//        poster: '/videos/your-poster.png' }
+//        poster: '/images/videos/your-poster.png',
+//        aspect: '9/16' }
 //
-//   2) A video file you commit into this repo. Put the .mp4 in
+//   2) YouTube. Paste any YouTube URL (watch, youtu.be, or shorts).
+//      The thumbnail is fetched automatically from YouTube, so no poster
+//      file needed. Clicks open YouTube in a new tab. Use aspect '16/9'
+//      for standard videos and '9/16' for Shorts. Optionally provide a
+//      custom poster to override the auto-derived thumbnail.
+//
+//      { type: 'youtube',
+//        url: 'https://www.youtube.com/watch?v=Cxyz123',
+//        aspect: '16/9' }
+//
+//   3) A video file you commit into this repo. Put the .mp4 in
 //      public/videos/ and reference it as "/videos/your-file.mp4".
 //      Use this for videos you have rights to host directly. Best for
 //      short, compressed clips. GitHub web uploads are capped at 25 MB.
@@ -26,7 +36,8 @@
 
 export type VideoSource =
   | { type: 'github'; src: string; poster?: string; aspect?: '16/9' | '9/16' | '1/1' }
-  | { type: 'instagram'; url: string; poster: string; aspect?: '9/16' | '1/1' | '16/9' };
+  | { type: 'instagram'; url: string; poster: string; aspect?: '9/16' | '1/1' | '16/9' }
+  | { type: 'youtube'; url: string; poster?: string; aspect?: '16/9' | '9/16' | '1/1' };
 
 export interface VideoEntry {
   id: string;
@@ -81,4 +92,25 @@ export function toInstagramEmbedUrl(url: string): string {
   const noQuery = url.split('?')[0].replace(/\/+$/, '');
   if (noQuery.endsWith('/embed')) return noQuery + '/';
   return noQuery + '/embed/';
+}
+
+// Extract an 11-character YouTube video ID from any of the standard URL forms:
+// youtube.com/watch?v=ID, youtu.be/ID, youtube.com/shorts/ID, youtube.com/embed/ID.
+export function getYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/|youtube\.com\/v\/)([A-Za-z0-9_-]{11})/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+// Return YouTube's auto-hosted thumbnail URL for a given video URL.
+// hqdefault.jpg is available for every video and is 480x360.
+export function getYouTubeThumbnail(url: string): string | null {
+  const id = getYouTubeId(url);
+  if (!id) return null;
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }
