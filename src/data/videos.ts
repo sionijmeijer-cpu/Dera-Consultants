@@ -87,8 +87,8 @@ export const videos: VideoEntry[] = [
   {
   id: 'v4',
   topic: 'Featured',
-  title: 'Dominca VS ST Lucia',
-  description: 'Two to three sentences on what it covers and who it is for.',
+  title: 'Dominica VS Saint Lucia',
+  description: 'Are you torn between obtaining a Dominica or Saint Lucia passport in 2025? 🌍 In this video, we explore the key differences and benefits of each option, focusing on visa-free access, diplomatic stability, economic factors, and quality of life. Discover why choosing the right passport can significantly impact your travel freedom and lifestyle. With important updates on immigration policies, understanding these nuances is crucial for making an informed decision.',
   source: {
     type: 'youtube',
     url: 'https://www.youtube.com/watch?v=sdrTrV6E2Ew',
