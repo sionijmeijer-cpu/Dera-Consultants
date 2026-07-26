@@ -84,6 +84,17 @@ export const videos: VideoEntry[] = [
       aspect: '9/16',
     },
   },
+  {
+  id: 'v4',
+  topic: 'Featured',
+  title: 'Your video title',
+  description: 'Two to three sentences on what it covers and who it is for.',
+  source: {
+    type: 'youtube',
+    url: 'https://www.youtube.com/watch?v=sdrTrV6E2Ew',
+    aspect: '16/9',   // use '9/16' for Shorts
+  },
+},
 ];
 
 // Turn an Instagram post or reel URL into the embeddable iframe URL.
