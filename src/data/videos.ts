@@ -87,7 +87,7 @@ export const videos: VideoEntry[] = [
   {
   id: 'v4',
   topic: 'Featured',
-  title: 'Your video title',
+  title: 'Dominca VS ST Lucia',
   description: 'Two to three sentences on what it covers and who it is for.',
   source: {
     type: 'youtube',
