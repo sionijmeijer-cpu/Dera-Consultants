@@ -639,13 +639,17 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
             {/* Article column */}
             <article className="flex-1 min-w-0" style={{ maxWidth: '720px' }}>
               {article.youtubeVideoUrl && (() => {
-                const ytId = getYouTubeId(article.youtubeVideoUrl);
                 const isShort = article.youtubeVideoUrl.includes('/shorts/');
+                // Regular 16:9 videos: full width at the top of the article.
+                // Shorts (9:16): hidden here on desktop, shown in the sidebar
+                //                instead. On mobile the sidebar is hidden, so
+                //                we still render the Short here at the top.
+                const wrapperClass = isShort ? 'mb-10 lg:hidden' : 'mb-10';
                 const aspectRatio = isShort ? '9 / 16' : '16 / 9';
-                const maxWidth = isShort ? '380px' : '640px';
+                const maxWidth = isShort ? '340px' : '640px';
                 const thumb = getYouTubeThumbnail(article.youtubeVideoUrl) ?? '';
                 return (
-                  <div className="mb-10">
+                  <div className={wrapperClass}>
                     <p
                       className="text-[10px] font-black uppercase tracking-[0.2em] text-[#FF0000] mb-3"
                       style={{ fontFamily: "'Inter',sans-serif" }}
@@ -688,24 +692,31 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
                         </span>
                       </div>
                     </a>
-                    {ytId && (
-                      <script
-                        type="application/ld+json"
-                        dangerouslySetInnerHTML={{
-                          __html: JSON.stringify({
-                            '@context': 'https://schema.org',
-                            '@type': 'VideoObject',
-                            name: article.title,
-                            description: article.excerpt,
-                            thumbnailUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
-                            uploadDate: new Date(article.publishDate).toISOString(),
-                            embedUrl: `https://www.youtube.com/embed/${ytId}`,
-                            contentUrl: article.youtubeVideoUrl,
-                          }),
-                        }}
-                      />
-                    )}
                   </div>
+                );
+              })()}
+              {article.youtubeVideoUrl && (() => {
+                const ytId = getYouTubeId(article.youtubeVideoUrl);
+                if (!ytId) return null;
+                // VideoObject schema is emitted once per article regardless of
+                // where the visible card is placed. Also present in the SSG
+                // pre-rendered HTML for Google.
+                return (
+                  <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                      __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'VideoObject',
+                        name: article.title,
+                        description: article.excerpt,
+                        thumbnailUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+                        uploadDate: new Date(article.publishDate).toISOString(),
+                        embedUrl: `https://www.youtube.com/embed/${ytId}`,
+                        contentUrl: article.youtubeVideoUrl,
+                      }),
+                    }}
+                  />
                 );
               })()}
               {article.instagramVideoUrl && (
@@ -848,6 +859,57 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
             {/* Sidebar — desktop only */}
             <aside className="hidden lg:block w-[260px] xl:w-[280px] flex-shrink-0">
               <div className="sticky top-8 space-y-5">
+
+                {/* YouTube Short (desktop sidebar) */}
+                {article.youtubeVideoUrl && article.youtubeVideoUrl.includes('/shorts/') && (() => {
+                  const thumb = getYouTubeThumbnail(article.youtubeVideoUrl!) ?? '';
+                  return (
+                    <div className="p-4 border border-gray-200" style={{ borderTop: '3px solid #FF0000' }}>
+                      <h4
+                        className="text-[10px] font-black uppercase tracking-widest text-[#FF0000] mb-3"
+                        style={{ fontFamily: "'Inter',sans-serif" }}
+                      >
+                        Watch this article
+                      </h4>
+                      <a
+                        href={article.youtubeVideoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Watch on YouTube: ${article.title}`}
+                        className="group block bg-gray-900 overflow-hidden relative"
+                        style={{ aspectRatio: '9 / 16' }}
+                      >
+                        {thumb && (
+                          <img
+                            src={thumb}
+                            alt={`YouTube video: ${article.title}`}
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-12 h-12 rounded-full bg-white/95 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <Play
+                              className="w-5 h-5 text-[#FF0000]"
+                              fill="#FF0000"
+                              style={{ marginLeft: '3px' }}
+                            />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-2 left-2 inline-flex items-center gap-1 bg-white/95 backdrop-blur-sm px-2 py-0.5">
+                          <Youtube size={10} className="text-[#FF0000]" />
+                          <span
+                            className="text-[8px] font-black uppercase tracking-widest text-gray-900"
+                            style={{ fontFamily: "'Inter',sans-serif" }}
+                          >
+                            YouTube
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  );
+                })()}
 
                 {/* Work With Us */}
                 <div className="p-5 border border-gray-200" style={{ borderTop: '3px solid #1B7A4E' }}>
