@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback, useMemo, Component, ReactNode } from 'react';
-import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook, Calendar, Play, Instagram } from 'lucide-react';
+import { ChevronRight, BookOpen, ChevronUp, Linkedin, Link2, Facebook, Calendar, Play, Instagram, Youtube } from 'lucide-react';
 import { blogPosts, BlogPost } from '../data/blogPosts';
 import ArticleSubscribe from '../components/ArticleSubscribe';
 import { openBooking } from '../lib/booking';
+import { getYouTubeThumbnail, getYouTubeId } from '../data/videos';
 
 // Silently swallows errors from features that may fail (e.g. network, Convex)
 class FeatureBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
@@ -637,6 +638,76 @@ export default function BlogPostPage({ onScheduleCall }: BlogPostPageProps) {
 
             {/* Article column */}
             <article className="flex-1 min-w-0" style={{ maxWidth: '720px' }}>
+              {article.youtubeVideoUrl && (() => {
+                const ytId = getYouTubeId(article.youtubeVideoUrl);
+                const isShort = article.youtubeVideoUrl.includes('/shorts/');
+                const aspectRatio = isShort ? '9 / 16' : '16 / 9';
+                const maxWidth = isShort ? '380px' : '640px';
+                const thumb = getYouTubeThumbnail(article.youtubeVideoUrl) ?? '';
+                return (
+                  <div className="mb-10">
+                    <p
+                      className="text-[10px] font-black uppercase tracking-[0.2em] text-[#FF0000] mb-3"
+                      style={{ fontFamily: "'Inter',sans-serif" }}
+                    >
+                      Prefer to watch? I covered this on YouTube.
+                    </p>
+                    <a
+                      href={article.youtubeVideoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Watch on YouTube: ${article.title}`}
+                      className="group block bg-gray-900 border border-gray-200 overflow-hidden relative"
+                      style={{ borderTop: '3px solid #FF0000', aspectRatio, maxWidth }}
+                    >
+                      {thumb && (
+                        <img
+                          src={thumb}
+                          alt={`YouTube video: ${article.title}`}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none" />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                          <Play
+                            className="w-7 h-7 sm:w-9 sm:h-9 text-[#FF0000]"
+                            fill="#FF0000"
+                            style={{ marginLeft: '4px' }}
+                          />
+                        </div>
+                      </div>
+                      <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 shadow-md">
+                        <Youtube size={12} className="text-[#FF0000]" />
+                        <span
+                          className="text-[9px] font-black uppercase tracking-widest text-gray-900"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          Watch on YouTube
+                        </span>
+                      </div>
+                    </a>
+                    {ytId && (
+                      <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{
+                          __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'VideoObject',
+                            name: article.title,
+                            description: article.excerpt,
+                            thumbnailUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+                            uploadDate: new Date(article.publishDate).toISOString(),
+                            embedUrl: `https://www.youtube.com/embed/${ytId}`,
+                            contentUrl: article.youtubeVideoUrl,
+                          }),
+                        }}
+                      />
+                    )}
+                  </div>
+                );
+              })()}
               {article.instagramVideoUrl && (
                 <div className="mb-10">
                   <p

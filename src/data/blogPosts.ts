@@ -37,6 +37,13 @@ export interface BlogPost {
   //   instagramVideoPoster: "/videos/your-poster.png",
   instagramVideoUrl?: string;
   instagramVideoPoster?: string;
+  // Optional YouTube video for the article. Paste any YouTube URL — regular
+  // watch, youtu.be, or shorts. Thumbnail is auto-fetched from YouTube, so no
+  // poster upload needed. When set, a VideoObject schema is emitted so Google
+  // can surface the video alongside the article in search results.
+  //   youtubeVideoUrl: "https://www.youtube.com/watch?v=abc123"
+  //   youtubeVideoUrl: "https://www.youtube.com/shorts/abc123"
+  youtubeVideoUrl?: string;
 }
 
 // PLACEHOLDER image used when no mid-article images are set yet.
@@ -59,6 +66,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     image: "https://www.getsecondpassport.eu/images/articles/dominica-vs-st-lucia-citizenship-2026.png",
     images: [],
+    youtubeVideoUrl: "https://www.youtube.com/watch?v=sdrTrV6E2Ew",
     content: `Dominica vs St Lucia in 2026: Which Caribbean Passport Is Actually Better for You?
 
 Every week I get asked some version of the same question. Dominica or St Lucia? Which one should I go with?
@@ -864,6 +872,7 @@ If you are currently stuck waiting for a response from a Portuguese bank, lawyer
     readTime: "12 min read",
     image: "https://www.getsecondpassport.eu/images/articles/caribbean-cbi-2026-changes-second-passport.png",
     images: [],
+    youtubeVideoUrl: "https://www.youtube.com/watch?v=nkPH1Bn9iDM",
     content: `Caribbean CBI in 2026: What Is Actually Changing and What It Means for Your Second Passport Strategy
 
 The Caribbean citizenship by investment market in 2026 looks meaningfully different from what it looked like two years ago. If you are evaluating a second passport through one of the five Caribbean programmes and you are working from information that is more than twelve months old, you are making decisions based on a landscape that no longer exists.
@@ -1530,6 +1539,7 @@ Ready to understand your options? Book a consultation with our team and we will 
     id: "x8",
     title: "Portugal Just Signed the 10-Year Citizenship Law. Here Is What It Actually Means.",
     slug: "portugal-10-year-citizenship-law-signed-may-2026",
+    youtubeVideoUrl: "https://www.youtube.com/shorts/7MpAucLyhXs",
     excerpt: "Yesterday, President António José Seguro signed Portugal's revised Nationality Law into effect. After months of uncertainty, the decision has been made. Here is what actually changed, what did not, and what the right move is depending on where you stand right now.",
     author: "Sylvia Awoudu",
     publishDate: "May 4, 2026",
@@ -2057,6 +2067,7 @@ Ready to explore your Global Entrepreneur Visa options? Book a free consultation
     id: "e2",
     title: "How to Leverage a Second Passport for Business Expansion and Market Access",
     slug: "second-passport-business-expansion-market-access-2026",
+    youtubeVideoUrl: "https://www.youtube.com/shorts/2CGWPFk73f8",
     excerpt: "For global entrepreneurs, a second passport is not just a travel document. It is a strategic business tool that unlocks markets, accelerates deal-making, diversifies risk, and opens operational options that single-passport holders simply do not have.",
     author: "Sylvia Awoudu",
     publishDate: "Mar 28, 2026",
@@ -2297,6 +2308,7 @@ Ready to review your legal structure for international expansion? Book a free co
     id: "x6",
     title: "Breaking News: Portugal's 5-to-10 Year Citizenship Rule: Countdown to Presidential Decision",
     slug: "portugal-citizenship-5-to-10-year-rule-presidential-decision-2026",
+    youtubeVideoUrl: "https://www.youtube.com/shorts/z5akL3GQ2Io",
     excerpt: "A legislative proposal to double Portugal's naturalisation period from 5 to 10 years has passed Parliament and now sits on the President's desk. The decision is expected by April 21st, 2026. Here is what it means for every D7, D8, and Golden Visa holder.",
     author: "Sylvia Awoudu",
     publishDate: "Apr 15, 2026",
@@ -2419,6 +2431,7 @@ If you have questions about how the potential 10-year rule might affect your Por
     id: "c1",
     title: "Caribbean CBI: The New Era of Enhanced Due Diligence",
     slug: "caribbean-cbi-enhanced-due-diligence-2026",
+    youtubeVideoUrl: "https://www.youtube.com/shorts/_QScoli-a24",
     excerpt: "Caribbean citizenship by investment has entered a new era. Enhanced due diligence, deeper background checks, and international cooperation mean that only well-prepared, transparent applicants succeed in 2026.",
     author: "Sylvia Awoudu",
     publishDate: "Feb 20, 2026",
@@ -2552,6 +2565,7 @@ Ready to explore Caribbean citizenship for your family? Book a free consultation
     id: "c3",
     title: "Portugal Golden Visa 2026: What Happened to the Property Route and What Investors Are Doing Instead",
     slug: "portugal-golden-visa-2026-property-route-fund-investment",
+    youtubeVideoUrl: "https://www.youtube.com/shorts/coPAWr8XG_k",
     excerpt: "The Portugal Golden Visa still exists in 2026 but the property route is closed. Serious investors have moved to the fund route. Here is exactly what changed, what it costs, who it suits, and why many clients are finding the new route better than the old one.",
     author: "Sylvia Awoudu",
     publishDate: "Apr 20, 2026",

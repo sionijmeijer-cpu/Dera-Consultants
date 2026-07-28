@@ -183,10 +183,34 @@ export function ssgArticlesPlugin(): Plugin {
           mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
         });
 
+        // If the article has a YouTube video, emit VideoObject schema so Google
+        // can surface the video in search results alongside the article.
+        const ytMatch = post.youtubeVideoUrl?.match(
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/,
+        );
+        const ytId = ytMatch ? ytMatch[1] : null;
+        const videoSchema = ytId
+          ? JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'VideoObject',
+              name: post.title,
+              description: post.excerpt,
+              thumbnailUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+              uploadDate: new Date(post.publishDate).toISOString(),
+              embedUrl: `https://www.youtube.com/embed/${ytId}`,
+              contentUrl: post.youtubeVideoUrl,
+            })
+          : null;
+
+        const videoBlockHtml = ytId
+          ? `<p style="margin-bottom:1.5rem"><a href="${esc(post.youtubeVideoUrl!)}" rel="noopener" target="_blank" style="color:#c00;text-decoration:none;font-weight:bold">▶ Prefer to watch? I covered this on YouTube.</a></p>`
+          : '';
+
         const bodyContent = `<article style="max-width:780px;margin:0 auto;padding:2rem 1.25rem;font-family:Georgia,serif;color:#1a1a1a">
 <h1 style="font-size:1.9rem;line-height:1.25;margin-bottom:.5rem">${esc(post.title)}</h1>
 <p style="color:#6b7280;font-size:.875rem;margin-bottom:2rem">${esc(post.author)} · ${esc(post.publishDate)} · ${esc(post.readTime)} read</p>
 <img src="${imgEsc}" alt="${esc(post.title)}" style="width:100%;height:auto;margin-bottom:2rem" loading="eager" />
+${videoBlockHtml}
 ${contentToHtml(post.content, post.images ?? [])}
 </article>`;
 
@@ -222,8 +246,11 @@ ${contentToHtml(post.content, post.images ?? [])}
           .replace(/<meta property="twitter:description" content="[^"]*" \/>/, `<meta property="twitter:description" content="${descEsc}" />`)
           .replace(/<meta property="twitter:image" content="[^"]*" \/>/, `<meta property="twitter:image" content="${imgEsc}" />`);
 
-        // Schema.org
-        html = html.replace('</head>', `  <script type="application/ld+json">${schema}</script>\n</head>`);
+        // Schema.org (Article, plus VideoObject when the article has a YouTube video)
+        const schemaBlock = videoSchema
+          ? `  <script type="application/ld+json">${schema}</script>\n  <script type="application/ld+json">${videoSchema}</script>\n`
+          : `  <script type="application/ld+json">${schema}</script>\n`;
+        html = html.replace('</head>', `${schemaBlock}</head>`);
 
         // Pre-rendered body
         html = html.replace('<div id="root"></div>', `<div id="root">${bodyContent}</div>`);
