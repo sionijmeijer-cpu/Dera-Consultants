@@ -168,7 +168,11 @@ export function ssgArticlesPlugin(): Plugin {
         const pageUrl = `${SITE_URL}/blog/${post.slug}`;
         const fullTitle = `${esc(post.title)} | Dera Consultants`;
         const descEsc = esc(post.excerpt);
-        const imgEsc = esc(meta.image);
+        // Fall back to the site logo for OG/social sharing when an article has
+        // no hero image. Article body simply skips the hero when empty.
+        const OG_FALLBACK = 'https://i.imgur.com/KTSBU1c.png';
+        const imgForOg = post.image && post.image.trim() ? post.image : OG_FALLBACK;
+        const imgEsc = esc(imgForOg);
 
         const schema = JSON.stringify({
           '@context': 'https://schema.org',
@@ -206,10 +210,14 @@ export function ssgArticlesPlugin(): Plugin {
           ? `<p style="margin-bottom:1.5rem"><a href="${esc(post.youtubeVideoUrl!)}" rel="noopener" target="_blank" style="color:#c00;text-decoration:none;font-weight:bold">▶ Prefer to watch? I covered this on YouTube.</a></p>`
           : '';
 
+        const heroImgHtml = post.image && post.image.trim()
+          ? `<img src="${esc(post.image)}" alt="${esc(post.title)}" style="width:100%;height:auto;margin-bottom:2rem" loading="eager" />`
+          : '';
+
         const bodyContent = `<article style="max-width:780px;margin:0 auto;padding:2rem 1.25rem;font-family:Georgia,serif;color:#1a1a1a">
 <h1 style="font-size:1.9rem;line-height:1.25;margin-bottom:.5rem">${esc(post.title)}</h1>
 <p style="color:#6b7280;font-size:.875rem;margin-bottom:2rem">${esc(post.author)} · ${esc(post.publishDate)} · ${esc(post.readTime)} read</p>
-<img src="${imgEsc}" alt="${esc(post.title)}" style="width:100%;height:auto;margin-bottom:2rem" loading="eager" />
+${heroImgHtml}
 ${videoBlockHtml}
 ${contentToHtml(post.content, post.images ?? [])}
 </article>`;
