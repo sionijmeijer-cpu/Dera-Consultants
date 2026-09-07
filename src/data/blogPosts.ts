@@ -64,7 +64,7 @@ export const blogPosts: BlogPost[] = [
     category: "Expats",
     tags: ["Portugal Golden Visa", "Fraud", "Investor Protection", "Due Diligence", "Ordem dos Advogados", "Portugal 2026"],
     readTime: "11 min read",
-    image: "",
+    image: "https://www.getsecondpassport.eu/images/articles/golden-visa-fraud-lisbon-2026.png",
     images: [],
     content: `33 Golden Visa Investors Just Lost €1.2 Million to Their Own Lawyer in Lisbon. Here Is How to Make Sure You Are Never One of Them.
 
